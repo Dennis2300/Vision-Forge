@@ -1,0 +1,63 @@
+div,
+ul,
+li,
+strong,
+img,
+h2,
+h3,
+h5,
+p {
+  background-color: inherit;
+}
+
+.character-detail-layout {
+  max-width: 1500px;
+  display: grid;
+  grid-template-areas:
+    "hero hero hero right ritght"
+    "hero hero hero right ritght"
+    "bottom bottom bottom bottom bottom";
+  margin: 0 auto;
+  margin-bottom: 2em;
+  grid-template-columns: repeat(4, 1fr);
+  color: white;
+}
+
+.main-section {
+  grid-area: hero;
+  background-color: var(--secondary);
+  height: 500px;
+  padding: 25px;
+  border-radius: 25px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+}
+
+.right-section {
+  grid-area: right;
+  background-color: var(--secondary);
+  height: 500px;
+  margin-left: 25px;
+  padding: 25px;
+  border-radius: 25px;
+  font-size: 18px;
+}
+
+.right-section div {
+  background-color: inherit;
+}
+
+.bottom-section {
+  grid-area: bottom;
+  background-color: var(--secondary);
+  height: 250px;
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 25px;
+}
+
+.bottom-section div {
+  background-color: inherit;
+}

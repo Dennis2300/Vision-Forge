@@ -1,0 +1,35 @@
+@import url(https://fonts.bunny.net/css?family=acme:400|alkatra:400|archivo-black:400|bungee:400);
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"); /*Global Colours*/
+:root {
+  /*link to the colours https://colorhunt.co/palette/222831393e46ffd369eeeeee */
+  --primary: #222831;
+  --secondary: #393e46;
+  --tertiary: #ffd369;
+  --quaternary: #eeeeee;
+  --filter-color: #2d3748;
+  --filter-color-hover: #4a5568;
+  --filter-color-active: #5d6b8a;
+  --font-acme: "Acme", sans-serif;
+  --font-alkatra: "Alkatra", sans-serif;
+  --font-archivo: "Archivo Black", sans-serif;
+  --font-bungee: "Bungee", sans-serif;
+  --font-fugaz: "Fugaz One", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+}
+
+* {
+  padding: 0%;
+  margin: 0%;
+}
+
+#app {
+  overflow-x: hidden;
+  width: 100vw;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

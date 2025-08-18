@@ -1,0 +1,155 @@
+.text-highlight {
+  color: var(--quaternary);
+}
+
+.about-page-container {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.about-page-intro {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+}
+
+.about-page-intro h1 {
+  font-size: 9em;
+  cursor: default;
+}
+
+.about-page-intro p {
+  margin-bottom: 25px;
+  padding-left: 20%;
+  padding-right: 20%;
+  cursor: default;
+}
+
+.animation-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: var(--primary);
+}
+
+.panel h1 {
+  font-size: 9em;
+  margin-bottom: 25px;
+  cursor: default;
+}
+
+.panel p {
+  margin-bottom: 25px;
+  padding-left: 20%;
+  padding-right: 20%;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  transition: ease-in-out 0.2s;
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
+.sticker {
+  position: absolute;
+  z-index: 999;
+  cursor: default;
+  width: 150px;
+  height: auto;
+  background-color: transparent;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 1.5s;
+}
+
+.sticker-1 {
+  top: 15%;
+  left: 8%;
+}
+
+.sticker-2 {
+  top: 3%;
+  right: 5%;
+}
+
+.sticker-3 {
+  top: 20%;
+  right: 10%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.techstack-container {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  border-radius: 25px;
+  background-size: 400%;
+  animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0%,
+  100% {
+    background-position: 0% 100%;
+  }
+
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+.logo {
+  width: 350px;
+  height: auto;
+  background-color: transparent;
+}
+
+.credits-list-container {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.5em;
+}
+
+.credits-list-container a {
+  text-decoration: none;
+  color: white;
+}
+
+.credits-list-container a:hover {
+  transition: ease-in-out 0.2s;
+  text-decoration: underline;
+  color: var(--secondary);
+}
