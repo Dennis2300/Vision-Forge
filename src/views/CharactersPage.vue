@@ -1,11 +1,17 @@
 <template>
   <div class="characters-page-container mb-10">
     <div class="characters-page">
+      <!-- Header -->
       <div class="page-header">Character List</div>
+      <!-- Content Container -->
       <div class="characters-display-container">
+        <!-- Sidebar -->
         <div class="offset">This is offset</div>
+        <!-- Main Content -->
         <div class="character-display">
+          <!-- Loading Spinner -->
           <LoadingSpinner v-if="loading" />
+          <!-- Content -->
           <div
             v-if="!loading && !error"
             class="character-item"
@@ -17,8 +23,9 @@
             }"
           >
             <img class="character-avatar" :src="character.image_url" alt="" />
-            <h1>{{ character.name }}</h1>
+            <h1 class="character-name">{{ character.name }}</h1>
           </div>
+          <!-- Error Message -->
           <div v-if="error">Failed to fetch characters</div>
         </div>
       </div>
@@ -64,27 +71,29 @@
   padding: 30px;
   overflow-y: auto;
   max-height: 1000px;
+  border-radius: 15px;
 }
 
 .character-display {
   flex: 4;
-  padding: 30px;
-  background-color: #37353e;
+  padding-left: 30px;
 }
 
 .character-item {
   background-color: #4a4a55;
   margin-bottom: 25px;
-  height: 100px;
+  height: 125px;
   display: flex;
   align-items: center;
+  padding: 15px;
+  border-radius: 15px;
 }
 
 .character-avatar {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin-right: 15px;
+  margin: 15px;
 }
 
 .rarity-5 .character-avatar {
@@ -99,16 +108,23 @@
     0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 
-@media (max-width: 900px) {
-  .characters-page {
+.character-name {
+  font-family: var(--font-bungee);
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .characters-display-container {
     flex-direction: column;
   }
 
   .offset {
-    position: relative;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid #eaecef;
+    max-height: none;
+    margin-bottom: 20px;
+  }
+
+  .character-display {
+    padding-left: 0;
   }
 }
 </style>
