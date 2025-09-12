@@ -1,8 +1,11 @@
 <template>
-  <div class="characters-page-container">
+  <div class="characters-page-container mb-10">
     <div class="characters-page">
-      <div class="offset">This is offset</div>
-      <div class="character-display">Characters</div>
+      <div class="page-header">Character List</div>
+      <div class="characters-display-container">
+        <div class="offset">This is offset</div>
+        <div class="character-display">Characters</div>
+      </div>
     </div>
   </div>
 </template>
@@ -143,32 +146,49 @@ onMounted(async () => {
 }
 
 .characters-page {
+  /* background-color: darkcyan; */
+  margin: 0px auto;
+}
+
+.page-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  padding: 20px 0;
+  /* background-color: darkslateblue; */
+  border-bottom: 1px solid #eaecef;
+  width: 1400px;
+  margin: 0px auto;
+  margin-bottom: 25px;
+}
+
+.characters-display-container {
   display: flex;
   min-height: 100vh;
-  max-width: 1500px;
-  margin: 25px auto;
-  padding: 20px;
-  background-color: darkblue;
+  max-width: 1400px;
+  /* background-color: darkblue; */
+  margin: 0px auto;
 }
 
 .offset {
   flex: 1;
-  background-color: darkgray;
+  background-color: #44444E;
   padding: 30px;
   overflow-y: auto;
 }
 
 .character-display {
-  flex: 2;
+  flex: 4;
   padding: 30px;
-  background-color: var(--secondary);
+  background-color: #37353E;
 }
 
 @media (max-width: 900px) {
   .characters-page {
     flex-direction: column;
   }
-  
+
   .offset {
     position: relative;
     height: auto;
