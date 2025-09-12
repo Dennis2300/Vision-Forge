@@ -12,7 +12,15 @@
             v-for="character in characters"
             :key="character.id"
           >
-            <img class="character-avatar" :src="character.image_url" alt="" />
+            <img
+              class="character-avatar"
+              :src="character.image_url"
+              :class="{
+                'rarity-5': character.rarity === 5,
+                'rarity-4': character.rarity === 4,
+              }"
+              alt=""
+            />
             <h1>{{ character.name }}</h1>
           </div>
           <div v-if="error">Failed to fetch characters</div>
@@ -21,6 +29,93 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.characters-page-container {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.characters-page {
+  /* background-color: darkcyan; */
+  margin: 0px auto;
+}
+
+.page-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  padding: 20px 0;
+  /* background-color: darkslateblue; */
+  border-bottom: 1px solid #eaecef;
+  width: 1400px;
+  margin: 0px auto;
+  margin-bottom: 25px;
+}
+
+.characters-display-container {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1400px;
+  /* background-color: darkblue; */
+  margin: 0px auto;
+}
+
+.offset {
+  flex: 1;
+  background-color: #44444e;
+  padding: 30px;
+  overflow-y: auto;
+  max-height: 1000px;
+}
+
+.character-display {
+  flex: 4;
+  padding: 30px;
+  background-color: #37353e;
+}
+
+.character-item {
+  background-color: #4a4a55;
+  margin-bottom: 25px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.character-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.rarity-5 .character-avatar {
+  background-color: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+
+.rarity-4 .character-avatar {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+
+@media (max-width: 900px) {
+  .characters-page {
+    flex-direction: column;
+  }
+
+  .offset {
+    position: relative;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #eaecef;
+  }
+}
+</style>
 
 <script setup>
 import { ref, onMounted } from "vue"; // Import the Vue composition API
@@ -150,78 +245,3 @@ onMounted(async () => {
   isNewCharacter();
 });
 </script>
-
-<style scoped>
-.characters-page-container {
-  min-height: 100vh;
-  width: 100vw;
-}
-
-.characters-page {
-  /* background-color: darkcyan; */
-  margin: 0px auto;
-}
-
-.page-header {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  padding: 20px 0;
-  /* background-color: darkslateblue; */
-  border-bottom: 1px solid #eaecef;
-  width: 1400px;
-  margin: 0px auto;
-  margin-bottom: 25px;
-}
-
-.characters-display-container {
-  display: flex;
-  min-height: 100vh;
-  max-width: 1400px;
-  /* background-color: darkblue; */
-  margin: 0px auto;
-}
-
-.offset {
-  flex: 1;
-  background-color: #44444e;
-  padding: 30px;
-  overflow-y: auto;
-  max-height: 1000px;
-}
-
-.character-display {
-  flex: 4;
-  padding: 30px;
-  background-color: #37353e;
-}
-
-.character-item {
-  background-color: #4a4a55;
-  margin-bottom: 25px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-}
-
-.character-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-@media (max-width: 900px) {
-  .characters-page {
-    flex-direction: column;
-  }
-
-  .offset {
-    position: relative;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid #eaecef;
-  }
-}
-</style>
