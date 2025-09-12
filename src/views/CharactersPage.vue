@@ -5,13 +5,17 @@
       <div class="characters-display-container">
         <div class="offset">This is offset</div>
         <div class="character-display">
+          <LoadingSpinner v-if="loading" />
           <div
+            v-if="!loading && !error"
             class="character-item"
             v-for="character in characters"
             :key="character.id"
           >
+            <img class="character-avatar" :src="character.image_url" alt="" />
             <h1>{{ character.name }}</h1>
           </div>
+          <div v-if="error">Failed to fetch characters</div>
         </div>
       </div>
     </div>
@@ -197,6 +201,15 @@ onMounted(async () => {
   background-color: #4a4a55;
   margin-bottom: 25px;
   height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.character-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
 @media (max-width: 900px) {
