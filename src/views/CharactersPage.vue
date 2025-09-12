@@ -81,6 +81,7 @@
   overflow-y: auto;
   max-height: 1000px;
   border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .character-display {
