@@ -13,8 +13,8 @@
           <LoadingSpinner v-if="loading" />
           <!-- Content -->
           <div
-            v-if="!loading && !error"
             class="character-item"
+            v-else
             v-for="character in characters"
             :key="character.id"
             :class="{
@@ -22,8 +22,17 @@
               'rarity-4': character.rarity === 4,
             }"
           >
-            <img class="character-avatar" :src="character.image_url" alt="" />
-            <h1 class="character-name">{{ character.name }}</h1>
+            <!-- Character Info-->
+            <div class="character-info">
+              <img class="character-avatar" :src="character.image_url" alt="" />
+              <h1 class="character-name">{{ character.name }}</h1>
+            </div>
+            <!-- Character Details -->
+            <div class="character-details">
+              <p>{{ character.vision.name }}</p>
+              <p>{{ character.weapon_type.name }}</p>
+              <p>{{ character.rarity }}</p>
+            </div>
           </div>
           <!-- Error Message -->
           <div v-if="error">Failed to fetch characters</div>
@@ -52,7 +61,7 @@
   padding: 20px 0;
   /* background-color: darkslateblue; */
   border-bottom: 1px solid #eaecef;
-  width: 1400px;
+  width: 1100px;
   margin: 0px auto;
   margin-bottom: 25px;
 }
@@ -60,7 +69,7 @@
 .characters-display-container {
   display: flex;
   min-height: 100vh;
-  max-width: 1400px;
+  max-width: 1200px;
   /* background-color: darkblue; */
   margin: 0px auto;
 }
@@ -71,7 +80,7 @@
   padding: 30px;
   overflow-y: auto;
   max-height: 1000px;
-  border-radius: 15px;
+  border-radius: 8px;
 }
 
 .character-display {
@@ -80,20 +89,46 @@
 }
 
 .character-item {
-  background-color: #4a4a55;
   margin-bottom: 25px;
-  height: 125px;
+  height: 250px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.character-info {
+  flex: 5;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  background-color: #5a5a65;
+  border-bottom: 2px solid #3a3a45;
+  align-items: center;
+  border-bottom: 2px solid black;
+}
+
+.character-details {
+  flex: 1;
+  padding: 20px;
+  background-color: #3a3a45;
   display: flex;
   align-items: center;
-  padding: 15px;
-  border-radius: 15px;
+  align-items: center;
 }
 
 .character-avatar {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   margin: 15px;
+}
+
+.character-name {
+  font-family: var(--font-bungee);
+  margin-top: 10px;
 }
 
 .rarity-5 .character-avatar {
@@ -111,6 +146,11 @@
 .character-name {
   font-family: var(--font-bungee);
   margin-top: 10px;
+}
+
+.character-item-details {
+  height: 100px;
+  background-color: #44444e;
 }
 
 @media (max-width: 768px) {
