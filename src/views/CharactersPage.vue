@@ -1,82 +1,9 @@
 <template>
-  <!-- Show loading spinner if loading -->
-  <LoadingSpinner v-if="loading" />
-
-  <!-- Show characters -->
-  <div class="character-page-container" v-if="!loading && !error">
-    <!-- Filter by Vision -->
-    <div class="character-filter-container">
-      <CharacterFilter
-        @filtered-characters="displayFilteredCharacters"
-        @clear-filter="handleClearFilter"
-        class="mt-5"
-      />
+  <div class="characters-page-container">
+    <div class="characters-page">
+      <div class="offset">This is offset</div>
+      <div class="character-display">Characters</div>
     </div>
-
-    <div class="text-2xl mt-5">
-      <h2 class="character-page-header divider text-5xl my-9">
-        Character Archive
-      </h2>
-    </div>
-
-    <!-- Show characters -->
-    <div class="character-grid-container">
-      <div class="character-grid">
-        <router-link
-          v-for="character in characters"
-          :key="character.id"
-          :to="`/characters/${character.id}?name=${encodeURIComponent(
-            character.name
-          )}`"
-          class="character-grid-item"
-          :class="{
-            'rarity-5': character.rarity === 5,
-            'rarity-4': character.rarity === 4,
-          }"
-        >
-          <!-- Vision Icon (Top Right Corner) -->
-          <img
-            :src="character.vision.image_url"
-            :alt="character.vision.name"
-            class="vision-icon"
-          />
-          <img
-            class="character-avatar"
-            :src="character.image_url"
-            :alt="character.name"
-          />
-
-          <!-- Ribbons for New character -->
-
-          <div v-if="isNewCharacter(character)" class="ribbon ribbon-top-right">
-            <span>New</span>
-          </div>
-          <!-- Ribbons for New character -->
-          <div
-            v-if="isUpcomingCharacter(character)"
-            class="ribbon ribbon-top-right"
-          >
-            <span class="upcoming">Upcoming</span>
-          </div>
-
-          <h3>{{ character.name }}</h3>
-          <p class="rarity-text" :data-stars="character.rarity"></p>
-          <div class="character-tags-container mt-2">
-            <strong class="character-tag">{{
-              character.team_role?.name || "UPCOMING"
-            }}</strong>
-            <strong v-if="character.substat?.name" class="character-tag">{{
-              character.substat?.name || ""
-            }}</strong>
-          </div>
-        </router-link>
-      </div>
-    </div>
-  </div>
-
-  <!-- Show error message -->
-  <div v-if="error">
-    <Errorcomponent />
   </div>
 </template>
 
@@ -210,149 +137,43 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.character-page-container {
-  width: 1400px;
-  margin-bottom: 75px;
-}
-
-.link {
-  text-decoration: none;
-  color: white;
-}
-
-.character-filter-container {
-  height: 180px;
-  padding: 0px 25px 0px 25px;
-}
-
-.character-page-header {
-  font-family: var(--font-archivo);
-  font-weight: lighter;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: default;
-}
-.character-grid-container {
+.characters-page-container {
   min-height: 100vh;
+  width: 100vw;
 }
 
-.character-grid {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
-}
-
-.character-grid-item {
-  position: relative;
-  text-align: center;
-  display: block;
-  text-decoration: none;
-  font-size: 1.5em;
-  width: 275px;
-  height: 300px;
-  margin-top: 10px;
-  padding-top: 30px;
-  border-radius: 15px;
-  background-color: var(--secondary);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 2px solid transparent;
-}
-
-.character-grid-item:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  border-color: var(--tertiary);
-  background-color: var(--filter-color);
-}
-
-.vision-icon {
-  position: absolute;
-  top: 15px;
-  right: 50px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
-  padding: 5px;
-  z-index: 99;
-}
-
-.character-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 12.5px;
-  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  position: relative;
-  overflow: hidden;
-}
-
-.rarity-5 .character-avatar {
-  background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
-    0px 0px 30px rgba(231, 148, 74, 0.5);
-}
-
-.rarity-4 .character-avatar {
-  background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
-    0px 0px 30px rgba(155, 114, 213, 0.5);
-}
-
-.rarity-text::before {
-  content: attr(data-stars);
-  font-family: Arial, sans-serif;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.rarity-text[data-stars="5"]::before {
-  content: "★★★★★";
-}
-.rarity-text[data-stars="4"]::before {
-  content: "★★★★";
-}
-
-.character-grid-item h3 {
-  background-color: inherit;
-  color: var(--quaternary);
-  margin-top: 5px;
-  font-family: var(--font-acme);
-  letter-spacing: 1px;
-  text-transform: capitalize;
-}
-
-.character-grid-item p {
-  background-color: inherit;
-  color: gold;
-  border-radius: 25px;
-  margin: 0%;
-  padding: 0%;
-  letter-spacing: 2px;
-}
-
-.character-tags-container {
+.characters-page {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: 13px;
-  gap: 10px;
+  min-height: 100vh;
+  max-width: 1500px;
+  margin: 25px auto;
+  padding: 20px;
+  background-color: darkblue;
 }
 
-.character-tag {
-  background-color: var(--primary);
-  font-family: var(--font-acme);
-  color: var(--tertiary);
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+.offset {
+  flex: 1;
+  background-color: darkgray;
+  padding: 30px;
+  overflow-y: auto;
 }
 
-.upcoming {
-  font-size: 10px;
+.character-display {
+  flex: 2;
+  padding: 30px;
+  background-color: var(--secondary);
+}
+
+@media (max-width: 900px) {
+  .characters-page {
+    flex-direction: column;
+  }
+  
+  .offset {
+    position: relative;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #eaecef;
+  }
 }
 </style>
