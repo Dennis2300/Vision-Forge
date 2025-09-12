@@ -11,16 +11,12 @@
             class="character-item"
             v-for="character in characters"
             :key="character.id"
+            :class="{
+              'rarity-5': character.rarity === 5,
+              'rarity-4': character.rarity === 4,
+            }"
           >
-            <img
-              class="character-avatar"
-              :src="character.image_url"
-              :class="{
-                'rarity-5': character.rarity === 5,
-                'rarity-4': character.rarity === 4,
-              }"
-              alt=""
-            />
+            <img class="character-avatar" :src="character.image_url" alt="" />
             <h1>{{ character.name }}</h1>
           </div>
           <div v-if="error">Failed to fetch characters</div>
@@ -92,7 +88,7 @@
 }
 
 .rarity-5 .character-avatar {
-  background-color: linear-gradient(145deg, #e7944a, #b56a2b);
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
