@@ -4,7 +4,15 @@
       <div class="page-header">Character List</div>
       <div class="characters-display-container">
         <div class="offset">This is offset</div>
-        <div class="character-display">Characters</div>
+        <div class="character-display">
+          <div
+            class="character-item"
+            v-for="character in characters"
+            :key="character.id"
+          >
+            <h1>{{ character.name }}</h1>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -173,15 +181,22 @@ onMounted(async () => {
 
 .offset {
   flex: 1;
-  background-color: #44444E;
+  background-color: #44444e;
   padding: 30px;
   overflow-y: auto;
+  max-height: 1000px;
 }
 
 .character-display {
   flex: 4;
   padding: 30px;
-  background-color: #37353E;
+  background-color: #37353e;
+}
+
+.character-item {
+  background-color: #4a4a55;
+  margin-bottom: 25px;
+  height: 100px;
 }
 
 @media (max-width: 900px) {
