@@ -16,7 +16,7 @@
       <div class="page-summary">
         <p>
           Here you can find a comprehensive list of all characters available in
-          Genshin Impact, complete with their details, attributes and builds.
+          Genshin Impact, by clicking on their names to see their details, attributes and builds.
           Use the filter options to easily find characters based on your
           preferences.
         </p>
