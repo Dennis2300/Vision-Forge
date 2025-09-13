@@ -1,8 +1,25 @@
 <template>
+  <!-- Character Page Container -->
   <div class="characters-page-container mb-10">
+    <!-- Character Page -->
     <div class="characters-page">
       <!-- Header -->
-      <div class="page-header">Character List</div>
+      <div class="page-header">
+        <img
+          class="header-background"
+          src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/07/09/237301566/2627ae5e68e2632df6eeb87b58b6a4f6_8879732995034865752.png?x-oss-process=image%2Fformat%2Cwebp"
+          alt=""
+        />
+        <h2>Character Archive</h2>
+      </div>
+      <div class="page-abstract">
+        <p>
+          Here you can find a comprehensive list of all characters available in
+          Genshin Impact, complete with their details, attributes and builds.
+          Use the filter options to easily find characters based on your
+          preferences.
+        </p>
+      </div>
       <!-- Content Container -->
       <div class="characters-display-container">
         <!-- Sidebar -->
@@ -102,7 +119,11 @@
 }
 
 .page-header {
-  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-size: 2rem;
   font-weight: bold;
   color: white;
@@ -110,8 +131,42 @@
   /* background-color: darkslateblue; */
   border-bottom: 1px solid #eaecef;
   width: 1100px;
+  height: 100px;
   margin: 0px auto;
   margin-bottom: 25px;
+}
+
+.page-header h2 {
+  font-family: var(--font-acme);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+}
+
+.header-background {
+  position: absolute;
+  width: 90%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.page-abstract {
+  max-width: 1100px;
+  margin: 0px auto;
+  margin-bottom: 25px;
+}
+
+.page-abstract p {
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
+  color: #eaecef;
+  line-height: 1.6;
+  font-size: 1.1em;
+  text-align: center;
 }
 
 .characters-display-container {
