@@ -6,8 +6,9 @@
     </div>
 
     <div v-if="!loading && !error" class="character-filter-container">
-      <h4 class="vision-filter-header">Visions</h4>
-      <div class="vision-filter-list">
+      <!-- Vision Filter -->
+      <h4 class="filter-header">Sort By Vision</h4>
+      <div class="vision-filter-list my-5">
         <div
           v-for="vision in visions"
           :key="vision.id"
@@ -22,9 +23,10 @@
           />
         </div>
       </div>
-      <h4 class="rarity-filter-header">Rarity</h4>
 
-      <div class="rarity-filter-container">
+      <!-- Rarity Filter -->
+      <h4 class="filter-header">Sort By Rarity</h4>
+      <div class="rarity-filter-container my-5">
         <div
           class="rarity-star-container"
           :class="{ selected: selectedRarity === 5 }"
@@ -110,6 +112,26 @@
           </svg>
         </div>
       </div>
+
+      <!-- Weapon Filter -->
+      <h4 class="filter-header">Sort By Weapon</h4>
+      <div class="weapon-filter-container my-5">
+        <div
+          class="weapon-filter"
+          v-for="weapon in weaponTypes"
+          :key="weapon.id"
+          :class="{ selected: selectedWeaponTypeId === weapon.id }"
+          @click="selectWeaponType(weapon)"
+        >
+          <p>{{ weapon.name }}</p>
+        </div>
+      </div>
+
+      <!-- Region Filter -->
+      <h4 class="filter-header">Sort By Region</h4>
+      <div class="region-filter-container my-5">
+        <p>Coming soon...</p>
+      </div>
     </div>
   </div>
 </template>
@@ -126,8 +148,10 @@ const loading = ref(true);
 const error = ref(null);
 // Data states
 const visions = ref([]);
+const weaponTypes = ref([]);
 const selectedVisionId = ref(null);
 const selectedRarity = ref(null);
+const selectedWeaponTypeId = ref(null);
 
 // cache functions will be made as modules later
 function getCachedData(key) {
@@ -168,7 +192,7 @@ async function getAllVisions() {
   }
 
   try {
-    let { data, error: fetchError } = await supabase
+    const { data, error: fetchError } = await supabase
       .from("visions")
       .select("*, name, image_url");
     if (fetchError) throw fetchError;
@@ -182,15 +206,37 @@ async function getAllVisions() {
   }
 }
 
+async function getAllWeaponTypes() {
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("weaponTypes")
+      .select("*, name");
+    if (fetchError) throw fetchError;
+
+    weaponTypes.value = data;
+    setCachedData("weaponTypes", data);
+  } catch (err) {
+    error.value = err.message;
+  } finally {
+    loading.value = false;
+  }
+}
+
 // Changes the vision state to the selected vision
 function selectVision(vision) {
   selectedVisionId.value =
     selectedVisionId.value === vision.id ? null : vision.id;
 }
 
-// changes the selected vision to the selected vision
+// changes the rarity state to the selected rarity
 function selectRarity(stars) {
   selectedRarity.value = selectedRarity.value === stars ? null : stars;
+}
+
+// Changes the weapon type state to the selected weapon type
+function selectWeaponType(weaponType) {
+  selectedWeaponTypeId.value =
+    selectedWeaponTypeId.value === weaponType.id ? null : weaponType.id;
 }
 
 const filteredCharacters = computed(() => {
@@ -209,7 +255,12 @@ const filteredCharacters = computed(() => {
       const rarityMatch =
         !selectedRarity.value || char.rarity === selectedRarity.value;
 
-      return visionMatch && rarityMatch;
+      // Weapon Type filter (compare weapon_type number ID directly)
+      const weaponTypeMatch =
+        !selectedWeaponTypeId.value ||
+        char.weapon_type?.id === selectedWeaponTypeId.value;        
+        
+      return visionMatch && rarityMatch && weaponTypeMatch;
     });
   } catch (err) {
     console.error("Error filtering characters:", err);
@@ -228,6 +279,7 @@ watch(
 
 onMounted(async () => {
   await getAllVisions();
+  await getAllWeaponTypes();
 });
 </script>
 
@@ -241,18 +293,9 @@ onMounted(async () => {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
-  margin-top: 10px;
-  margin-bottom: 15px;
 }
 
-.vision-filter-header {
-  letter-spacing: 1px;
-  cursor: default;
-  border-bottom: 1px solid white;
-  padding-bottom: 5px;
-}
-
-.rarity-filter-header {
+.filter-header {
   letter-spacing: 1px;
   cursor: default;
   border-bottom: 1px solid white;
@@ -293,7 +336,6 @@ onMounted(async () => {
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .rarity-star-container {
@@ -323,5 +365,30 @@ onMounted(async () => {
   width: 16px;
   height: 16px;
   background-color: transparent;
+}
+
+.weapon-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weapon-filter {
+  padding: 10px;
+  background-color: var(--filter-color);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: 1px solid black;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: background-color 0.3s;
+}
+
+.weapon-filter:hover {
+  background-color: var(--filter-color-hover);
+}
+
+.weapon-filter.selected {
+  outline: 1px solid gold;
 }
 </style>
