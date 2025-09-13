@@ -25,6 +25,7 @@
         <!-- Sidebar -->
         <div class="offset">
           <CharacterFilter
+            v-if="characters.length > 0"
             @filteredCharacters="displayFilteredCharacters"
             @clearFilter="handleClearFilter"
           />
