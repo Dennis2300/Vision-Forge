@@ -241,19 +241,22 @@ onMounted(async () => {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .vision-filter-header {
-  margin-bottom: 15px;
   letter-spacing: 1px;
   cursor: default;
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
 }
 
 .rarity-filter-header {
-  margin-top: 20px;
-  margin-bottom: 10px;
   letter-spacing: 1px;
   cursor: default;
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
 }
 
 .vision-filter-item {
@@ -290,6 +293,7 @@ onMounted(async () => {
   justify-content: space-around;
   align-items: center;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .rarity-star-container {
