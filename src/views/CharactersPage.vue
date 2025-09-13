@@ -24,14 +24,15 @@
           >
             <!-- Character Info-->
             <div class="character-info">
-              <img class="character-avatar" :src="character.image_url" alt="" />
+              <img class="character-avatar mx-5" :src="character.image_url" alt="" />
               <h1 class="character-name">{{ character.name }}</h1>
             </div>
             <!-- Character Details -->
             <div class="character-details">
-              <p>{{ character.vision.name }}</p>
-              <p>{{ character.weapon_type.name }}</p>
-              <p>{{ character.rarity }}</p>
+              <img class="vision-icon mr-2" :src="character.vision.image_url" alt="">
+              <p class="tag">{{ character.vision.name }}</p>
+              <p class="tag">{{ character.weapon_type.name }}</p>
+              <p class="tag">{{ character.rarity }}</p>
             </div>
           </div>
           <!-- Error Message -->
@@ -101,7 +102,7 @@
 }
 
 .character-info {
-  flex: 5;
+  flex: 4;
   display: flex;
   flex-direction: row;
   padding: 20px;
@@ -121,15 +122,29 @@
 }
 
 .character-avatar {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin: 15px;
 }
 
 .character-name {
   font-family: var(--font-bungee);
   margin-top: 10px;
+}
+
+.vision-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.tag {
+  background-color: #ff4757;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  margin-left: 10px;
 }
 
 .rarity-5 .character-avatar {
