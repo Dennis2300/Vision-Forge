@@ -40,6 +40,9 @@
           <LoadingSpinner v-if="loading" />
           <!-- Content -->
           <router-link
+            :to="`/characters/${character.id}?name=${encodeURIComponent(
+              character.name
+            )}`"
             class="character-item"
             v-else
             v-for="character in characters"
@@ -339,6 +342,8 @@ onMounted(async () => {
   flex-direction: column;
   border-radius: 8px;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
