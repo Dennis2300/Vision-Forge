@@ -112,6 +112,135 @@
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted } from "vue"; // Import the Vue composition API
+import { supabase } from "./../supabaseClient.js"; // Import the Supabase client
+// ----------------------------------------------------------
+import "./../css/Ribbon.css"; // Import the CSS for the ribbon effect
+import "ldrs/trefoil"; // Import the loading spinner component
+import CharacterFilter from "./../components/CharacterFilter.vue";
+// ----------------------------------------------------------
+import LoadingSpinner from "./../components/LoadingSpinner.vue"; // Import the loading spinner component
+import Errorcomponent from "./../components/ErrorComponent.vue"; // Import the error component
+
+// Loading and error states
+const loading = ref(true);
+const error = ref(null);
+
+// Data states
+const characters = ref([]);
+
+// If the data is older than CACHE_DURATION, it will be removed
+const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
+
+// cache functions will be made as modules later
+// function to retrieve data from sessionStorage
+function getCachedData(key) {
+  const cachedData = sessionStorage.getItem(key);
+
+  if (!cachedData) {
+    return null;
+  }
+
+  const { timestamp, data } = JSON.parse(cachedData);
+  const now = new Date().getTime();
+
+  if (now - timestamp < CACHE_DURATION) {
+    return data;
+  } else {
+    sessionStorage.removeItem(key);
+    return null;
+  }
+}
+
+// setCachedData function to store data in sessionStorage
+function setCachedData(key, data) {
+  const cache = {
+    timestamp: new Date().getTime(),
+    data,
+  };
+  sessionStorage.setItem(key, JSON.stringify(cache));
+}
+
+// Fetch all characters from the database
+async function GetAllCharacters() {
+  const cacheKey = "characters";
+
+  const cachedCharacters = getCachedData(cacheKey);
+  if (cachedCharacters) {
+    characters.value = cachedCharacters;
+    sortCharactersByReleaseDate();
+    loading.value = false;
+    return;
+  }
+
+  try {
+    let { data, error: fetchError } = await supabase
+      .from("characters")
+      .select(
+        "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name)"
+      )
+      .order("id", { ascending: true });
+
+    if (fetchError) throw fetchError;
+
+    characters.value = data;
+    setCachedData(cacheKey, data);
+    sortCharactersByReleaseDate();
+  } catch (err) {
+    error.value = err.message;
+  } finally {
+    loading.value = false;
+  }
+}
+
+// Sort characters by release date
+function sortCharactersByReleaseDate() {
+  characters.value = [...characters.value].sort((a, b) => {
+    // Upcoming characters first
+    if (a.is_upcoming !== b.is_upcoming) {
+      return b.is_upcoming - a.is_upcoming;
+    }
+
+    // Then sort by release date (newest first)
+    return new Date(b.release_date) - new Date(a.release_date);
+  });
+}
+
+// Check if a character is new
+function isNewCharacter(character) {
+  if (character && typeof character.new_character !== "undefined") {
+    return Boolean(character.new_character);
+  }
+  return false;
+}
+
+function isUpcomingCharacter(character) {
+  if (character && typeof character.is_upcoming !== "undefined") {
+    return Boolean(character.is_upcoming);
+  }
+  return false;
+}
+
+// If there is a filter applied, display the filtered characters
+function displayFilteredCharacters(filtered) {
+  characters.value = filtered;
+  sortCharactersByReleaseDate();
+}
+
+// Clear the filter and reset characters to the original list
+function handleClearFilter() {
+  characters.value = [...characters.value];
+  sortCharactersByReleaseDate();
+}
+
+// Fetch characters on page load
+onMounted(async () => {
+  await GetAllCharacters();
+  isNewCharacter();
+});
+</script>
+
 <style scoped>
 .characters-page-container {
   min-height: 100vh;
@@ -315,132 +444,3 @@
   margin-left: auto;
 }
 </style>
-
-<script setup>
-import { ref, onMounted } from "vue"; // Import the Vue composition API
-import { supabase } from "./../supabaseClient.js"; // Import the Supabase client
-// ----------------------------------------------------------
-import "./../css/Ribbon.css"; // Import the CSS for the ribbon effect
-import "ldrs/trefoil"; // Import the loading spinner component
-import CharacterFilter from "./../components/CharacterFilter.vue";
-// ----------------------------------------------------------
-import LoadingSpinner from "./../components/LoadingSpinner.vue"; // Import the loading spinner component
-import Errorcomponent from "./../components/ErrorComponent.vue"; // Import the error component
-
-// Loading and error states
-const loading = ref(true);
-const error = ref(null);
-
-// Data states
-const characters = ref([]);
-
-// If the data is older than CACHE_DURATION, it will be removed
-const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
-
-// cache functions will be made as modules later
-// function to retrieve data from sessionStorage
-function getCachedData(key) {
-  const cachedData = sessionStorage.getItem(key);
-
-  if (!cachedData) {
-    return null;
-  }
-
-  const { timestamp, data } = JSON.parse(cachedData);
-  const now = new Date().getTime();
-
-  if (now - timestamp < CACHE_DURATION) {
-    return data;
-  } else {
-    sessionStorage.removeItem(key);
-    return null;
-  }
-}
-
-// setCachedData function to store data in sessionStorage
-function setCachedData(key, data) {
-  const cache = {
-    timestamp: new Date().getTime(),
-    data,
-  };
-  sessionStorage.setItem(key, JSON.stringify(cache));
-}
-
-// Fetch all characters from the database
-async function GetAllCharacters() {
-  const cacheKey = "characters";
-
-  const cachedCharacters = getCachedData(cacheKey);
-  if (cachedCharacters) {
-    characters.value = cachedCharacters;
-    sortCharactersByReleaseDate();
-    loading.value = false;
-    return;
-  }
-
-  try {
-    let { data, error: fetchError } = await supabase
-      .from("characters")
-      .select(
-        "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name)"
-      )
-      .order("id", { ascending: true });
-
-    if (fetchError) throw fetchError;
-
-    characters.value = data;
-    setCachedData(cacheKey, data);
-    sortCharactersByReleaseDate();
-  } catch (err) {
-    error.value = err.message;
-  } finally {
-    loading.value = false;
-  }
-}
-
-// Sort characters by release date
-function sortCharactersByReleaseDate() {
-  characters.value = [...characters.value].sort((a, b) => {
-    // Upcoming characters first
-    if (a.is_upcoming !== b.is_upcoming) {
-      return b.is_upcoming - a.is_upcoming;
-    }
-
-    // Then sort by release date (newest first)
-    return new Date(b.release_date) - new Date(a.release_date);
-  });
-}
-
-// Check if a character is new
-function isNewCharacter(character) {
-  if (character && typeof character.new_character !== "undefined") {
-    return Boolean(character.new_character);
-  }
-  return false;
-}
-
-function isUpcomingCharacter(character) {
-  if (character && typeof character.is_upcoming !== "undefined") {
-    return Boolean(character.is_upcoming);
-  }
-  return false;
-}
-
-// If there is a filter applied, display the filtered characters
-function displayFilteredCharacters(filtered) {
-  characters.value = filtered;
-  sortCharactersByReleaseDate();
-}
-
-// Clear the filter and reset characters to the original list
-function handleClearFilter() {
-  characters.value = [...characters.value];
-  sortCharactersByReleaseDate();
-}
-
-// Fetch characters on page load
-onMounted(async () => {
-  await GetAllCharacters();
-  isNewCharacter();
-});
-</script>
