@@ -40,6 +40,9 @@
               />
               <p class="tag">{{ character.vision.name }}</p>
               <p class="tag">{{ character.weapon_type.name }}</p>
+              <strong class="tag">{{
+                character.team_role?.name || "UPCOMING"
+              }}</strong>
               <p class="tag">
                 {{ !character.release_date ? "N/A" : character.release_date }}
               </p>
