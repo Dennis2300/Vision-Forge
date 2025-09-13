@@ -25,8 +25,11 @@
       <div class="characters-display-container">
         <!-- Sidebar -->
         <div class="offset">
+          <!-- Loading Spinner -->
+          <LoadingSpinner v-if="loading" />
+          <!-- Filter -->
           <CharacterFilter
-            v-if="characters.length > 0"
+            v-if="!loading && !error"
             @filteredCharacters="displayFilteredCharacters"
             @clearFilter="handleClearFilter"
           />
@@ -36,7 +39,7 @@
           <!-- Loading Spinner -->
           <LoadingSpinner v-if="loading" />
           <!-- Content -->
-          <div
+          <router-link
             class="character-item"
             v-else
             v-for="character in characters"
@@ -105,7 +108,7 @@
                 }}
               </p>
             </div>
-          </div>
+          </router-link>
           <!-- Error Message -->
           <div v-if="error">Failed to fetch characters</div>
         </div>
