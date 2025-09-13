@@ -12,7 +12,8 @@
         />
         <h2>Character Archive</h2>
       </div>
-      <div class="page-abstract">
+      <!-- Page Summary -->
+      <div class="page-summary">
         <p>
           Here you can find a comprehensive list of all characters available in
           Genshin Impact, complete with their details, attributes and builds.
@@ -289,13 +290,13 @@ onMounted(async () => {
   z-index: -1;
 }
 
-.page-abstract {
+.page-summary {
   max-width: 1100px;
   margin: 0px auto;
   margin-bottom: 25px;
 }
 
-.page-abstract p {
+.page-summary p {
   font-family: var(--font-roboto);
   letter-spacing: 1px;
   color: #eaecef;
