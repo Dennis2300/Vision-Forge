@@ -207,6 +207,13 @@ async function getAllVisions() {
 }
 
 async function getAllWeaponTypes() {
+  const cachedWeaponTypes = getCachedData("weaponTypes");
+  if (cachedWeaponTypes) {
+    weaponTypes.value = cachedWeaponTypes;
+    loading.value = false;
+    return;
+  }
+
   try {
     const { data, error: fetchError } = await supabase
       .from("weaponTypes")
@@ -258,8 +265,8 @@ const filteredCharacters = computed(() => {
       // Weapon Type filter (compare weapon_type number ID directly)
       const weaponTypeMatch =
         !selectedWeaponTypeId.value ||
-        char.weapon_type?.id === selectedWeaponTypeId.value;        
-        
+        char.weapon_type?.id === selectedWeaponTypeId.value;
+
       return visionMatch && rarityMatch && weaponTypeMatch;
     });
   } catch (err) {
