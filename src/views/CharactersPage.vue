@@ -24,6 +24,11 @@
           >
             <!-- Character Info-->
             <div class="character-info">
+              <img
+                class="character-splash-art"
+                :src="character.splash_art"
+                alt=""
+              />
               <!-- New Character Ribbon -->
               <div
                 v-if="isNewCharacter(character)"
@@ -57,6 +62,7 @@
               <!-- Character Tags -->
               <p class="tag">{{ character.vision.name }}</p>
               <p class="tag">{{ character.weapon_type.name }}</p>
+              <p class="tag">{{ character.substat?.name || "N/A" }}</p>
               <p class="tag">{{ character.team_role?.name || "N/A" }}</p>
               <p class="tag">
                 {{ !character.release_date ? "N/A" : character.release_date }}
@@ -136,9 +142,8 @@
   flex-direction: row;
   padding: 20px;
   background-color: #5a5a65;
-  border-bottom: 2px solid #3a3a45;
   align-items: center;
-  border-bottom: 2px solid black;
+  z-index: 999;
 }
 
 .character-details {
@@ -148,6 +153,8 @@
   display: flex;
   align-items: center;
   align-items: center;
+  border-top: 2px solid black;
+  z-index: 999;
 }
 
 .character-avatar {
@@ -222,6 +229,15 @@
 
 .new {
   font-size: 0.8em;
+}
+
+.character-splash-art {
+  position: absolute;
+  object-fit: cover;
+  width: 35%;
+  right: 0;
+  opacity: 0.3;
+  z-index: -1;
 }
 </style>
 
