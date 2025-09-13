@@ -24,15 +24,25 @@
           >
             <!-- Character Info-->
             <div class="character-info">
-              <img class="character-avatar mx-5" :src="character.image_url" alt="" />
+              <img
+                class="character-avatar mx-5"
+                :src="character.image_url"
+                alt=""
+              />
               <h1 class="character-name">{{ character.name }}</h1>
             </div>
             <!-- Character Details -->
             <div class="character-details">
-              <img class="vision-icon mr-2" :src="character.vision.image_url" alt="">
+              <img
+                class="vision-icon"
+                :src="character.vision.image_url"
+                alt=""
+              />
               <p class="tag">{{ character.vision.name }}</p>
               <p class="tag">{{ character.weapon_type.name }}</p>
-              <p class="tag">{{ character.rarity }}</p>
+              <p class="tag">
+                {{ !character.release_date ? "N/A" : character.release_date }}
+              </p>
             </div>
           </div>
           <!-- Error Message -->
@@ -139,24 +149,15 @@
 }
 
 .tag {
-  background-color: #ff4757;
+  background-color: #6c6c78;
   color: white;
-  padding: 5px 10px;
+  padding: 10px;
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  font-family: var(--font-roboto);
   margin-left: 10px;
-}
-
-.rarity-5 .character-avatar {
-  background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
-    0px 0px 30px rgba(231, 148, 74, 0.5);
-}
-
-.rarity-4 .character-avatar {
-  background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
-    0px 0px 30px rgba(155, 114, 213, 0.5);
+  border: 1.5px solid black;
 }
 
 .character-name {
@@ -182,6 +183,18 @@
   .character-display {
     padding-left: 0;
   }
+}
+
+.rarity-5 .character-avatar {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+
+.rarity-4 .character-avatar {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 </style>
 
