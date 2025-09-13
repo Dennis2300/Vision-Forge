@@ -114,7 +114,7 @@
   </div>
 </template>
 
-<script setup> 
+<script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import { supabase } from "../supabaseClient.js";
 
@@ -217,7 +217,6 @@ const filteredCharacters = computed(() => {
   }
 });
 
-
 // Watch statement to update the filtered characters if the selected vision or rarity changes
 watch(
   filteredCharacters,
@@ -234,13 +233,14 @@ onMounted(async () => {
 
 <style scoped>
 .filter-container {
-  width: 500px;
+  width: 100%;
   font-family: var(--font-acme);
 }
 
 .vision-filter-list {
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
 }
 
 .vision-filter-header {
@@ -257,13 +257,17 @@ onMounted(async () => {
 }
 
 .vision-filter-item {
+  height: 60px;
+  width: 60px;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
   cursor: pointer;
-  background-color: var(--filter-color);
   border-radius: 100px;
+  background-color: var(--filter-color);
+  outline: 1px solid black;
+  transition: background-color 0.3s;
 }
 
 .vision-filter-item:hover {
@@ -276,30 +280,29 @@ onMounted(async () => {
 }
 
 .vision-filter-icon {
-  height: 40px;
-  width: 40px;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
   border-radius: 100px;
 }
 
 .rarity-filter-container {
   display: flex;
-  justify-content: left;
+  justify-content: space-around;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 1rem;
-  gap: 25px;
-  border-radius: 8px;
-  padding: 0%;
+  gap: 10px;
 }
 
 .rarity-star-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
+  padding: 10px;
   background-color: var(--filter-color);
-  padding: 7px 14px 7px 14px;
   border-radius: 10px;
   cursor: pointer;
+  outline: 1px solid black;
+  transition: background-color 0.3s;
 }
 
 .rarity-star-container:hover {

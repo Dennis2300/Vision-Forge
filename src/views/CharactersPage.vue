@@ -23,7 +23,12 @@
       <!-- Content Container -->
       <div class="characters-display-container">
         <!-- Sidebar -->
-        <div class="offset">This is offset</div>
+        <div class="offset">
+          <CharacterFilter
+            @filteredCharacters="displayFilteredCharacters"
+            @clearFilter="handleClearFilter"
+          />
+        </div>
         <!-- Main Content -->
         <div class="character-display">
           <!-- Loading Spinner -->
