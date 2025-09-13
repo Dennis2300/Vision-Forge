@@ -24,6 +24,21 @@
           >
             <!-- Character Info-->
             <div class="character-info">
+              <!-- New Character Ribbon -->
+              <div
+                v-if="isNewCharacter(character)"
+                class="ribbon ribbon-top-right"
+              >
+                <span class="new">New</span>
+              </div>
+              <!-- Upcoming Character Ribbon -->
+              <div
+                v-if="isUpcomingCharacter(character)"
+                class="ribbon ribbon-top-right"
+              >
+                <span class="upcoming">Upcoming</span>
+              </div>
+              <!-- Character Avatar and Name -->
               <img
                 class="character-avatar mx-5"
                 :src="character.image_url"
@@ -33,16 +48,16 @@
             </div>
             <!-- Character Details -->
             <div class="character-details">
+              <!-- Vision Icon -->
               <img
                 class="vision-icon"
                 :src="character.vision.image_url"
                 alt=""
               />
+              <!-- Character Tags -->
               <p class="tag">{{ character.vision.name }}</p>
               <p class="tag">{{ character.weapon_type.name }}</p>
-              <strong class="tag">{{
-                character.team_role?.name || "UPCOMING"
-              }}</strong>
+              <p class="tag">{{ character.team_role?.name || "N/A" }}</p>
               <p class="tag">
                 {{ !character.release_date ? "N/A" : character.release_date }}
               </p>
@@ -115,6 +130,7 @@
 }
 
 .character-info {
+  position: relative;
   flex: 4;
   display: flex;
   flex-direction: row;
@@ -198,6 +214,14 @@
   background: linear-gradient(145deg, #9b72d5, #7149a3);
   box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+
+.upcoming {
+  font-size: 0.5em;
+}
+
+.new {
+  font-size: 0.8em;
 }
 </style>
 
