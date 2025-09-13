@@ -189,19 +189,6 @@
   border-radius: 50%;
 }
 
-.tag {
-  background-color: #6c6c78;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  font-family: var(--font-roboto);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin-left: 10px;
-  border: 1.5px solid black;
-}
-
 .character-item-details {
   height: 100px;
   background-color: #44444e;
@@ -232,6 +219,19 @@
   background: linear-gradient(145deg, #9b72d5, #7149a3);
   box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+
+.tag {
+  background-color: #6c6c78;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  font-family: var(--font-roboto);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 10px;
+  border: 1.5px solid black;
 }
 
 .upcoming {
