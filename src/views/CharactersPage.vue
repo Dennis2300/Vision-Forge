@@ -64,8 +64,21 @@
               <p class="tag">{{ character.weapon_type.name }}</p>
               <p class="tag">{{ character.substat?.name || "N/A" }}</p>
               <p class="tag">{{ character.team_role?.name || "N/A" }}</p>
-              <p class="tag">
-                {{ !character.release_date ? "N/A" : character.release_date }}
+              <!-- Release Date -->
+              <p class="tag release-date">
+                <strong style="color: darkgray"> Release Date: </strong>
+                {{
+                  !character.release_date
+                    ? "N/A"
+                    : new Date(character.release_date).toLocaleDateString(
+                        "en-GB",
+                        {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        }
+                      )
+                }}
               </p>
             </div>
           </div>
@@ -104,7 +117,7 @@
 .characters-display-container {
   display: flex;
   min-height: 100vh;
-  max-width: 1200px;
+  max-width: 1300px;
   /* background-color: darkblue; */
   margin: 0px auto;
 }
@@ -165,7 +178,9 @@
 
 .character-name {
   font-family: var(--font-bungee);
+  letter-spacing: 1.5px;
   margin-top: 10px;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
 }
 
 .vision-icon {
@@ -182,13 +197,9 @@
   font-size: 1rem;
   letter-spacing: 1px;
   font-family: var(--font-roboto);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-left: 10px;
   border: 1.5px solid black;
-}
-
-.character-name {
-  font-family: var(--font-bungee);
-  margin-top: 10px;
 }
 
 .character-item-details {
@@ -238,6 +249,10 @@
   right: 0;
   opacity: 0.3;
   z-index: -1;
+}
+
+.release-date {
+  margin-left: auto;
 }
 </style>
 
