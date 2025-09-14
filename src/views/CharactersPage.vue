@@ -16,9 +16,9 @@
       <div class="page-summary">
         <p>
           Here you can find a comprehensive list of all characters available in
-          Genshin Impact, by clicking on their names to see their details, attributes and builds.
-          Use the filter options to easily find characters based on your
-          preferences.
+          Genshin Impact, by clicking on their names to see their details,
+          attributes and builds. Use the filter options to easily find
+          characters based on your preferences.
         </p>
       </div>
       <!-- Content Container -->
@@ -117,6 +117,22 @@
         </div>
       </div>
     </div>
+    <!-- To The Top Button -->
+    <button class="to-top-button">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-bar-up"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5m-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -452,5 +468,23 @@ onMounted(async () => {
 
 .release-date {
   margin-left: auto;
+}
+
+.to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #44444e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 </style>
