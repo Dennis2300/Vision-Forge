@@ -342,6 +342,7 @@ onMounted(async () => {
   font-family: var(--font-acme);
   letter-spacing: 1.5px;
   cursor: default;
+  text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
 }
 
 .vision-filter-item {
