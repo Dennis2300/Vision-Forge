@@ -33,7 +33,7 @@
             class="artifact-img"
           />
         </div>
-        
+
         <!-- Artifact Attributes -->
         <div class="artifact-attributes-container">
           <div class="artifact-two-piece-set">
@@ -69,7 +69,7 @@ const artifact = ref(null);
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 function getCachedData(key) {
-  const cachedData = sessionStorage.getItem(key);
+  const cachedData = localStorage.getItem(key);
 
   if (!cachedData) {
     return null;
@@ -81,7 +81,7 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
     return null;
   }
 }
@@ -91,7 +91,7 @@ function setCachedData(key, data) {
     timestamp: new Date().getTime(),
     data,
   };
-  sessionStorage.setItem(key, JSON.stringify(cache));
+  localStorage.setItem(key, JSON.stringify(cache));
 }
 
 async function fetchArtifactDetails(artifactId) {

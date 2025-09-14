@@ -125,7 +125,10 @@
           <!-- Error Message -->
           <div v-if="error">Failed to fetch characters</div>
           <!-- No Characters Found Message -->
-          <div class="no-characters-found" v-if="!loading && !error && characters.length === 0">
+          <div
+            class="no-characters-found"
+            v-if="!loading && !error && characters.length === 0"
+          >
             <img
               src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/10/14/151578876/2e03d2af283a8f13053a757f7497d6d8_4575400536973253402.png?x-oss-process=image%2Fformat%2Cwebp"
               alt=""
@@ -177,9 +180,9 @@ const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 // --------------------- CACHE HANDLING --------------------------------------//
 // cache functions will be made as modules later
-// function to retrieve data from sessionStorage
+// function to retrieve data from localStorage
 function getCachedData(key) {
-  const cachedData = sessionStorage.getItem(key);
+  const cachedData = localStorage.getItem(key);
 
   if (!cachedData) {
     return null;
@@ -191,22 +194,21 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
     return null;
   }
 }
 
-// setCachedData function to store data in sessionStorage
+// setCachedData function to store data in localStorage
 function setCachedData(key, data) {
   const cache = {
     timestamp: new Date().getTime(),
     data,
   };
-  sessionStorage.setItem(key, JSON.stringify(cache));
+  localStorage.setItem(key, JSON.stringify(cache));
 }
 
 // --------------------- DATA FETCHING ---------------------------------------//
-// Fetch all characters from the database
 async function GetAllCharacters() {
   const cacheKey = "characters";
 
@@ -239,7 +241,6 @@ async function GetAllCharacters() {
 }
 
 // --------------------- HELPER FUNCTIONS -------------------------------------//
-
 // Sort characters by release date
 function sortCharactersByReleaseDate() {
   characters.value = [...characters.value].sort((a, b) => {

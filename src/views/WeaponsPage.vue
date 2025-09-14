@@ -77,7 +77,7 @@ const weapons = ref([]);
 const CACHE_DURATION = 60 * 60 * 1000;
 
 function getCachedData(key) {
-  const cachedData = sessionStorage.getItem(key);
+  const cachedData = localStorage.getItem(key);
   if (!cachedData) {
     return null;
   }
@@ -88,7 +88,7 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
     return null;
   }
 }
@@ -98,7 +98,7 @@ function setCachedData(key, data) {
     timestamp: new Date().getTime(),
     data,
   };
-  sessionStorage.setItem(key, JSON.stringify(cache));
+  localStorage.setItem(key, JSON.stringify(cache));
 }
 
 async function getAllWeapons() {
@@ -204,7 +204,7 @@ onMounted(() => {
 }
 
 .weapon-grid-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -222,7 +222,6 @@ onMounted(() => {
 .weapon-grid-card:hover::after {
   left: 100%;
 }
-
 
 .weapon-grid-image {
   width: 150px;

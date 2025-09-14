@@ -19,7 +19,8 @@
         :src="character.splash_art"
         alt="Character Art"
       />
-      <div v-else></div> <!-- Fallback if no splash art is available -->
+      <div v-else></div>
+      <!-- Fallback if no splash art is available -->
 
       <!-- character detail image container -->
       <div class="character-detail-image-container">
@@ -288,9 +289,9 @@ const loading = ref(true);
 
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
-// Function to get cached data from session storage
+// Function to get cached data from local storage
 function getCachedData(key) {
-  const cachedData = sessionStorage.getItem(key);
+  const cachedData = localStorage.getItem(key);
   if (!cachedData) return null;
 
   const { timestamp, data } = JSON.parse(cachedData);
@@ -299,18 +300,18 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
     return null;
   }
 }
 
-// Function to set cached data in session storage if it doesn't already exist
+// Function to set cached data in local storage if it doesn't already exist
 function setCachedData(key, data) {
   const cache = {
     timestamp: new Date().getTime(),
     data,
   };
-  sessionStorage.setItem(key, JSON.stringify(cache));
+  localStorage.setItem(key, JSON.stringify(cache));
 }
 
 // Fetch base character details
