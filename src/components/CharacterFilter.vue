@@ -131,6 +131,7 @@
         :class="{ selected: selectedRegionId === region.id }"
         @click="selectRegion(region)"
       >
+        <img class="region-image" :src="region.image_url" alt="" />
         <p>{{ region.name }}</p>
       </div>
     </div>
@@ -158,7 +159,7 @@ const selectedRarity = ref(null);
 const selectedWeaponTypeId = ref(null);
 const selectedRegionId = ref(null);
 
-// cache functions will be made as modules later
+// Caching functions
 function getCachedData(key) {
   const cachedData = sessionStorage.getItem(key);
 
@@ -176,7 +177,6 @@ function getCachedData(key) {
     return null;
   }
 }
-
 function setCachedData(key, data) {
   const cache = {
     timestamp: new Date().getTime(),
@@ -185,7 +185,7 @@ function setCachedData(key, data) {
   sessionStorage.setItem(key, JSON.stringify(cache));
 }
 
-// Fetch all vision from database
+// Data fetching functions
 async function getAllVisions() {
   const cacheKey = "visions";
 
@@ -210,8 +210,6 @@ async function getAllVisions() {
     loading.value = false;
   }
 }
-
-// Fetch all weapon types from database
 async function getAllWeaponTypes() {
   const cachedWeaponTypes = getCachedData("weaponTypes");
   if (cachedWeaponTypes) {
@@ -234,7 +232,6 @@ async function getAllWeaponTypes() {
     loading.value = false;
   }
 }
-
 async function getAllRegions() {
   const cachedRegions = getCachedData("regions");
   if (cachedRegions) {
@@ -246,7 +243,8 @@ async function getAllRegions() {
   try {
     const { data, error: fetchError } = await supabase
       .from("regions")
-      .select("*, name");
+      .select("*, name, image_url")
+      .order("id", { ascending: true });
     if (fetchError) throw fetchError;
 
     regions.value = data;
@@ -258,30 +256,25 @@ async function getAllRegions() {
   }
 }
 
-// Changes the vision state to the selected vision
+// Filter selection functions
 function selectVision(vision) {
   selectedVisionId.value =
     selectedVisionId.value === vision.id ? null : vision.id;
 }
-
-// changes the rarity state to the selected rarity
 function selectRarity(stars) {
   selectedRarity.value = selectedRarity.value === stars ? null : stars;
 }
-
-// Changes the weapon type state to the selected weapon type
 function selectWeaponType(weaponType) {
   selectedWeaponTypeId.value =
     selectedWeaponTypeId.value === weaponType.id ? null : weaponType.id;
 }
-
-// Changes the region state to the selected region
 function selectRegion(region) {
   selectedRegionId.value =
     selectedRegionId.value === region.id ? null : region.id;
   console.log(selectedRegionId.value, region.name);
 }
 
+// Computed property to filter characters based on selected filters
 const filteredCharacters = computed(() => {
   const cachedCharacters = sessionStorage.getItem("characters");
   if (!cachedCharacters) return [];
@@ -421,7 +414,6 @@ onMounted(async () => {
   width: 90%;
   padding: 10px;
   cursor: pointer;
-  text-align: center;
   letter-spacing: 1px;
   border-radius: 10px;
   outline: 1px solid black;
@@ -446,10 +438,12 @@ onMounted(async () => {
 }
 
 .region-filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 90%;
   padding: 10px;
   cursor: pointer;
-  text-align: center;
   letter-spacing: 1px;
   border-radius: 10px;
   outline: 1px solid black;
@@ -464,5 +458,11 @@ onMounted(async () => {
 
 .region-filter.selected {
   outline: 1px solid gold;
+}
+
+.region-image {
+  height: 40px;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }
 </style>
