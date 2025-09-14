@@ -124,6 +124,14 @@
           </router-link>
           <!-- Error Message -->
           <div v-if="error">Failed to fetch characters</div>
+          <!-- No Characters Found Message -->
+          <div class="no-characters-found" v-if="!loading && !error && characters.length === 0">
+            <img
+              src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/10/14/151578876/2e03d2af283a8f13053a757f7497d6d8_4575400536973253402.png?x-oss-process=image%2Fformat%2Cwebp"
+              alt=""
+            />
+            <p>No characters found.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -520,5 +528,20 @@ onMounted(async () => {
   border: 1.5px solid black;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.no-characters-found {
+  text-align: center;
+  color: white;
+}
+
+.no-characters-found img {
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.no-characters-found p {
+  font-size: 2em;
+  font-family: var(--font-roboto);
 }
 </style>
