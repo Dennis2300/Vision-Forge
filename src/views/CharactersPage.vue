@@ -118,7 +118,7 @@
       </div>
     </div>
     <!-- To The Top Button -->
-    <button class="to-top-button">
+    <button class="to-top-button" @click="scrollToTop">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -157,6 +157,7 @@ const characters = ref([]);
 // If the data is older than CACHE_DURATION, it will be removed
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
+// --------------------- CACHE HANDLING --------------------------------------//
 // cache functions will be made as modules later
 // function to retrieve data from sessionStorage
 function getCachedData(key) {
@@ -186,6 +187,7 @@ function setCachedData(key, data) {
   sessionStorage.setItem(key, JSON.stringify(cache));
 }
 
+// --------------------- DATA FETCHING ---------------------------------------//
 // Fetch all characters from the database
 async function GetAllCharacters() {
   const cacheKey = "characters";
@@ -218,6 +220,7 @@ async function GetAllCharacters() {
   }
 }
 
+// --------------------- HELPER FUNCTIONS -------------------------------------//
 // Sort characters by release date
 function sortCharactersByReleaseDate() {
   characters.value = [...characters.value].sort((a, b) => {
@@ -256,6 +259,10 @@ function displayFilteredCharacters(filtered) {
 function handleClearFilter() {
   characters.value = [...characters.value];
   sortCharactersByReleaseDate();
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // Fetch characters on page load
@@ -486,5 +493,9 @@ onMounted(async () => {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.to-top-button:hover {
+  background-color: #666673;
 }
 </style>
