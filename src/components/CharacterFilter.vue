@@ -7,8 +7,8 @@
 
     <div v-if="!loading && !error" class="character-filter-container">
       <!-- Vision Filter -->
-      <h4 class="filter-header">Sort By Vision</h4>
-      <div class="vision-filter-list my-5">
+      <h4 class="filter-header divider">Sort By Vision</h4>
+      <div class="vision-filter-container my-5">
         <div
           v-for="vision in visions"
           :key="vision.id"
@@ -25,7 +25,7 @@
       </div>
 
       <!-- Rarity Filter -->
-      <h4 class="filter-header">Sort By Rarity</h4>
+      <h4 class="filter-header divider">Sort By Rarity</h4>
       <div class="rarity-filter-container my-5">
         <div
           class="rarity-star-container"
@@ -114,7 +114,7 @@
       </div>
 
       <!-- Weapon Filter -->
-      <h4 class="filter-header">Sort By Weapon</h4>
+      <h4 class="filter-header divider">Sort By Weapon</h4>
       <div class="weapon-filter-container my-5">
         <div
           class="weapon-filter"
@@ -128,7 +128,7 @@
       </div>
 
       <!-- Region Filter -->
-      <h4 class="filter-header">Sort By Region</h4>
+      <h4 class="filter-header divider">Sort By Region</h4>
       <div class="region-filter-container my-5">
         <p>Coming soon...</p>
       </div>
@@ -296,7 +296,7 @@ onMounted(async () => {
   font-family: var(--font-acme);
 }
 
-.vision-filter-list {
+.vision-filter-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
@@ -305,8 +305,6 @@ onMounted(async () => {
 .filter-header {
   letter-spacing: 1px;
   cursor: default;
-  border-bottom: 1px solid white;
-  padding-bottom: 5px;
 }
 
 .vision-filter-item {
