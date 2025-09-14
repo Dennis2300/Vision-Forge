@@ -221,6 +221,7 @@ async function GetAllCharacters() {
 }
 
 // --------------------- HELPER FUNCTIONS -------------------------------------//
+
 // Sort characters by release date
 function sortCharactersByReleaseDate() {
   characters.value = [...characters.value].sort((a, b) => {
@@ -242,6 +243,7 @@ function isNewCharacter(character) {
   return false;
 }
 
+// Check if a character is upcoming
 function isUpcomingCharacter(character) {
   if (character && typeof character.is_upcoming !== "undefined") {
     return Boolean(character.is_upcoming);
@@ -261,6 +263,7 @@ function handleClearFilter() {
   sortCharactersByReleaseDate();
 }
 
+// Scroll to the top of the page
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
