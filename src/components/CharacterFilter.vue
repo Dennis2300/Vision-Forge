@@ -296,7 +296,12 @@ const filteredCharacters = computed(() => {
         !selectedWeaponTypeId.value ||
         char.weapon_type?.id === selectedWeaponTypeId.value;
 
-      return visionMatch && rarityMatch && weaponTypeMatch;
+      // Region filter (compare region object's ID)
+      const regionMatch =
+        !selectedRegionId.value || char.region?.id === selectedRegionId.value;
+      console.log(char.region?.id, selectedRegionId.value, regionMatch);
+
+      return visionMatch && rarityMatch && weaponTypeMatch && regionMatch;
     });
   } catch (err) {
     console.error("Error filtering characters:", err);
