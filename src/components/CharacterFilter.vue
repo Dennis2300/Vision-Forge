@@ -123,7 +123,7 @@
 
     <!-- Region Filter -->
     <h4 class="filter-header divider">Sort By Region</h4>
-    <div class="region-filter-container mt-5 mb-16">
+    <div class="region-filter-container mt-5 mb-6">
       <div
         v-for="region in regions"
         :key="region.id"

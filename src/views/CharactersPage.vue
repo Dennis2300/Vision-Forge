@@ -33,6 +33,16 @@
             @filteredCharacters="displayFilteredCharacters"
             @clearFilter="handleClearFilter"
           />
+          <!-- Back To Top Button -->
+          <div class="divider"></div>
+          <div class="mt-5 flex justify-center">
+            <button
+              class="filter-to-top-button to-top-button"
+              @click="scrollToTop"
+            >
+              <h1 class="divider">Back To Top</h1>
+            </button>
+          </div>
         </div>
         <!-- Main Content -->
         <div class="character-display">
@@ -118,7 +128,7 @@
       </div>
     </div>
     <!-- To The Top Button -->
-    <button class="to-top-button" @click="scrollToTop">
+    <button class="page-to-top-button to-top-button" @click="scrollToTop">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -234,7 +244,6 @@ function sortCharactersByReleaseDate() {
     return new Date(b.release_date) - new Date(a.release_date);
   });
 }
-
 // Check if a character is new
 function isNewCharacter(character) {
   if (character && typeof character.new_character !== "undefined") {
@@ -242,7 +251,6 @@ function isNewCharacter(character) {
   }
   return false;
 }
-
 // Check if a character is upcoming
 function isUpcomingCharacter(character) {
   if (character && typeof character.is_upcoming !== "undefined") {
@@ -250,19 +258,16 @@ function isUpcomingCharacter(character) {
   }
   return false;
 }
-
 // If there is a filter applied, display the filtered characters
 function displayFilteredCharacters(filtered) {
   characters.value = filtered;
   sortCharactersByReleaseDate();
 }
-
 // Clear the filter and reset characters to the original list
 function handleClearFilter() {
   characters.value = [...characters.value];
   sortCharactersByReleaseDate();
 }
-
 // Scroll to the top of the page
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -272,8 +277,6 @@ function scrollToTop() {
 onMounted(async () => {
   await GetAllCharacters();
   isNewCharacter();
-  console.log(characters);
-  
 });
 </script>
 
@@ -350,7 +353,7 @@ onMounted(async () => {
   background-color: #44444e;
   padding: 30px;
   overflow-y: hidden;
-  max-height: 1350px;
+  max-height: 1500px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -480,7 +483,7 @@ onMounted(async () => {
   margin-left: auto;
 }
 
-.to-top-button {
+.page-to-top-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -500,5 +503,22 @@ onMounted(async () => {
 
 .to-top-button:hover {
   background-color: #666673;
+}
+
+.filter-to-top-button {
+  background-color: var(--filter-color);
+  color: white;
+  border: none;
+  font-family: var(--font-acme);
+  border-radius: 10px;
+  font-size: 0.5em;
+  letter-spacing: 1px;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 </style>
