@@ -323,7 +323,7 @@ onMounted(async () => {
 
 .page-summary {
   max-width: 1100px;
-  margin: 15px auto;
+  margin: 25px auto;
 }
 
 .page-summary p {

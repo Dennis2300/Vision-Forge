@@ -377,13 +377,14 @@ onMounted(async () => {
 .weapon-filter {
   width: 90%;
   padding: 10px;
-  background-color: var(--filter-color);
-  border-radius: 10px;
   cursor: pointer;
-  outline: 1px solid black;
   text-align: center;
   letter-spacing: 1px;
+  border-radius: 10px;
+  outline: 1px solid black;
+  font-family: var(--font-acme);
   transition: background-color 0.3s;
+  background-color: var(--filter-color);
 }
 
 .weapon-filter:hover {
