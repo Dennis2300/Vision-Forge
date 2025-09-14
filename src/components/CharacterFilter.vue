@@ -124,7 +124,15 @@
     <!-- Region Filter -->
     <h4 class="filter-header divider">Sort By Region</h4>
     <div class="region-filter-container mt-5 mb-16">
-      <p>Coming soon...</p>
+      <div
+        v-for="region in regions"
+        :key="region.id"
+        class="region-filter"
+        :class="{ selected: selectedRegionId === region.id }"
+        @click="selectRegion(region)"
+      >
+        <p>{{ region.name }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -142,9 +150,13 @@ const error = ref(null);
 // Data states
 const visions = ref([]);
 const weaponTypes = ref([]);
+const regions = ref([]);
+
+// Select Filter states
 const selectedVisionId = ref(null);
 const selectedRarity = ref(null);
 const selectedWeaponTypeId = ref(null);
+const selectedRegionId = ref(null);
 
 // cache functions will be made as modules later
 function getCachedData(key) {
@@ -199,6 +211,7 @@ async function getAllVisions() {
   }
 }
 
+// Fetch all weapon types from database
 async function getAllWeaponTypes() {
   const cachedWeaponTypes = getCachedData("weaponTypes");
   if (cachedWeaponTypes) {
@@ -222,6 +235,29 @@ async function getAllWeaponTypes() {
   }
 }
 
+async function getAllRegions() {
+  const cachedRegions = getCachedData("regions");
+  if (cachedRegions) {
+    regions.value = cachedRegions;
+    loading.value = false;
+    return;
+  }
+
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("regions")
+      .select("*, name");
+    if (fetchError) throw fetchError;
+
+    regions.value = data;
+    setCachedData("regions", data);
+  } catch (err) {
+    error.value = err.message;
+  } finally {
+    loading.value = false;
+  }
+}
+
 // Changes the vision state to the selected vision
 function selectVision(vision) {
   selectedVisionId.value =
@@ -237,6 +273,13 @@ function selectRarity(stars) {
 function selectWeaponType(weaponType) {
   selectedWeaponTypeId.value =
     selectedWeaponTypeId.value === weaponType.id ? null : weaponType.id;
+}
+
+// Changes the region state to the selected region
+function selectRegion(region) {
+  selectedRegionId.value =
+    selectedRegionId.value === region.id ? null : region.id;
+  console.log(selectedRegionId.value, region.name);
 }
 
 const filteredCharacters = computed(() => {
@@ -280,6 +323,7 @@ watch(
 onMounted(async () => {
   await getAllVisions();
   await getAllWeaponTypes();
+  await getAllRegions();
 });
 </script>
 
@@ -318,7 +362,6 @@ onMounted(async () => {
 
 .vision-filter-item:hover {
   background-color: var(--filter-color-hover);
-  border-radius: 100px;
 }
 
 .vision-filter-item.selected {
@@ -392,6 +435,34 @@ onMounted(async () => {
 }
 
 .weapon-filter.selected {
+  outline: 1px solid gold;
+}
+
+.region-filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.region-filter {
+  width: 90%;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  outline: 1px solid black;
+  font-family: var(--font-acme);
+  transition: background-color 0.3s;
+  background-color: var(--filter-color);
+}
+
+.region-filter:hover {
+  background-color: var(--filter-color-hover);
+}
+
+.region-filter.selected {
   outline: 1px solid gold;
 }
 </style>
