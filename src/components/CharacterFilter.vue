@@ -1,8 +1,135 @@
 <template>
+  <div v-if="!loading && !error" class="character-filter-container">
+    <!-- Vision Filter -->
+    <h4 class="filter-header divider">Sort By Vision</h4>
+    <div class="vision-filter-container my-5">
+      <div
+        v-for="vision in visions"
+        :key="vision.id"
+        class="vision-filter-item"
+        :class="{ selected: selectedVisionId === vision.id }"
+        @click="selectVision(vision)"
+      >
+        <img
+          :src="vision.image_url"
+          :alt="vision.name"
+          class="vision-filter-icon"
+        />
+      </div>
+    </div>
 
+    <!-- Rarity Filter -->
+    <h4 class="filter-header divider">Sort By Rarity</h4>
+    <div class="rarity-filter-container my-5">
+      <div
+        class="rarity-star-container"
+        :class="{ selected: selectedRarity === 5 }"
+        @click="selectRarity(5)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+      </div>
+      <div
+        class="rarity-star-container"
+        :class="{ selected: selectedRarity === 4 }"
+        @click="selectRarity(4)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-star-fill rarity-star"
+        >
+          <path
+            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Weapon Filter -->
+    <h4 class="filter-header divider">Sort By Weapon</h4>
+    <div class="weapon-filter-container my-5">
+      <div
+        class="weapon-filter"
+        v-for="weapon in weaponTypes"
+        :key="weapon.id"
+        :class="{ selected: selectedWeaponTypeId === weapon.id }"
+        @click="selectWeaponType(weapon)"
+      >
+        <p>{{ weapon.name }}</p>
+      </div>
+    </div>
+
+    <!-- Region Filter -->
+    <h4 class="filter-header divider">Sort By Region</h4>
+    <div class="region-filter-container my-5">
+      <p>Coming soon...</p>
+    </div>
+  </div>
 </template>
 
-<script setup> 
+<script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import { supabase } from "../supabaseClient.js";
 
@@ -14,8 +141,10 @@ const loading = ref(true);
 const error = ref(null);
 // Data states
 const visions = ref([]);
+const weaponTypes = ref([]);
 const selectedVisionId = ref(null);
 const selectedRarity = ref(null);
+const selectedWeaponTypeId = ref(null);
 
 // cache functions will be made as modules later
 function getCachedData(key) {
@@ -56,7 +185,7 @@ async function getAllVisions() {
   }
 
   try {
-    let { data, error: fetchError } = await supabase
+    const { data, error: fetchError } = await supabase
       .from("visions")
       .select("*, name, image_url");
     if (fetchError) throw fetchError;
@@ -70,15 +199,44 @@ async function getAllVisions() {
   }
 }
 
+async function getAllWeaponTypes() {
+  const cachedWeaponTypes = getCachedData("weaponTypes");
+  if (cachedWeaponTypes) {
+    weaponTypes.value = cachedWeaponTypes;
+    loading.value = false;
+    return;
+  }
+
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("weaponTypes")
+      .select("*, name");
+    if (fetchError) throw fetchError;
+
+    weaponTypes.value = data;
+    setCachedData("weaponTypes", data);
+  } catch (err) {
+    error.value = err.message;
+  } finally {
+    loading.value = false;
+  }
+}
+
 // Changes the vision state to the selected vision
 function selectVision(vision) {
   selectedVisionId.value =
     selectedVisionId.value === vision.id ? null : vision.id;
 }
 
-// changes the selected vision to the selected vision
+// changes the rarity state to the selected rarity
 function selectRarity(stars) {
   selectedRarity.value = selectedRarity.value === stars ? null : stars;
+}
+
+// Changes the weapon type state to the selected weapon type
+function selectWeaponType(weaponType) {
+  selectedWeaponTypeId.value =
+    selectedWeaponTypeId.value === weaponType.id ? null : weaponType.id;
 }
 
 const filteredCharacters = computed(() => {
@@ -97,14 +255,18 @@ const filteredCharacters = computed(() => {
       const rarityMatch =
         !selectedRarity.value || char.rarity === selectedRarity.value;
 
-      return visionMatch && rarityMatch;
+      // Weapon Type filter (compare weapon_type number ID directly)
+      const weaponTypeMatch =
+        !selectedWeaponTypeId.value ||
+        char.weapon_type?.id === selectedWeaponTypeId.value;
+
+      return visionMatch && rarityMatch && weaponTypeMatch;
     });
   } catch (err) {
     console.error("Error filtering characters:", err);
     return [];
   }
 });
-
 
 // Watch statement to update the filtered characters if the selected vision or rarity changes
 watch(
@@ -117,41 +279,39 @@ watch(
 
 onMounted(async () => {
   await getAllVisions();
+  await getAllWeaponTypes();
 });
 </script>
 
 <style scoped>
 .filter-container {
-  width: 500px;
+  width: 100%;
   font-family: var(--font-acme);
 }
 
-.vision-filter-list {
+.vision-filter-container {
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
 }
 
-.vision-filter-header {
-  margin-bottom: 15px;
-  letter-spacing: 1px;
-  cursor: default;
-}
-
-.rarity-filter-header {
-  margin-top: 20px;
-  margin-bottom: 10px;
+.filter-header {
   letter-spacing: 1px;
   cursor: default;
 }
 
 .vision-filter-item {
+  height: 60px;
+  width: 60px;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
   cursor: pointer;
-  background-color: var(--filter-color);
   border-radius: 100px;
+  background-color: var(--filter-color);
+  outline: 1px solid black;
+  transition: background-color 0.3s;
 }
 
 .vision-filter-item:hover {
@@ -164,30 +324,29 @@ onMounted(async () => {
 }
 
 .vision-filter-icon {
-  height: 40px;
-  width: 40px;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
   border-radius: 100px;
 }
 
 .rarity-filter-container {
   display: flex;
-  justify-content: left;
+  justify-content: space-around;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 1rem;
-  gap: 25px;
-  border-radius: 8px;
-  padding: 0%;
+  gap: 10px;
 }
 
 .rarity-star-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
+  padding: 10px;
   background-color: var(--filter-color);
-  padding: 7px 14px 7px 14px;
   border-radius: 10px;
   cursor: pointer;
+  outline: 1px solid black;
+  transition: background-color 0.3s;
 }
 
 .rarity-star-container:hover {
@@ -204,5 +363,30 @@ onMounted(async () => {
   width: 16px;
   height: 16px;
   background-color: transparent;
+}
+
+.weapon-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weapon-filter {
+  padding: 10px;
+  background-color: var(--filter-color);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: 1px solid black;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: background-color 0.3s;
+}
+
+.weapon-filter:hover {
+  background-color: var(--filter-color-hover);
+}
+
+.weapon-filter.selected {
+  outline: 1px solid gold;
 }
 </style>
