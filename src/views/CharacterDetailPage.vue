@@ -85,7 +85,7 @@
             </div>
 
             <!-- character regions -->
-            <h1 class="divider mt-5">Regions</h1>
+            <h1 class="divider mt-5">Region</h1>
             <div v-for="region in character.regions" :key="region.id">
               <p class="character-list-view">
                 {{ region.name }}
