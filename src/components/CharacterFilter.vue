@@ -2,7 +2,7 @@
   <div v-if="!loading && !error" class="character-filter-container">
     <!-- Vision Filter -->
     <h4 class="filter-header divider">Sort By Vision</h4>
-    <div class="vision-filter-container my-5">
+    <div class="vision-filter-container mt-5 mb-16">
       <div
         v-for="vision in visions"
         :key="vision.id"
@@ -20,7 +20,7 @@
 
     <!-- Rarity Filter -->
     <h4 class="filter-header divider">Sort By Rarity</h4>
-    <div class="rarity-filter-container my-5">
+    <div class="rarity-filter-container mt-5 mb-16">
       <div
         class="rarity-star-container"
         :class="{ selected: selectedRarity === 5 }"
@@ -109,7 +109,7 @@
 
     <!-- Weapon Filter -->
     <h4 class="filter-header divider">Sort By Weapon</h4>
-    <div class="weapon-filter-container my-5">
+    <div class="weapon-filter-container mt-5 mb-16">
       <div
         class="weapon-filter"
         v-for="weapon in weaponTypes"
@@ -123,7 +123,7 @@
 
     <!-- Region Filter -->
     <h4 class="filter-header divider">Sort By Region</h4>
-    <div class="region-filter-container my-5">
+    <div class="region-filter-container mt-5 mb-16">
       <p>Coming soon...</p>
     </div>
   </div>
@@ -296,7 +296,9 @@ onMounted(async () => {
 }
 
 .filter-header {
-  letter-spacing: 1px;
+  font-size: 18px;
+  font-family: var(--font-acme);
+  letter-spacing: 1.5px;
   cursor: default;
 }
 
@@ -368,10 +370,12 @@ onMounted(async () => {
 .weapon-filter-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 
 .weapon-filter {
+  width: 90%;
   padding: 10px;
   background-color: var(--filter-color);
   border-radius: 10px;

@@ -21,6 +21,16 @@
           characters based on your preferences.
         </p>
       </div>
+      <!-- Search Bar -->
+      <div class="search-bar-container mb-5">
+        <div v-if="!loading && !error">
+          <input
+            class="search-bar"
+            type="text"
+            placeholder="Search characters..."
+          />
+        </div>
+      </div>
       <!-- Content Container -->
       <div class="characters-display-container">
         <!-- Sidebar -->
@@ -301,7 +311,6 @@ onMounted(async () => {
   width: 1100px;
   height: 100px;
   margin: 0px auto;
-  margin-bottom: 25px;
 }
 
 .page-header h2 {
@@ -324,8 +333,7 @@ onMounted(async () => {
 
 .page-summary {
   max-width: 1100px;
-  margin: 0px auto;
-  margin-bottom: 25px;
+  margin: 15px auto;
 }
 
 .page-summary p {
@@ -335,6 +343,22 @@ onMounted(async () => {
   line-height: 1.6;
   font-size: 1.1em;
   text-align: center;
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar {
+  width: 300px;
+  padding: 10px 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  font-family: var(--font-roboto);
+  transition: border-color 0.3s ease;
 }
 
 .characters-display-container {
@@ -350,7 +374,7 @@ onMounted(async () => {
   background-color: #44444e;
   padding: 30px;
   overflow-y: auto;
-  max-height: 1000px;
+  max-height: 1200px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
