@@ -21,16 +21,6 @@
           characters based on your preferences.
         </p>
       </div>
-      <!-- Search Bar -->
-      <div class="search-bar-container mb-5">
-        <div v-if="!loading && !error">
-          <input
-            class="search-bar"
-            type="text"
-            placeholder="Search characters..."
-          />
-        </div>
-      </div>
       <!-- Content Container -->
       <div class="characters-display-container">
         <!-- Sidebar -->
@@ -343,22 +333,6 @@ onMounted(async () => {
   line-height: 1.6;
   font-size: 1.1em;
   text-align: center;
-}
-
-.search-bar-container {
-  display: flex;
-  justify-content: center;
-}
-
-.search-bar {
-  width: 300px;
-  padding: 10px 15px;
-  border: 1.5px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  font-family: var(--font-roboto);
-  transition: border-color 0.3s ease;
 }
 
 .characters-display-container {
