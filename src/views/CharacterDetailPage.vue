@@ -38,7 +38,9 @@
               alt=""
             />
           </div>
-          <h1 v-if="character.fullname" class="character-name mt-3">{{ character.fullname }}</h1>
+          <h1 v-if="character.fullname" class="character-name mt-3">
+            {{ character.fullname }}
+          </h1>
           <h1 v-else class="character-name mt-3">{{ character.name }}</h1>
           <div class="character-tags-container mt-2">
             <p class="character-tags">{{ character.vision.name }}</p>
