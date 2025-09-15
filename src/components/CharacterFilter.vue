@@ -6,7 +6,7 @@
       <div
         v-for="vision in visions"
         :key="vision.id"
-        class="vision-filter-item"
+        class="vision-filter-item filter-hover"
         :class="{ selected: selectedVisionId === vision.id }"
         @click="selectVision(vision)"
       >
@@ -22,7 +22,7 @@
     <h4 class="filter-header divider">Sort By Rarity</h4>
     <div class="rarity-filter-container mt-5 mb-16">
       <div
-        class="rarity-star-container"
+        class="rarity-filter-item filter-hover"
         :class="{ selected: selectedRarity === 5 }"
         @click="selectRarity(5)"
       >
@@ -68,7 +68,7 @@
         </svg>
       </div>
       <div
-        class="rarity-star-container"
+        class="rarity-filter-item filter-hover"
         :class="{ selected: selectedRarity === 4 }"
         @click="selectRarity(4)"
       >
@@ -111,7 +111,7 @@
     <h4 class="filter-header divider">Sort By Weapon</h4>
     <div class="weapon-filter-container mt-5 mb-16">
       <div
-        class="weapon-filter"
+        class="weapon-filter-item filter-hover"
         v-for="weapon in weaponTypes"
         :key="weapon.id"
         :class="{ selected: selectedWeaponTypeId === weapon.id }"
@@ -127,7 +127,7 @@
       <div
         v-for="region in regions"
         :key="region.id"
-        class="region-filter"
+        class="region-filter-item filter-hover"
         :class="{ selected: selectedRegionId === region.id }"
         @click="selectRegion(region)"
       >
@@ -359,10 +359,6 @@ onMounted(async () => {
   transition: background-color 0.3s;
 }
 
-.vision-filter-item:hover {
-  background-color: var(--filter-color-hover);
-}
-
 .vision-filter-item.selected {
   outline: 2px solid gold;
 }
@@ -380,7 +376,7 @@ onMounted(async () => {
   gap: 10px;
 }
 
-.rarity-star-container {
+.rarity-filter-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -393,11 +389,7 @@ onMounted(async () => {
   transition: background-color 0.3s;
 }
 
-.rarity-star-container:hover {
-  background-color: var(--filter-color-hover);
-}
-
-.rarity-star-container.selected {
+.rarity-filter-item.selected {
   outline: 1px solid gold;
 }
 
@@ -416,7 +408,7 @@ onMounted(async () => {
   gap: 10px;
 }
 
-.weapon-filter {
+.weapon-filter-item {
   width: 90%;
   padding: 10px;
   cursor: pointer;
@@ -428,11 +420,7 @@ onMounted(async () => {
   background-color: var(--filter-color);
 }
 
-.weapon-filter:hover {
-  background-color: var(--filter-color-hover);
-}
-
-.weapon-filter.selected {
+.weapon-filter-item.selected {
   outline: 1px solid gold;
 }
 
@@ -443,7 +431,7 @@ onMounted(async () => {
   gap: 10px;
 }
 
-.region-filter {
+.region-filter-item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -458,11 +446,7 @@ onMounted(async () => {
   background-color: var(--filter-color);
 }
 
-.region-filter:hover {
-  background-color: var(--filter-color-hover);
-}
-
-.region-filter.selected {
+.region-filter-item.selected {
   outline: 1px solid gold;
 }
 
@@ -470,5 +454,9 @@ onMounted(async () => {
   height: 40px;
   margin-bottom: 5px;
   margin-right: 5px;
+}
+
+.filter-hover:hover {
+  background-color: var(--filter-color-hover);
 }
 </style>

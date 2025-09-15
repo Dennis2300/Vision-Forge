@@ -362,7 +362,7 @@ onMounted(async () => {
   background-color: #44444e;
   padding: 30px;
   overflow-y: hidden;
-  max-height: 1500px;
+  height: fit-content;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -399,7 +399,7 @@ onMounted(async () => {
 .character-details {
   flex: 1;
   padding: 20px;
-  background-color: #3a3a45;
+  background-color: #44444e;
   display: flex;
   align-items: center;
   align-items: center;
