@@ -414,6 +414,7 @@ onMounted(async () => {
 }
 
 .character-name {
+  text-transform: uppercase;
   font-family: var(--font-acme);
   letter-spacing: 1.5px;
   margin-top: 10px;
