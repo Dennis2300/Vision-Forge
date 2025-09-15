@@ -549,7 +549,7 @@ onMounted(async () => {
 .character-overview {
   background-color: var(--primary);
   padding: 10px 25px 25px 25px;
-  width: 66%;
+  width: 80%;
   border-radius: 15px;
 }
 
