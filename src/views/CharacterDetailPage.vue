@@ -90,7 +90,7 @@
 
             <!-- character regions -->
             <h1 class="divider mt-5">Region</h1>
-            <div class="text-center mt-8" v-for="region in character.regions" :key="region.id">
+            <div class="character-list-view mt-8" v-for="region in character.regions" :key="region.id">
               <img :src="region.image_url" alt="" class="region-image">
               <p class="region-name">
                 {{ region.name }}
@@ -547,7 +547,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   width: 700px;
-  height: 600px;
+  height: 500px;
 }
 
 .character-overview {
@@ -808,9 +808,10 @@ onMounted(async () => {
 }
 
 .region-name {
+  display: inline-block;
   font-family: var(--font-acme);
-  letter-spacing: 1px;
   font-size: 1.5rem;
+  margin-left: 10px;
   vertical-align: middle;
   text-transform: capitalize;
 }
