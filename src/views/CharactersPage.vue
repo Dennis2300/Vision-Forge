@@ -53,7 +53,6 @@
             :to="`/characters/${character.id}?name=${encodeURIComponent(
               character.name
             )}`"
-            target="_blank"
             class="character-item"
             v-else
             v-for="character in characters"
