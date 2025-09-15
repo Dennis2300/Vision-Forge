@@ -90,8 +90,9 @@
 
             <!-- character regions -->
             <h1 class="divider mt-5">Region</h1>
-            <div v-for="region in character.regions" :key="region.id">
-              <p class="character-list-view">
+            <div class="text-center mt-8" v-for="region in character.regions" :key="region.id">
+              <img :src="region.image_url" alt="" class="region-image">
+              <p class="region-name">
                 {{ region.name }}
               </p>
             </div>
@@ -335,7 +336,7 @@ async function fetchBaseCharacterDetails(characterId) {
 async function fetchCharacterRegions(characterId) {
   const { data, error } = await supabase
     .from("region_character")
-    .select("region:region_id(id, name)")
+    .select("region:region_id(id, name, image_url)")
     .eq("character_id", characterId);
 
   if (error) throw error;
@@ -546,7 +547,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   width: 700px;
-  height: 500px;
+  height: 600px;
 }
 
 .character-overview {
@@ -797,5 +798,20 @@ onMounted(async () => {
 .character-source a:hover {
   background-color: var(--tertiary);
   color: black;
+}
+
+.region-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  vertical-align: middle;
+}
+
+.region-name {
+  font-family: var(--font-acme);
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+  vertical-align: middle;
+  text-transform: capitalize;
 }
 </style>
