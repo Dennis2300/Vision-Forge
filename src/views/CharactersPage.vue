@@ -106,7 +106,7 @@
               <p class="tag">{{ character.team_role?.name || "N/A" }}</p>
               <!-- Release Date -->
               <p class="tag release-date">
-                <strong style="color: darkgray"> Release Date: </strong>
+                <strong style="color: darkgray"> Released: </strong>
                 {{
                   !character.release_date
                     ? "N/A"
@@ -414,7 +414,7 @@ onMounted(async () => {
 }
 
 .character-name {
-  font-family: var(--font-bungee);
+  font-family: var(--font-acme);
   letter-spacing: 1.5px;
   margin-top: 10px;
   text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
