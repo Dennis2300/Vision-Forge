@@ -53,17 +53,21 @@
               :src="character.vision.image_url"
               alt=""
             />
+            <p class="character-detail-tag">{{ character.vision.name }}</p>
             <p class="character-detail-tag">{{ character.weapon_type.name }}</p>
             <p class="character-detail-tag">{{ character.substat.name }}</p>
+            <p class="character-detail-tag">{{ character.team_role.name }}</p>
             <p class="character-detail-release-date">
               <strong> Released: </strong>
-              {{
-                new Date(character.release_date).toLocaleDateString("en-GB", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              }}
+                {{
+                character.release_date
+                  ? new Date(character.release_date).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                  : "N/A"
+                }}
             </p>
           </div>
         </div>
@@ -197,7 +201,7 @@ onUnmounted(() => {
 
 <style scoped>
 .character-page-container {
-  width: 1300px;
+  width: 1500px;
   min-height: 100vh;
   margin: 0px auto;
 }
@@ -270,7 +274,7 @@ onUnmounted(() => {
 .character-item {
   margin: 0px auto;
   height: 250px;
-  width: 900px;
+  width: 1100px;
   display: flex;
   flex-direction: column;
 }
@@ -330,6 +334,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 15px;
   position: relative;
+  border-top: 2px solid black;
 }
 
 .character-vision-image {
@@ -347,6 +352,7 @@ onUnmounted(() => {
   font-family: var(--font-acme);
   text-transform: uppercase;
   letter-spacing: 1px;
+  border: 1px solid black;
 }
 
 .character-detail-release-date {
@@ -359,6 +365,7 @@ onUnmounted(() => {
   font-family: var(--font-acme);
   text-transform: uppercase;
   letter-spacing: 1px;
+  border: 1px solid black;
 }
 
 .load-more-trigger {
