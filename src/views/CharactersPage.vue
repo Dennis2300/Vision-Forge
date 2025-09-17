@@ -32,16 +32,20 @@
         >
           <div class="character-item-overview">
             <img
-              class="character-item-image"
-              :src="character.image_url"
-              alt=""
-            />
-            <h1>{{ character.name }}</h1>
-            <img
+              v-if="character.splash_art"
               class="character-item-splash-art"
               :src="character.splash_art"
               alt=""
             />
+            <div v-if="!character.splash_art"></div>
+            <div class="character-item-info">
+              <img
+                class="character-item-image"
+                :src="character.image_url"
+                :alt="character.name"
+              />
+              <h1 class="character-name mt-3">{{ character.name }}</h1>
+            </div>
           </div>
           <div class="character-item-details">
             <p>{{ character.substat.name }}</p>
@@ -238,6 +242,7 @@ onUnmounted(() => {
   flex: 1;
   background-color: var(--secondary);
   border-radius: 15px;
+  height: fit-content;
 }
 .character-display-container {
   flex: 4;
@@ -263,6 +268,16 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   padding-left: 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.character-item-info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .character-item-image {
@@ -272,13 +287,21 @@ onUnmounted(() => {
   object-fit: contain;
 }
 
+.character-name {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-family: var(--font-bungee);
+}
+
 .character-item-splash-art {
-  width: 100px;
-  height: 100px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  position: absolute;
+  height: 300px;
+  border-radius: 15px;
   object-fit: cover;
-  overflow: hidden;
+  right: 15px;
+  opacity: 0.3;
 }
 
 .character-item-details {
