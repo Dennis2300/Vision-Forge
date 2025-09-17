@@ -58,7 +58,10 @@ async function fetchAllCharacters() {
   try {
     let { data, error: fetchError } = await supabase
       .from("characters")
-      .select("*");
+      .select(
+        "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name)"
+      )
+      .order("release_date", { ascending: false });
     if (fetchError) throw fetchError;
     characters.value = data;
   } catch (err) {
