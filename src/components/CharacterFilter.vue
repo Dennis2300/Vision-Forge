@@ -299,7 +299,6 @@ const filteredCharacters = computed(() => {
       // Region filter (compare region object's ID)
       const regionMatch =
         !selectedRegionId.value || char.region?.id === selectedRegionId.value;
-      console.log(char.region?.id, selectedRegionId.value, regionMatch);
 
       return visionMatch && rarityMatch && weaponTypeMatch && regionMatch;
     });
