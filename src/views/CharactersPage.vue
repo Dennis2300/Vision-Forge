@@ -27,7 +27,9 @@
           :key="character.id"
         >
           <div class="character-item-overview">{{ character.name }}</div>
-          <div class="character-item-details">DETAILS</div>
+          <div class="character-item-details">
+            <p>{{ character.substat.name }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -146,7 +148,7 @@ onMounted(async () => {
   background-color: darkcyan;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 50px;
 }
 
 .character-item {
