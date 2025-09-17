@@ -123,7 +123,9 @@
             </div>
           </router-link>
           <!-- Error Message -->
-          <div v-if="error">Failed to fetch characters</div>
+          <div v-if="error">
+            <Errorcomponent />
+          </div>
           <!-- No Characters Found Message -->
           <div
             class="no-characters-found"
