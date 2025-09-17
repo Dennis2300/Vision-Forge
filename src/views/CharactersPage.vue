@@ -48,7 +48,23 @@
             </div>
           </div>
           <div class="character-item-details">
-            <p>{{ character.substat.name }}</p>
+            <img
+              class="character-vision-image"
+              :src="character.vision.image_url"
+              alt=""
+            />
+            <p class="character-detail-tag">{{ character.weapon_type.name }}</p>
+            <p class="character-detail-tag">{{ character.substat.name }}</p>
+            <p class="character-detail-release-date">
+              <strong> Released: </strong>
+              {{
+                new Date(character.release_date).toLocaleDateString("en-GB", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              }}
+            </p>
           </div>
         </div>
 
@@ -310,6 +326,39 @@ onUnmounted(() => {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   background-color: #37353e;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.character-vision-image {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.character-detail-tag {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: var(--font-acme);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.character-detail-release-date {
+  position: absolute;
+  right: 20px;
+  background-color: var(--primary);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: var(--font-acme);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .load-more-trigger {
