@@ -18,7 +18,7 @@
         based on your preferences.
       </p>
     </div>
-    <div class="character-page" v-if="!loading && !error">
+    <div class="character-page" v-if="!error">
       <div class="offset">Offset</div>
       <div class="character-display-container">
         <div
@@ -31,6 +31,10 @@
             <p>{{ character.substat.name }}</p>
           </div>
         </div>
+
+        <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
+          Loading more...
+        </div>
       </div>
     </div>
     <LoadingSpinner v-if="loading" />
@@ -38,47 +42,99 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"; // Import the Vue composition API
-import { supabase } from "./../supabaseClient.js"; // Import the Supabase client
-// ----------------------------------------------------------
-import "./../css/Ribbon.css"; // Import the CSS for the ribbon effect
-import "ldrs/trefoil"; // Import the loading spinner component
-// ----------------------------------------------------------
-import LoadingSpinner from "./../components/LoadingSpinner.vue"; // Import the loading spinner component
-import Errorcomponent from "./../components/ErrorComponent.vue"; // Import the error component
+// import necessary modules and components
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { supabase } from "./../supabaseClient.js";
+import LoadingSpinner from "./../components/LoadingSpinner.vue";
 
-// Loading and error states
-const loading = ref(true);
+// state variables
+const loading = ref(false);
 const error = ref(null);
 
-// Data states
-const characters = ref([]);
+// data states
+const characters = ref([]); // array to hold character data
+const page = ref(1); // current page number
+const pageSize = 10; // number of characters per page
+const hasMore = ref(true); // flag to indicate if more characters are available
+const loadMoreTrigger = ref(null); // reference to the load more trigger element
 
-// Function to fetch characters from Supabase
-async function fetchAllCharacters() {
+// Intersection Observer instance
+let observer = null;
+
+// function to fetch characters from Supabase
+async function fetchCharacters() {
+  // prevent multiple fetches or fetching when no more data
+  if (!hasMore.value || loading.value) return;
+
+  // set loading state
   loading.value = true;
-  error.value = null;
+
+  // calculate range for pagination
+  const from = (page.value - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  // fetch data from Supabase
   try {
-    let { data, error: fetchError } = await supabase
-      .from("characters")
-      .select(
+    // Fetch characters with related data
+    const { data, error: fetchError } = await supabase
+      .from("characters") // specify the table name
+      .select( // select specific columns and related data
         "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name)"
       )
-      .order("release_date", { ascending: false });
-    if (fetchError) throw fetchError;
-    characters.value = data;
+      .order("release_date", { ascending: false }) // order by release date descending
+      .range(from, to); // apply range for pagination
+
+      // handle fetch error
+    if (fetchError) throw fetchError; 
+
+    // if less data than pageSize is returned, no more data is available
+    if (data.length < pageSize) hasMore.value = false;
+
+    // append new data to characters array and increment page number
+    characters.value.push(...data);
+    page.value++;
   } catch (err) {
-    error.value = err.message || "An error occurred while fetching data.";
+    // handle any errors
+    error.value = err.message || "Failed to load characters";
   } finally {
+    // reset loading state
     loading.value = false;
   }
 }
 
-// Fetch characters on page load
 onMounted(async () => {
-  await fetchAllCharacters();
+  await fetchCharacters(); // initial fetch
+
+  // set up Intersection Observer for infinite scrolling
+  observer = new IntersectionObserver(
+    (entries) => { // callback function when intersection occurs
+      if (entries[0].isIntersecting) { // if the load more trigger is visible
+        console.log("▶ Sentinel visible → fetching next page...");
+        fetchCharacters(); // fetch next page of characters
+      }
+    },
+    {
+      root: null, // use viewport as root
+      rootMargin: "200px", // start loading before reaching the trigger
+      threshold: 0.1, // trigger when 10% of the element is visible
+    }
+  );
+
+  await nextTick(); // waits until Vue finishes updating the DOM before running something
+  if (loadMoreTrigger.value) { // ensure the trigger element is available
+    observer.observe(loadMoreTrigger.value); // start observing the trigger element
+  }
+});
+
+// clean up observer on component unmount
+onUnmounted(() => {
+  if (observer && loadMoreTrigger.value) {
+    observer.unobserve(loadMoreTrigger.value);
+    observer.disconnect();
+  }
 });
 </script>
+
 
 <style scoped>
 .character-page-container {
@@ -172,5 +228,10 @@ onMounted(async () => {
   background-color: darkslategray;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.load-more-trigger {
+  height: 100px;
+  background: red; /* for testing */
 }
 </style>
