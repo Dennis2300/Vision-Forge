@@ -26,7 +26,13 @@
           v-for="character in characters"
           :key="character.id"
         >
-          <div class="character-item-overview">{{ character.name }}</div>
+          <div class="character-item-overview">
+            <img
+              class="character-item-image"
+              :src="character.image_url"
+              alt=""
+            />
+          </div>
           <div class="character-item-details">
             <p>{{ character.substat.name }}</p>
           </div>
@@ -214,18 +220,17 @@ onUnmounted(() => {
 }
 
 .character-page {
-  background-color: darkblue;
   min-height: 100vh;
   display: flex;
 }
 
 .offset {
   flex: 1;
-  background-color: darkgoldenrod;
+  background-color: var(--secondary);
+  border-radius: 15px;
 }
 .character-display-container {
   flex: 4;
-  background-color: darkcyan;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -233,24 +238,34 @@ onUnmounted(() => {
 
 .character-item {
   margin: 0px auto;
-  background-color: gray;
   height: 250px;
   width: 1000px;
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
 }
 
 .character-item-overview {
   flex: 2;
   padding: 15px;
+  background-color: #44444e;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.character-item-image {
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 10px;
+  object-fit: contain;
 }
 .character-item-details {
   flex: 1;
   padding: 15px;
-  background-color: darkslategray;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+  background-color: #37353e;
 }
 
 .load-more-trigger {
