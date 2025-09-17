@@ -18,7 +18,7 @@
         based on your preferences.
       </p>
     </div>
-    <div class="character-page" v-if="!error">
+    <div class="character-page mb-16" v-if="!error">
       <div class="offset">Offset</div>
       <div class="character-display-container">
         <div
@@ -59,21 +59,24 @@
             <p class="character-detail-tag">{{ character.team_role.name }}</p>
             <p class="character-detail-release-date">
               <strong> Released: </strong>
-                {{
+              {{
                 character.release_date
-                  ? new Date(character.release_date).toLocaleDateString("en-GB", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })
+                  ? new Date(character.release_date).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      }
+                    )
                   : "N/A"
-                }}
+              }}
             </p>
           </div>
         </div>
 
         <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
-          Loading more...
+          <p>Loading More...</p>
         </div>
       </div>
     </div>
@@ -277,6 +280,7 @@ onUnmounted(() => {
   width: 1100px;
   display: flex;
   flex-direction: column;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .character-item-overview {
@@ -311,7 +315,8 @@ onUnmounted(() => {
   font-size: 2rem;
   letter-spacing: 1px;
   color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.85);
+
   font-family: var(--font-bungee);
 }
 
@@ -320,7 +325,7 @@ onUnmounted(() => {
   height: 300px;
   border-radius: 15px;
   object-fit: cover;
-  right: 15px;
+  right: 0px;
   opacity: 0.3;
 }
 
@@ -345,7 +350,7 @@ onUnmounted(() => {
 
 .character-detail-tag {
   background-color: var(--primary);
-  color: white;
+  color: var(--tertiary);
   padding: 10px 15px;
   border-radius: 10px;
   font-size: 1rem;
@@ -366,11 +371,21 @@ onUnmounted(() => {
   text-transform: uppercase;
   letter-spacing: 1px;
   border: 1px solid black;
+  color: var(--tertiary);
+}
+
+.character-detail-release-date strong {
+  color: gray;
 }
 
 .load-more-trigger {
-  height: 100px;
-  background: red; /* for testing */
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2rem;
+  color: white;
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .rarity-5 .character-item-image {
