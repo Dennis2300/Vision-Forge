@@ -18,7 +18,7 @@
         based on your preferences.
       </p>
     </div>
-    <div class="character-page">
+    <div class="character-page" v-if="!loading && !error">
       <div class="offset">Offset</div>
       <div class="character-display-container">
         <div
@@ -33,6 +33,7 @@
         </div>
       </div>
     </div>
+    <LoadingSpinner v-if="loading" />
   </div>
 </template>
 
