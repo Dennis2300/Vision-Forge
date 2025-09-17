@@ -1,7 +1,7 @@
 <template>
   <!-- Character Page Container -->
   <div class="character-page-container">
-    <div class="character-page-header-container">
+    <div class="character-page-header-container mt-5">
       <div class="character-page-header-banner">
         <h1 class="character-page-header">Character Page</h1>
         <img
@@ -10,12 +10,12 @@
           alt=""
         />
       </div>
-      <div class="divider"></div>
+      <div class="divider px-10"></div>
       <p class="character-page-header-description">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio est
-        nihil soluta consequatur voluptatem obcaecati voluptas illo explicabo
-        iste saepe id, laboriosam laborum adipisci? Minima et molestias sapiente
-        ipsa repellat.
+        Here you can find a comprehensive list of all characters available in
+        Genshin Impact, by clicking on their names to see their details,
+        attributes and builds. Use the filter options to easily find characters
+        based on your preferences.
       </p>
     </div>
     <div class="character-page">
@@ -48,8 +48,7 @@ onMounted(async () => {});
 
 <style scoped>
 .character-page-container {
-  background-color: darkgreen;
-  width: 1200px;
+  width: 1400px;
   min-height: 100vh;
   margin: 0px auto;
 }
@@ -60,7 +59,6 @@ onMounted(async () => {});
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: darkolivegreen;
 }
 
 .character-page-header-banner {
@@ -87,12 +85,16 @@ onMounted(async () => {});
   font-size: 3rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   z-index: 1;
+  letter-spacing: 1px;
   font-family: var(--font-bungee);
 }
 
 .character-page-header-description {
-  margin-top: 10px;
   font-size: 1.2rem;
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
+  line-height: 1.5;
+  width: 80%;
   text-align: center;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
