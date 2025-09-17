@@ -78,14 +78,15 @@ async function fetchCharacters() {
     // Fetch characters with related data
     const { data, error: fetchError } = await supabase
       .from("characters") // specify the table name
-      .select( // select specific columns and related data
+      .select(
+        // select specific columns and related data
         "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name)"
       )
       .order("release_date", { ascending: false }) // order by release date descending
       .range(from, to); // apply range for pagination
 
-      // handle fetch error
-    if (fetchError) throw fetchError; 
+    // handle fetch error
+    if (fetchError) throw fetchError;
 
     // if less data than pageSize is returned, no more data is available
     if (data.length < pageSize) hasMore.value = false;
@@ -93,6 +94,15 @@ async function fetchCharacters() {
     // append new data to characters array and increment page number
     characters.value.push(...data);
     page.value++;
+
+    sessionStorage.setItem(
+      "characters",
+      JSON.stringify({
+        characters: characters.value,
+        page: page.value,
+        hasMore: hasMore.value,
+      })
+    );
   } catch (err) {
     // handle any errors
     error.value = err.message || "Failed to load characters";
@@ -103,26 +113,40 @@ async function fetchCharacters() {
 }
 
 onMounted(async () => {
-  await fetchCharacters(); // initial fetch
+  const cached = sessionStorage.getItem("characters");
 
-  // set up Intersection Observer for infinite scrolling
+  if (cached) {
+    const {
+      characters: cachedChars,
+      page: cachedPage,
+      hasMore: cachedHasMore,
+    } = JSON.parse(cached);
+
+    characters.value = cachedChars;
+    page.value = cachedPage;
+    hasMore.value = cachedHasMore;
+  } else {
+    await fetchCharacters(); // First time load from Supabase
+  }
+
+  // Setup observer
   observer = new IntersectionObserver(
-    (entries) => { // callback function when intersection occurs
-      if (entries[0].isIntersecting) { // if the load more trigger is visible
+    (entries) => {
+      if (entries[0].isIntersecting) {
         console.log("▶ Sentinel visible → fetching next page...");
-        fetchCharacters(); // fetch next page of characters
+        fetchCharacters();
       }
     },
     {
-      root: null, // use viewport as root
-      rootMargin: "200px", // start loading before reaching the trigger
-      threshold: 0.1, // trigger when 10% of the element is visible
+      root: null,
+      rootMargin: "200px",
+      threshold: 0.1,
     }
   );
 
-  await nextTick(); // waits until Vue finishes updating the DOM before running something
-  if (loadMoreTrigger.value) { // ensure the trigger element is available
-    observer.observe(loadMoreTrigger.value); // start observing the trigger element
+  await nextTick();
+  if (loadMoreTrigger.value) {
+    observer.observe(loadMoreTrigger.value);
   }
 });
 
@@ -134,7 +158,6 @@ onUnmounted(() => {
   }
 });
 </script>
-
 
 <style scoped>
 .character-page-container {
