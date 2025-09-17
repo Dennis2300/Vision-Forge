@@ -20,7 +20,12 @@
     </div>
     <div class="character-page">
       <div class="offset">Offset</div>
-      <div class="character-display-container">Content</div>
+      <div class="character-display-container">
+        <div class="character-item">
+          <div class="character-item-overview">NAME</div>
+          <div class="character-item-details">DETAILS</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -98,5 +103,30 @@ onMounted(async () => {});
   text-align: center;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.character-page {
+  background-color: darkblue;
+  min-height: 100vh;
+  display: flex;
+}
+
+.offset {
+  flex: 1;
+  background-color: darkgoldenrod;
+}
+.character-display-container {
+  flex: 4;
+  background-color: darkcyan;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.character-item {
+  margin: 0px auto;
+  background-color: darkgray;
+  height: 200px;
+  width: 1000px;
 }
 </style>
