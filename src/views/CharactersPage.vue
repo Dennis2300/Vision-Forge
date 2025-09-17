@@ -25,11 +25,21 @@
           class="character-item"
           v-for="character in characters"
           :key="character.id"
+          :class="{
+            'rarity-5': character.rarity === 5,
+            'rarity-4': character.rarity === 4,
+          }"
         >
           <div class="character-item-overview">
             <img
               class="character-item-image"
               :src="character.image_url"
+              alt=""
+            />
+            <h1>{{ character.name }}</h1>
+            <img
+              class="character-item-splash-art"
+              :src="character.splash_art"
               alt=""
             />
           </div>
@@ -167,7 +177,7 @@ onUnmounted(() => {
 
 <style scoped>
 .character-page-container {
-  width: 1400px;
+  width: 1300px;
   min-height: 100vh;
   margin: 0px auto;
 }
@@ -239,7 +249,7 @@ onUnmounted(() => {
 .character-item {
   margin: 0px auto;
   height: 250px;
-  width: 1000px;
+  width: 900px;
   display: flex;
   flex-direction: column;
 }
@@ -252,14 +262,25 @@ onUnmounted(() => {
   border-top-right-radius: 15px;
   display: flex;
   align-items: center;
+  padding-left: 25px;
 }
 
 .character-item-image {
-  max-height: 100px;
-  max-width: 100px;
-  border-radius: 10px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
   object-fit: contain;
 }
+
+.character-item-splash-art {
+  width: 100px;
+  height: 100px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
 .character-item-details {
   flex: 1;
   padding: 15px;
@@ -271,5 +292,17 @@ onUnmounted(() => {
 .load-more-trigger {
   height: 100px;
   background: red; /* for testing */
+}
+
+.rarity-5 .character-item-image {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+
+.rarity-4 .character-item-image {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 </style>
