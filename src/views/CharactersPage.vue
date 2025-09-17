@@ -125,19 +125,23 @@ onMounted(async () => {});
 
 .character-item {
   margin: 0px auto;
-  background-color: darkgray;
+  background-color: gray;
   height: 250px;
   width: 1000px;
   display: flex;
   flex-direction: column;
+  border-radius: 15px;
 }
 
 .character-item-overview {
   flex: 2;
-  background-color: darkred;
+  padding: 15px;
 }
 .character-item-details {
   flex: 1;
-  background-color: darkgreen;
+  padding: 15px;
+  background-color: darkslategray;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 </style>
