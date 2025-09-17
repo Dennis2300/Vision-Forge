@@ -48,7 +48,7 @@ const artifacts = ref([]);
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 function getCachedData(key) {
-  const cachedData = localStorage.getItem(key);
+  const cachedData = sessionStorage.getItem(key);
 
   if (!cachedData) {
     return null;
@@ -60,7 +60,7 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
     return null;
   }
 }
@@ -70,7 +70,7 @@ function setCachedData(key, data) {
     timestamp: new Date().getTime(),
     data,
   };
-  localStorage.setItem(key, JSON.stringify(cache));
+  sessionStorage.setItem(key, JSON.stringify(cache));
 }
 
 async function getAllArtifacts() {

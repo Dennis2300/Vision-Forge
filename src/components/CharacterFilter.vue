@@ -161,7 +161,7 @@ const selectedRegionId = ref(null);
 
 // Caching functions
 function getCachedData(key) {
-  const cachedData = localStorage.getItem(key);
+  const cachedData = sessionStorage.getItem(key);
 
   if (!cachedData) {
     return null;
@@ -173,7 +173,7 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
     return null;
   }
 }
@@ -182,7 +182,7 @@ function setCachedData(key, data) {
     timestamp: new Date().getTime(),
     data,
   };
-  localStorage.setItem(key, JSON.stringify(cache));
+  sessionStorage.setItem(key, JSON.stringify(cache));
 }
 
 // Data fetching functions
@@ -276,7 +276,7 @@ function selectRegion(region) {
 
 // Computed property to filter characters based on selected filters
 const filteredCharacters = computed(() => {
-  const cachedCharacters = localStorage.getItem("characters");
+  const cachedCharacters = sessionStorage.getItem("characters");
   if (!cachedCharacters) return [];
 
   try {

@@ -180,9 +180,9 @@ const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 // --------------------- CACHE HANDLING --------------------------------------//
 // cache functions will be made as modules later
-// function to retrieve data from localStorage
+// function to retrieve data from sessionStorage
 function getCachedData(key) {
-  const cachedData = localStorage.getItem(key);
+  const cachedData = sessionStorage.getItem(key);
 
   if (!cachedData) {
     return null;
@@ -194,18 +194,18 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
     return null;
   }
 }
 
-// setCachedData function to store data in localStorage
+// setCachedData function to store data in sessionStorage
 function setCachedData(key, data) {
   const cache = {
     timestamp: new Date().getTime(),
     data,
   };
-  localStorage.setItem(key, JSON.stringify(cache));
+  sessionStorage.setItem(key, JSON.stringify(cache));
 }
 
 // --------------------- DATA FETCHING ---------------------------------------//

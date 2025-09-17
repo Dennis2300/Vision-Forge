@@ -57,7 +57,7 @@ function selectWeaponType(weaponTypeId) {
 }
 
 const filteredWeapons = computed(() => {
-  const cachedWeapons = localStorage.getItem("weapons");
+  const cachedWeapons = sessionStorage.getItem("weapons");
   if (!cachedWeapons) return [];
 
   try {
