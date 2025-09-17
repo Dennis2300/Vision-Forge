@@ -126,7 +126,18 @@ onMounted(async () => {});
 .character-item {
   margin: 0px auto;
   background-color: darkgray;
-  height: 200px;
+  height: 250px;
   width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.character-item-overview {
+  flex: 2;
+  background-color: darkred;
+}
+.character-item-details {
+  flex: 1;
+  background-color: darkgreen;
 }
 </style>
