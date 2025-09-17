@@ -31,6 +31,18 @@
           }"
         >
           <div class="character-item-overview">
+            <div
+              v-if="isNewCharacter(character)"
+              class="ribbon ribbon-top-right"
+            >
+              <span class="new">New</span>
+            </div>
+            <div
+              v-if="isUpcomingCharacter(character)"
+              class="ribbon ribbon-top-right"
+            >
+              <span class="upcoming">Upcoming</span>
+            </div>
             <img
               v-if="character.splash_art"
               class="character-item-splash-art"
@@ -80,7 +92,6 @@
         </div>
       </div>
     </div>
-    <LoadingSpinner v-if="loading" />
   </div>
 </template>
 
@@ -88,7 +99,7 @@
 // import necessary modules and components
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { supabase } from "./../supabaseClient.js";
-import LoadingSpinner from "./../components/LoadingSpinner.vue";
+import "./../css/Ribbon.css";
 
 // state variables
 const loading = ref(false);
@@ -123,7 +134,7 @@ async function fetchCharacters() {
       .from("characters") // specify the table name
       .select(
         // select specific columns and related data
-        "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name)"
+        "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name), new_character, is_upcoming"
       )
       .order("release_date", { ascending: false }) // order by release date descending
       .range(from, to); // apply range for pagination
@@ -153,6 +164,22 @@ async function fetchCharacters() {
     // reset loading state
     loading.value = false;
   }
+}
+
+// Helper Functions
+// Check if a character is new
+function isNewCharacter(character) {
+  if (character && typeof character.new_character !== "undefined") {
+    return Boolean(character.new_character);
+  }
+  return false;
+}
+// Check if a character is upcoming
+function isUpcomingCharacter(character) {
+  if (character && typeof character.is_upcoming !== "undefined") {
+    return Boolean(character.is_upcoming);
+  }
+  return false;
 }
 
 onMounted(async () => {
@@ -398,5 +425,9 @@ onUnmounted(() => {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
   box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+
+.upcoming {
+  font-size: 9px;
 }
 </style>
