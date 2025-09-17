@@ -21,8 +21,12 @@
     <div class="character-page">
       <div class="offset">Offset</div>
       <div class="character-display-container">
-        <div class="character-item">
-          <div class="character-item-overview">NAME</div>
+        <div
+          class="character-item"
+          v-for="character in characters"
+          :key="character.id"
+        >
+          <div class="character-item-overview">{{ character.name }}</div>
           <div class="character-item-details">DETAILS</div>
         </div>
       </div>
@@ -47,8 +51,27 @@ const error = ref(null);
 // Data states
 const characters = ref([]);
 
+// Function to fetch characters from Supabase
+async function fetchAllCharacters() {
+  loading.value = true;
+  error.value = null;
+  try {
+    let { data, error: fetchError } = await supabase
+      .from("characters")
+      .select("*");
+    if (fetchError) throw fetchError;
+    characters.value = data;
+  } catch (err) {
+    error.value = err.message || "An error occurred while fetching data.";
+  } finally {
+    loading.value = false;
+  }
+}
+
 // Fetch characters on page load
-onMounted(async () => {});
+onMounted(async () => {
+  await fetchAllCharacters();
+});
 </script>
 
 <style scoped>
