@@ -23,17 +23,36 @@
     <div class="character-page mb-16" v-if="!error">
       <!-- Offset For Filters -->
       <div class="offset">
-        <div>
-          <h2 class="divider">Filter By Vision</h2>
-          <div
-            class="filter-vision-container"
-            v-for="vision in visions"
-            :key="vision.id"
-          >
-            <div class="filter-vision-item">
-              <img class="filter-vision-image" :src="vision.image_url" alt="" />
+        <!-- vision -->
+        <div class="vision-filter-container">
+          <h2 class="divider">Vision</h2>
+          <div class="vision-grid mb-10">
+            <div class="vision-item" v-for="vision in visions" :key="vision.id">
+              <img
+                class="vision-filter-image"
+                :src="vision.image_url"
+                :alt="vision.name"
+                @click="toggleVision(vision.id)"
+              />
             </div>
           </div>
+        </div>
+        <!-- rarity -->
+        <div class="rarity-filter-container">
+          <h2 class="divider">Rarity</h2>
+        </div>
+        <!-- weapon -->
+        <div class="weapon-filter-container">
+          <h2 class="divider">Weapon Type</h2>
+        </div>
+        <!-- region -->
+        <div class="region-filter-container">
+          <h2 class="divider">Region</h2>
+        </div>
+        <!-- Apply And Reset Button -->
+        <div>
+          <button>Reset</button>
+          <button>Apply</button>
         </div>
       </div>
       <!-- Character Display -->
@@ -133,6 +152,9 @@ const error = ref(null);
 const characters = ref([]); // array to hold character data
 const visions = ref([]); // array to hold vision data
 
+// Select options states
+const selectedVisions = ref([]); // array to hold selected visions
+
 // pagination states
 const page = ref(1); // current page number
 const pageSize = 10; // number of characters per page
@@ -204,6 +226,9 @@ async function fetchCharacters() {
     loading.value = false;
   }
 }
+
+// -------- Filter Functions -------------
+function selectVision(visionId) {}
 
 // -------- Utility Functions -------------
 // Check if a character is new

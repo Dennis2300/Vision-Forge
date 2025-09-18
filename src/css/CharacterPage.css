@@ -1,3 +1,4 @@
+/* Character Page and Header Styles */
 .character-page-container {
   width: 1500px;
   min-height: 100vh;
@@ -51,6 +52,7 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
+/* Character Page Styles */
 .character-page {
   min-height: 100vh;
   display: flex;
@@ -61,7 +63,43 @@
   background-color: var(--secondary);
   border-radius: 15px;
   height: fit-content;
+  padding: 15px;
 }
+
+.offset h2 {
+  color: white;
+  font-family: var(--font-acme);
+  letter-spacing: 1.5px;
+}
+
+.vision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.vision-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.vision-filter-image {
+  background-color: var(--filter-color);
+  border: 1px solid black;
+  height: 65px;
+  width: 65px;
+  border-radius: 100%;
+  padding: 10px;
+  object-fit: contain;
+}
+
+.vision-filter-image:hover {
+  background-color: var(--filter-color-hover);
+}
+
 .character-display-container {
   flex: 4;
   display: flex;
@@ -69,6 +107,7 @@
   gap: 50px;
 }
 
+/*- Character Item Styles */
 .character-item {
   margin: 0px auto;
   height: 250px;
@@ -174,6 +213,7 @@
   color: gray;
 }
 
+/** Load More Trigger Styles */
 .load-more-trigger {
   text-align: center;
   padding: 20px;
@@ -184,6 +224,7 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
+/* Other small styles */
 .rarity-5 .character-item-image {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
