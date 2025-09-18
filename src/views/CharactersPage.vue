@@ -22,7 +22,7 @@
       <div class="offset">Offset</div>
       <div class="character-display-container">
         <router-link
-          :to="`/characters/${character.id}`"
+            :to="`/characters/${character.id}?name=${encodeURIComponent(character.name)}`"
           class="character-item"
           v-for="character in characters"
           :key="character.id"
