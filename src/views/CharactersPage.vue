@@ -166,10 +166,19 @@ let observer = null;
 // -------- Data Fetching Function --------
 async function fetchVisions() {
   try {
+    // Check cache first
+    const cached = cache("visions");
+    if (cached) {
+      visions.value = cached;
+      return;
+    }
+    // Fetch visions from Supabase
     const { data, error: fetchError } = await supabase
       .from("visions")
       .select("*,id, name, image_url");
     if (fetchError) throw fetchError;
+
+    cache("visions", data)
     visions.value = data;
   } catch (err) {
     console.error("Error fetching visions:", err);
@@ -242,6 +251,30 @@ function isUpcomingCharacter(character) {
     return Boolean(character.is_upcoming);
   }
   return false;
+}
+
+// -------- Cache Functions -------------
+function cache(key, data = null, ttl = 5 * 10 * 1000) {
+  const now = new Date().getTime();
+
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  }
 }
 
 onMounted(async () => {
