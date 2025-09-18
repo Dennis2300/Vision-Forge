@@ -22,12 +22,27 @@
     <!-- Character Page Content -->
     <div class="character-page mb-16" v-if="!error">
       <!-- Offset For Filters -->
-      <div class="offset">Offset</div>
+      <div class="offset">
+        <div>
+          <h2 class="divider">Filter By Vision</h2>
+          <div
+            class="filter-vision-container"
+            v-for="vision in visions"
+            :key="vision.id"
+          >
+            <div class="filter-vision-item">
+              <img class="filter-vision-image" :src="vision.image_url" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Character Display -->
       <div class="character-display-container">
         <!-- Character Card -->
         <router-link
-            :to="`/characters/${character.id}?name=${encodeURIComponent(character.name)}`"
+          :to="`/characters/${character.id}?name=${encodeURIComponent(
+            character.name
+          )}`"
           class="character-item"
           v-for="character in characters"
           :key="character.id"
@@ -36,7 +51,7 @@
             'rarity-4': character.rarity === 4,
           }"
         >
-        <!-- Character Overview -->
+          <!-- Character Overview -->
           <div class="character-item-overview">
             <div
               v-if="isNewCharacter(character)"
@@ -116,6 +131,9 @@ const error = ref(null);
 
 // data states
 const characters = ref([]); // array to hold character data
+const visions = ref([]); // array to hold vision data
+
+// pagination states
 const page = ref(1); // current page number
 const pageSize = 10; // number of characters per page
 const hasMore = ref(true); // flag to indicate if more characters are available
@@ -124,7 +142,19 @@ const loadMoreTrigger = ref(null); // reference to the load more trigger element
 // Intersection Observer instance
 let observer = null;
 
-// function to fetch characters from Supabase
+// -------- Data Fetching Function --------
+async function fetchVisions() {
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("visions")
+      .select("*,id, name, image_url");
+    if (fetchError) throw fetchError;
+    visions.value = data;
+  } catch (err) {
+    console.error("Error fetching visions:", err);
+  }
+}
+
 async function fetchCharacters() {
   // prevent multiple fetches or fetching when no more data
   if (!hasMore.value || loading.value) return;
@@ -175,7 +205,7 @@ async function fetchCharacters() {
   }
 }
 
-// Helper Functions
+// -------- Utility Functions -------------
 // Check if a character is new
 function isNewCharacter(character) {
   if (character && typeof character.new_character !== "undefined") {
@@ -192,6 +222,7 @@ function isUpcomingCharacter(character) {
 }
 
 onMounted(async () => {
+  await fetchVisions();
   const cached = sessionStorage.getItem("characters");
 
   if (cached) {
@@ -237,5 +268,3 @@ onUnmounted(() => {
   }
 });
 </script>
-
-
