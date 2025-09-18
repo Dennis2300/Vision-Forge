@@ -32,7 +32,7 @@
                 class="vision-filter-image"
                 :src="vision.image_url"
                 :alt="vision.name"
-                @click="toggleVision(vision.id)"
+                @click="selectVision(vision.id)"
               />
             </div>
           </div>
