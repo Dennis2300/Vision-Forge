@@ -26,13 +26,14 @@
         <!-- vision -->
         <div class="vision-filter-container">
           <h2 class="divider">Vision</h2>
-          <div class="vision-grid mb-10">
-            <div class="vision-item" v-for="vision in visions" :key="vision.id">
+          <div class="vision-filter-grid mb-10">
+            <div class="vision-filter-item" v-for="vision in visions" :key="vision.id">
               <img
                 class="vision-filter-image"
                 :src="vision.image_url"
                 :alt="vision.name"
               />
+              <h5>{{ vision.name }}</h5>
             </div>
           </div>
         </div>

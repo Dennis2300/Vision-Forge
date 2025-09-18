@@ -73,33 +73,37 @@
 }
 
 /* Vision Filter */
-.vision-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 0px 25px 0px 25px;
-}
-
-.vision-item {
+.vision-filter-grid {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  gap: 15px;
+}
+.vision-filter-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--filter-color);
+  width: 66%;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-family: var(--font-acme);
+  letter-spacing: 1.5px;
+  font-size: 1.5em;
+}
+
+.vision-filter-item:hover {
+  background-color: var(--filter-color-hover);
 }
 
 .vision-filter-image {
-  background-color: var(--filter-color);
-  border: 1px solid black;
   height: 50px;
   width: 50px;
-  border-radius: 100%;
-  padding: 10px;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-.vision-filter-image:hover {
-  background-color: var(--filter-color-hover);
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 /* Rarity Filter */
