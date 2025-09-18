@@ -21,7 +21,8 @@
     <div class="character-page mb-16" v-if="!error">
       <div class="offset">Offset</div>
       <div class="character-display-container">
-        <div
+        <router-link
+          :to="`/characters/${character.id}`"
           class="character-item"
           v-for="character in characters"
           :key="character.id"
@@ -85,7 +86,7 @@
               }}
             </p>
           </div>
-        </div>
+        </router-link>
 
         <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
           <p>Loading More...</p>
