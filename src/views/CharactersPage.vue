@@ -1,6 +1,7 @@
 <template>
   <!-- Character Page Container -->
   <div class="character-page-container">
+    <!-- Character Page Header -->
     <div class="character-page-header-container mt-5">
       <div class="character-page-header-banner">
         <h1 class="character-page-header">Character Page</h1>
@@ -18,9 +19,13 @@
         based on your preferences.
       </p>
     </div>
+    <!-- Character Page Content -->
     <div class="character-page mb-16" v-if="!error">
+      <!-- Offset For Filters -->
       <div class="offset">Offset</div>
+      <!-- Character Display -->
       <div class="character-display-container">
+        <!-- Character Card -->
         <router-link
             :to="`/characters/${character.id}?name=${encodeURIComponent(character.name)}`"
           class="character-item"
@@ -31,6 +36,7 @@
             'rarity-4': character.rarity === 4,
           }"
         >
+        <!-- Character Overview -->
           <div class="character-item-overview">
             <div
               v-if="isNewCharacter(character)"
@@ -60,6 +66,7 @@
               <h1 class="character-name mt-3">{{ character.name }}</h1>
             </div>
           </div>
+          <!-- Character Details -->
           <div class="character-item-details">
             <img
               class="character-vision-image"
@@ -87,7 +94,7 @@
             </p>
           </div>
         </router-link>
-
+        <!-- Sentinel For Loading More -->
         <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
           <p>Loading More...</p>
         </div>
