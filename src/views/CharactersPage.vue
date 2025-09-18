@@ -39,6 +39,10 @@
         <!-- rarity -->
         <div class="rarity-filter-container">
           <h2 class="divider">Rarity</h2>
+          <div class="rarity-container mb-10">
+            <div class="rarity-item">5 star</div>
+            <div class="rarity-item">4 star</div>
+          </div>
         </div>
         <!-- weapon -->
         <div class="weapon-filter-container">
@@ -153,6 +157,7 @@ const visions = ref([]); // array to hold vision data
 
 // Select options states
 const selectedVision = ref(null); // holds the selected vision
+const selectedRarity = ref(null); // holds the selected rarity
 
 // pagination states
 const page = ref(1); // current page number
@@ -178,7 +183,7 @@ async function fetchVisions() {
       .select("*,id, name, image_url");
     if (fetchError) throw fetchError;
 
-    cache("visions", data)
+    cache("visions", data);
     visions.value = data;
   } catch (err) {
     console.error("Error fetching visions:", err);
