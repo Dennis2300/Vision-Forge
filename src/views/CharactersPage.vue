@@ -155,7 +155,7 @@
         </router-link>
         <!-- Sentinel For Loading More -->
         <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
-          <p>Loading More...</p>
+          <LoadingMoreSpinner />
         </div>
       </div>
     </div>
@@ -168,6 +168,7 @@ import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/Ribbon.css";
 import "./../css/CharacterPage.css";
+import LoadingMoreSpinner from "../components/LoadingMoreSpinner.vue";
 
 // state variables
 const loading = ref(false);
