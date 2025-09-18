@@ -32,7 +32,6 @@
                 class="vision-filter-image"
                 :src="vision.image_url"
                 :alt="vision.name"
-                @click="selectVision(vision.id)"
               />
             </div>
           </div>
@@ -153,7 +152,7 @@ const characters = ref([]); // array to hold character data
 const visions = ref([]); // array to hold vision data
 
 // Select options states
-const selectedVisions = ref([]); // array to hold selected visions
+const selectedVision = ref(null); // holds the selected vision
 
 // pagination states
 const page = ref(1); // current page number
@@ -228,7 +227,6 @@ async function fetchCharacters() {
 }
 
 // -------- Filter Functions -------------
-function selectVision(visionId) {}
 
 // -------- Utility Functions -------------
 // Check if a character is new
