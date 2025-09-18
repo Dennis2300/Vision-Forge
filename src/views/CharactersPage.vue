@@ -75,9 +75,9 @@
         </div>
         <!-- Apply And Reset Button -->
         <div class="divider"></div>
-        <div>
-          <button>Reset</button>
-          <button>Apply</button>
+        <div class="filter-buttons-container mb-4">
+          <button class="filter-button">Reset</button>
+          <button class="filter-button">Apply</button>
         </div>
       </div>
       <!-- Character Display -->

@@ -268,3 +268,27 @@
 .upcoming {
   font-size: 9px;
 }
+
+.filter-buttons-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 10px;
+}
+
+.filter-button {
+  background-color: var(--filter-color);
+  color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: var(--font-acme);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex: 1;
+}
+
+.filter-button:hover {
+  background-color: var(--filter-color-hover);
+}
