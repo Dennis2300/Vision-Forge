@@ -27,7 +27,11 @@
         <div class="vision-filter-container">
           <h2 class="divider">Vision</h2>
           <div class="vision-filter-grid mb-10">
-            <div class="vision-filter-item" v-for="vision in visions" :key="vision.id">
+            <div
+              class="vision-filter-item"
+              v-for="vision in visions"
+              :key="vision.id"
+            >
               <img
                 class="vision-filter-image"
                 :src="vision.image_url"
@@ -46,8 +50,20 @@
           </div>
         </div>
         <!-- weapon -->
-        <div class="weapon-filter-container">
+        <div class="weapon-filter-container mb-10">
           <h2 class="divider">Weapon Type</h2>
+          <div
+            class="weapon-type-item"
+            v-for="weaponType in weaponTypes"
+            :key="weaponType.id"
+          >
+            <img
+              class="weapon-type-image"
+              :src="weaponType.image_url"
+              :alt="weaponType.name"
+            />
+            <h5>{{ weaponType.name }}</h5>
+          </div>
         </div>
         <!-- region -->
         <div class="region-filter-container">
@@ -155,6 +171,7 @@ const error = ref(null);
 // data states
 const characters = ref([]); // array to hold character data
 const visions = ref([]); // array to hold vision data
+const weaponTypes = ref([]); // array to hold weapon type data
 
 // Select options states
 const selectedVision = ref(null); // holds the selected vision
@@ -188,6 +205,28 @@ async function fetchVisions() {
     visions.value = data;
   } catch (err) {
     console.error("Error fetching visions:", err);
+  }
+}
+
+async function fetchWeaponTypes() {
+  try {
+    // Check cache first
+    const cached = cache("weaponTypes");
+    if (cached) {
+      weaponTypes.value = cached;
+      return;
+    }
+    // Fetch weapon types from Supabase
+    const { data, error: fetchError } = await supabase
+      .from("weaponTypes")
+      .select("*,id, name, image_url");
+    if (fetchError) throw fetchError;
+
+    cache("weaponTypes", data);
+    weaponTypes.value = data;
+    console.log("Fetched weapon types:", weaponTypes.value);
+  } catch (err) {
+    console.error("Error fetching weapon types:", err);
   }
 }
 
@@ -285,6 +324,7 @@ function cache(key, data = null, ttl = 5 * 10 * 1000) {
 
 onMounted(async () => {
   await fetchVisions();
+  await fetchWeaponTypes();
   const cached = sessionStorage.getItem("characters");
 
   if (cached) {
