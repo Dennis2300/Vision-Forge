@@ -62,7 +62,7 @@
           </div>
         </div>
         <!-- region -->
-        <div class="filter-container mb-10">
+        <div class="filter-container mb-5">
           <h2 class="divider">Region</h2>
           <div class="filter-item" v-for="region in regions" :key="region.id">
             <img
