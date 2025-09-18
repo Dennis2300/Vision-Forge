@@ -73,14 +73,14 @@
 }
 
 /* Vision Filter */
-.vision-filter-grid {
+.filter-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 15px;
 }
-.vision-filter-item {
+.filter-item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -95,11 +95,11 @@
   font-size: 1.5em;
 }
 
-.vision-filter-item:hover {
+.filter-item:hover {
   background-color: var(--filter-color-hover);
 }
 
-.vision-filter-image {
+.filter-image {
   height: 50px;
   width: 50px;
   object-fit: cover;
@@ -133,41 +133,6 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
-}
-
-/* Weapon Type Filter */
-.weapon-filter-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.weapon-type-item {
-  background-color: var(--filter-color);
-  width: 66%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid black;
-  cursor: pointer;
-  font-family: var(--font-acme);
-  letter-spacing: 1.5px;
-  font-size: 1.5em;
-}
-
-.weapon-type-item:hover {
-  background-color: var(--filter-color-hover);
-}
-
-.weapon-type-image {
-  height: 50px;
-  width: 50px;
-  object-fit: cover;
-  margin-right: 10px;
 }
 
 /*- Character Item Styles */

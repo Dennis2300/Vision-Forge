@@ -26,14 +26,10 @@
         <!-- vision -->
         <div class="vision-filter-container">
           <h2 class="divider">Vision</h2>
-          <div class="vision-filter-grid mb-10">
-            <div
-              class="vision-filter-item"
-              v-for="vision in visions"
-              :key="vision.id"
-            >
+          <div class="filter-container mb-10">
+            <div class="filter-item" v-for="vision in visions" :key="vision.id">
               <img
-                class="vision-filter-image"
+                class="filter-image"
                 :src="vision.image_url"
                 :alt="vision.name"
               />
@@ -50,15 +46,15 @@
           </div>
         </div>
         <!-- weapon -->
-        <div class="weapon-filter-container mb-10">
+        <div class="filter-container mb-10">
           <h2 class="divider">Weapon Type</h2>
           <div
-            class="weapon-type-item"
+            class="filter-item"
             v-for="weaponType in weaponTypes"
             :key="weaponType.id"
           >
             <img
-              class="weapon-type-image"
+              class="filter-image"
               :src="weaponType.image_url"
               :alt="weaponType.name"
             />
@@ -66,10 +62,19 @@
           </div>
         </div>
         <!-- region -->
-        <div class="region-filter-container">
+        <div class="filter-container mb-10">
           <h2 class="divider">Region</h2>
+          <div class="filter-item" v-for="region in regions" :key="region.id">
+            <img
+              class="filter-image"
+              :src="region.image_url"
+              :alt="region.name"
+            />
+            <h5>{{ region.name }}</h5>
+          </div>
         </div>
         <!-- Apply And Reset Button -->
+        <div class="divider"></div>
         <div>
           <button>Reset</button>
           <button>Apply</button>
@@ -172,6 +177,7 @@ const error = ref(null);
 const characters = ref([]); // array to hold character data
 const visions = ref([]); // array to hold vision data
 const weaponTypes = ref([]); // array to hold weapon type data
+const regions = ref([]); // array to hold region data
 
 // Select options states
 const selectedVision = ref(null); // holds the selected vision
@@ -227,6 +233,27 @@ async function fetchWeaponTypes() {
     console.log("Fetched weapon types:", weaponTypes.value);
   } catch (err) {
     console.error("Error fetching weapon types:", err);
+  }
+}
+
+async function fetchRegions() {
+  try {
+    // Check cache first
+    const cached = cache("regions");
+    if (cached) {
+      regions.value = cached;
+      return;
+    }
+    // Fetch regions from Supabase
+    const { data, error: fetchError } = await supabase
+      .from("regions")
+      .select("*,id, name, image_url");
+    if (fetchError) throw fetchError;
+
+    cache("regions", data);
+    regions.value = data;
+  } catch (err) {
+    console.error("Error fetching regions:", err);
   }
 }
 
@@ -325,6 +352,7 @@ function cache(key, data = null, ttl = 5 * 10 * 1000) {
 onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();
+  await fetchRegions();
   const cached = sessionStorage.getItem("characters");
 
   if (cached) {
