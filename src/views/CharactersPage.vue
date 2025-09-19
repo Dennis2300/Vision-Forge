@@ -28,7 +28,7 @@
           <h2 class="divider">Vision</h2>
           <div class="filter-container mb-10">
             <div
-              class="filter-item"
+              class="filter-item selected"
               v-for="vision in visions"
               :key="vision.id"
               :class="{ active: selectedVision === vision.id }"
@@ -48,7 +48,7 @@
           <h2 class="divider">Rarity</h2>
           <div class="rarity-container mb-10">
             <div
-              class="rarity-item"
+              class="rarity-item selected"
               :class="{ active: selectedRarity === 5 }"
               @click="selectedRarity = 5"
             >
@@ -67,7 +67,7 @@
         <div class="filter-container mb-10">
           <h2 class="divider">Weapon Type</h2>
           <div
-            class="filter-item"
+            class="filter-item selected"
             v-for="weaponType in weaponTypes"
             :key="weaponType.id"
             :class="{ active: selectedWeaponType === weaponType.id }"
@@ -85,7 +85,7 @@
         <div class="filter-container mb-5">
           <h2 class="divider">Region</h2>
           <div
-            class="filter-item"
+            class="filter-item selected"
             v-for="region in regions"
             :key="region.id"
             :class="{ active: selectedRegion === region.id }"
