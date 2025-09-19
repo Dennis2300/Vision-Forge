@@ -55,7 +55,7 @@
               5 star
             </div>
             <div
-              class="rarity-item"
+              class="rarity-item selected"
               :class="{ active: selectedRarity === 4 }"
               @click="selectedRarity = 4"
             >
