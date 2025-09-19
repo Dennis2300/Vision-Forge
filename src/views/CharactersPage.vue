@@ -23,80 +23,130 @@
     <div class="character-page mb-16" v-if="!error">
       <!-- Offset For Filters -->
       <div class="offset">
-        <!-- vision -->
-        <div class="vision-filter-container">
-          <h2 class="divider">Vision</h2>
-          <div class="filter-container mb-10">
-            <div
-              class="filter-item selected"
-              v-for="vision in visions"
-              :key="vision.id"
-              :class="{ active: selectedVision === vision.id }"
-              @click="selectedVision = vision.id"
-            >
-              <img
-                class="filter-image"
-                :src="vision.image_url"
-                :alt="vision.name"
-              />
-              <h5>{{ vision.name }}</h5>
-            </div>
+        <!-- rarity -->
+        <h2 class="divider">Rarity</h2>
+        <div class="rarity-container mb-10">
+          <div
+            class="rarity-item selected"
+            :class="{ active: selectedRarity === 5 }"
+            @click="selectedRarity = 5"
+          >
+            5 star
+          </div>
+          <div
+            class="rarity-item selected"
+            :class="{ active: selectedRarity === 4 }"
+            @click="selectedRarity = 4"
+          >
+            4 star
           </div>
         </div>
-        <!-- rarity -->
-        <div class="rarity-filter-container">
-          <h2 class="divider">Rarity</h2>
-          <div class="rarity-container mb-10">
-            <div
-              class="rarity-item selected"
-              :class="{ active: selectedRarity === 5 }"
-              @click="selectedRarity = 5"
-            >
-              5 star
+        <!-- vision -->
+        <h2 class="divider">Vision</h2>
+        <div class="filter-container mb-10">
+          <div class="custom-dropdown">
+            <!-- Selected item -->
+            <div class="dropdown-selected" @click="toggleDropdown('vision')">
+              <img
+                v-if="selectedVisionObj"
+                :src="selectedVisionObj.image_url"
+                alt=""
+                class="dropdown-icon"
+              />
+              <span>
+                {{ selectedVisionObj ? selectedVisionObj.name : "All" }}
+              </span>
+              <span class="arrow">▼</span>
             </div>
-            <div
-              class="rarity-item selected"
-              :class="{ active: selectedRarity === 4 }"
-              @click="selectedRarity = 4"
-            >
-              4 star
-            </div>
+
+            <!-- Dropdown options -->
+            <ul v-if="isOpen('vision')" class="dropdown-list">
+              <li @click="selectVision(null)">
+                <span>All</span>
+              </li>
+              <li
+                v-for="vision in visions"
+                :key="vision.id"
+                @click="selectVision(vision)"
+              >
+                <img :src="vision.image_url" alt="" class="dropdown-icon" />
+                <span>{{ vision.name }}</span>
+              </li>
+            </ul>
           </div>
         </div>
         <!-- weapon -->
+        <h2 class="divider">Weapon Type</h2>
         <div class="filter-container mb-10">
-          <h2 class="divider">Weapon Type</h2>
-          <div
-            class="filter-item selected"
-            v-for="weaponType in weaponTypes"
-            :key="weaponType.id"
-            :class="{ active: selectedWeaponType === weaponType.id }"
-            @click="selectedWeaponType = weaponType.id"
-          >
-            <img
-              class="filter-image"
-              :src="weaponType.image_url"
-              :alt="weaponType.name"
-            />
-            <h5>{{ weaponType.name }}</h5>
+          <div class="custom-dropdown">
+            <!-- Selected item -->
+            <div class="dropdown-selected" @click="toggleDropdown('weapon')">
+              <img
+                v-if="selectedWeaponType"
+                :src="
+                  weaponTypes.find((wt) => wt.id === selectedWeaponType)
+                    ?.image_url
+                "
+                alt=""
+                class="dropdown-icon"
+              />
+              <span>
+                {{
+                  weaponTypes.find((wt) => wt.id === selectedWeaponType)
+                    ?.name || "All"
+                }}
+              </span>
+              <span class="arrow">▼</span>
+            </div>
+
+            <!-- Dropdown options -->
+            <ul v-if="isOpen('weapon')" class="dropdown-list">
+              <li @click="selectWeaponType(null)">
+                <span>All</span>
+              </li>
+              <li
+                v-for="weaponType in weaponTypes"
+                :key="weaponType.id"
+                @click="selectWeaponType(weaponType)"
+              >
+                <img :src="weaponType.image_url" alt="" class="dropdown-icon" />
+                <span>{{ weaponType.name }}</span>
+              </li>
+            </ul>
           </div>
         </div>
         <!-- region -->
-        <div class="filter-container mb-5">
-          <h2 class="divider">Region</h2>
-          <div
-            class="filter-item selected"
-            v-for="region in regions"
-            :key="region.id"
-            :class="{ active: selectedRegion === region.id }"
-            @click="selectedRegion = region.id"
-          >
-            <img
-              class="filter-image"
-              :src="region.image_url"
-              :alt="region.name"
-            />
-            <h5>{{ region.name }}</h5>
+        <h2 class="divider">Region</h2>
+        <div class="filter-container mb-10">
+          <div class="custom-dropdown">
+            <!-- Selected item -->
+            <div class="dropdown-selected" @click="toggleDropdown('region')">
+              <img
+                v-if="selectedRegionObj"
+                :src="selectedRegionObj.image_url"
+                alt=""
+                class="dropdown-icon"
+              />
+              <span>
+                {{ selectedRegionObj ? selectedRegionObj.name : "All" }}
+              </span>
+              <span class="arrow">▼</span>
+            </div>
+
+            <!-- Dropdown options -->
+            <ul v-if="isOpen('region')" class="dropdown-list">
+              <li @click="selectRegion(null)">
+                <span>All</span>
+              </li>
+              <li
+                v-for="region in regions"
+                :key="region.id"
+                @click="selectRegion(region)"
+              >
+                <img :src="region.image_url" alt="" class="dropdown-icon" />
+                <span>{{ region.name }}</span>
+              </li>
+            </ul>
           </div>
         </div>
         <!-- Apply And Reset Button -->
@@ -190,7 +240,7 @@
 
 <script setup>
 // import necessary modules and components
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/Ribbon.css";
 import "./../css/CharacterPage.css";
@@ -199,6 +249,7 @@ import LoadingMoreSpinner from "../components/LoadingMoreSpinner.vue";
 // state variables
 const loading = ref(false);
 const error = ref(null);
+const openDropdown = ref(null);
 
 // data states
 const characters = ref([]); // array to hold character data
@@ -364,6 +415,29 @@ function isUpcomingCharacter(character) {
   return false;
 }
 
+function selectVision(vision) {
+  selectedVision.value = vision ? vision.id : null;
+  openDropdown.value = false;
+}
+
+function selectWeaponType(weaponType) {
+  selectedWeaponType.value = weaponType ? weaponType.id : null;
+  openDropdown.value = false;
+}
+
+function selectRegion(region) {
+  selectedRegion.value = region ? region.id : null;
+  openDropdown.value = false;
+}
+
+function toggleDropdown(type) {
+  openDropdown.value = openDropdown.value === type ? null : type;
+}
+
+function isOpen(type) {
+  return openDropdown.value === type;
+}
+
 // -------- Cache Functions -------------
 function cache(key, data = null, ttl = 5 * 10 * 1000) {
   const now = new Date().getTime();
@@ -388,6 +462,17 @@ function cache(key, data = null, ttl = 5 * 10 * 1000) {
   }
 }
 
+// -------- Computed Properties -------------
+const selectedVisionObj = computed(() =>
+  visions.value.find((v) => v.id === selectedVision.value)
+);
+const selectedWeaponTypeObj = computed(() =>
+  weaponTypes.value.find((wt) => wt.id === selectedWeaponType.value)
+);
+const selectedRegionObj = computed(() =>
+  regions.value.find((r) => r.id === selectedRegion.value)
+);
+// -------- Lifecycle Hooks -------------
 onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();

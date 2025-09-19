@@ -81,31 +81,6 @@
   justify-content: center;
   gap: 15px;
 }
-.filter-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: var(--filter-color);
-  width: 66%;
-  border-radius: 10px;
-  padding: 10px;
-  border: 1px solid black;
-  cursor: pointer;
-  font-family: var(--font-acme);
-  letter-spacing: 1.5px;
-  font-size: 1.5em;
-}
-
-.filter-item:hover {
-  background-color: var(--filter-color-hover);
-}
-
-.filter-image {
-  height: 50px;
-  width: 50px;
-  object-fit: cover;
-  margin-right: 10px;
-}
 
 /* Rarity Filter */
 .rarity-container {
@@ -297,4 +272,68 @@
 
 .filter-button:hover {
   background-color: var(--filter-color-hover);
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 220px;
+  font-family: var(--font-acme);
+  letter-spacing: 1.5px;
+}
+
+.dropdown-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  border: 1px solid black;
+  border-radius: 0.75rem;
+  background: var(--filter-color);
+  cursor: pointer;
+}
+
+.dropdown-selected img.dropdown-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 0.25rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  background: var(--filter-color);
+  list-style: none;
+  padding: 0;
+  z-index: 10;
+}
+
+.dropdown-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background: var(--filter-color-hover);
+  border-radius: 0.5rem;
+}
+
+.dropdown-list img.dropdown-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: white;
 }
