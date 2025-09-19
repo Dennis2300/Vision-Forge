@@ -90,12 +90,8 @@
 
             <!-- character regions -->
             <h1 class="divider mt-5">Region</h1>
-            <div
-              class="character-list-view mt-8"
-              v-for="region in character.regions"
-              :key="region.id"
-            >
-              <img :src="region.image_url" alt="" class="region-image" />
+            <div class="character-list-view mt-8" v-for="region in character.regions" :key="region.id">
+              <img :src="region.image_url" alt="" class="region-image">
               <p class="region-name">
                 {{ region.name }}
               </p>
@@ -299,7 +295,7 @@ const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 // Function to get cached data from local storage
 function getCachedData(key) {
-  const cachedData = sessionStorage.getItem(key);
+  const cachedData = localStorage.getItem(key);
   if (!cachedData) return null;
 
   const { timestamp, data } = JSON.parse(cachedData);
@@ -308,7 +304,7 @@ function getCachedData(key) {
   if (now - timestamp < CACHE_DURATION) {
     return data;
   } else {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
     return null;
   }
 }
@@ -319,7 +315,7 @@ function setCachedData(key, data) {
     timestamp: new Date().getTime(),
     data,
   };
-  sessionStorage.setItem(key, JSON.stringify(cache));
+  localStorage.setItem(key, JSON.stringify(cache));
 }
 
 // Fetch base character details
