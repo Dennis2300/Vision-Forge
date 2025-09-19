@@ -231,7 +231,6 @@ async function fetchWeaponTypes() {
 
     cache("weaponTypes", data);
     weaponTypes.value = data;
-    console.log("Fetched weapon types:", weaponTypes.value);
   } catch (err) {
     console.error("Error fetching weapon types:", err);
   }
