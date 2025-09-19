@@ -344,6 +344,16 @@ async function fetchCharacters({ reset = false, filters = {} } = {}) {
   const to = from + pageSize - 1;
 
   try {
+    const cached = cache("characters");
+    if (cached && !reset) {
+      characters.value = cached;
+      hasMore.value = cached.length >= pageSize;
+      loading.value = false;
+      return;
+    }
+
+    loading.value = true;
+
     let query = supabase
       .from("characters")
       .select(
@@ -363,6 +373,14 @@ async function fetchCharacters({ reset = false, filters = {} } = {}) {
     if (data.length < pageSize) hasMore.value = false;
     characters.value.push(...data);
     page.value++;
+    sessionStorage.setItem(
+      "characters",
+      JSON.stringify({
+        characters: characters.value,
+        page: page.value,
+        hasMore: hasMore.value,
+      })
+    );
   } catch (err) {
     error.value = err.message || "Failed to load characters";
   } finally {
@@ -372,6 +390,7 @@ async function fetchCharacters({ reset = false, filters = {} } = {}) {
 
 // -------- Filter Functions -------------
 function getActiveFilters() {
+  // Get currently selected filters
   return {
     vision: selectedVision.value,
     rarity: selectedRarity.value,
@@ -381,11 +400,13 @@ function getActiveFilters() {
 }
 
 function applyFilters() {
+  // Apply selected filters and fetch characters
   const filters = getActiveFilters();
   fetchCharacters({ reset: true, filters });
 }
 
 function resetFilters() {
+  // Clear all filters and fetch unfiltered characters
   selectedVision.value = null;
   selectedRarity.value = null;
   selectedWeaponType.value = null;
@@ -395,19 +416,23 @@ function resetFilters() {
 
 // -------- Utility Functions -------------
 function isNewCharacter(character) {
+  // Check if character is new
   if (character && typeof character.new_character !== "undefined") {
     return Boolean(character.new_character);
   }
   return false;
 }
 function isUpcomingCharacter(character) {
+  // Check if character is upcoming
   if (character && typeof character.is_upcoming !== "undefined") {
     return Boolean(character.is_upcoming);
   }
   return false;
 }
 
+// ------ Dropdown Functions -------------
 function selectRarity(rarity) {
+  // Toggle rarity selection
   if (selectedRarity.value === rarity) {
     selectedRarity.value = null;
   } else {
@@ -416,25 +441,30 @@ function selectRarity(rarity) {
 }
 
 function selectVision(vision) {
+  // Set selected vision and close dropdown
   selectedVision.value = vision ? vision.id : null;
   openDropdown.value = false;
 }
 
 function selectWeaponType(weaponType) {
+  // Set selected weapon type and close dropdown
   selectedWeaponType.value = weaponType ? weaponType.id : null;
   openDropdown.value = false;
 }
 
 function selectRegion(region) {
+  // Set selected region and close dropdown
   selectedRegion.value = region ? region.id : null;
   openDropdown.value = false;
 }
 
 function toggleDropdown(type) {
+  // Toggle dropdown visibility
   openDropdown.value = openDropdown.value === type ? null : type;
 }
 
 function isOpen(type) {
+  // Check if a specific dropdown is open
   return openDropdown.value === type;
 }
 
@@ -473,6 +503,7 @@ const selectedRegionObj = computed(() =>
   regions.value.find((r) => r.id === selectedRegion.value)
 );
 // -------- Lifecycle Hooks -------------
+// on component mount, fetch initial data and setup observer
 onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();
@@ -513,7 +544,6 @@ onMounted(async () => {
     observer.observe(loadMoreTrigger.value);
   }
 });
-
 // clean up observer on component unmount
 onUnmounted(() => {
   if (observer && loadMoreTrigger.value) {
