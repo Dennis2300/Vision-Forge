@@ -309,6 +309,9 @@ async function fetchCharacters() {
 }
 
 // -------- Filter Functions -------------
+function characterFilter() {
+  // Filter characters based on selected vision and rarity
+}
 
 // -------- Utility Functions -------------
 // Check if a character is new
