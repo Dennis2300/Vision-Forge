@@ -27,7 +27,13 @@
         <div class="vision-filter-container">
           <h2 class="divider">Vision</h2>
           <div class="filter-container mb-10">
-            <div class="filter-item" v-for="vision in visions" :key="vision.id">
+            <div
+              class="filter-item"
+              v-for="vision in visions"
+              :key="vision.id"
+              :class="{ active: selectedVision === vision.id }"
+              @click="selectedVision = vision.id"
+            >
               <img
                 class="filter-image"
                 :src="vision.image_url"
@@ -41,8 +47,20 @@
         <div class="rarity-filter-container">
           <h2 class="divider">Rarity</h2>
           <div class="rarity-container mb-10">
-            <div class="rarity-item">5 star</div>
-            <div class="rarity-item">4 star</div>
+            <div
+              class="rarity-item"
+              :class="{ active: selectedRarity === 5 }"
+              @click="selectedRarity = 5"
+            >
+              5 star
+            </div>
+            <div
+              class="rarity-item"
+              :class="{ active: selectedRarity === 4 }"
+              @click="selectedRarity = 4"
+            >
+              4 star
+            </div>
           </div>
         </div>
         <!-- weapon -->
@@ -52,6 +70,8 @@
             class="filter-item"
             v-for="weaponType in weaponTypes"
             :key="weaponType.id"
+            :class="{ active: selectedWeaponType === weaponType.id }"
+            @click="selectedWeaponType = weaponType.id"
           >
             <img
               class="filter-image"
@@ -64,7 +84,13 @@
         <!-- region -->
         <div class="filter-container mb-5">
           <h2 class="divider">Region</h2>
-          <div class="filter-item" v-for="region in regions" :key="region.id">
+          <div
+            class="filter-item"
+            v-for="region in regions"
+            :key="region.id"
+            :class="{ active: selectedRegion === region.id }"
+            @click="selectedRegion = region.id"
+          >
             <img
               class="filter-image"
               :src="region.image_url"
@@ -76,8 +102,8 @@
         <!-- Apply And Reset Button -->
         <div class="divider"></div>
         <div class="filter-buttons-container mb-4">
-          <button class="filter-button">Reset</button>
-          <button class="filter-button">Apply</button>
+          <button class="filter-button" @click="resetFilters">Reset</button>
+          <button class="filter-button" @click="applyFilters">Apply</button>
         </div>
       </div>
       <!-- Character Display -->
@@ -183,6 +209,8 @@ const regions = ref([]); // array to hold region data
 // Select options states
 const selectedVision = ref(null); // holds the selected vision
 const selectedRarity = ref(null); // holds the selected rarity
+const selectedWeaponType = ref(null); // holds the selected weapon type
+const selectedRegion = ref(null); // holds the selected region
 
 // pagination states
 const page = ref(1); // current page number
@@ -257,59 +285,67 @@ async function fetchRegions() {
   }
 }
 
-async function fetchCharacters() {
-  // prevent multiple fetches or fetching when no more data
-  if (!hasMore.value || loading.value) return;
+async function fetchCharacters({ reset = false, filters = {} } = {}) {
+  if (reset) {
+    page.value = 1;
+    characters.value = [];
+    hasMore.value = true;
+  }
 
-  // set loading state
+  if (!hasMore.value || loading.value) return;
   loading.value = true;
 
-  // calculate range for pagination
   const from = (page.value - 1) * pageSize;
   const to = from + pageSize - 1;
 
-  // fetch data from Supabase
   try {
-    // Fetch characters with related data
-    const { data, error: fetchError } = await supabase
-      .from("characters") // specify the table name
+    let query = supabase
+      .from("characters")
       .select(
-        // select specific columns and related data
         "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name), new_character, is_upcoming"
       )
-      .order("release_date", { ascending: false }) // order by release date descending
-      .range(from, to); // apply range for pagination
+      .order("release_date", { ascending: false })
+      .range(from, to);
 
-    // handle fetch error
+    if (filters.vision) query = query.eq("vision", filters.vision);
+    if (filters.rarity) query = query.eq("rarity", filters.rarity);
+    if (filters.weaponType) query = query.eq("weapon_type", filters.weaponType);
+    if (filters.region) query = query.eq("region", filters.region);
+
+    const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
 
-    // if less data than pageSize is returned, no more data is available
     if (data.length < pageSize) hasMore.value = false;
-
-    // append new data to characters array and increment page number
     characters.value.push(...data);
     page.value++;
-
-    sessionStorage.setItem(
-      "characters",
-      JSON.stringify({
-        characters: characters.value,
-        page: page.value,
-        hasMore: hasMore.value,
-      })
-    );
   } catch (err) {
-    // handle any errors
     error.value = err.message || "Failed to load characters";
   } finally {
-    // reset loading state
     loading.value = false;
   }
 }
 
 // -------- Filter Functions -------------
-function characterFilter() {
-  // Filter characters based on selected vision and rarity
+function getActiveFilters() {
+  return {
+    vision: selectedVision.value,
+    rarity: selectedRarity.value,
+    weaponType: selectedWeaponType.value,
+    region: selectedRegion.value,
+  };
+}
+
+function applyFilters() {
+  const filters = getActiveFilters();
+  fetchCharacters({ reset: true, filters });
+}
+
+function resetFilters() {
+  selectedVision.value = null;
+  selectedRarity.value = null;
+  selectedWeaponType.value = null;
+  selectedRegion.value = null;
+  fetchCharacters({ reset: true, filters: {} });
 }
 
 // -------- Utility Functions -------------
