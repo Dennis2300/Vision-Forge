@@ -82,19 +82,13 @@
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('weapon')">
               <img
-                v-if="selectedWeaponType"
-                :src="
-                  weaponTypes.find((wt) => wt.id === selectedWeaponType)
-                    ?.image_url
-                "
+                v-if="selectedWeaponTypeObj"
+                :src="selectedWeaponTypeObj.image_url"
                 alt=""
                 class="dropdown-icon"
               />
               <span>
-                {{
-                  weaponTypes.find((wt) => wt.id === selectedWeaponType)
-                    ?.name || "All"
-                }}
+                {{ selectedWeaponTypeObj ? selectedWeaponTypeObj.name : "All" }}
               </span>
               <span class="arrow">▼</span>
             </div>
@@ -400,14 +394,12 @@ function resetFilters() {
 }
 
 // -------- Utility Functions -------------
-// Check if a character is new
 function isNewCharacter(character) {
   if (character && typeof character.new_character !== "undefined") {
     return Boolean(character.new_character);
   }
   return false;
 }
-// Check if a character is upcoming
 function isUpcomingCharacter(character) {
   if (character && typeof character.is_upcoming !== "undefined") {
     return Boolean(character.is_upcoming);
