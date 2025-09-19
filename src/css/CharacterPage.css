@@ -287,8 +287,9 @@
   justify-content: space-between;
   gap: 8px;
   padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+
   border: 1px solid black;
-  border-radius: 0.75rem;
   background: var(--filter-color);
   cursor: pointer;
 }
@@ -306,7 +307,6 @@
   width: 100%;
   margin-top: 0.25rem;
   border: 1px solid black;
-  border-radius: 0.5rem;
   background: var(--filter-color);
   list-style: none;
   padding: 0;
@@ -323,7 +323,6 @@
 
 .dropdown-list li:hover {
   background: var(--filter-color-hover);
-  border-radius: 0.5rem;
 }
 
 .dropdown-list img.dropdown-icon {

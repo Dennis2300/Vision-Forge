@@ -29,14 +29,14 @@
           <div
             class="rarity-item selected"
             :class="{ active: selectedRarity === 5 }"
-            @click="selectedRarity = 5"
+            @click="selectRarity(5)"
           >
             5 star
           </div>
           <div
             class="rarity-item selected"
             :class="{ active: selectedRarity === 4 }"
-            @click="selectedRarity = 4"
+            @click="selectRarity(4)"
           >
             4 star
           </div>
@@ -405,6 +405,14 @@ function isUpcomingCharacter(character) {
     return Boolean(character.is_upcoming);
   }
   return false;
+}
+
+function selectRarity(rarity) {
+  if (selectedRarity.value === rarity) {
+    selectedRarity.value = null;
+  } else {
+    selectedRarity.value = rarity;
+  }
 }
 
 function selectVision(vision) {
