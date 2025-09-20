@@ -168,6 +168,12 @@
           <!-- Character Overview -->
           <div class="character-item-overview">
             <div
+              v-if="isUpcomingCharacter(character)"
+              class="ribbon ribbon-top-left"
+            >
+              <span class="upcoming">Upcoming</span>
+            </div>
+            <div
               v-if="isNewCharacter(character)"
               class="ribbon ribbon-top-right"
             >
@@ -196,9 +202,15 @@
               :src="character.vision.image_url"
               alt=""
             />
-            <p class="character-detail-tag">{{ character.vision?.name || "Unknown Vision" }}</p>
-            <p class="character-detail-tag">{{ character.weapon_type?.name || "Unknown Weapon" }}</p>
-            <p class="character-detail-tag">{{ character.substat?.name || "No Substat" }}</p>
+            <p class="character-detail-tag">
+              {{ character.vision?.name || "Unknown Vision" }}
+            </p>
+            <p class="character-detail-tag">
+              {{ character.weapon_type?.name || "Unknown Weapon" }}
+            </p>
+            <p class="character-detail-tag">
+              {{ character.substat?.name || "No Substat" }}
+            </p>
             <p class="character-detail-tag">{{ character.team_role.name }}</p>
             <p class="character-detail-release-date">
               <strong> Released: </strong>
@@ -546,5 +558,3 @@ onUnmounted(() => {
   }
 });
 </script>
-
-
