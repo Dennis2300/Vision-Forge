@@ -173,12 +173,6 @@
             >
               <span class="new">New</span>
             </div>
-            <div
-              v-if="isUpcomingCharacter(character)"
-              class="ribbon ribbon-top-right"
-            >
-              <span class="upcoming">Upcoming</span>
-            </div>
             <img
               v-if="character.splash_art"
               class="character-item-splash-art"
@@ -202,9 +196,9 @@
               :src="character.vision.image_url"
               alt=""
             />
-            <p class="character-detail-tag">{{ character.vision.name }}</p>
-            <p class="character-detail-tag">{{ character.weapon_type.name }}</p>
-            <p class="character-detail-tag">{{ character.substat.name }}</p>
+            <p class="character-detail-tag">{{ character.vision?.name || "Unknown Vision" }}</p>
+            <p class="character-detail-tag">{{ character.weapon_type?.name || "Unknown Weapon" }}</p>
+            <p class="character-detail-tag">{{ character.substat?.name || "No Substat" }}</p>
             <p class="character-detail-tag">{{ character.team_role.name }}</p>
             <p class="character-detail-release-date">
               <strong> Released: </strong>
@@ -218,7 +212,7 @@
                         day: "numeric",
                       }
                     )
-                  : "N/A"
+                  : "UPCOMING"
               }}
             </p>
           </div>
@@ -552,3 +546,5 @@ onUnmounted(() => {
   }
 });
 </script>
+
+
