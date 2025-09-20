@@ -203,15 +203,17 @@
               alt=""
             />
             <p class="character-detail-tag">
-              {{ character.vision?.name || "Unknown Vision" }}
+              {{ character.vision.name }}
             </p>
             <p class="character-detail-tag">
-              {{ character.weapon_type?.name || "Unknown Weapon" }}
+              {{ character.weapon_type.name }}
             </p>
-            <p class="character-detail-tag">
-              {{ character.substat?.name || "No Substat" }}
+            <p v-if="character.substat" class="character-detail-tag">
+              {{ character.substat.name }}
             </p>
-            <p class="character-detail-tag">{{ character.team_role.name }}</p>
+            <p v-if="character.team_role" class="character-detail-tag">
+              {{ character.team_role.name }}
+            </p>
             <p class="character-detail-release-date">
               <strong> Released: </strong>
               {{

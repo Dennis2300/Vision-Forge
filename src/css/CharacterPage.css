@@ -277,6 +277,12 @@
   border-top: 2px solid black;
 }
 
+.character-vision-image {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
 .character-detail-tag {
   background-color: var(--primary);
   color: var(--tertiary);
