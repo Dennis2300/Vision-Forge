@@ -338,7 +338,7 @@ async function fetchRegions() {
   }
 }
 
-async function fetchCharacters({ reset = false, filters = {} } = {}) {
+async function fetchCharacters({ reset = false } = {}) {
   if (reset) {
     page.value = 1;
     characters.value = [];
@@ -360,27 +360,29 @@ async function fetchCharacters({ reset = false, filters = {} } = {}) {
       return;
     }
 
-    loading.value = true;
-
     let query = supabase
       .from("characters")
       .select(
-        "*, vision:vision(id, name, image_url), team_role:team_role(name), substat:substat(name), weapon_type:weapon_type(id, name), region:region(id, name), new_character, is_upcoming"
+        `*, 
+        vision:vision(id, name, image_url), 
+        team_role:team_role(name), 
+        substat:substat(name), 
+        weapon_type:weapon_type(id, name), 
+        region:region(id, name), 
+        new_character, 
+        is_upcoming`
       )
       .order("release_date", { ascending: false })
       .range(from, to);
-
-    if (filters.vision) query = query.eq("vision", filters.vision);
-    if (filters.rarity) query = query.eq("rarity", filters.rarity);
-    if (filters.weaponType) query = query.eq("weapon_type", filters.weaponType);
-    if (filters.region) query = query.eq("region", filters.region);
 
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
 
     if (data.length < pageSize) hasMore.value = false;
+
     characters.value.push(...data);
     page.value++;
+
     sessionStorage.setItem(
       "characters",
       JSON.stringify({
@@ -391,6 +393,41 @@ async function fetchCharacters({ reset = false, filters = {} } = {}) {
     );
   } catch (err) {
     error.value = err.message || "Failed to load characters";
+  } finally {
+    loading.value = false;
+  }
+}
+
+async function fetchFilteredCharacters(filters = {}) {
+  loading.value = true;
+  characters.value = [];
+  hasMore.value = false; // disables infinite scroll
+
+  try {
+    let query = supabase
+      .from("characters")
+      .select(
+        `*, 
+        vision:vision(id, name, image_url), 
+        team_role:team_role(name), substat:substat(name), 
+        weapon_type:weapon_type(id, name), 
+        region:region(id, name), 
+        new_character, 
+        is_upcoming`
+      )
+      .order("release_date", { ascending: false });
+
+    if (filters.vision) query = query.eq("vision", filters.vision);
+    if (filters.rarity) query = query.eq("rarity", filters.rarity);
+    if (filters.weaponType) query = query.eq("weapon_type", filters.weaponType);
+    if (filters.region) query = query.eq("region", filters.region);
+
+    const { data, error: fetchError } = await query;
+    if (fetchError) throw fetchError;
+
+    characters.value = data;
+  } catch (err) {
+    error.value = err.message || "Failed to load filtered characters";
   } finally {
     loading.value = false;
   }
@@ -408,18 +445,19 @@ function getActiveFilters() {
 }
 
 function applyFilters() {
-  // Apply selected filters and fetch characters
-  const filters = getActiveFilters();
-  fetchCharacters({ reset: true, filters });
+  fetchFilteredCharacters(getActiveFilters());
 }
 
 function resetFilters() {
-  // Clear all filters and fetch unfiltered characters
   selectedVision.value = null;
   selectedRarity.value = null;
   selectedWeaponType.value = null;
   selectedRegion.value = null;
-  fetchCharacters({ reset: true, filters: {} });
+
+  characters.value = []; // clear
+  page.value = 1;
+  hasMore.value = true;
+  fetchCharacters({ reset: true }); // back to infinite scroll mode
 }
 
 // -------- Utility Functions -------------
