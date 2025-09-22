@@ -276,7 +276,7 @@ const loadMoreTrigger = ref(null); // reference to the load more trigger element
 let observer = null;
 
 // -------- Cache Functions -------------
-function cache(key, data = null, ttl = 5 * 10 * 1000) {
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
 
   if (data) {
@@ -388,13 +388,13 @@ async function fetchCharacters({ reset = false } = {}) {
     let query = supabase
       .from("characters")
       .select(
-        `*, 
-        vision:vision(id, name, image_url), 
-        team_role:team_role(name), 
-        substat:substat(name), 
-        weapon_type:weapon_type(id, name), 
-        region:region(id, name), 
-        new_character, 
+        `*,
+        vision:vision(id, name, image_url),
+        team_role:team_role(name),
+        substat:substat(name),
+        weapon_type:weapon_type(id, name),
+        region:region(id, name),
+        new_character,
         is_upcoming`
       )
       .order("release_date", { ascending: false })
@@ -432,12 +432,12 @@ async function fetchFilteredCharacters(filters = {}) {
     let query = supabase
       .from("characters")
       .select(
-        `*, 
-        vision:vision(id, name, image_url), 
-        team_role:team_role(name), substat:substat(name), 
-        weapon_type:weapon_type(id, name), 
-        region:region(id, name), 
-        new_character, 
+        `*,
+        vision:vision(id, name, image_url),
+        team_role:team_role(name), substat:substat(name),
+        weapon_type:weapon_type(id, name),
+        region:region(id, name),
+        new_character,
         is_upcoming`
       )
       .order("release_date", { ascending: false });
