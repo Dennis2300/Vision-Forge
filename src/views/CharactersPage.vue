@@ -408,6 +408,7 @@ async function fetchCharacters({ reset = false } = {}) {
     characters.value.push(...data);
     page.value++;
 
+    // cache session for devveloper convenience
     sessionStorage.setItem(
       "characters",
       JSON.stringify({
