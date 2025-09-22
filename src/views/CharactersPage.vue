@@ -275,6 +275,30 @@ const loadMoreTrigger = ref(null); // reference to the load more trigger element
 // Intersection Observer instance
 let observer = null;
 
+// -------- Cache Functions -------------
+function cache(key, data = null, ttl = 5 * 10 * 1000) {
+  const now = new Date().getTime();
+
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  }
+}
+
 // -------- Data Fetching Function --------
 async function fetchVisions() {
   try {
@@ -434,49 +458,6 @@ async function fetchFilteredCharacters(filters = {}) {
   }
 }
 
-// -------- Filter Functions -------------
-function getActiveFilters() {
-  // Get currently selected filters
-  return {
-    vision: selectedVision.value,
-    rarity: selectedRarity.value,
-    weaponType: selectedWeaponType.value,
-    region: selectedRegion.value,
-  };
-}
-
-function applyFilters() {
-  fetchFilteredCharacters(getActiveFilters());
-}
-
-function resetFilters() {
-  selectedVision.value = null;
-  selectedRarity.value = null;
-  selectedWeaponType.value = null;
-  selectedRegion.value = null;
-
-  characters.value = []; // clear
-  page.value = 1;
-  hasMore.value = true;
-  fetchCharacters({ reset: true }); // back to infinite scroll mode
-}
-
-// -------- Utility Functions -------------
-function isNewCharacter(character) {
-  // Check if character is new
-  if (character && typeof character.new_character !== "undefined") {
-    return Boolean(character.new_character);
-  }
-  return false;
-}
-function isUpcomingCharacter(character) {
-  // Check if character is upcoming
-  if (character && typeof character.is_upcoming !== "undefined") {
-    return Boolean(character.is_upcoming);
-  }
-  return false;
-}
-
 // ------ Dropdown Functions -------------
 function selectRarity(rarity) {
   // Toggle rarity selection
@@ -515,28 +496,76 @@ function isOpen(type) {
   return openDropdown.value === type;
 }
 
-// -------- Cache Functions -------------
-function cache(key, data = null, ttl = 5 * 10 * 1000) {
-  const now = new Date().getTime();
+// -------- Filter Functions -------------
+function getActiveFilters() {
+  // Get currently selected filters
+  return {
+    vision: selectedVision.value,
+    rarity: selectedRarity.value,
+    weaponType: selectedWeaponType.value,
+    region: selectedRegion.value,
+  };
+}
 
-  if (data) {
-    const item = {
-      data,
-      expiry: now + ttl,
-    };
-    localStorage.setItem(key, JSON.stringify(item));
-    return data;
-  } else {
-    const cachedItem = localStorage.getItem(key);
-    if (!cachedItem) return null;
+function applyFilters() {
+  fetchFilteredCharacters(getActiveFilters());
+}
 
-    const parsedItem = JSON.parse(cachedItem);
-    if (now > parsedItem.expiry) {
-      localStorage.removeItem(key);
-      return null;
-    }
-    return parsedItem.data;
+function resetFilters() {
+  selectedVision.value = null;
+  selectedRarity.value = null;
+  selectedWeaponType.value = null;
+  selectedRegion.value = null;
+
+  characters.value = [];
+  page.value = 1;
+  hasMore.value = true;
+
+  fetchCharacters({ reset: true }).then(() => {
+    setupObserver(); // Re-setup observer after resetting
+  });
+}
+
+// -------- Utility Functions -------------
+function isNewCharacter(character) {
+  // Check if character is new
+  if (character && typeof character.new_character !== "undefined") {
+    return Boolean(character.new_character);
   }
+  return false;
+}
+function isUpcomingCharacter(character) {
+  // Check if character is upcoming
+  if (character && typeof character.is_upcoming !== "undefined") {
+    return Boolean(character.is_upcoming);
+  }
+  return false;
+}
+function setupObserver() {
+  if (observer && loadMoreTrigger.value) {
+    observer.unobserve(loadMoreTrigger.value);
+    observer.disconnect();
+  }
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        console.log("▶ Sentinel visible → fetching next page...");
+        fetchCharacters();
+      }
+    },
+    {
+      root: null,
+      rootMargin: "200px",
+      threshold: 0.1,
+    }
+  );
+
+  nextTick(() => {
+    if (loadMoreTrigger.value) {
+      observer.observe(loadMoreTrigger.value);
+    }
+  });
 }
 
 // -------- Computed Properties -------------
@@ -555,41 +584,22 @@ onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();
   await fetchRegions();
-  const cached = sessionStorage.getItem("characters");
 
+  const cached = sessionStorage.getItem("characters");
   if (cached) {
     const {
       characters: cachedChars,
       page: cachedPage,
       hasMore: cachedHasMore,
     } = JSON.parse(cached);
-
     characters.value = cachedChars;
     page.value = cachedPage;
     hasMore.value = cachedHasMore;
   } else {
-    await fetchCharacters(); // First time load from Supabase
+    await fetchCharacters();
   }
 
-  // Setup observer
-  observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        console.log("▶ Sentinel visible → fetching next page...");
-        fetchCharacters();
-      }
-    },
-    {
-      root: null,
-      rootMargin: "200px",
-      threshold: 0.1,
-    }
-  );
-
-  await nextTick();
-  if (loadMoreTrigger.value) {
-    observer.observe(loadMoreTrigger.value);
-  }
+  setupObserver();
 });
 // clean up observer on component unmount
 onUnmounted(() => {
