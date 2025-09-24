@@ -149,6 +149,7 @@
           <button class="filter-button" @click="resetFilters">Reset</button>
           <button class="filter-button" @click="applyFilters">Apply</button>
         </div>
+        <!-- Character Amount -->
         <div class="character-amount-container">
           <div class="character-amount" v-if="filterActive">
             {{ characters.length }} Characters Found
@@ -515,7 +516,20 @@ function getActiveFilters() {
 }
 
 function applyFilters() {
-  fetchFilteredCharacters(getActiveFilters());
+  const filters = getActiveFilters();
+
+  const noFiltersSelected =
+    !filters.vision &&
+    !filters.rarity &&
+    !filters.weaponType &&
+    !filters.region;
+
+  if (noFiltersSelected) {
+    alert("Please select at least one filter before applying.");
+    return;
+  }
+
+  fetchFilteredCharacters(filters);
   filterActive.value = true;
 }
 
