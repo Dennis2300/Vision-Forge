@@ -200,6 +200,22 @@
   background-color: var(--filter-color-hover);
 }
 
+.character-amount-container {
+  display: flex;
+  justify-content: center;
+  height: 25px;
+}
+
+.character-amount {
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: var(--font-acme);
+  letter-spacing: 1px;
+  color: var(--tertiary);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  cursor: default;
+}
+
 /* -------- Character Display -------- */
 /* Character Overview */
 .character-display-container {

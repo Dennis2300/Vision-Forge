@@ -111,7 +111,7 @@
         </div>
         <!-- region -->
         <h2 class="divider">Region</h2>
-        <div class="filter-container mb-10">
+        <div class="filter-container mb-8">
           <div class="custom-dropdown">
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('region')">
@@ -148,6 +148,11 @@
         <div class="filter-buttons-container mb-4">
           <button class="filter-button" @click="resetFilters">Reset</button>
           <button class="filter-button" @click="applyFilters">Apply</button>
+        </div>
+        <div class="character-amount-container">
+          <div class="character-amount" v-if="filterActive">
+            {{ characters.length }} Characters Found
+          </div>
         </div>
       </div>
       <!-- Character Display -->
@@ -253,6 +258,7 @@ import LoadingMoreSpinner from "../components/LoadingMoreSpinner.vue";
 const loading = ref(false);
 const error = ref(null);
 const openDropdown = ref(null);
+const filterActive = ref(false);
 
 // data states
 const characters = ref([]); // array to hold character data
@@ -510,6 +516,7 @@ function getActiveFilters() {
 
 function applyFilters() {
   fetchFilteredCharacters(getActiveFilters());
+  filterActive.value = true;
 }
 
 function resetFilters() {
@@ -525,6 +532,7 @@ function resetFilters() {
   fetchCharacters({ reset: true }).then(() => {
     setupObserver(); // Re-setup observer after resetting
   });
+  filterActive.value = false;
 }
 
 // -------- Utility Functions -------------
