@@ -7,6 +7,7 @@
       </router-link>
     </div>
     <div class="middle-nav">
+      <router-link class="nav-item" to="/">Home</router-link>
       <router-link class="nav-item" to="/characters">Characters</router-link>
       <router-link class="nav-item" to="/weapons">Weapons</router-link>
       <router-link class="nav-item" to="/artifacts">Artifacts</router-link>
@@ -24,7 +25,6 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   color: white;
-  font-family: var(--font-acme);
   letter-spacing: 1px;
   font-size: 1.3rem;
   box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-self: center;
+  font-family: var(--font-acme);
 }
 
 .right-nav {
@@ -90,6 +91,7 @@
   font-weight: bold;
   color: white;
   text-decoration: none;
+  font-family: var(--font-bungee);
 }
 
 .logo {
