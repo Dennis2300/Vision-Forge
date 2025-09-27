@@ -239,7 +239,7 @@
 .character-item-overview {
   flex: 2;
   padding: 15px;
-  background-color: #44444e;
+  background-color: var(--secondary);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   display: flex;
@@ -288,7 +288,7 @@
   padding: 15px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #37353e;
+  background-color: var(--filter-color);
   display: flex;
   align-items: center;
   gap: 15px;

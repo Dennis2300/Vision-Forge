@@ -18,7 +18,7 @@
 
 <style scoped>
 .navbar-container {
-  background-color: var(--secondary);
+  background-color: #0b192c;
   display: grid;
   height: 60px;
   grid-template-columns: 1fr auto 1fr;
@@ -27,6 +27,7 @@
   font-family: var(--font-acme);
   letter-spacing: 1px;
   font-size: 1.3rem;
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
 }
 
 .left-nav {
@@ -58,7 +59,7 @@
 }
 
 .nav-item::before {
-  content: '';
+  content: "";
   display: block;
   height: 3px;
   background-color: var(--tertiary);
