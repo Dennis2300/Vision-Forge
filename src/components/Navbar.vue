@@ -46,6 +46,7 @@
 }
 
 .nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,12 +54,28 @@
   color: white;
   height: 60px;
   padding: 0 20px;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.nav-item::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background-color: var(--tertiary);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  transition: width 250ms ease-in-out;
 }
 
 .nav-item:hover {
-  background-color: var(--filter-color-hover);
+  color: var(--tertiary);
   cursor: pointer;
+}
+
+.nav-item:hover::before {
+  width: 100%;
 }
 
 .nav-logo {
