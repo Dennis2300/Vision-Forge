@@ -1,84 +1,82 @@
 <template>
   <div class="navbar-container">
-    <nav class="web-navbar">
-      <img src="../../public/webIcon.webp" alt="Logo" class="favicon" />
-      <router-link to="/">Home</router-link>
-      <router-link to="/characters">Character</router-link>
-      <router-link to="/weapons">Weapons</router-link>
-      <router-link to="/artifacts">Artifacts</router-link>
-      <router-link to="/teams">Team</router-link>
-      <router-link to="/about">About</router-link>
-    </nav>
-    <div class="right-navbar">
-      <p>Support Me!</p>
+    <div class="left-nav">
+      <router-link class="nav-logo" to="/">
+        <img class="logo" src="./../assets/images/icons/webIcon.webp" alt="" />
+        <span class="nav-title">Teyvat Bulletin</span>
+      </router-link>
     </div>
+    <div class="middle-nav">
+      <router-link class="nav-item" to="/characters">Characters</router-link>
+      <router-link class="nav-item" to="/weapons">Weapons</router-link>
+      <router-link class="nav-item" to="/artifacts">Artifacts</router-link>
+      <router-link class="nav-item" to="/about">About</router-link>
+    </div>
+    <div class="right-nav"></div>
   </div>
 </template>
 
 <style scoped>
 .navbar-container {
-  position: fixed;
-  background-color: #0b192c;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.75);
-}
-
-.favicon {
-  width: 50px;
-  height: auto;
-  background-color: inherit;
-}
-
-.web-navbar {
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
+  background-color: var(--secondary);
+  display: grid;
+  height: 60px;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  color: white;
+  font-family: var(--font-acme);
+  letter-spacing: 1px;
+  font-size: 1.3rem;
 }
 
-.web-navbar a {
+.left-nav {
+  justify-self: start;
+  margin-left: 25px;
+}
+
+.middle-nav {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.right-nav {
+  justify-self: end;
+  margin-right: 25px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: white;
-  font-size: 20px;
-  font-family: var(--font-acme);
-  background-color: inherit;
-  padding-left: 15px;
-  padding-right: 15px;
+  height: 60px;
+  padding: 0 20px;
+  transition: background-color 0.3s ease;
 }
 
-.web-navbar a:hover {
+.nav-item:hover {
+  background-color: var(--filter-color-hover);
+  cursor: pointer;
+}
+
+.nav-logo {
   display: flex;
-  justify-content: center;
   align-items: center;
-  transition: 0.3s;
-  background-color: grey;
-  height: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
+  text-decoration: none;
 }
 
-.version {
-  font-size: 20px;
-  font-family: var(--font-acme);
+.nav-title {
+  font-size: 1.5rem;
+  font-weight: bold;
   color: white;
-  background-color: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: 20px;
+  text-decoration: none;
 }
 
-.right-navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  margin-left: auto;
-  margin-right: 20px;
-  font-family: var(--font-acme);
+.logo {
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
 }
 </style>

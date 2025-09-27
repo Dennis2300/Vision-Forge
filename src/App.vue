@@ -19,7 +19,5 @@ import Footer from "./components/Footer.vue";
 </script>
 
 <style scoped>
-.content {
-  margin-top: 60px;
-}
+
 </style>
