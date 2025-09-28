@@ -28,6 +28,7 @@
   letter-spacing: 1px;
   font-size: 1.3rem;
   box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
+  padding-top: 5px;
 }
 
 .left-nav {
