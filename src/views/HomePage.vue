@@ -21,7 +21,11 @@
       </div>
       <div class="character-archives-section">
         <div class="character-archives-image-container">
-          <h1>image</h1>
+          <img
+            class="character-archives-image"
+            src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/06/01/151578876/36a4e0902f1ca28a3466d57c117d61ac_2571433158805309475.png?x-oss-process=image%2Fformat%2Cwebp"
+            alt=""
+          />
         </div>
         <div class="character-archives-text-container">
           <h1>Character Archives</h1>
@@ -86,19 +90,29 @@
 }
 
 .character-archives-section {
-  background-color: darkgreen;
   flex: 1.5;
   display: flex;
   flex-direction: column;
 }
 
 .character-archives-image-container {
-  background-color: darkmagenta;
   flex: 4;
+  overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.character-archives-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
 }
 
 .character-archives-text-container {
-  background-color: darkslateblue;
-  flex: 2;
+  flex: 1.5;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: var(--secondary);
 }
 </style>
