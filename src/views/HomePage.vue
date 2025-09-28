@@ -3,10 +3,20 @@
     <div class="top-section">
       <div class="logo-section">
         <div class="logo-section-image-container">
-          <h1>image</h1>
+          <img
+            class="logo-section-image"
+            src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/07/77454259/f112bf27e882975263853d08a2bc59cf_723534462216373407.png?x-oss-process=image%2Fformat%2Cwebp"
+            alt=""
+          />
         </div>
         <div class="logo-section-text-container">
-          <h1>text</h1>
+          <h1>Welcome to Teyvat Bulletin</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+            nam impedit reiciendis, facere alias perspiciatis veritatis fugit
+            necessitatibus neque molestiae eum dolorem omnis expedita quaerat
+            placeat fugiat facilis, quos ea?
+          </p>
         </div>
       </div>
       <div class="character-archives-section">
@@ -34,13 +44,11 @@
 
 <style scoped>
 .home-page-container {
-  background-color: darkblue;
   width: 1200px;
   min-height: 100vh;
 }
 
 .top-section {
-  background-color: darkcyan;
   display: flex;
   justify-content: space-between;
   height: 500px;
@@ -49,19 +57,32 @@
 
 .logo-section {
   flex: 3;
-  background-color: darkgoldenrod;
   display: flex;
   flex-direction: column;
 }
 
 .logo-section-image-container {
-  background-color: darkred;
   flex: 4;
+  overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.logo-section-image {
+  width: 100%;
+  object-fit: contain;
+  opacity: 0.9;
 }
 
 .logo-section-text-container {
-  background-color: darkorange;
-  flex: 2;
+  flex: 1.5;
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 20px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .character-archives-section {
