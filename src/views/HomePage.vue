@@ -61,7 +61,11 @@
       </div>
       <div class="artifact-archives-container">
         <div class="artifact-archives-image-container">
-          <img src="" alt="" />
+          <img
+            class="artifact-archives-image"
+            src="https://upload-os-bbs.hoyolab.com/upload/2024/03/09/17138284/bde28406fa1c0ab83ee611ed1dde5a5e_3434874239524736953.png?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70"
+            alt=""
+          />
         </div>
         <div class="artifact-archives-text-container">
           <h1>Artifact Archives</h1>
@@ -162,7 +166,6 @@
 }
 
 .middle-section {
-  background-color: darkblue;
   display: flex;
   justify-content: space-around;
   margin-top: 2rem;
@@ -186,14 +189,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.bottom-section {
-  background-color: var(--secondary);
-  margin-top: 2rem;
-  height: 300px;
+  border: 1px solid var(--tertiary);
   border-radius: 15px;
-  padding: 20px;
 }
 
 .weapon-archives-image-container {
@@ -212,13 +209,31 @@
 }
 
 .artifact-archives-image-container {
-  background-color: darkcyan;
   flex: 4;
 }
 
+.artifact-archives-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
 .artifact-archives-text-container {
-  background-color: darkgoldenrod;
+  background-color: var(--secondary);
   flex: 2;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.bottom-section {
+  background-color: var(--secondary);
+  margin-top: 2rem;
+  height: 300px;
+  border-radius: 15px;
+  padding: 20px;
 }
 
 .btn {
