@@ -7,7 +7,7 @@
         <div class="footer-icon-container">
           <img
             class="footer-icon"
-            src="./../../public/webIcon.webp"
+            src="./../assets/images/icons/webIcon.webp"
             alt="Teyvat Bulletin Icon"
           />
           <p class="footer-text">
