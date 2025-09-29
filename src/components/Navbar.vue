@@ -3,7 +3,7 @@
     <div class="left-nav">
       <router-link class="nav-logo" to="/">
         <img class="logo" src="./../assets/images/icons/webIcon.webp" alt="" />
-        <span class="nav-title">Teyvat Bulletin</span>
+        <span class="nav-title">Vision Forge</span>
       </router-link>
     </div>
     <div class="middle-nav">
@@ -19,6 +19,9 @@
 
 <style scoped>
 .navbar-container {
+  position: fixed;
+  top: 0;
+  width: 100vw;
   background-color: #0b192c;
   display: grid;
   height: 60px;
@@ -29,6 +32,7 @@
   font-size: 1.3rem;
   box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
   padding-top: 5px;
+  z-index: 100;
 }
 
 .left-nav {

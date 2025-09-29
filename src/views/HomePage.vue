@@ -10,12 +10,19 @@
           />
         </div>
         <div class="logo-section-text-container">
-          <h1>Welcome to Teyvat Bulletin</h1>
+          <div class="mb-3">
+            <h1>Welcome to Vision Forge</h1>
+          </div>
+          <p class="mb-1">
+            Vision Forge is a simple, fan-made space where you can find
+            character builds, materials, and team compositions for Genshin
+            Impact. My goal is to cut through the complexity and help you forge
+            your perfect character.
+          </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-            nam impedit reiciendis, facere alias perspiciatis veritatis fugit
-            necessitatibus neque molestiae eum dolorem omnis expedita quaerat
-            placeat fugiat facilis, quos ea?
+            This isn't a pro-level guide, just a fun project where I explore and
+            find what works best for me. I hope you find something useful here!
+            and enjoy your time in Teyvat!
           </p>
         </div>
       </div>
@@ -23,12 +30,23 @@
         <div class="character-archives-image-container">
           <img
             class="character-archives-image"
-            src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/06/01/151578876/36a4e0902f1ca28a3466d57c117d61ac_2571433158805309475.png?x-oss-process=image%2Fformat%2Cwebp"
+            src="https://upload-os-bbs.hoyolab.com/upload/2024/10/05/17138284/33c8b9aa165384d04ac7e2ab3a38bb38_2151093254014386164.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70"
             alt=""
           />
         </div>
         <div class="character-archives-text-container">
-          <h1>Character Archives</h1>
+          <div class="mb-3">
+            <h1>Character Archives</h1>
+          </div>
+          <p>
+            Here you can find a comprehensive list of all characters available
+            in Genshin Impact
+          </p>
+          <div class="flex justify-center mt-5">
+            <router-link to="/characters" class="btn btn-primary"
+              >Explore Characters
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -75,16 +93,13 @@
 .logo-section-image {
   width: 100%;
   object-fit: contain;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .logo-section-text-container {
-  flex: 1.5;
   background-color: var(--secondary);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0px 20px;
+  flex: 2;
+  padding: 20px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -106,13 +121,37 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .character-archives-text-container {
-  flex: 1.5;
+  background-color: var(--secondary);
+  flex: 2;
+  padding: 20px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: var(--secondary);
+}
+
+.logo-section-text-container h1,
+.character-archives-text-container h1 {
+  font-size: 24px;
+  font-family: var(--font-acme);
+  letter-spacing: 0.5px;
+}
+
+.logo-section-text-container p,
+.character-archives-text-container p {
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
+}
+
+.btn {
+  text-decoration: none;
+  font-size: 16px;
+  font-family: var(--font-acme);
+  color: var(--tertiary);
+  letter-spacing: 1px;
 }
 </style>

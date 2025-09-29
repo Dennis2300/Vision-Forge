@@ -11,13 +11,13 @@
   <Footer />
 </template>
 
-
 <script setup>
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
-
 </script>
 
 <style scoped>
-
+.content {
+  margin-top: 60px; /* Adjust this value based on the navbar height */
+}
 </style>
