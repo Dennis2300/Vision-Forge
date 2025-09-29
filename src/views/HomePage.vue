@@ -5,7 +5,7 @@
         <div class="logo-section-image-container">
           <img
             class="logo-section-image"
-            src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/07/77454259/f112bf27e882975263853d08a2bc59cf_723534462216373407.png?x-oss-process=image%2Fformat%2Cwebp"
+            src="https://upload-os-bbs.hoyolab.com/upload/2023/12/21/17138284/dcac628daf58a58c063a44d01ca5b5a4_2766695209517554964.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70"
             alt=""
           />
         </div>
@@ -30,7 +30,7 @@
         <div class="character-archives-image-container">
           <img
             class="character-archives-image"
-            src="https://upload-os-bbs.hoyolab.com/upload/2024/10/05/17138284/33c8b9aa165384d04ac7e2ab3a38bb38_2151093254014386164.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70"
+            src="https://upload-os-bbs.hoyolab.com/upload/2024/05/25/249619589/75f9ad47418f6a9494ac0ddcd5d5c121_4821498387284791483.jpeg"
             alt=""
           />
         </div>
@@ -91,6 +91,8 @@
   flex: 3;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--tertiary);
+  border-radius: 15px;
 }
 
 .logo-section-image-container {
@@ -118,6 +120,8 @@
   flex: 1.5;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--tertiary);
+  border-radius: 15px;
 }
 
 .character-archives-image-container {
