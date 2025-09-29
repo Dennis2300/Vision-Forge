@@ -50,19 +50,29 @@
         </div>
       </div>
     </div>
-    <div>
-      <h1>Weapon Archives</h1>
+    <div class="middle-section">
+      <div class="weapon-archives-container">
+        <div class="weapon-archives-image-container">
+          <img class="weapon-archives-image" src="" alt="" />
+        </div>
+        <div class="weapon-archives-text-container">
+          <h1>Weapon Archives</h1>
+        </div>
+      </div>
+      <div class="artifact-archives-container">
+        <div class="artifact-archives-image-container">
+          <img src="" alt="" />
+        </div>
+        <div class="artifact-archives-text-container">
+          <h1>Artifact Archives</h1>
+        </div>
+      </div>
     </div>
-    <div>
-      <h1>Artifact Archives</h1>
-    </div>
-    <div>
+    <div class="bottom-section">
       <h1>About</h1>
     </div>
   </div>
 </template>
-
-<script setup></script>
 
 <style scoped>
 .home-page-container {
@@ -145,6 +155,66 @@
   line-height: 1.5;
   font-family: var(--font-roboto);
   letter-spacing: 1px;
+}
+
+.middle-section {
+  background-color: darkblue;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  gap: 50px;
+  height: fit-content;
+}
+
+.weapon-archives-container {
+  background-color: var(--secondary);
+  border-radius: 15px;
+  height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.artifact-archives-container {
+  background-color: var(--secondary);
+  border-radius: 15px;
+  height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-section {
+  background-color: var(--secondary);
+  margin-top: 2rem;
+  height: 300px;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.weapon-archives-image-container {
+  background-color: darkcyan;
+  flex: 4;
+}
+
+.weapon-archives-image {
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.weapon-archives-text-container {
+  background-color: darkgoldenrod;
+  flex: 2;
+}
+
+.artifact-archives-image-container {
+  background-color: darkcyan;
+  flex: 4;
+}
+
+.artifact-archives-text-container {
+  background-color: darkgoldenrod;
+  flex: 2;
 }
 
 .btn {
