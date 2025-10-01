@@ -93,7 +93,7 @@
     </div>
     <!-- bottom section -->
     <div class="bottom-section">
-      <h1>About</h1>
+      <h1>Updates</h1>
     </div>
   </div>
 </template>
