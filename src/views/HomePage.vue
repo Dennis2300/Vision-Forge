@@ -1,7 +1,7 @@
 <template>
   <div class="home-page-container my-10">
     <!-- top section -->
-    <div class="top-section">
+    <div class="top-section mb-10">
       <!-- left -->
       <div class="left-top-section">
         <div class="left-top-image-container top-border-radius">
@@ -20,7 +20,7 @@
           </p>
           <p class="paragraph-style">
             This isn't a pro-level guide, just a fun project where I explore and
-            find what works best for me. I hope you find something useful here!
+            find what works best for me. Hope you find something useful here!
             and enjoy your time in Teyvat!
           </p>
         </div>
@@ -34,12 +34,16 @@
           />
         </div>
         <div class="right-top-text-container bottom-border-radius">
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Temporibus, harum similique optio perspiciatis tempora dolore quam
-            ratione officia, tempore fugit, esse quos earum neque sit placeat
-            magnam voluptates tenetur cum?
+          <h1 class="title-style">Character Archive</h1>
+          <p class="paragraph-style my-3">
+            Here you can find a comprehensive list of all characters available
+            in Genshin Impact
           </p>
+          <div class="flex justify-center mt-8">
+            <router-link class="btn btn-primary w-1/2" to="/characters">
+              See Characters
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -78,34 +82,34 @@
   width: 1200px;
   min-height: 100vh;
 }
+
 /* Top Section */
 .top-section {
   display: flex;
   height: fit-content;
   gap: 3rem;
 }
+
 .left-top-section {
   flex: 3;
   display: flex;
   flex-direction: column;
-}
-
-.left-top-image-container {
-  overflow: hidden;
-  flex: 4;
-  object-fit: cover;
-}
-
-.left-top-text-container {
-  background-color: var(--secondary);
-  flex: 1;
-  padding: 1.5rem;
+  border: 1px solid var(--tertiary);
+  border-radius: 15px;
 }
 
 .right-top-section {
   flex: 1.5;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--tertiary);
+  border-radius: 15px;
+}
+
+.left-top-image-container {
+  overflow: hidden;
+  object-fit: cover;
+  flex: 4;
 }
 
 .right-top-image-container {
@@ -113,9 +117,15 @@
   flex: 4;
 }
 
+.left-top-text-container {
+  background-color: var(--secondary);
+  flex: 1.5;
+  padding: 1.5rem;
+}
+
 .right-top-text-container {
   background-color: var(--secondary);
-  flex: 2;
+  flex: 1.5;
   padding: 1.5rem;
 }
 
@@ -124,6 +134,7 @@
   font-family: var(--font-acme);
   font-size: 2rem;
   letter-spacing: 1px;
+  color: var(--tertiary);
 }
 
 .paragraph-style {
@@ -150,5 +161,12 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* button */
+.btn {
+  text-decoration: none;
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
 }
 </style>
