@@ -94,7 +94,7 @@
   flex: 3;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--tertiary);
+  border: 1.5px solid var(--tertiary);
   border-radius: 15px;
 }
 
@@ -102,7 +102,7 @@
   flex: 1.5;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--tertiary);
+  border: 1.5px solid var(--tertiary);
   border-radius: 15px;
 }
 
