@@ -4,10 +4,10 @@
     <div class="top-section mb-10">
       <!-- left -->
       <div class="left-top-section">
-        <div class="left-top-image-container top-border-radius">
+        <div class="top-image-container top-border-radius">
           <img src="./../assets/images/zhongli.webp" alt="" />
         </div>
-        <div class="left-top-text-container bottom-border-radius">
+        <div class="text-container bottom-border-radius">
           <h1 class="title-style">Welcome to Vision Forge</h1>
           <p class="paragraph-style mt-2">
             Vision Forge is a simple, fan-made space where you can find
@@ -24,10 +24,10 @@
       </div>
       <!-- right -->
       <div class="right-top-section">
-        <div class="right-top-image-container top-border-radius">
+        <div class="top-image-container top-border-radius">
           <img src="./../assets/images/twins.webp" alt="" />
         </div>
-        <div class="right-top-text-container bottom-border-radius text-center">
+        <div class="text-container bottom-border-radius text-center">
           <h1 class="title-style">Character Archive</h1>
           <p class="paragraph-style mt-2">
             Here you can find a comprehensive list of all characters available
@@ -43,11 +43,11 @@
     </div>
     <!-- middle section -->
     <div class="middle-section mb-10">
-      <div class="middle-left-section">
-        <div class="middle-left-image-container top-border-radius">
+      <div class="middle-sub-section">
+        <div class="middle-image-container top-border-radius">
           <img class="image-scale" src="./../assets/images/skirk.webp" alt="" />
         </div>
-        <div class="middle-left-text-container bottom-border-radius">
+        <div class="text-container bottom-border-radius">
           <h1 class="title-style">Weapon Archive</h1>
           <p class="paragraph-style mt-2">
             Here you can find a list of all weapons available in Genshin Impact.
@@ -60,11 +60,11 @@
           </div>
         </div>
       </div>
-      <div class="middle-right-section">
-        <div class="middle-right-image-container top-border-radius">
+      <div class="middle-sub-section">
+        <div class="middle-image-container top-border-radius">
           <img src="./../assets/images/chiori.webp" alt="" />
         </div>
-        <div class="middle-right-text-container bottom-border-radius">
+        <div class="text-container bottom-border-radius">
           <h1 class="title-style">Artifact Archive</h1>
           <p class="paragraph-style mt-2">
             Here you can find a list of all artifacts available in Genshin
@@ -117,25 +117,13 @@
   border-radius: 15px;
 }
 
-.left-top-image-container {
+.top-image-container {
   overflow: hidden;
   object-fit: cover;
   flex: 4;
 }
 
-.right-top-image-container {
-  overflow: hidden;
-  flex: 4;
-}
-
-.left-top-text-container {
-  background-color: var(--secondary);
-  flex: 1.5;
-  padding: 0.75rem 1.5rem 1.5rem 1.5rem;
-  border-top: 1px solid var(--tertiary);
-}
-
-.right-top-text-container {
+.text-container {
   background-color: var(--secondary);
   flex: 1.5;
   padding: 0.75rem 1.5rem 1.5rem 1.5rem;
@@ -149,7 +137,7 @@
   gap: 3rem;
 }
 
-.middle-left-section {
+.middle-sub-section {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -157,36 +145,10 @@
   border-radius: 15px;
 }
 
-.middle-right-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  border: 1.5px solid var(--tertiary);
-  border-radius: 15px;
-}
-
-.middle-left-image-container {
+.middle-image-container {
   overflow: hidden;
   object-fit: cover;
   flex: 4;
-}
-
-.middle-right-image-container {
-  overflow: hidden;
-  object-fit: cover;
-  flex: 4;
-}
-
-.middle-left-text-container {
-  background-color: var(--secondary);
-  flex: 1.5;
-  padding: 0.75rem 1.5rem 1.5rem 1.5rem;
-}
-
-.middle-right-text-container {
-  background-color: var(--secondary);
-  flex: 1.5;
-  padding: 0.75rem 1.5rem 1.5rem 1.5rem;
 }
 
 /* Bottom Section */
