@@ -5,10 +5,7 @@
       <!-- left -->
       <div class="left-top-section">
         <div class="left-top-image-container top-border-radius">
-          <img
-            src="https://upload-os-bbs.hoyolab.com/upload/2023/12/21/17138284/dcac628daf58a58c063a44d01ca5b5a4_2766695209517554964.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70"
-            alt=""
-          />
+          <img src="./../assets/images/zhongli.webp" alt="" />
         </div>
         <div class="left-top-text-container bottom-border-radius">
           <h1 class="title-style">Welcome to Vision Forge</h1>
@@ -28,18 +25,15 @@
       <!-- right -->
       <div class="right-top-section">
         <div class="right-top-image-container top-border-radius">
-          <img
-            src="https://upload-os-bbs.hoyolab.com/upload/2024/05/25/249619589/75f9ad47418f6a9494ac0ddcd5d5c121_4821498387284791483.jpeg"
-            alt=""
-          />
+          <img src="./../assets/images/twins.webp" alt="" />
         </div>
-        <div class="right-top-text-container bottom-border-radius">
+        <div class="right-top-text-container bottom-border-radius text-center">
           <h1 class="title-style">Character Archive</h1>
           <p class="paragraph-style mt-2">
             Here you can find a comprehensive list of all characters available
             in Genshin Impact
           </p>
-          <div class="flex justify-center mt-8">
+          <div class="flex justify-center mt-6">
             <router-link class="btn btn-primary w-32" to="/characters">
               See Characters
             </router-link>
@@ -51,11 +45,7 @@
     <div class="middle-section mb-10">
       <div class="middle-left-section">
         <div class="middle-left-image-container top-border-radius">
-          <img
-            class="image-scale"
-            src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/06/20/151578876/18fe3a217db8d3e2237c66e21545d43c_1223137722623728172.png?x-oss-process=image%2Fformat%2Cwebp"
-            alt=""
-          />
+          <img class="image-scale" src="./../assets/images/skirk.webp" alt="" />
         </div>
         <div class="middle-left-text-container bottom-border-radius">
           <h1 class="title-style">Weapon Archive</h1>
@@ -72,10 +62,7 @@
       </div>
       <div class="middle-right-section">
         <div class="middle-right-image-container top-border-radius">
-          <img
-            src="https://upload-os-bbs.hoyolab.com/upload/2024/03/09/17138284/bde28406fa1c0ab83ee611ed1dde5a5e_3434874239524736953.png?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70"
-            alt=""
-          />
+          <img src="./../assets/images/chiori.webp" alt="" />
         </div>
         <div class="middle-right-text-container bottom-border-radius">
           <h1 class="title-style">Artifact Archive</h1>
