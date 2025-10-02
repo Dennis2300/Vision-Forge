@@ -36,12 +36,23 @@ const emits = defineEmits(["filtered-weapons", "clear-filter"]);
 // Get all weapon types from the database
 async function getAllWeaponTypes() {
   try {
+    const cached = sessionStorage.getItem("weaponTypes");
+    if (cached) {
+      weaponTypes.value = JSON.parse(cached);
+      loading.value = false;
+      return;
+    }
+
+    // Otherwise fetch from Supabase
     let { data, error: fetchError } = await supabase
       .from("weaponTypes")
       .select("*");
     if (fetchError) throw fetchError;
 
     weaponTypes.value = data;
+
+    // Save to sessionStorage for later
+    sessionStorage.setItem("weaponTypes", JSON.stringify(data));
   } catch (err) {
     error.value = err.message;
   } finally {
@@ -91,6 +102,7 @@ onMounted(() => {
 <style scoped>
 .filter-container {
   padding: 16px 0px 16px 0px;
+  height: 50px;
 }
 
 .weapon-type-filter-header {

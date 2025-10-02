@@ -5,6 +5,8 @@
   <!-- Weapons Container -->
   <div v-if="!loading && !error">
     <div class="weapons-page-container">
+      <h1 class="weapon-page-header divider text-5xl mt-16">Weapons Archive</h1>
+
       <!-- Weapon filter-->
       <div class="weapon-filter-container">
         <WeaponFilter
@@ -12,9 +14,6 @@
           @clear-filter="handleClearFilter"
         />
       </div>
-
-      <h1 class="weapon-page-header divider text-5xl my-9">Weapons Archive</h1>
-
       <!-- Weapon display -->
       <div class="weapon-display-container">
         <div class="weapon-grid">
@@ -161,7 +160,7 @@ onMounted(() => {
 
 .weapon-filter-container {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
 }
 
