@@ -81,6 +81,9 @@
     <!-- bottom section -->
     <div class="bottom-section">
       <h1>Updates</h1>
+      <div class="bottom-text-container">
+        <UpdatesSection />
+      </div>
     </div>
   </div>
 </template>
@@ -186,6 +189,12 @@
   padding: 0.75rem 1.5rem 1.5rem 1.5rem;
 }
 
+/* Bottom Section */
+.bottom-section {
+  background-color: darkblue;
+  height: fit-content;
+}
+
 /* Text Styles */
 .title-style {
   font-family: var(--font-acme);
@@ -232,3 +241,7 @@ img {
   letter-spacing: 1px;
 }
 </style>
+
+<script setup>
+import UpdatesSection from "./../components/UpdatesSection.vue";
+</script>
