@@ -27,11 +27,12 @@ onMounted(fetchUpdates);
 <template>
   <div v-for="update in updates" :key="update.id" class="update">
     <!-- Header -->
-    <h2>{{ update.title }}</h2>
+    <h2 class="update-title">{{ update.title }}</h2>
 
     <!-- Created Date-->
-    <div>
-      <strong>
+    <div class="update-date-container">
+      Posted:
+      <strong class="update-date">
         {{
           update.created_at
             ? new Date(update.created_at).toLocaleDateString("en-GB", {
@@ -43,10 +44,11 @@ onMounted(fetchUpdates);
         }}
       </strong>
     </div>
+    <div class="divider m-0 p-0"></div>
 
     <!-- Content -->
-    <div>
-      <p>{{ update.message }}</p>
+    <div class="update-message-container">
+      <p class="update-message">{{ update.message }}</p>
       <!-- If using Markdown later: -->
       <!-- <MarkdownRender :content="update.message" /> -->
     </div>
@@ -54,4 +56,29 @@ onMounted(fetchUpdates);
 </template>
 
 <style scoped>
+.update {
+  margin-top: 25px;
+  background-color: var(--filter-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #fafafa;
+}
+
+.update-title {
+  font-family: var(--font-roboto);
+  letter-spacing: 0.5px;
+}
+
+.update-date-container {
+  font-family: var(--font-roboto);
+  letter-spacing: 0.5px;
+  margin-top: 5px;
+}
+
+.update-message-container {
+  font-family: var(--font-roboto);
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-shadow: 3px 3px 15px  rgb(0, 0, 0, 1);
+}
 </style>
