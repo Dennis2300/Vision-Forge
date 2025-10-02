@@ -142,6 +142,7 @@
   background-color: var(--secondary);
   flex: 1.5;
   padding: 0.75rem 1.5rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--tertiary);
 }
 
 .right-top-text-container {
@@ -209,6 +210,7 @@
 .paragraph-style {
   font-family: var(--font-roboto);
   letter-spacing: 0.5px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
 }
 /* Image */
 .top-border-radius {
