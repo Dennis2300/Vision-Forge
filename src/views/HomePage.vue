@@ -31,7 +31,7 @@
           <h1 class="title-style">Character Archive</h1>
           <p class="paragraph-style mt-2">
             Here you can find a comprehensive list of all characters available
-            in Genshin Impact
+            in Genshin Impact.
           </p>
           <div class="flex justify-center mt-6">
             <router-link class="btn btn-primary w-32" to="/characters">
@@ -178,7 +178,7 @@
 .paragraph-style {
   font-family: var(--font-roboto);
   letter-spacing: 0.5px;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+  text-shadow: 3px 3px 15px rgb(0, 0, 0, 1);
 }
 /* Image */
 .top-border-radius {
