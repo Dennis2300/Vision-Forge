@@ -58,7 +58,7 @@ onBeforeUnmount(() => {
   align-items: center;
   color: white;
   letter-spacing: 1px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
   padding-top: 5px;
   z-index: 1000;
