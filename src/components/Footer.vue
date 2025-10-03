@@ -2,30 +2,6 @@
   <div class="web-footer-container">
     <div class="divider"></div>
     <div class="footer-grid">
-      <!-- Footer Icon & Text -->
-      <div class="footer-item">
-        <div class="footer-icon-container">
-          <img
-            class="footer-icon"
-            src="./../assets/images/icons/webIcon.webp"
-            alt="Teyvat Bulletin Icon"
-            loading="lazy"
-          />
-          <p class="footer-text">
-            This website is a fan-made project and is not affiliated with,
-            endorsed by, or sponsored by HoYoverse or miHoYo. <br />
-            Character, images, names, and assets used on this site are the
-            property of HoYoverse.
-          </p>
-        </div>
-        <!-- Footer Links -->
-        <div class="footer-link-container">
-          <div>
-            Find more info <a class="footer-link" href="/about">here</a>
-          </div>
-        </div>
-      </div>
-
       <!-- Socials -->
       <div class="socials-container">
         <div class="socials">
@@ -100,6 +76,39 @@
           </div>
         </div>
       </div>
+      <!-- Footer message -->
+      <div class="footer-item">
+        <!-- Footer Message -->
+        <div class="footer-icon-container">
+          <img
+            class="footer-icon"
+            src="./../assets/images/icons/webIcon.webp"
+            alt="Teyvat Bulletin Icon"
+            loading="lazy"
+          />
+          <p class="footer-text">
+            This website is a fan-made project and is not affiliated with,
+            endorsed by, or sponsored by HoYoverse or miHoYo. <br />
+            Character, images, names, and assets used on this site are the
+            property of HoYoverse.
+          </p>
+        </div>
+        <!-- Footer Links -->
+        <div class="footer-link-container">
+          <div>
+            Find more info <a class="footer-link" href="/about">here</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shout out -->
+      <div class="contribute">
+        <h2>Support the website</h2>
+        <p>If you want to support me, check out the Patreon</p>
+        <div class="mt-3">
+          <router-link class="footer-link" to="/contribute">Contribute</router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -107,16 +116,16 @@
 <style scoped>
 .web-footer-container {
   background-color: #0b192c;
-  padding-top: 2px;
-  padding-bottom: 25px;
+  padding: 1rem 2rem 2rem 2rem;
   min-height: 150px;
   font-family: var(--font-acme);
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .footer-item {
@@ -132,6 +141,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  width: 66%;
 }
 
 .footer-text {
@@ -181,5 +191,10 @@
 
 .footer-link:hover {
   text-decoration: underline;
+}
+
+.contribute {
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 </style>
