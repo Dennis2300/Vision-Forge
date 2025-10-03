@@ -18,6 +18,7 @@
         class="background-img"
         :src="character.splash_art"
         alt="Character Art"
+        loading="lazy"
       />
       <div v-else></div>
       <!-- Fallback if no splash art is available -->
@@ -31,10 +32,12 @@
               class="character-avatar-img"
               :src="character.image_url"
               :alt="character.name"
+              loading="lazy"
             />
             <img
               class="character-vision-img"
               :src="character.vision.image_url"
+              loading="lazy"
               alt=""
             />
           </div>
@@ -90,8 +93,17 @@
 
             <!-- character regions -->
             <h1 class="divider mt-5">Region</h1>
-            <div class="character-list-view mt-8" v-for="region in character.regions" :key="region.id">
-              <img :src="region.image_url" alt="" class="region-image">
+            <div
+              class="character-list-view mt-8"
+              v-for="region in character.regions"
+              :key="region.id"
+            >
+              <img
+                loading="lazy"
+                :src="region.image_url"
+                alt=""
+                class="region-image"
+              />
               <p class="region-name">
                 {{ region.name }}
               </p>
@@ -163,6 +175,7 @@
             <img
               class="character-bis-image"
               :src="artifact.flower_url"
+              loading="lazy"
               alt=""
             />
             <p class="character-bis-name">{{ artifact.name }}</p>
@@ -233,6 +246,7 @@
                 'weapon-rarity-4': weapon.rarity === 4,
               }"
               :src="weapon.image_url"
+              loading="lazy"
               alt=""
             />
             <p class="character-bis-name">
@@ -253,6 +267,7 @@
           <img
             class="character-mats-infographic"
             :src="`https://placehold.co/1000x700/222831/white?text=Character+mats+not+available+yet+for+${character.name}`"
+            loading="lazy"
             alt=""
           />
         </div>

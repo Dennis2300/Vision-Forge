@@ -9,6 +9,7 @@
         <div class="artifact-img-container">
           <img
             :src="artifact.flower_url"
+            loading="lazy"
             alt="Artifact Image"
             class="artifact-img"
           />
@@ -16,21 +17,25 @@
             :src="artifact.plume_url"
             alt="Artifact Image"
             class="artifact-img"
+            loading="lazy"
           />
           <img
             :src="artifact.sands_url"
             alt="Artifact Image"
             class="artifact-img"
+            loading="lazy"
           />
           <img
             :src="artifact.goblet_url"
             alt="Artifact Image"
             class="artifact-img"
+            loading="lazy"
           />
           <img
             :src="artifact.circlet_url"
             alt="Artifact Image"
             class="artifact-img"
+            loading="lazy"
           />
         </div>
 

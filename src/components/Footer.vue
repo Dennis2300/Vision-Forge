@@ -9,6 +9,7 @@
             class="footer-icon"
             src="./../assets/images/icons/webIcon.webp"
             alt="Teyvat Bulletin Icon"
+            loading="lazy"
           />
           <p class="footer-text">
             This website is a fan-made project and is not affiliated with,

@@ -14,6 +14,7 @@
           :src="vision.image_url"
           :alt="vision.name"
           class="vision-filter-icon"
+          loading="lazy"
         />
       </div>
     </div>

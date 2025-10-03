@@ -9,6 +9,7 @@
           class="character-page-header-image"
           src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/07/09/237301566/2627ae5e68e2632df6eeb87b58b6a4f6_8879732995034865752.png?x-oss-process=image%2Fformat%2Cwebp"
           alt=""
+          loading="lazy"
         />
       </div>
       <div class="divider px-10"></div>
@@ -51,6 +52,7 @@
                 v-if="selectedVisionObj"
                 :src="selectedVisionObj.image_url"
                 alt=""
+                loading="lazy"
                 class="dropdown-icon"
               />
               <span>
@@ -69,7 +71,12 @@
                 :key="vision.id"
                 @click="selectVision(vision)"
               >
-                <img :src="vision.image_url" alt="" class="dropdown-icon" />
+                <img
+                  loading="lazy"
+                  :src="vision.image_url"
+                  alt=""
+                  class="dropdown-icon"
+                />
                 <span>{{ vision.name }}</span>
               </li>
             </ul>
@@ -84,6 +91,7 @@
               <img
                 v-if="selectedWeaponTypeObj"
                 :src="selectedWeaponTypeObj.image_url"
+                loading="lazy"
                 alt=""
                 class="dropdown-icon"
               />
@@ -103,7 +111,12 @@
                 :key="weaponType.id"
                 @click="selectWeaponType(weaponType)"
               >
-                <img :src="weaponType.image_url" alt="" class="dropdown-icon" />
+                <img
+                  loading="lazy"
+                  :src="weaponType.image_url"
+                  alt=""
+                  class="dropdown-icon"
+                />
                 <span>{{ weaponType.name }}</span>
               </li>
             </ul>
@@ -119,6 +132,7 @@
                 v-if="selectedRegionObj"
                 :src="selectedRegionObj.image_url"
                 alt=""
+                loading="lazy"
                 class="dropdown-icon"
               />
               <span>
@@ -137,7 +151,12 @@
                 :key="region.id"
                 @click="selectRegion(region)"
               >
-                <img :src="region.image_url" alt="" class="dropdown-icon" />
+                <img
+                  loading="lazy"
+                  :src="region.image_url"
+                  alt=""
+                  class="dropdown-icon"
+                />
                 <span>{{ region.name }}</span>
               </li>
             </ul>
@@ -190,6 +209,7 @@
               v-if="character.splash_art"
               class="character-item-splash-art"
               :src="character.splash_art"
+              loading="lazy"
               alt=""
             />
             <div v-if="!character.splash_art"></div>
@@ -197,6 +217,7 @@
               <img
                 class="character-item-image"
                 :src="character.image_url"
+                loading="lazy"
                 :alt="character.name"
               />
               <h1 class="character-name mt-3">{{ character.name }}</h1>
@@ -207,6 +228,7 @@
             <img
               class="character-vision-image"
               :src="character.vision.image_url"
+              loading="lazy"
               alt=""
             />
             <p class="character-detail-tag">

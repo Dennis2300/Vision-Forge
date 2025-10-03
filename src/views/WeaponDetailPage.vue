@@ -13,6 +13,7 @@
             }"
             :src="weapon.image_url"
             :alt="weapon.name"
+            loading="lazy"
           />
         </div>
         <div class="weapon-info">

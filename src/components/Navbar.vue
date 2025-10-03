@@ -2,7 +2,7 @@
   <div class="navbar-container">
     <div class="left-nav">
       <router-link class="nav-logo" to="/">
-        <img class="logo" src="./../assets/images/icons/webIcon.webp" alt="" />
+        <img class="logo" loading="lazy" src="./../assets/images/icons/webIcon.webp" alt="" />
         <span class="nav-title">Vision Forge</span>
       </router-link>
     </div>

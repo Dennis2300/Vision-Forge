@@ -19,6 +19,7 @@
             class="artifact-img"
             :src="artifact.flower_url"
             :alt="artifact.name"
+            loading="lazy"
           />
           <h2 class="truncate artifact-name">
             {{ artifact.name }}

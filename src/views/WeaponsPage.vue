@@ -33,6 +33,7 @@
             <img
               :src="weapon.image_url"
               :alt="weapon.name"
+              loading="lazy"
               class="weapon-grid-image"
             />
             <!-- weapon name -->

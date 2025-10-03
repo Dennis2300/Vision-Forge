@@ -12,6 +12,7 @@
             :src="team[`slot_${i}`].image_url"
             :class="`rarity-${team[`slot_${i}`].rarity}`"
             class="teams-img"
+            loading="lazy"
             alt=""
           />
         </div>

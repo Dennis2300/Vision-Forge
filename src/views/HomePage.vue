@@ -5,7 +5,7 @@
       <!-- left -->
       <div class="left-top-section">
         <div class="top-image-container top-border-radius">
-          <img src="./../assets/images/zhongli.webp" alt="" />
+          <img src="./../assets/images/zhongli.webp" alt="" loading="lazy" />
         </div>
         <div class="text-container bottom-border-radius">
           <h1 class="title-style">Welcome to Vision Forge</h1>
@@ -25,7 +25,7 @@
       <!-- right -->
       <div class="right-top-section">
         <div class="top-image-container top-border-radius">
-          <img src="./../assets/images/twins.webp" alt="" />
+          <img src="./../assets/images/twins.webp" alt="" loading="lazy" />
         </div>
         <div class="text-container bottom-border-radius text-center">
           <h1 class="title-style">Character Archive</h1>
@@ -45,7 +45,12 @@
     <div class="middle-section mb-10">
       <div class="middle-sub-section">
         <div class="middle-image-container top-border-radius">
-          <img class="image-scale" src="./../assets/images/skirk.webp" alt="" />
+          <img
+            class="image-scale"
+            src="./../assets/images/skirk.webp"
+            alt=""
+            loading="lazy"
+          />
         </div>
         <div class="text-container bottom-border-radius">
           <h1 class="title-style">Weapon Archive</h1>
@@ -62,7 +67,7 @@
       </div>
       <div class="middle-sub-section">
         <div class="middle-image-container top-border-radius">
-          <img src="./../assets/images/chiori.webp" alt="" />
+          <img src="./../assets/images/chiori.webp" alt="" loading="lazy" />
         </div>
         <div class="text-container bottom-border-radius">
           <h1 class="title-style">Artifact Archive</h1>

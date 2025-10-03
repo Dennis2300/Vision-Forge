@@ -1,9 +1,9 @@
 <template>
   <div class="about-page-container">
     <!--Stickers-->
-    <img class="sticker sticker-1" :src="images.furina" alt="" />
-    <img class="sticker sticker-2" :src="images.kinich" alt="" />
-    <img class="sticker sticker-3" :src="images.ajaw" alt="" />
+    <img class="sticker sticker-1" loading="lazy" :src="images.furina" alt="" />
+    <img class="sticker sticker-2" loading="lazy" :src="images.kinich" alt="" />
+    <img class="sticker sticker-3" loading="lazy" :src="images.ajaw" alt="" />
 
     <!--About this project section-->
     <div class="about-page-intro">
@@ -152,16 +152,19 @@
             src="./../assets//images/icons/vue.svg"
             alt="vue.js"
             class="logo"
+            loading="lazy"
           />
           <img
             src="./../assets//images/icons/supabase.svg"
             alt="supabase"
             class="logo"
+            loading="lazy"
           />
           <img
             src="./../assets//images/icons/tailwindcss.svg"
             alt="tailwindcss"
             class="logo"
+            loading="lazy"
           />
         </div>
       </section>
