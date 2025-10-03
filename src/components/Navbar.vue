@@ -1,40 +1,26 @@
 <template>
-  <div class="navbar-container">
-    <div class="left-nav">
-      <router-link class="nav-logo" to="/">
-        <img class="logo" loading="lazy" src="./../assets/images/icons/webIcon.webp" alt="" />
-        <span class="nav-title">Vision Forge</span>
-      </router-link>
-    </div>
-    <div class="middle-nav">
-      <router-link class="nav-item" to="/">Home</router-link>
-      <router-link class="nav-item" to="/characters">Characters</router-link>
-      <router-link class="nav-item" to="/weapons">Weapons</router-link>
-      <router-link class="nav-item" to="/artifacts">Artifacts</router-link>
-      <router-link class="nav-item" to="/about">About</router-link>
-    </div>
-    <div class="right-nav"></div>
+  <div class="left-nav">
+    <router-link class="nav-logo" to="/">
+      <img
+        class="logo"
+        loading="lazy"
+        src="./../assets/images/icons/webIcon.webp"
+        alt=""
+      />
+      <span class="nav-title">Vision Forge</span>
+    </router-link>
   </div>
+  <div class="middle-nav">
+    <router-link class="nav-item" to="/">Home</router-link>
+    <router-link class="nav-item" to="/characters">Characters</router-link>
+    <router-link class="nav-item" to="/weapons">Weapons</router-link>
+    <router-link class="nav-item" to="/artifacts">Artifacts</router-link>
+    <router-link class="nav-item" to="/about">About</router-link>
+  </div>
+  <div class="right-nav"></div>
 </template>
 
 <style scoped>
-.navbar-container {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  background-color: #0b192c;
-  display: grid;
-  height: 60px;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  color: white;
-  letter-spacing: 1px;
-  font-size: 1.3rem;
-  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
-  padding-top: 5px;
-  z-index: 100;
-}
-
 .left-nav {
   justify-self: start;
   margin-left: 25px;
