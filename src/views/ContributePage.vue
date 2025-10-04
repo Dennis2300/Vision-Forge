@@ -154,6 +154,28 @@ import { supabase } from "./../supabaseClient.js";
 const placeholderNames = ref([]);
 const supporters = ref([]);
 
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
+  const now = new Date().getTime();
+
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  }
+}
 function formatSupportInfo(dateString) {
   const date = new Date(dateString);
   const now = new Date();
@@ -163,13 +185,19 @@ function formatSupportInfo(dateString) {
 
 async function fetchSupporters() {
   try {
+    const cached = cache("supporters");
+    if (cached) {
+      supporters.value = cached;
+      return;
+    }
+
     const { data, error: fetchError } = await supabase
       .from("supporters")
       .select("*");
     if (fetchError) throw fetchError;
 
+    cache("supporters", data);
     supporters.value = data;
-    console.log(supporters.value);
   } catch (err) {
     console.error("Error fetching supporters:", err);
   }
