@@ -42,8 +42,8 @@
         <p class="mt-4 font-semibold">
           Thank you for being part of this journey!
         </p>
-        <div>
-          <a href="">Patreon</a>
+        <div class="patreon-button-container my-5">
+          <a class="patreon-button" href="">Patreon</a>
         </div>
       </div>
       <div class="supporters-list">
@@ -144,6 +144,28 @@
 
 .supporter-date {
   font-family: var(--font-roboto);
+}
+
+.patreon-button-container {
+  text-align: center;
+}
+
+.patreon-button {
+  background-color: var(--filter-color);
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid black;
+  text-decoration: none;
+  color: orange;
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+}
+
+.patreon-button:hover {
+  background-color: var(--tertiary);
+  color: black;
+  transform: scale(1.01);
 }
 </style>
 
