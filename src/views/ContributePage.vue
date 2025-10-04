@@ -151,7 +151,6 @@
 import { ref, onMounted } from "vue";
 import { supabase } from "./../supabaseClient.js";
 
-const placeholderNames = ref([]);
 const supporters = ref([]);
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
