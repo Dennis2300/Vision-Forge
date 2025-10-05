@@ -310,7 +310,8 @@ const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 // Function to get cached data from local storage
 function getCachedData(key) {
-  const cachedData = localStorage.getItem(key);
+  // const cachedData = localStorage.getItem(key); while dev
+  const cachedData = sessionStorage.getItem(key);
   if (!cachedData) return null;
 
   const { timestamp, data } = JSON.parse(cachedData);
@@ -330,7 +331,8 @@ function setCachedData(key, data) {
     timestamp: new Date().getTime(),
     data,
   };
-  localStorage.setItem(key, JSON.stringify(cache));
+  // localStorage.setItem(key, JSON.stringify(cache)); while dev
+  sessionStorage.setItem(key, JSON.stringify(cache));
 }
 
 // Fetch base character details
