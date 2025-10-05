@@ -395,6 +395,34 @@ async function fetchCharacterBuild(characterId) {
   return data;
 }
 
+async function fetchCharacterTalents(characterId) {
+  const { data, error } = await supabase
+    .from("characterTalents")
+    .select(
+      `
+      id,
+      normal_attack_name,
+      normal_attack,
+      elemental_skill_name,
+      elemental_skill,
+      elemental_burst_name,
+      elemental_burst,
+      passive1_name,
+      passive1,
+      passive2_name,
+      passive2,
+      passive3_name,
+      passive3
+    `
+    )
+    .eq("character_id", characterId)
+    .single(); // since each character has one talent set
+
+  if (error) throw error;
+
+  return data;
+}
+
 // Main function to fetch character details
 async function fetchCharacterDetails(characterId) {
   const cacheKey = `character-${characterId}`;
@@ -402,13 +430,14 @@ async function fetchCharacterDetails(characterId) {
   if (cachedCharacter) return cachedCharacter;
 
   try {
-    const [characterData, regions, weapons, artifacts, build] =
+    const [characterData, regions, weapons, artifacts, build, talents] =
       await Promise.all([
         fetchBaseCharacterDetails(characterId),
         fetchCharacterRegions(characterId),
         fetchCharacterWeapons(characterId),
         fetchCharacterArtifacts(characterId),
         fetchCharacterBuild(characterId),
+        fetchCharacterTalents(characterId),
       ]);
 
     const result = {
@@ -417,6 +446,7 @@ async function fetchCharacterDetails(characterId) {
       weapons,
       artifacts,
       build,
+      talents,
     };
 
     setCachedData(cacheKey, result);
