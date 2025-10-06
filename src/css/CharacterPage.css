@@ -297,8 +297,8 @@
 }
 
 .character-vision-image {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   object-fit: contain;
 }
 
@@ -309,7 +309,7 @@
   border-radius: 10px;
   font-size: 1rem;
   font-family: var(--font-acme);
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 1px;
   border: 1px solid black;
 }
@@ -322,7 +322,7 @@
   border-radius: 10px;
   font-size: 1rem;
   font-family: var(--font-acme);
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 1px;
   border: 1px solid black;
   color: var(--tertiary);

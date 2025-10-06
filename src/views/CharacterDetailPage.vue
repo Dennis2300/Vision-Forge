@@ -274,7 +274,7 @@
           <div class="character-talents-menu">
             <div
               class="talent-menu-item"
-              :class="{ selected: selectedTalent === 'normal_attack' }"
+              :class="{ talentSelected: selectedTalent === 'normal_attack' }"
               @click="selectTalent('normal_attack')"
             >
               Normal Attack
@@ -282,7 +282,7 @@
 
             <div
               class="talent-menu-item"
-              :class="{ selected: selectedTalent === 'elemental_skill' }"
+              :class="{ talentSelected: selectedTalent === 'elemental_skill' }"
               @click="selectTalent('elemental_skill')"
             >
               Elemental Skill
@@ -290,7 +290,7 @@
 
             <div
               class="talent-menu-item"
-              :class="{ selected: selectedTalent === 'elemental_burst' }"
+              :class="{ talentSelected: selectedTalent === 'elemental_burst' }"
               @click="selectTalent('elemental_burst')"
             >
               Elemental Burst
@@ -298,7 +298,7 @@
 
             <div
               class="talent-menu-item"
-              :class="{ selected: selectedTalent === 'passive1' }"
+              :class="{ talentSelected: selectedTalent === 'passive1' }"
               @click="selectTalent('passive1')"
             >
               Passive 1
@@ -306,7 +306,7 @@
 
             <div
               class="talent-menu-item"
-              :class="{ selected: selectedTalent === 'passive2' }"
+              :class="{ talentSelected: selectedTalent === 'passive2' }"
               @click="selectTalent('passive2')"
             >
               Passive 2
@@ -314,7 +314,7 @@
 
             <div
               class="talent-menu-item"
-              :class="{ selected: selectedTalent === 'passive3' }"
+              :class="{ talentSelected: selectedTalent === 'passive3' }"
               @click="selectTalent('passive3')"
             >
               Passive 3
