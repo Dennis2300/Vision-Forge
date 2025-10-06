@@ -307,7 +307,8 @@
             </div>
           </div>
           <!-- Description -->
-          <div class="character-talents-content mt-5 p-5">
+          <div class="character-talents-content mt-5 p-10">
+            <h1 class="divider mb-5 px-32 ">{{ currentTalentName }}</h1>
             <MarkdownRender :content="currentTalentContent" />
           </div>
         </div>
@@ -528,6 +529,11 @@ function selectTalent(talentName) {
 
 const currentTalentContent = computed(() => {
   return character.value?.talents?.[selectedTalent.value];
+});
+
+const currentTalentName = computed(() => {
+  const talentKey = selectedTalent.value + "_name";
+  return character.value?.talents?.[talentKey] || "";
 });
 
 onMounted(async () => {
