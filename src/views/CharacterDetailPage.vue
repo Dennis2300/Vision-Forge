@@ -160,7 +160,10 @@
       </div>
 
       <!-- character best artifact -->
-      <div class="character-artifact-container">
+      <div
+        v-if="character.artifacts.length"
+        class="character-artifact-container"
+      >
         <h1 class="divider">Best Artifact for {{ character.name }}</h1>
         <div class="character-bis-list-container">
           <router-link
@@ -180,20 +183,14 @@
             <p class="character-bis-name">{{ artifact.name }}</p>
             <span class="character-weapon-rank">{{ artifact.rank }}</span>
           </router-link>
-          <div v-if="!character.artifacts.length">
-            <p class="not-found mb-6">No artifacts found for this character.</p>
-          </div>
         </div>
 
-        <div class="character-build-container my-5">
+        <div
+          v-if="character.artifact_build_note"
+          class="character-build-container my-5"
+        >
           <div class="character-build-text">
             <MarkdownRender :content="character.artifact_build_note" />
-            <p
-              class="no-build-yet text-3xl"
-              v-if="!character.artifact_build_note.length"
-            >
-              Not available yet
-            </p>
           </div>
           <div class="character-artifact-stats">
             <div
@@ -227,7 +224,7 @@
       </div>
 
       <!-- character best weapon -->
-      <div class="character-weapon-container">
+      <div v-if="character.weapons.length" class="character-weapon-container">
         <h1 class="divider">Best Weapon for {{ character.name }}</h1>
         <div class="character-bis-list-container">
           <router-link
@@ -253,14 +250,11 @@
             </p>
             <span class="character-weapon-rank">{{ weapon.rank }}</span>
           </router-link>
-          <div v-if="!character.weapons.length">
-            <p class="not-found">No weapons found for this character.</p>
-          </div>
         </div>
       </div>
 
       <!-- Placeholder for character build infographic -->
-      <div class="character-mats-container">
+      <div v-if="character.mats" class="character-mats-container">
         <h1 class="divider">{{ character.name }} Level up materials</h1>
         <div>
           <img
@@ -339,7 +333,7 @@
       </div>
 
       <!-- Source -->
-      <div class="character-source-container">
+      <div class="character-source-container mt-5">
         <h3 class="divider">Sources</h3>
         <div class="character-source">
           <a class="source-link" :href="character.wiki_url" target="_blank"
