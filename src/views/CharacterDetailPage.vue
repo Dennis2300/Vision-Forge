@@ -273,21 +273,42 @@
       </div>
 
       <!-- Talent description and priority -->
-      <div class="character-talents-container">
+      <div v-if="character.talents" class="character-talents-container">
         <h1 class="divider">{{ character.name }}'s kit</h1>
         <div class="character-talents">
           <!-- Talent Menu -->
           <div class="character-talents-menu">
-            <div class="talent-menu-item">Normal Attack</div>
-            <div class="talent-menu-item">Elemental Skill</div>
-            <div class="talent-menu-item">Elemental Burst</div>
-            <div class="talent-menu-item">Passive 1</div>
-            <div class="talent-menu-item">Passive 2</div>
-            <div class="talent-menu-item">Passive 3</div>
+            <div
+              class="talent-menu-item"
+              @click="selectTalent('normal_attack')"
+            >
+              Normal Attack
+            </div>
+            <div
+              class="talent-menu-item"
+              @click="selectTalent('elemental_skill')"
+            >
+              Elemental Skill
+            </div>
+            <div
+              class="talent-menu-item"
+              @click="selectTalent('elemental_burst')"
+            >
+              Elemental Burst
+            </div>
+            <div class="talent-menu-item" @click="selectTalent('passive1')">
+              Passive 1
+            </div>
+            <div class="talent-menu-item" @click="selectTalent('passive2')">
+              Passive 2
+            </div>
+            <div class="talent-menu-item" @click="selectTalent('passive3')">
+              Passive 3
+            </div>
           </div>
           <!-- Description -->
           <div class="character-talents-content mt-5">
-            <MarkdownRender :content="character.talents.normal_attack" />
+            <MarkdownRender :content="currentTalentContent" />
           </div>
         </div>
       </div>
@@ -312,7 +333,7 @@
 
 <script setup>
 // Import the necessary functions and components
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { supabase } from "./../supabaseClient.js";
 
@@ -326,6 +347,8 @@ const character = ref(null);
 const loading = ref(true);
 
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
+
+const selectedTalent = ref("normal_attack");
 
 // Function to get cached data from local storage
 function getCachedData(key) {
@@ -437,7 +460,7 @@ async function fetchCharacterTalents(characterId) {
     `
     )
     .eq("character_id", characterId)
-    .single(); // since each character has one talent set
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -497,6 +520,15 @@ function flagEmoji(lang) {
 function formatVoiceActorName(name) {
   return name.includes("&") ? name.replace(/\s*&\s*/g, "<br>& ") : name;
 }
+
+function selectTalent(talentName) {
+  selectedTalent.value = talentName;
+  console.log("Selected talent:", talentName);
+}
+
+const currentTalentContent = computed(() => {
+  return character.value?.talents?.[selectedTalent.value];
+});
 
 onMounted(async () => {
   const characterId = route.params.id;

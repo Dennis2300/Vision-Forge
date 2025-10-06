@@ -374,7 +374,7 @@
 }
 
 .character-talents-container {
-  min-height: 500px;
+  min-height: fit-content;
   padding: 2rem;
 }
 
