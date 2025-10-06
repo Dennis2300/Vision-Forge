@@ -307,7 +307,7 @@
             </div>
           </div>
           <!-- Description -->
-          <div class="character-talents-content mt-5">
+          <div class="character-talents-content mt-5 p-5">
             <MarkdownRender :content="currentTalentContent" />
           </div>
         </div>

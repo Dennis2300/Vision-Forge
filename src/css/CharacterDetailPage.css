@@ -385,7 +385,7 @@
 .character-talents-menu {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 1.5em;
 }
 
@@ -400,4 +400,12 @@
 .talent-menu-item:hover {
   background-color: var(--filter-color-hover);
   cursor: pointer;
+}
+
+.character-talents-content {
+  background-color: var(--primary);
+  font-family: var(--font-acme);
+  border-radius: 15px;
+  height: fit-content;
+  font-size: 1.2rem;
 }
