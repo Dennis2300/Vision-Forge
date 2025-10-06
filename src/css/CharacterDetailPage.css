@@ -405,15 +405,18 @@
 .character-talents-content {
   background-color: var(--primary);
   border-radius: 15px;
-  height: fit-content;
+  min-height: 600px;
   font-size: 1.2rem;
+  text-shadow: 5px 5px 15px rgb(0, 0, 0, 1);
 }
 
-.character-talents-content h2 {
+.character-talents-content h5 {
   font-family: var(--font-acme);
   color: var(--tertiary);
+  letter-spacing: 1px;
 }
 .character-talents-content p {
   line-height: 1.5rem;
   font-family: var(--font-roboto);
+  letter-spacing: 0.5px;
 }

@@ -307,9 +307,12 @@
             </div>
           </div>
           <!-- Description -->
-          <div class="character-talents-content mt-5 p-10">
-            <h1 class="divider mb-5 px-32 ">{{ currentTalentName }}</h1>
-            <MarkdownRender :content="currentTalentContent" />
+          <div class="character-talents-content p-5 mt-5">
+            <h1 class="divider px-32">{{ currentTalentName }}</h1>
+            <MarkdownRender
+              class="px-10 mt-7"
+              :content="currentTalentContent"
+            />
           </div>
         </div>
       </div>
