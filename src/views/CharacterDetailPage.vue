@@ -280,32 +280,53 @@
           <div class="character-talents-menu">
             <div
               class="talent-menu-item"
+              :class="{ selected: selectedTalent === 'normal_attack' }"
               @click="selectTalent('normal_attack')"
             >
               Normal Attack
             </div>
+
             <div
               class="talent-menu-item"
+              :class="{ selected: selectedTalent === 'elemental_skill' }"
               @click="selectTalent('elemental_skill')"
             >
               Elemental Skill
             </div>
+
             <div
               class="talent-menu-item"
+              :class="{ selected: selectedTalent === 'elemental_burst' }"
               @click="selectTalent('elemental_burst')"
             >
               Elemental Burst
             </div>
-            <div class="talent-menu-item" @click="selectTalent('passive1')">
+
+            <div
+              class="talent-menu-item"
+              :class="{ selected: selectedTalent === 'passive1' }"
+              @click="selectTalent('passive1')"
+            >
               Passive 1
             </div>
-            <div class="talent-menu-item" @click="selectTalent('passive2')">
+
+            <div
+              class="talent-menu-item"
+              :class="{ selected: selectedTalent === 'passive2' }"
+              @click="selectTalent('passive2')"
+            >
               Passive 2
             </div>
-            <div class="talent-menu-item" @click="selectTalent('passive3')">
+
+            <div
+              class="talent-menu-item"
+              :class="{ selected: selectedTalent === 'passive3' }"
+              @click="selectTalent('passive3')"
+            >
               Passive 3
             </div>
           </div>
+
           <!-- Description -->
           <div class="character-talents-content p-5 mt-5">
             <h1 class="divider px-32">{{ currentTalentName }}</h1>

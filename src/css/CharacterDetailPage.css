@@ -394,6 +394,7 @@
   background-color: var(--primary);
   padding: 1rem 2rem;
   border-radius: 15px;
+  border: 1px solid black;
   transition: background-color 0.3s ease;
 }
 
@@ -419,4 +420,8 @@
   line-height: 1.5rem;
   font-family: var(--font-roboto);
   letter-spacing: 0.5px;
+}
+
+.selected {
+  border: 1px solid var(--tertiary);
 }
