@@ -153,7 +153,12 @@
             <div class="divider m-0"></div>
             <p class="character-info-text">
               <span style="color: gray">Favourite Dish</span>
-              <span>{{ character.favourite_dish }}</span>
+              <span
+                class="block w-96 truncate text-right"
+                title="{{ character.favourite_dish }}"
+              >
+                {{ character.favourite_dish }}
+              </span>
             </p>
           </div>
         </div>
