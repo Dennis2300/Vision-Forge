@@ -62,6 +62,7 @@
             <!-- character voice actors -->
             <div class="character-overview-item">
               <h1 class="divider">Voice Actors</h1>
+              <!-- VA MENU -->
               <div class="va-menu-container">
                 <div
                   v-for="lang in languages"
@@ -73,6 +74,7 @@
                   {{ lang }}
                 </div>
               </div>
+              <!-- VA DISPLAY -->
               <div class="va-container">
                 <transition name="fade" mode="out-in">
                   <h2 :key="selectedLang">{{ character.va[selectedLang] }}</h2>
