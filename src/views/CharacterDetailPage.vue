@@ -84,12 +84,14 @@
             <!-- character affiliation -->
             <div class="character-overview-item">
               <h1 class="divider mt-5">Affiliation</h1>
-              <div
-                v-if="character.affiliation"
-                v-for="affiliation in character.affiliation"
-                :key="affiliation"
-              >
-                {{ affiliation ? affiliation : "" }}
+              <div class="affiliation-container">
+                <div
+                  v-if="character.affiliation"
+                  v-for="affiliation in character.affiliation"
+                  :key="affiliation"
+                >
+                  <h2>{{ affiliation ? affiliation : "" }}</h2>
+                </div>
               </div>
             </div>
             <!-- character regions -->

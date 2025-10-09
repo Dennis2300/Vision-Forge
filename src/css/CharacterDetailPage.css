@@ -159,6 +159,14 @@
   cursor: default;
 }
 
+.affiliation-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  gap: 1rem;
+  color: var(--tertiary);
+}
+
 .character-info-container {
   display: flex;
   flex-direction: column;
@@ -308,13 +316,6 @@
   text-align: center;
 }
 
-.no-build-yet {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
 .character-weapon-rank {
   position: absolute;
   background-color: var(--secondary);
@@ -324,15 +325,6 @@
   font-family: var(--font-acme);
   font-size: 18px;
   border-radius: 10px;
-  letter-spacing: 1px;
-}
-
-.not-found {
-  font-size: 32px;
-  font-family: var(--font-acme);
-  text-align: center;
-  margin-top: 50px;
-  text-decoration: underline;
   letter-spacing: 1px;
 }
 
