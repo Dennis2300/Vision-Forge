@@ -158,8 +158,17 @@
 }
 
 .character-aff-regions-container {
-  background-color: darkblue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 5rem;
+  height: 100%;
 }
+
+.character-aff-reg {
+  width: 100%;
+}
+
 .character-info-container {
   display: flex;
   flex-direction: column;

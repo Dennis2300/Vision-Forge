@@ -83,12 +83,12 @@
             </div>
             <div class="character-aff-regions-container">
               <!-- character affiliation -->
-              <div class="">
-                <div>affiliation</div>
+              <div class="character-aff-reg">
+                <h3 class="divider">affiliation</h3>
               </div>
               <!-- character regions -->
-              <div class="">
-                <div>Regions</div>
+              <div class="character-aff-reg">
+                <h3 class="divider">Regions</h3>
               </div>
             </div>
           </div>
