@@ -60,55 +60,52 @@
         <div class="character-overview-container">
           <div class="character-overview">
             <!-- character voice actors -->
-            <h1 class="divider">Voice Actors</h1>
-            <div class="character-va-container" v-if="character.va">
-              <div v-for="(name, lang) in character.va" :key="lang">
-                <p class="character-list-view">
-                  {{ flagEmoji(lang) }} &rarr;
-                  <span v-html="formatVoiceActorName(name)"></span>
-                </p>
+            <div class="character-overview-item">
+              <h1 class="divider">Voice Actors</h1>
+              <div class="va-menu-container">
+                <div
+                  v-for="lang in languages"
+                  :key="lang"
+                  @click="selectedLang = lang"
+                  class="va-menu-item"
+                  :class="{ active: selectedLang === lang }"
+                >
+                  {{ lang }}
+                </div>
+              </div>
+              <div class="va-container">
+                <transition name="fade" mode="out-in">
+                  <h2 :key="selectedLang">{{ character.va[selectedLang] }}</h2>
+                </transition>
               </div>
             </div>
-
-            <div v-else>
-              <p class="text-center my-9">No voice actors announced yet.</p>
-            </div>
-
             <!-- character affiliation -->
-            <h1 class="divider mt-5">Affiliation</h1>
-            <div
-              v-if="character.affiliation"
-              v-for="affiliation in character.affiliation"
-              :key="affiliation"
-            >
-              <p class="character-list-view">
+            <div class="character-overview-item">
+              <h1 class="divider mt-5">Affiliation</h1>
+              <div
+                v-if="character.affiliation"
+                v-for="affiliation in character.affiliation"
+                :key="affiliation"
+              >
                 {{ affiliation ? affiliation : "" }}
-              </p>
+              </div>
             </div>
-
-            <div v-else>
-              <p class="text-center my-9">No affiliation yet.</p>
-            </div>
-
             <!-- character regions -->
-            <h1 class="divider mt-5">Region</h1>
-            <div
-              class="character-list-view mt-8"
-              v-for="region in character.regions"
-              :key="region.id"
-            >
-              <img
-                loading="lazy"
-                :src="region.image_url"
-                alt=""
-                class="region-image"
-              />
-              <p class="region-name">
-                {{ region.name }}
-              </p>
-            </div>
-            <div v-if="!character.regions.length">
-              <p class="text-center my-9">No regions yet.</p>
+            <div class="character-overview-item">
+              <h1 class="divider">Region</h1>
+              <div
+                class="character-list-view"
+                v-for="region in character.regions"
+                :key="region.id"
+              >
+                <img
+                  loading="lazy"
+                  :src="region.image_url"
+                  alt=""
+                  class="region-image"
+                />
+                <p>{{ region.name }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -372,6 +369,8 @@ const loading = ref(true);
 
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
+const languages = ["English", "Japanese", "Chinese", "Korean"];
+const selectedLang = ref("English");
 const selectedTalent = ref("normal_attack");
 
 // Function to get cached data from local storage
