@@ -76,39 +76,19 @@
               </div>
               <!-- VA DISPLAY -->
               <div class="va-container">
-                <transition name="fade" mode="out-in">
+                <transition name="fade" mode="out-in" class="my-2">
                   <h2 :key="selectedLang">{{ character.va[selectedLang] }}</h2>
                 </transition>
               </div>
             </div>
-            <!-- character affiliation -->
-            <div class="character-overview-item">
-              <h1 class="divider mt-5">Affiliation</h1>
-              <div class="affiliation-container">
-                <div
-                  v-if="character.affiliation"
-                  v-for="affiliation in character.affiliation"
-                  :key="affiliation"
-                >
-                  <h2>{{ affiliation ? affiliation : "" }}</h2>
-                </div>
+            <div class="character-aff-regions-container">
+              <!-- character affiliation -->
+              <div class="">
+                <div>affiliation</div>
               </div>
-            </div>
-            <!-- character regions -->
-            <div class="character-overview-item">
-              <h1 class="divider">Region</h1>
-              <div
-                class="character-list-view"
-                v-for="region in character.regions"
-                :key="region.id"
-              >
-                <img
-                  loading="lazy"
-                  :src="region.image_url"
-                  alt=""
-                  class="region-image"
-                />
-                <p>{{ region.name }}</p>
+              <!-- character regions -->
+              <div class="">
+                <div>Regions</div>
               </div>
             </div>
           </div>

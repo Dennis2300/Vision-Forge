@@ -115,13 +115,11 @@
   height: 75%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 1rem;
 }
 
 .character-overview-item {
   font-family: var(--font-roboto);
-  height: 100%;
 }
 
 .va-menu-container {
@@ -159,14 +157,9 @@
   cursor: default;
 }
 
-.affiliation-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  text-align: center;
-  gap: 1rem;
-  color: var(--tertiary);
+.character-aff-regions-container {
+  background-color: darkblue;
 }
-
 .character-info-container {
   display: flex;
   flex-direction: column;
