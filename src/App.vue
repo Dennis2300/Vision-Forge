@@ -1,23 +1,33 @@
 <template>
-  <!-- Navbar Component -->
-  <div class="navbar-container" :class="{ 'navbar-hidden': isScrollingDown }">
-    <Navbar />
+  <!-- Loading screen -->
+  <div v-if="!isLoaded" class="loading-screen">
+    <LoadingSpinner />
   </div>
 
-  <!-- Main Content Section -->
-  <div class="content">
-    <router-view />
-  </div>
+  <!-- Main APP -->
+  <div v-else>
+    <!-- Navbar Component -->
+    <div class="navbar-container" :class="{ 'navbar-hidden': isScrollingDown }">
+      <Navbar />
+    </div>
 
-  <!-- Footer Component -->
-  <Footer />
+    <!-- Main Content Section -->
+    <div class="content">
+      <router-view />
+    </div>
+
+    <!-- Footer Component -->
+    <Footer />
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import LoadingSpinner from "./components/LoadingSpinner.vue";
 
+// Navbar scroll behavior
 const isScrollingDown = ref(false);
 let lastScrollY = window.scrollY;
 
@@ -35,8 +45,28 @@ const handleScroll = () => {
   lastScrollY = currentScrollY;
 };
 
+// Loading state for the entire HTML
+const isLoaded = ref(false);
+
 onMounted(() => {
+  // Scroll listener
   window.addEventListener("scroll", handleScroll);
+
+  // Check if already loaded
+  if (document.readyState === "complete") {
+    isLoaded.value = true;
+  } else {
+    const handleLoad = () => {
+      isLoaded.value = true;
+    };
+    window.addEventListener("load", handleLoad);
+
+    // Cleanup on unmount
+    onBeforeUnmount(() => {
+      window.removeEventListener("load", handleLoad);
+      window.removeEventListener("scroll", handleScroll);
+    });
+  }
 });
 
 onBeforeUnmount(() => {
