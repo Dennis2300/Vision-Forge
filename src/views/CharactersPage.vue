@@ -382,7 +382,8 @@ async function fetchRegions() {
     // Fetch regions from Supabase
     const { data, error: fetchError } = await supabase
       .from("regions")
-      .select("*,id, name, image_url");
+      .select("*,id, name, image_url")
+      .in("id", [1, 2, 3, 4, 5, 6, 9]);
     if (fetchError) throw fetchError;
 
     cache("regions", data);
