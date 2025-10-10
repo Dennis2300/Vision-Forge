@@ -76,19 +76,30 @@
               </div>
               <!-- VA DISPLAY -->
               <div class="va-container">
-                <transition name="fade" mode="out-in" class="my-2">
+                <transition name="fade" mode="out-in" class="mt-3">
                   <h2 :key="selectedLang">{{ character.va[selectedLang] }}</h2>
                 </transition>
               </div>
             </div>
+            <!-- Character affiliation and regions -->
             <div class="character-aff-regions-container">
               <!-- character affiliation -->
               <div class="character-aff-reg">
-                <h3 class="divider">affiliation</h3>
+                <h3 class="divider">Affiliation</h3>
+                <div class="my-1" v-for="affiliation in character.affiliation">
+                  <strong>
+                    {{ affiliation }}
+                  </strong>
+                </div>
               </div>
               <!-- character regions -->
               <div class="character-aff-reg">
                 <h3 class="divider">Regions</h3>
+                <div class="my-1" v-for="region in character.regions" :key="region.id">
+                  <strong>
+                    {{ region.name }}
+                  </strong>
+                </div>
               </div>
             </div>
           </div>
@@ -512,20 +523,6 @@ function formatDate(dateString) {
   if (!dateString) return "Upcoming";
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString("en-US", options);
-}
-
-function flagEmoji(lang) {
-  const flagMap = {
-    chinese: "🇨🇳",
-    english: "🇺🇸",
-    japanese: "🇯🇵",
-    korean: "🇰🇷",
-  };
-  return flagMap[lang.toLowerCase()] || "Additional"; // Default to white flag if language not found
-}
-
-function formatVoiceActorName(name) {
-  return name.includes("&") ? name.replace(/\s*&\s*/g, "<br>& ") : name;
 }
 
 function selectTalent(talentName) {

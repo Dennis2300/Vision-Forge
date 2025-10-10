@@ -115,6 +115,7 @@
   height: 75%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   gap: 1rem;
 }
 
@@ -133,7 +134,7 @@
 .va-menu-item {
   background-color: var(--filter-color);
   padding: 0.5rem 1.5rem;
-  border-radius: 15px;
+  border-radius: 5px;
   cursor: pointer;
   letter-spacing: 1px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -162,11 +163,18 @@
   flex-direction: row;
   justify-content: space-around;
   gap: 5rem;
-  height: 100%;
 }
 
 .character-aff-reg {
   width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.character-aff-reg strong {
+  font-size: 1rem;
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
 }
 
 .character-info-container {
