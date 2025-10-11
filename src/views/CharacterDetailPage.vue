@@ -59,44 +59,45 @@
         <!-- character overview -->
         <div class="character-overview-container">
           <div class="character-overview">
-            <!-- character voice actors -->
-            <div class="character-overview-item">
-              <h1 class="divider">Voice Actors</h1>
-              <!-- VA MENU -->
-              <div class="va-menu-container">
+            <!-- Character VA container -->
+            <div class="character-va-wrapper">
+              <h1 class="divider m-0">Voice Actors</h1>
+              <!-- VA Menu -->
+              <div class="character-va-menu">
                 <div
                   v-for="lang in languages"
                   :key="lang"
                   @click="selectedLang = lang"
-                  class="va-menu-item"
+                  class="character-va-menu-item"
                   :class="{ active: selectedLang === lang }"
                 >
                   {{ lang }}
                 </div>
               </div>
-              <!-- VA DISPLAY -->
-              <div class="va-container">
-                <transition name="fade" mode="out-in" class="mt-3">
-                  <h2 :key="selectedLang">{{ character.va[selectedLang] }}</h2>
+              <!-- VA Content -->
+              <div class="character-va-content">
+                <transition name="fade" mode="out-in" class="text-center">
+                  <h2 :key="selectedLang" class="character-va-name">{{ character.va[selectedLang] }}</h2>
                 </transition>
               </div>
             </div>
-            <!-- Character affiliation and regions -->
-            <div class="character-aff-regions-container">
-              <!-- character affiliation -->
-              <div class="character-aff-reg">
-                <h3 class="divider">Affiliation</h3>
-                <div class="my-1" v-for="affiliation in character.affiliation">
-                  <strong>
+            <!-- Character and Regions container -->
+            <div class="regions-affiliation-container">
+              <div class="character-aff-reg-wrapper">
+                <h3 class="divider">Affiliation(s)</h3>
+                <div class="character-list-wrapper">
+                  <strong
+                    v-for="affiliation in character.affiliation"
+                    class="character-list-item"
+                  >
                     {{ affiliation }}
                   </strong>
                 </div>
               </div>
-              <!-- character regions -->
-              <div class="character-aff-reg">
-                <h3 class="divider">Regions</h3>
-                <div class="my-1" v-for="region in character.regions" :key="region.id">
-                  <strong>
+              <div class="character-aff-reg-wrapper">
+                <h3 class="divider">Region(s)</h3>
+                <div class="character-list-wrapper">
+                  <strong v-for="region in character.regions" class="character-list-item">
                     {{ region.name }}
                   </strong>
                 </div>
