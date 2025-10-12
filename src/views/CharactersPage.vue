@@ -5,6 +5,9 @@
       <div v-for="region in character.regions">
         <p>{{ region.region_id.name }}</p>
       </div>
+      <div v-for="affiliation in character.affiliations">
+        <p>{{ affiliation.affiliation_id.name }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -19,9 +22,10 @@ const characters = ref([]);
 async function fetchCharacters() {
   console.log("fetching characters");
   try {
-    let query = supabase
-      .from("characters")
-      .select(`*, regions:character_region(region_id(name))`);
+    let query = supabase.from("characters").select(`*, 
+      regions:character_region(region_id(name)),
+      affiliations:character_affiliation(affiliation_id(name))
+      `);
 
     const { data, error: supabaseError } = await query;
     if (supabaseError) throw supabaseError;
