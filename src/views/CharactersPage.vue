@@ -4,18 +4,21 @@
     <div class="character-page-header">
       <h1 class="text-center">Character Archive</h1>
     </div>
+
     <!-- Character Display -->
     <div class="character-page mt-10 flex gap-16">
       <!--Offset-->
       <div class="character-page-offset">
         <h1>Offset</h1>
       </div>
+
       <!--Main-->
       <div class="character-main-content flex flex-col gap-10">
         <!--Character Card-->
         <div
           class="character-card flex flex-col mx-3"
           v-for="character in characters"
+          :key="character.id"
         >
           <!--Card Top-->
           <div class="card-top px-5 rounded-t-xl flex flex-row">
@@ -41,6 +44,7 @@
               loading="lazy"
             />
           </div>
+
           <!--Card Bottom-->
           <div
             class="card-bottom px-5 rounded-b-xl flex flex-row justify-between"
@@ -76,6 +80,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Infinite Scroll Trigger -->
         <div ref="loadMoreRef" class="text-center py-10">
           <span v-if="loading">Loading...</span>
           <span v-else-if="!hasMore">No more characters</span>
@@ -86,7 +92,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/CharacterPage.css";
 
@@ -95,8 +101,10 @@ const error = ref(null);
 const loading = ref(false);
 const hasMore = ref(true);
 const page = ref(0);
-const pageSize = ref(10);
+const pageSize = 10;
 const loadMoreRef = ref(null);
+
+let observer = null;
 
 async function fetchCharacters() {
   // check if it need to load more characters
@@ -113,24 +121,26 @@ async function fetchCharacters() {
       .from("characters")
       .select(
         `
-    *,
-    regions:character_region(region_id(id, name)),
-    vision(id, name, image_url),
-    weaponTypes(id, name),
-    role(name),
-    main_stat(id, name)
-  `
+        *,
+        regions:character_region(region_id(id, name)),
+        vision(id, name, image_url),
+        weaponTypes(id, name),
+        role(name),
+        main_stat(id, name)
+      `
       )
       .order("release_date", { ascending: false })
       .range(from, to);
 
-    // GET query to supabase
+    // GET method to fetch from db
     const { data, error: supabaseError } = await query;
-    // if error
+    // if error throw the error
     if (supabaseError) throw supabaseError;
 
     // disables hasMore if data is less than page size
-    if (data.length < pageSize) hasMore.value = false;
+    if (data.length < pageSize) {
+      hasMore.value = false;
+    }
 
     // push the data to the already fetched array
     characters.value.push(...data);
@@ -144,18 +154,30 @@ async function fetchCharacters() {
   }
 }
 
+function setupObserver() {
+  observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) fetchCharacters();
+    },
+    {
+      rootMargin: "300px", // load a bit before bottom is reached
+      threshold: 0.1,
+    }
+  );
+
+  if (loadMoreRef.value) observer.observe(loadMoreRef.value);
+}
+
 onMounted(() => {
   fetchCharacters();
+  setupObserver();
+});
 
-  // Observer to let fetch function now when to fetch
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      fetchCharacters();
-    }
-  });
-
-  if (loadMoreRef.value) {
-    observer.observe(loadMoreRef.value);
+onBeforeUnmount(() => {
+  if (observer && loadMoreRef.value) {
+    observer.unobserve(loadMoreRef.value);
+    observer.disconnect();
   }
 });
 </script>
