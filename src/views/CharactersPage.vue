@@ -86,12 +86,12 @@ const error = ref(null);
 const characters = ref([]);
 
 async function fetchCharacters() {
-  console.log("fetching characters");
   try {
     let query = supabase
       .from("characters")
       .select(
-        `*, 
+        `
+    *, 
     regions:character_region(region_id(id, name)),
     vision(id, name, image_url),
     weaponTypes(id, name),
@@ -104,7 +104,6 @@ async function fetchCharacters() {
     const { data, error: supabaseError } = await query;
     if (supabaseError) throw supabaseError;
     characters.value = data;
-    console.log(characters.value);
   } catch (err) {
     error.value = err.message || "Failed to load characters";
     console.error(error.value);
