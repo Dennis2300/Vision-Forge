@@ -16,16 +16,52 @@
   flex: 4;
 }
 
+/*Character Card*/
 .character-card {
-  height: 200px;
+  height: 250px;
 }
 
 .card-top {
   background-color: var(--secondary);
   flex: 4;
+  overflow: hidden;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .card-bottom {
   background-color: var(--filter-color);
   flex: 2;
+}
+
+/*Avatar and Splash Art*/
+.character-avatar {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  background-color: #7149a3;
+}
+
+.character-page-name {
+  font-family: var(--font-roboto);
+  font-size: 3em;
+}
+
+.character-splash-art {
+  height: 275px;
+  width: auto;
+  opacity: 0.5;
+}
+
+/*Rarity BG Color Classes*/
+.rarity-5.character-avatar {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+
+.rarity-4.character-avatar {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
 }
