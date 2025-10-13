@@ -76,6 +76,10 @@
             </div>
           </div>
         </div>
+        <div ref="loadMoreRef" class="text-center py-10">
+          <span v-if="loading">Loading...</span>
+          <span v-else-if="!hasMore">No more characters</span>
+        </div>
       </div>
     </div>
   </div>
@@ -86,16 +90,30 @@ import { ref, onMounted } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/CharacterPage.css";
 
-const error = ref(null);
 const characters = ref([]);
+const error = ref(null);
+const loading = ref(false);
+const hasMore = ref(true);
+const page = ref(0);
+const pageSize = ref(10);
+const loadMoreRef = ref(null);
 
 async function fetchCharacters() {
+  // check if it need to load more characters
+  if (loading.value || !hasMore.value) return;
+  loading.value = true;
+
   try {
+    // calculate the range of characters to fetch
+    const from = page.value * pageSize;
+    const to = from + pageSize - 1;
+
+    // supabase query
     let query = supabase
       .from("characters")
       .select(
         `
-    *, 
+    *,
     regions:character_region(region_id(id, name)),
     vision(id, name, image_url),
     weaponTypes(id, name),
@@ -103,18 +121,41 @@ async function fetchCharacters() {
     main_stat(id, name)
   `
       )
-      .order("release_date", { ascending: false });
+      .order("release_date", { ascending: false })
+      .range(from, to);
 
+    // GET query to supabase
     const { data, error: supabaseError } = await query;
+    // if error
     if (supabaseError) throw supabaseError;
-    characters.value = data;
+
+    // disables hasMore if data is less than page size
+    if (data.length < pageSize) hasMore.value = false;
+
+    // push the data to the already fetched array
+    characters.value.push(...data);
+    // and increase page size
+    page.value++;
   } catch (err) {
     error.value = err.message || "Failed to load characters";
     console.error(error.value);
+  } finally {
+    loading.value = false;
   }
 }
 
 onMounted(() => {
   fetchCharacters();
+
+  // Observer to let fetch function now when to fetch
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      fetchCharacters();
+    }
+  });
+
+  if (loadMoreRef.value) {
+    observer.observe(loadMoreRef.value);
+  }
 });
 </script>
