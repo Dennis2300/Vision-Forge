@@ -1,5 +1,4 @@
-.character-page-container {
-  background-color: darkblue;
+.character-page {
   min-height: 100vh;
   width: 1400px;
 }
@@ -12,13 +11,14 @@
 
 /*Main*/
 .character-main-content {
-  background-color: darkgoldenrod;
   flex: 4;
 }
 
 /*Character Card*/
 .character-card {
   height: 250px;
+  border: 2px solid black;
+  border-radius: 0.75rem;
 }
 
 .card-top {
@@ -32,25 +32,48 @@
 .card-bottom {
   background-color: var(--filter-color);
   flex: 2;
+  border-top: 1px solid black;
 }
 
-/*Avatar and Splash Art*/
+/*Card Top Content*/
 .character-avatar {
   height: 100px;
   width: 100px;
   border-radius: 100%;
-  background-color: #7149a3;
 }
 
 .character-page-name {
   font-family: var(--font-roboto);
-  font-size: 3em;
+  font-size: 2.5rem;
 }
 
 .character-splash-art {
   height: 275px;
   width: auto;
   opacity: 0.5;
+}
+
+/*Card Bottom Content*/
+.vision-image {
+  height: 50px;
+  background-color: var(--primary);
+  border-radius: 100%;
+  border: 1px solid black;
+}
+
+.tags p,
+.release-wrapper {
+  background-color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: var(--tertiary);
+  font-family: var(--font-roboto);
+  letter-spacing: 1px;
+}
+
+.release-text {
+  color: gray;
 }
 
 /*Rarity BG Color Classes*/
