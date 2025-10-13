@@ -8,8 +8,46 @@
     <!-- Character Display -->
     <div class="character-page mt-10 flex gap-16">
       <!--Offset-->
-      <div class="character-page-offset">
-        <h1>Offset</h1>
+      <div class="character-page-offset px-8 py-2 rounded-xl">
+        <h1 class="divider">Rarity</h1>
+        <!-- Rarity Filter -->
+        <div class="flex flex-row justify-around mb-10 mt-5">
+          <div class="rarity-filter px-8 py-2 rounded-md">
+            <p>4 star</p>
+          </div>
+          <div class="rarity-filter px-8 py-2 rounded-md">
+            <p>5 star</p>
+          </div>
+        </div>
+        <!-- Vision Filter -->
+        <h1 class="divider">Vision</h1>
+        <div class="flex flex-col items-center">
+          <div
+            class="dropdown-default flex items-center justify-center py-1 rounded-md"
+            @click="toggleDropdown"
+          >
+            <img
+              v-if="selectedVision"
+              :src="selectedVision.image_url"
+              alt=""
+              class="w-6 h-6 object-contain"
+            />
+            <p class="pl-1">{{ selectedVision ? selectedVision.name : "Select Vision" }}</p>
+          </div>
+          <div
+            v-if="isOpen"
+            class="dropdown-menu absolute mt-11 flex flex-col gap-2 rounded-md"
+          >
+            <div
+              class="dropdown-item flex flex-row items-center py-2"
+              v-for="vision in visions"
+              @click="selectVision(vision)"
+            >
+              <img class="w-8 h-8 pl-2" :src="vision.image_url" alt="" />
+              <p class="pl-1">{{ vision.name }}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!--Main-->
@@ -87,7 +125,9 @@
             <LoadingMoreSpinner />
           </span>
           <span class="flex justify-center" v-else-if="!hasMore">
-            <h1 class="no-more-character px-10 py-2 rounded-2xl tracking-wide">No More Characters</h1>
+            <h1 class="no-more-character px-10 py-2 rounded-2xl tracking-wide">
+              No More Characters
+            </h1>
           </span>
         </div>
       </div>
@@ -102,6 +142,7 @@ import LoadingMoreSpinner from "./../components/LoadingMoreSpinner.vue";
 import "./../css/CharacterPage.css";
 
 const characters = ref([]);
+const visions = ref([]);
 const regions = ref([]);
 const error = ref(null);
 const loading = ref(false);
@@ -110,11 +151,15 @@ const page = ref(0);
 const pageSize = 10;
 const loadMoreRef = ref(null);
 
+const isOpen = ref(false);
+const selectedVision = ref(null);
+
 let observer = null;
 
 // --- Cache keys ---
 const CHARACTER_CACHE_KEY = "characterCache";
 const REGION_CACHE_KEY = "regionCache";
+const VISION_CACHE_KEY = "visionCache";
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = Date.now();
@@ -191,21 +236,42 @@ async function fetchCharacters() {
   }
 }
 
+async function fetchVisions() {
+  try {
+    let query = supabase.from("visions").select("*");
+    const { data, error: supabaseError } = await query;
+    if (supabaseError) throw supabaseError;
+    visions.value = data;
+    cache(VISION_CACHE_KEY, data);
+  } catch (err) {
+    error.value = err.message || "Failed to load visions";
+    console.error(error.value);
+  }
+}
+
 // --- Fetch Regions ---
 async function fetchRegions() {
   try {
-    const { data, error: supabaseError } = await supabase
-      .from("regions")
-      .select("*");
-
+    let query = supabase.from("regions").select("*");
+    const { data, error: supabaseError } = await query;
     if (supabaseError) throw supabaseError;
     regions.value = data;
-
     cache(REGION_CACHE_KEY, data);
   } catch (err) {
     error.value = err.message || "Failed to load regions";
     console.error(error.value);
   }
+}
+
+// --- Select Function ---
+function selectVision(vision) {
+  selectedVision.value = vision;
+  isOpen.value = false;
+}
+
+// --- Dropdown Menu ---
+function toggleDropdown() {
+  isOpen.value = !isOpen.value;
 }
 
 // --- Intersection Observer ---
@@ -224,6 +290,7 @@ function setupObserver() {
 onMounted(() => {
   const cachedCharacters = cache(CHARACTER_CACHE_KEY);
   const cachedRegions = cache(REGION_CACHE_KEY);
+  const cachedVisions = cache(VISION_CACHE_KEY);
 
   if (cachedCharacters) {
     characters.value = cachedCharacters.characters;
@@ -237,6 +304,12 @@ onMounted(() => {
     regions.value = cachedRegions;
   } else {
     fetchRegions();
+  }
+
+  if (cachedVisions) {
+    visions.value = cachedVisions;
+  } else {
+    fetchVisions();
   }
 
   setupObserver();
