@@ -97,6 +97,7 @@ import { supabase } from "./../supabaseClient.js";
 import "./../css/CharacterPage.css";
 
 const characters = ref([]);
+const regions = ref([]);
 const error = ref(null);
 const loading = ref(false);
 const hasMore = ref(true);
@@ -115,43 +116,42 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
       data,
       expiry: now + ttl,
     };
-    localStorage.setItem(key, JSON.stringify(item));
+    sessionStorage.setItem(key, JSON.stringify(item));
     return data;
   }
 
   // --- Getter ---
-  const cachedItem = localStorage.getItem(key);
+  const cachedItem = sessionStorage.getItem(key);
   if (!cachedItem) return null;
 
   try {
     const parsedItem = JSON.parse(cachedItem);
     if (now > parsedItem.expiry) {
-      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
       return null;
     }
     return parsedItem.data;
   } catch (e) {
     console.warn("Failed to parse cache item:", e);
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
     return null;
   }
 }
 
+// --- Cache keys ---
 const CHARACTER_CACHE_KEY = "characterArchiveCache";
 const REGION_CACHE_KEY = "regionCache";
 
+// --- Fetch Characters ---
 async function fetchCharacters() {
-  // check if it need to load more characters
   if (loading.value || !hasMore.value) return;
   loading.value = true;
 
   try {
-    // calculate the range of characters to fetch
     const from = page.value * pageSize;
     const to = from + pageSize - 1;
 
-    // supabase query
-    let query = supabase
+    const { data, error: supabaseError } = await supabase
       .from("characters")
       .select(
         `
@@ -166,20 +166,13 @@ async function fetchCharacters() {
       .order("release_date", { ascending: false })
       .range(from, to);
 
-    // GET method to fetch from db
-    const { data, error: supabaseError } = await query;
-    // if error throw the error
     if (supabaseError) throw supabaseError;
 
-    // disables hasMore if data is less than page size
-    if (data.length < pageSize) {
-      hasMore.value = false;
-    }
+    if (data.length < pageSize) hasMore.value = false;
 
-    // push the data to the already fetched array
     characters.value.push(...data);
-    // and increase page size
     page.value++;
+
     cache(CHARACTER_CACHE_KEY, {
       characters: characters.value,
       page: page.value,
@@ -193,53 +186,54 @@ async function fetchCharacters() {
   }
 }
 
-function setCache() {
-  const cacheData = {
-    characters: characters.value,
-    page: page.value,
-    hasMore: hasMore.value,
-  };
-  sessionStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
-}
-
-function getCache() {
-  const cache = sessionStorage.getItem(CACHE_KEY);
-  if (!cache) return false;
-
+// --- Fetch Regions ---
+async function fetchRegions() {
   try {
-    const parsed = JSON.parse(cache);
-    if (!parsed.characters || !Array.isArray(parsed.characters)) return false;
+    const { data, error: supabaseError } = await supabase
+      .from("regions")
+      .select("*");
 
-    characters.value = parsed.characters;
-    page.value = parsed.page;
-    hasMore.value = parsed.hasMore;
-    return true;
-  } catch (e) {
-    console.log("Failed to parse cache:", e);
-    return false;
+    if (supabaseError) throw supabaseError;
+    regions.value = data;
+
+    cache(REGION_CACHE_KEY, data);
+  } catch (err) {
+    error.value = err.message || "Failed to load regions";
+    console.error(error.value);
   }
 }
 
+// --- Intersection Observer ---
 function setupObserver() {
   observer = new IntersectionObserver(
     (entries) => {
-      const entry = entries[0];
-      if (entry.isIntersecting) fetchCharacters();
+      if (entries[0].isIntersecting) fetchCharacters();
     },
-    {
-      rootMargin: "300px", // load a bit before bottom is reached
-      threshold: 0.1,
-    }
+    { rootMargin: "300px", threshold: 0.1 }
   );
 
   if (loadMoreRef.value) observer.observe(loadMoreRef.value);
 }
 
+// --- Lifecycle ---
 onMounted(() => {
-  const cached = getCache();
-  if (!cached) {
+  const cachedCharacters = cache(CHARACTER_CACHE_KEY);
+  const cachedRegions = cache(REGION_CACHE_KEY);
+
+  if (cachedCharacters) {
+    characters.value = cachedCharacters.characters;
+    page.value = cachedCharacters.page;
+    hasMore.value = cachedCharacters.hasMore;
+  } else {
     fetchCharacters();
   }
+
+  if (cachedRegions) {
+    regions.value = cachedRegions;
+  } else {
+    fetchRegions();
+  }
+
   setupObserver();
 });
 
