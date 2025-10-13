@@ -106,7 +106,39 @@ const loadMoreRef = ref(null);
 
 let observer = null;
 
-const CACHE_KEY = "characterArchiveCache";
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
+  const now = Date.now();
+
+  // --- Setter ---
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  }
+
+  // --- Getter ---
+  const cachedItem = localStorage.getItem(key);
+  if (!cachedItem) return null;
+
+  try {
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  } catch (e) {
+    console.warn("Failed to parse cache item:", e);
+    localStorage.removeItem(key);
+    return null;
+  }
+}
+
+const CHARACTER_CACHE_KEY = "characterArchiveCache";
+const REGION_CACHE_KEY = "regionCache";
 
 async function fetchCharacters() {
   // check if it need to load more characters
@@ -148,7 +180,11 @@ async function fetchCharacters() {
     characters.value.push(...data);
     // and increase page size
     page.value++;
-    setCache();
+    cache(CHARACTER_CACHE_KEY, {
+      characters: characters.value,
+      page: page.value,
+      hasMore: hasMore.value,
+    });
   } catch (err) {
     error.value = err.message || "Failed to load characters";
     console.error(error.value);
