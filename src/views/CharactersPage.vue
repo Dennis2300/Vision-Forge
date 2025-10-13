@@ -83,8 +83,12 @@
 
         <!-- Infinite Scroll Trigger -->
         <div ref="loadMoreRef" class="text-center py-10">
-          <span v-if="loading">Loading...</span>
-          <span v-else-if="!hasMore">No more characters</span>
+          <span v-if="loading">
+            <LoadingMoreSpinner />
+          </span>
+          <span class="flex justify-center" v-else-if="!hasMore">
+            <h1 class="no-more-character px-10 py-2 rounded-2xl tracking-wide">No More Characters</h1>
+          </span>
         </div>
       </div>
     </div>
@@ -94,6 +98,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { supabase } from "./../supabaseClient.js";
+import LoadingMoreSpinner from "./../components/LoadingMoreSpinner.vue";
 import "./../css/CharacterPage.css";
 
 const characters = ref([]);
@@ -106,6 +111,10 @@ const pageSize = 10;
 const loadMoreRef = ref(null);
 
 let observer = null;
+
+// --- Cache keys ---
+const CHARACTER_CACHE_KEY = "characterCache";
+const REGION_CACHE_KEY = "regionCache";
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = Date.now();
@@ -137,10 +146,6 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
     return null;
   }
 }
-
-// --- Cache keys ---
-const CHARACTER_CACHE_KEY = "characterCache";
-const REGION_CACHE_KEY = "regionCache";
 
 // --- Fetch Characters ---
 async function fetchCharacters() {
