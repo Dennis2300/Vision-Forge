@@ -1,12 +1,15 @@
 <template>
-  <div class="mt-10">
-    <div v-for="character in characters">
-      <h1>{{ character.name }}</h1>
-      <div v-for="region in character.regions">
-        <p>{{ region.region_id.name }}</p>
-      </div>
-      <div v-for="affiliation in character.affiliations">
-        <p>{{ affiliation.affiliation_id.name }}</p>
+  <div class="character-page-container mt-10 flex gap-16">
+    <!--Offset-->
+    <div class="character-page-offset">
+      <h1>Offset</h1>
+    </div>
+    <!--Main-->
+    <div class="character-main-content">
+      <h1>Main</h1>
+      <div class="character-card flex flex-col m-3">
+        <div class="card-top px-5 rounded-t-lg">Top</div>
+        <div class="card-bottom px-5 rounded-b-lg">Bottom</div>
       </div>
     </div>
   </div>
@@ -15,6 +18,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "./../supabaseClient.js";
+import "./../css/CharacterPage.css";
 
 const error = ref(null);
 const characters = ref([]);
