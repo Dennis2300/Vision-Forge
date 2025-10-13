@@ -1,8 +1,10 @@
 <template>
   <div class="character-page-container mt-10">
+    <!-- Character Header -->
     <div class="character-page-header">
       <h1 class="text-center">Character Archive</h1>
     </div>
+    <!-- Character Display -->
     <div class="character-page mt-10 flex gap-16">
       <!--Offset-->
       <div class="character-page-offset">
@@ -25,7 +27,8 @@
                   'rarity-4': character.rarity === 4,
                 }"
                 :src="character.avatar_url"
-                alt=""
+                :alt="character.name"
+                loading="lazy"
               />
               <h1 class="character-page-name tracking-wide">
                 {{ character.name }}
@@ -34,7 +37,8 @@
             <img
               class="character-splash-art"
               :src="character.splash_art_url"
-              alt=""
+              :alt="character.name"
+              loading="lazy"
             />
           </div>
           <!--Card Bottom-->
