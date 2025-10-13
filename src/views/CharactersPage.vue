@@ -9,7 +9,7 @@
     <div class="character-page mt-10 flex gap-16">
       <!--Offset-->
       <div class="character-page-offset px-8 py-2 rounded-xl">
-        <h1 class="divider">Rarity</h1>
+        <h2 class="divider">Rarity</h2>
         <!-- Rarity Filter -->
         <div class="flex flex-row justify-around mb-10 mt-5">
           <div class="rarity-filter px-8 py-2 rounded-md">
@@ -20,11 +20,11 @@
           </div>
         </div>
         <!-- Vision Filter -->
-        <h1 class="divider">Vision</h1>
+        <h2 class="divider">Vision</h2>
         <div class="flex flex-col items-center">
           <div
             class="dropdown-default flex items-center justify-center py-1 rounded-md"
-            @click="toggleDropdown"
+            @click="toggleDropdown('vision')"
           >
             <img
               v-if="selectedVision"
@@ -32,10 +32,12 @@
               alt=""
               class="w-6 h-6 object-contain"
             />
-            <p class="pl-1">{{ selectedVision ? selectedVision.name : "Select Vision" }}</p>
+            <p class="pl-1">
+              {{ selectedVision ? selectedVision.name : "Select Vision" }}
+            </p>
           </div>
           <div
-            v-if="isOpen"
+            v-if="openDropdown === 'vision'"
             class="dropdown-menu absolute mt-11 flex flex-col gap-2 rounded-md"
           >
             <div
@@ -45,6 +47,40 @@
             >
               <img class="w-8 h-8 pl-2" :src="vision.image_url" alt="" />
               <p class="pl-1">{{ vision.name }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Weapon Types Filter -->
+        <h2 class="divider">Weapon Types</h2>
+        <div class="flex flex-col items-center">
+          <div
+            class="dropdown-default flex items-center justify-center py-1 rounded-md"
+            @click="toggleDropdown('weapon')"
+          >
+            <img
+              v-if="selectedWeaponType"
+              :src="selectedWeaponType.image_url"
+              alt=""
+              class="w-6 h-6 object-contain"
+            />
+            <p class="pl-1">
+              {{
+                selectedWeaponType ? selectedWeaponType.name : "Select Weapon"
+              }}
+            </p>
+          </div>
+          <div
+            v-if="openDropdown === 'weapon'"
+            class="dropdown-menu absolute mt-11 flex flex-col gap-2 rounded-md"
+          >
+            <div
+              class="dropdown-item flex flex-row items-center py-2"
+              v-for="weaponType in weaponTypes"
+              :key="weaponType.name"
+              @click="selectWeaponTypes(weaponType)"
+            >
+              <img class="w-8 h-8 pl-2" :src="weaponType.image_url" alt="" />
+              <p class="pl-1">{{ weaponType.name }}</p>
             </div>
           </div>
         </div>
@@ -140,10 +176,12 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingMoreSpinner from "./../components/LoadingMoreSpinner.vue";
 import "./../css/CharacterPage.css";
+import { data } from "autoprefixer";
 
 const characters = ref([]);
 const visions = ref([]);
 const regions = ref([]);
+const weaponTypes = ref([]);
 const error = ref(null);
 const loading = ref(false);
 const hasMore = ref(true);
@@ -151,8 +189,9 @@ const page = ref(0);
 const pageSize = 10;
 const loadMoreRef = ref(null);
 
-const isOpen = ref(false);
+const openDropdown = ref(null);
 const selectedVision = ref(null);
+const selectedWeaponType = ref(null);
 
 let observer = null;
 
@@ -160,6 +199,7 @@ let observer = null;
 const CHARACTER_CACHE_KEY = "characterCache";
 const REGION_CACHE_KEY = "regionCache";
 const VISION_CACHE_KEY = "visionCache";
+const WEAPON_TYPES_CACHE_KEY = "weaponTypesCache";
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = Date.now();
@@ -263,15 +303,33 @@ async function fetchRegions() {
   }
 }
 
+async function fetchWeaponTypes() {
+  try {
+    let query = supabase.from("weaponTypes").select("*");
+    const { data, error: supabaseError } = await query;
+    if (supabaseError) throw supabaseError;
+    weaponTypes.value = data;
+    cache(WEAPON_TYPES_CACHE_KEY, data);
+  } catch (err) {
+    error.value = err.message || "Failed to load weapon types";
+    console.error(error.value);
+  }
+}
+
 // --- Select Function ---
 function selectVision(vision) {
   selectedVision.value = vision;
-  isOpen.value = false;
+  openDropdown.value = null;
+}
+
+function selectWeaponTypes(weaponType) {
+  selectedWeaponType.value = weaponType;
+  openDropdown.value = null;
 }
 
 // --- Dropdown Menu ---
-function toggleDropdown() {
-  isOpen.value = !isOpen.value;
+function toggleDropdown(name) {
+  openDropdown.value = openDropdown.value === name ? null : name;
 }
 
 // --- Intersection Observer ---
@@ -291,6 +349,7 @@ onMounted(() => {
   const cachedCharacters = cache(CHARACTER_CACHE_KEY);
   const cachedRegions = cache(REGION_CACHE_KEY);
   const cachedVisions = cache(VISION_CACHE_KEY);
+  const cachedWeaponTypes = cache(WEAPON_TYPES_CACHE_KEY);
 
   if (cachedCharacters) {
     characters.value = cachedCharacters.characters;
@@ -310,6 +369,12 @@ onMounted(() => {
     visions.value = cachedVisions;
   } else {
     fetchVisions();
+  }
+
+  if (cachedWeaponTypes) {
+    weaponTypes.value = cachedWeaponTypes;
+  } else {
+    fetchWeaponTypes();
   }
 
   setupObserver();
