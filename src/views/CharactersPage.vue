@@ -139,7 +139,7 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
 }
 
 // --- Cache keys ---
-const CHARACTER_CACHE_KEY = "characterArchiveCache";
+const CHARACTER_CACHE_KEY = "characterCache";
 const REGION_CACHE_KEY = "regionCache";
 
 // --- Fetch Characters ---
