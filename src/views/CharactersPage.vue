@@ -106,6 +106,8 @@ const loadMoreRef = ref(null);
 
 let observer = null;
 
+const CACHE_KEY = "characterArchiveCache";
+
 async function fetchCharacters() {
   // check if it need to load more characters
   if (loading.value || !hasMore.value) return;
@@ -146,11 +148,39 @@ async function fetchCharacters() {
     characters.value.push(...data);
     // and increase page size
     page.value++;
+    setCache();
   } catch (err) {
     error.value = err.message || "Failed to load characters";
     console.error(error.value);
   } finally {
     loading.value = false;
+  }
+}
+
+function setCache() {
+  const cacheData = {
+    characters: characters.value,
+    page: page.value,
+    hasMore: hasMore.value,
+  };
+  sessionStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+}
+
+function getCache() {
+  const cache = sessionStorage.getItem(CACHE_KEY);
+  if (!cache) return false;
+
+  try {
+    const parsed = JSON.parse(cache);
+    if (!parsed.characters || !Array.isArray(parsed.characters)) return false;
+
+    characters.value = parsed.characters;
+    page.value = parsed.page;
+    hasMore.value = parsed.hasMore;
+    return true;
+  } catch (e) {
+    console.log("Failed to parse cache:", e);
+    return false;
   }
 }
 
@@ -170,7 +200,10 @@ function setupObserver() {
 }
 
 onMounted(() => {
-  fetchCharacters();
+  const cached = getCache();
+  if (!cached) {
+    fetchCharacters();
+  }
   setupObserver();
 });
 
