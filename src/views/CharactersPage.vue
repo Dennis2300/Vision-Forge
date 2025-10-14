@@ -245,7 +245,6 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingMoreSpinner from "./../components/LoadingMoreSpinner.vue";
 import "./../css/CharacterPage.css";
-import { data } from "autoprefixer";
 
 const characters = ref([]);
 const visions = ref([]);
