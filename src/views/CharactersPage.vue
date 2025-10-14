@@ -415,95 +415,11 @@ function selectRegion(region) {
 
 // Filter Function
 async function filterCharacter() {
-  isFiltered.value = true;
-  // No filter warning
-  if (
-    !selectedRarity.value &&
-    !selectedVision.value &&
-    !selectedWeaponType.value &&
-    !selectedRegion.value
-  ) {
-    alert("⚠️ Please select at least one filter before applying!");
-    return;
-  }
-
-  // loading and disabling infinite scroll
-  loading.value = true;
-  hasMore.value = false;
-  page.value = 0;
-  characters.value = [];
-
-  try {
-    let regionIds = null;
-    // --- Step 1: handle region separately ---
-    if (selectedRegion.value) {
-      let query = supabase
-        .from("character_region")
-        .select("character_id")
-        .eq("region_id", selectedRegion.value.id);
-
-      const { data: regionCharacters, error: regionError } = await query;
-      if (regionError) throw regionError;
-      regionIds = regionCharacters.map((r) => r.character_id);
-    }
-
-    // --- Step 2: base character query ---
-    let query = supabase.from("characters").select(`
-        *,
-        regions:character_region(region_id(id, name)),
-        vision(id, name, image_url),
-        weaponTypes(id, name),
-        role(name),
-        main_stat(id, name)
-      `);
-
-    if (selectedRarity.value) {
-      query = query.eq("rarity", selectedRarity.value);
-    }
-
-    if (selectedVision.value) {
-      query = query.eq("vision:vision.id", selectedVision.value.id);
-    }
-
-    if (selectedWeaponType.value) {
-      query = query.eq(
-        "weapon_type:weaponTypes.id",
-        selectedWeaponType.value.id
-      );
-    }
-
-    if (regionIds && regionIds.length > 0) {
-      query = query.in("id", regionIds);
-    }
-
-    const { data, error } = await query;
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      alert("❌ No characters match your selected filters!");
-      characters.value = [];
-      return;
-    }
-
-    characters.value = data;
-  } catch (err) {
-    error.value = err.message || "Failed to filter characters";
-    console.error(error.value);
-  } finally {
-    loading.value = false;
-  }
+  console.log("Apply Filter");
 }
 
 function resetFilters() {
-  selectedRarity.value = null;
-  selectedVision.value = null;
-  selectedWeaponType.value = null;
-  selectedRegion.value = null;
-  isFiltered.value = false;
-  characters.value = [];
-  page.value = 0;
-  hasMore.value = true;
-  fetchCharacters();
+  console.log("Reset Filter");
 }
 
 // --- Dropdown Menu ---
@@ -549,7 +465,7 @@ onMounted(() => {
   const cachedVisions = cache(VISION_CACHE_KEY);
   const cachedWeaponTypes = cache(WEAPON_TYPES_CACHE_KEY);
 
-  if (!isFiltered.value && cachedCharacters) {
+  if (cachedCharacters) {
     characters.value = cachedCharacters.characters;
     page.value = cachedCharacters.page;
     hasMore.value = cachedCharacters.hasMore;
@@ -574,8 +490,6 @@ onMounted(() => {
   } else {
     fetchWeaponTypes();
   }
-
-  console.log(characters.value);
 
   setupObserver();
 });
