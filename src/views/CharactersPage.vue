@@ -206,9 +206,9 @@
               <span class="new">New</span>
             </div>
             <img
-              v-if="character.splash_art"
+              v-if="character.splash_art_url"
               class="character-item-splash-art"
-              :src="character.splash_art"
+              :src="character.splash_art_url"
               loading="lazy"
               alt=""
             />
@@ -216,7 +216,7 @@
             <div class="character-item-info">
               <img
                 class="character-item-image"
-                :src="character.image_url"
+                :src="character.avatar_url"
                 loading="lazy"
                 :alt="character.name"
               />
@@ -237,8 +237,8 @@
             <p class="character-detail-tag">
               {{ character.weapon_type.name }}
             </p>
-            <p v-if="character.substat" class="character-detail-tag">
-              {{ character.substat.name }}
+            <p v-if="character.main_stat" class="character-detail-tag">
+              {{ character.main_stat.name }}
             </p>
             <p v-if="character.team_role" class="character-detail-tag">
               {{ character.team_role.name }}
@@ -383,7 +383,7 @@ async function fetchRegions() {
     const { data, error: fetchError } = await supabase
       .from("regions")
       .select("*,id, name, image_url")
-      .in("id", [1, 2, 3, 4, 5, 6, 9]);
+      .in("id", [1, 2, 3, 4, 5, 6, 7]);
     if (fetchError) throw fetchError;
 
     cache("regions", data);
@@ -418,14 +418,7 @@ async function fetchCharacters({ reset = false } = {}) {
     let query = supabase
       .from("characters")
       .select(
-        `*,
-        vision:vision(id, name, image_url),
-        team_role:team_role(name),
-        substat:substat(name),
-        weapon_type:weapon_type(id, name),
-        region:region(id, name),
-        new_character,
-        is_upcoming`
+        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name)"
       )
       .order("release_date", { ascending: false })
       .range(from, to);
@@ -436,6 +429,7 @@ async function fetchCharacters({ reset = false } = {}) {
     if (data.length < pageSize) hasMore.value = false;
 
     characters.value.push(...data);
+    console.log(characters.value);
     page.value++;
 
     // cache session for devveloper convenience
@@ -463,20 +457,15 @@ async function fetchFilteredCharacters(filters = {}) {
     let query = supabase
       .from("characters")
       .select(
-        `*,
-        vision:vision(id, name, image_url),
-        team_role:team_role(name), substat:substat(name),
-        weapon_type:weapon_type(id, name),
-        region:region(id, name),
-        new_character,
-        is_upcoming`
+        "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name)"
       )
+
       .order("release_date", { ascending: false });
 
     if (filters.vision) query = query.eq("vision", filters.vision);
     if (filters.rarity) query = query.eq("rarity", filters.rarity);
     if (filters.weaponType) query = query.eq("weapon_type", filters.weaponType);
-    if (filters.region) query = query.eq("region", filters.region);
+    if (filters.region) query = query.eq("released_region", filters.region);
 
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
@@ -644,6 +633,8 @@ onMounted(async () => {
   } else {
     await fetchCharacters();
   }
+
+  console.log(characters.value);
 
   setupObserver();
 });
