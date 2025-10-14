@@ -270,7 +270,6 @@
 </template>
 
 <script setup>
-// import necessary modules and components
 import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/Ribbon.css";
@@ -284,22 +283,22 @@ const openDropdown = ref(null);
 const filterActive = ref(false);
 
 // data states
-const characters = ref([]); // array to hold character data
-const visions = ref([]); // array to hold vision data
-const weaponTypes = ref([]); // array to hold weapon type data
-const regions = ref([]); // array to hold region data
+const characters = ref([]);
+const visions = ref([]);
+const weaponTypes = ref([]);
+const regions = ref([]);
 
 // Select options states
-const selectedVision = ref(null); // holds the selected vision
-const selectedRarity = ref(null); // holds the selected rarity
-const selectedWeaponType = ref(null); // holds the selected weapon type
-const selectedRegion = ref(null); // holds the selected region
+const selectedVision = ref(null);
+const selectedRarity = ref(null);
+const selectedWeaponType = ref(null);
+const selectedRegion = ref(null);
 
 // pagination states
-const page = ref(1); // current page number
-const pageSize = 10; // number of characters per page
-const hasMore = ref(true); // flag to indicate if more characters are available
-const loadMoreTrigger = ref(null); // reference to the load more trigger element
+const page = ref(1);
+const pageSize = 10;
+const hasMore = ref(true);
+const loadMoreTrigger = ref(null);
 
 // Intersection Observer instance
 let observer = null;
