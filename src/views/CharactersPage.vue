@@ -140,7 +140,10 @@
         <!-- Apply and Reset Button-->
         <div class="divider"></div>
         <div class="flex flex-row justify-around">
-          <div class="filter-button px-8 py-2 rounded-md tracking-wider">
+          <div
+            class="filter-button px-8 py-2 rounded-md tracking-wider"
+            @click="resetFilters"
+          >
             Reset
           </div>
           <div
@@ -261,6 +264,7 @@ const selectedRarity = ref(null);
 const selectedVision = ref(null);
 const selectedWeaponType = ref(null);
 const selectedRegion = ref(null);
+const isFiltered = ref(false);
 
 let observer = null;
 
@@ -412,6 +416,7 @@ function selectRegion(region) {
 
 // Filter Function
 async function filterCharacter() {
+  isFiltered.value = true;
   // No filter warning
   if (
     !selectedRarity.value &&
@@ -475,6 +480,12 @@ async function filterCharacter() {
     const { data, error } = await query;
     if (error) throw error;
 
+    if (!data || data.length === 0) {
+      alert("❌ No characters match your selected filters!");
+      characters.value = [];
+      return;
+    }
+
     characters.value = data;
   } catch (err) {
     error.value = err.message || "Failed to filter characters";
@@ -482,6 +493,18 @@ async function filterCharacter() {
   } finally {
     loading.value = false;
   }
+}
+
+function resetFilters() {
+  selectedRarity.value = null;
+  selectedVision.value = null;
+  selectedWeaponType.value = null;
+  selectedRegion.value = null;
+  isFiltered.value = false;
+  characters.value = [];
+  page.value = 0;
+  hasMore.value = true;
+  fetchCharacters();
 }
 
 // --- Dropdown Menu ---
@@ -527,7 +550,7 @@ onMounted(() => {
   const cachedVisions = cache(VISION_CACHE_KEY);
   const cachedWeaponTypes = cache(WEAPON_TYPES_CACHE_KEY);
 
-  if (cachedCharacters) {
+  if (!isFiltered.value && cachedCharacters) {
     characters.value = cachedCharacters.characters;
     page.value = cachedCharacters.page;
     hasMore.value = cachedCharacters.hasMore;
