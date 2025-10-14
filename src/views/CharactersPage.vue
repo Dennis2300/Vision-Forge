@@ -20,13 +20,13 @@
           </div>
         </div>
         <!-- Vision Dropdown -->
-        <h2 class="divider">Vision</h2>
+        <h2 class="divider">Visions</h2>
         <div
-          class="flex flex-col items-center"
+          class="flex flex-col items-center mb-10"
           :ref="(el) => setDropdownRef(el, 0)"
         >
           <div
-            class="dropdown-default flex items-center justify-center py-1 rounded-md cursor-pointer"
+            class="dropdown-default flex items-center justify-center py-2 rounded-md cursor-pointer"
             @click="toggleDropdown('vision')"
           >
             <img
@@ -42,7 +42,7 @@
 
           <div
             v-if="openDropdown === 'vision'"
-            class="dropdown-menu absolute mt-11 flex flex-col gap-2"
+            class="dropdown-menu absolute mt-14 flex flex-col gap-2"
           >
             <div
               class="dropdown-item flex flex-row items-center py-2"
@@ -55,14 +55,14 @@
             </div>
           </div>
         </div>
-        <h2 class="divider">Weapon</h2>
         <!-- Weapon Dropdown -->
+        <h2 class="divider">Weapons</h2>
         <div
-          class="flex flex-col items-center"
+          class="flex flex-col items-center mb-10"
           :ref="(el) => setDropdownRef(el, 1)"
         >
           <div
-            class="dropdown-default flex items-center justify-center py-1 rounded-md cursor-pointer"
+            class="dropdown-default flex items-center justify-center py-2 rounded-md cursor-pointer"
             @click="toggleDropdown('weapon')"
           >
             <img
@@ -80,7 +80,7 @@
 
           <div
             v-if="openDropdown === 'weapon'"
-            class="dropdown-menu absolute mt-11 flex flex-col gap-2"
+            class="dropdown-menu absolute mt-14 flex flex-col gap-2"
           >
             <div
               class="dropdown-item flex flex-row items-center py-2"
@@ -91,6 +91,52 @@
               <img class="w-8 h-8 pl-2" :src="weaponType.image_url" alt="" />
               <p class="pl-1">{{ weaponType.name }}</p>
             </div>
+          </div>
+        </div>
+        <!-- Region Dropdown -->
+        <h2 class="divider">Regions</h2>
+        <div
+          class="flex flex-col items-center mb-10"
+          :ref="(el) => setDropdownRef(el, 2)"
+        >
+          <div
+            class="dropdown-default flex items-center justify-center py-2 rounded-md cursor-pointer"
+            @click="toggleDropdown('region')"
+          >
+            <img
+              v-if="selectedRegion"
+              :src="selectedRegion.image_url"
+              alt=""
+              class="w-6 h-6 object-contain"
+            />
+            <p class="pl-1">
+              {{ selectedRegion ? selectedRegion.name : "Select Region" }}
+            </p>
+          </div>
+
+          <div
+            v-if="openDropdown === 'region'"
+            class="dropdown-menu absolute mt-14 flex flex-col gap-2"
+          >
+            <div
+              class="dropdown-item flex flex-row items-center py-2"
+              v-for="region in regions"
+              :key="region.name"
+              @click="selectRegion(region)"
+            >
+              <img class="w-8 h-8 pl-2" :src="region.image_url" alt="" />
+              <p class="pl-1">{{ region.name }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Apply and Reset Button-->
+        <div class="divider"></div>
+        <div class="flex flex-row justify-around">
+          <div class="filter-button px-8 py-2 rounded-md tracking-wider">
+            Reset
+          </div>
+          <div class="filter-button px-8 py-2 rounded-md tracking-wider">
+            Apply
           </div>
         </div>
       </div>
@@ -202,14 +248,15 @@ const openDropdown = ref(null);
 const dropdownRefs = ref([]);
 const selectedVision = ref(null);
 const selectedWeaponType = ref(null);
+const selectedRegion = ref(null);
 
 let observer = null;
 
 // --- Cache keys ---
 const CHARACTER_CACHE_KEY = "characterCache";
-const REGION_CACHE_KEY = "regionCache";
 const VISION_CACHE_KEY = "visionCache";
 const WEAPON_TYPES_CACHE_KEY = "weaponTypesCache";
+const REGION_CACHE_KEY = "regionCache";
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = Date.now();
@@ -302,7 +349,10 @@ async function fetchVisions() {
 // --- Fetch Regions ---
 async function fetchRegions() {
   try {
-    let query = supabase.from("regions").select("*");
+    let query = supabase
+      .from("regions")
+      .select("*")
+      .in("id", [1, 2, 3, 4, 5, 6, 7]);
     const { data, error: supabaseError } = await query;
     if (supabaseError) throw supabaseError;
     regions.value = data;
@@ -312,7 +362,7 @@ async function fetchRegions() {
     console.error(error.value);
   }
 }
-
+// --- Fetch Weapon Types ---
 async function fetchWeaponTypes() {
   try {
     let query = supabase.from("weaponTypes").select("*");
@@ -334,6 +384,11 @@ function selectVision(vision) {
 
 function selectWeaponTypes(weaponType) {
   selectedWeaponType.value = weaponType;
+  openDropdown.value = null;
+}
+
+function selectRegion(region) {
+  selectedRegion.value = region;
   openDropdown.value = null;
 }
 
