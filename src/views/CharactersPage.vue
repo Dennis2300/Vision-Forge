@@ -307,7 +307,6 @@ let observer = null;
 // -------- Cache Functions -------------
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
-
   if (data) {
     const item = {
       data,
@@ -331,18 +330,14 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
 // -------- Data Fetching Function --------
 async function fetchVisions() {
   try {
-    // Check cache first
     const cached = cache("visions");
     if (cached) {
       visions.value = cached;
       return;
     }
-    // Fetch visions from Supabase
-    const { data, error: fetchError } = await supabase
-      .from("visions")
-      .select("*,id, name, image_url");
+    let query = supabase.from("visions").select("*,id, name, image_url");
+    const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-
     cache("visions", data);
     visions.value = data;
   } catch (err) {
@@ -352,18 +347,14 @@ async function fetchVisions() {
 
 async function fetchWeaponTypes() {
   try {
-    // Check cache first
     const cached = cache("weaponTypes");
     if (cached) {
       weaponTypes.value = cached;
       return;
     }
-    // Fetch weapon types from Supabase
-    const { data, error: fetchError } = await supabase
-      .from("weaponTypes")
-      .select("*,id, name, image_url");
+    let query = supabase.from("weaponTypes").select("*,id, name, image_url");
+    const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-
     cache("weaponTypes", data);
     weaponTypes.value = data;
   } catch (err) {
@@ -399,13 +390,10 @@ async function fetchCharacters({ reset = false } = {}) {
     characters.value = [];
     hasMore.value = true;
   }
-
   if (!hasMore.value || loading.value) return;
   loading.value = true;
-
   const from = (page.value - 1) * pageSize;
   const to = from + pageSize - 1;
-
   try {
     const cached = cache("characters");
     if (cached && !reset) {
@@ -414,7 +402,6 @@ async function fetchCharacters({ reset = false } = {}) {
       loading.value = false;
       return;
     }
-
     let query = supabase
       .from("characters")
       .select(
@@ -422,17 +409,11 @@ async function fetchCharacters({ reset = false } = {}) {
       )
       .order("release_date", { ascending: false })
       .range(from, to);
-
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-
     if (data.length < pageSize) hasMore.value = false;
-
     characters.value.push(...data);
-    console.log(characters.value);
     page.value++;
-
-    // cache session for devveloper convenience
     sessionStorage.setItem(
       "characters",
       JSON.stringify({
@@ -459,17 +440,13 @@ async function fetchFilteredCharacters(filters = {}) {
       .select(
         "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name)"
       )
-
       .order("release_date", { ascending: false });
-
     if (filters.vision) query = query.eq("vision", filters.vision);
     if (filters.rarity) query = query.eq("rarity", filters.rarity);
     if (filters.weaponType) query = query.eq("weapon_type", filters.weaponType);
     if (filters.region) query = query.eq("released_region", filters.region);
-
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-
     characters.value = data;
   } catch (err) {
     error.value = err.message || "Failed to load filtered characters";
@@ -480,7 +457,6 @@ async function fetchFilteredCharacters(filters = {}) {
 
 // ------ Dropdown Functions -------------
 function selectRarity(rarity) {
-  // Toggle rarity selection
   if (selectedRarity.value === rarity) {
     selectedRarity.value = null;
   } else {
@@ -489,36 +465,30 @@ function selectRarity(rarity) {
 }
 
 function selectVision(vision) {
-  // Set selected vision and close dropdown
   selectedVision.value = vision ? vision.id : null;
   openDropdown.value = false;
 }
 
 function selectWeaponType(weaponType) {
-  // Set selected weapon type and close dropdown
   selectedWeaponType.value = weaponType ? weaponType.id : null;
   openDropdown.value = false;
 }
 
 function selectRegion(region) {
-  // Set selected region and close dropdown
   selectedRegion.value = region ? region.id : null;
   openDropdown.value = false;
 }
 
 function toggleDropdown(type) {
-  // Toggle dropdown visibility
   openDropdown.value = openDropdown.value === type ? null : type;
 }
 
 function isOpen(type) {
-  // Check if a specific dropdown is open
   return openDropdown.value === type;
 }
 
 // -------- Filter Functions -------------
 function getActiveFilters() {
-  // Get currently selected filters
   return {
     vision: selectedVision.value,
     rarity: selectedRarity.value,
@@ -529,13 +499,11 @@ function getActiveFilters() {
 
 function applyFilters() {
   const filters = getActiveFilters();
-
   const noFiltersSelected =
     !filters.vision &&
     !filters.rarity &&
     !filters.weaponType &&
     !filters.region;
-
   if (noFiltersSelected) {
     alert("Please select at least one filter before applying.");
     return;
@@ -550,11 +518,9 @@ function resetFilters() {
   selectedRarity.value = null;
   selectedWeaponType.value = null;
   selectedRegion.value = null;
-
   characters.value = [];
   page.value = 1;
   hasMore.value = true;
-
   fetchCharacters({ reset: true }).then(() => {
     setupObserver(); // Re-setup observer after resetting
   });
@@ -563,14 +529,12 @@ function resetFilters() {
 
 // -------- Utility Functions -------------
 function isNewCharacter(character) {
-  // Check if character is new
   if (character && typeof character.new_character !== "undefined") {
     return Boolean(character.new_character);
   }
   return false;
 }
 function isUpcomingCharacter(character) {
-  // Check if character is upcoming
   if (character && typeof character.is_upcoming !== "undefined") {
     return Boolean(character.is_upcoming);
   }
@@ -581,7 +545,6 @@ function setupObserver() {
     observer.unobserve(loadMoreTrigger.value);
     observer.disconnect();
   }
-
   observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
@@ -619,7 +582,6 @@ onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();
   await fetchRegions();
-
   const cached = sessionStorage.getItem("characters");
   if (cached) {
     const {
@@ -633,9 +595,6 @@ onMounted(async () => {
   } else {
     await fetchCharacters();
   }
-
-  console.log(characters.value);
-
   setupObserver();
 });
 // clean up observer on component unmount
