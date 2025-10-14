@@ -12,10 +12,18 @@
         <h2 class="divider">Rarity</h2>
         <!-- Rarity Filter -->
         <div class="flex flex-row justify-around mb-10 mt-5">
-          <div class="rarity-filter px-8 py-2 rounded-md">
+          <div
+            class="rarity-filter px-8 py-2 rounded-md"
+            :class="{ 'active-filter': selectedRarity === 4 }"
+            @click="selectRarity(4)"
+          >
             <p>4 star</p>
           </div>
-          <div class="rarity-filter px-8 py-2 rounded-md">
+          <div
+            class="rarity-filter px-8 py-2 rounded-md"
+            :class="{ 'active-filter': selectedRarity === 5 }"
+            @click="selectRarity(5)"
+          >
             <p>5 star</p>
           </div>
         </div>
@@ -135,7 +143,10 @@
           <div class="filter-button px-8 py-2 rounded-md tracking-wider">
             Reset
           </div>
-          <div class="filter-button px-8 py-2 rounded-md tracking-wider">
+          <div
+            class="filter-button px-8 py-2 rounded-md tracking-wider"
+            @click="filterCharacter"
+          >
             Apply
           </div>
         </div>
@@ -246,6 +257,7 @@ const loadMoreRef = ref(null);
 
 const openDropdown = ref(null);
 const dropdownRefs = ref([]);
+const selectedRarity = ref(null);
 const selectedVision = ref(null);
 const selectedWeaponType = ref(null);
 const selectedRegion = ref(null);
@@ -377,19 +389,99 @@ async function fetchWeaponTypes() {
 }
 
 // --- Select Function ---
+function selectRarity(rarity) {
+  selectedRarity.value = selectedRarity.value === rarity ? null : rarity;
+  console.log(selectedRarity.value);
+}
+
 function selectVision(vision) {
   selectedVision.value = vision;
   openDropdown.value = null;
+  console.log(selectedVision.value.id);
 }
-
 function selectWeaponTypes(weaponType) {
   selectedWeaponType.value = weaponType;
   openDropdown.value = null;
+  console.log(selectedWeaponType.value.id);
 }
-
 function selectRegion(region) {
   selectedRegion.value = region;
   openDropdown.value = null;
+  console.log(selectedRegion.value.id);
+}
+
+// Filter Function
+async function filterCharacter() {
+  // No filter warning
+  if (
+    !selectedRarity.value &&
+    !selectedVision.value &&
+    !selectedWeaponType.value &&
+    !selectedRegion.value
+  ) {
+    alert("⚠️ Please select at least one filter before applying!");
+    return;
+  }
+
+  // loading and disabling infinite scroll
+  loading.value = true;
+  hasMore.value = false;
+  page.value = 0;
+  characters.value = [];
+
+  try {
+    let regionIds = null;
+    // --- Step 1: handle region separately ---
+    if (selectedRegion.value) {
+      let query = supabase
+        .from("character_region")
+        .select("character_id")
+        .eq("region_id", selectedRegion.value.id);
+
+      const { data: regionCharacters, error: regionError } = await query;
+      if (regionError) throw regionError;
+      regionIds = regionCharacters.map((r) => r.character_id);
+    }
+
+    // --- Step 2: base character query ---
+    let query = supabase.from("characters").select(`
+        *,
+        regions:character_region(region_id(id, name)),
+        vision(id, name, image_url),
+        weaponTypes(id, name),
+        role(name),
+        main_stat(id, name)
+      `);
+
+    if (selectedRarity.value) {
+      query = query.eq("rarity", selectedRarity.value);
+    }
+
+    if (selectedVision.value) {
+      query = query.eq("vision:vision.id", selectedVision.value.id);
+    }
+
+    if (selectedWeaponType.value) {
+      query = query.eq(
+        "weapon_type:weaponTypes.id",
+        selectedWeaponType.value.id
+      );
+    }
+
+    if (regionIds && regionIds.length > 0) {
+      query = query.in("id", regionIds);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    characters.value = data;
+  } catch (err) {
+    error.value = err.message || "Failed to filter characters";
+    console.error(error.value);
+  } finally {
+    loading.value = false;
+  }
 }
 
 // --- Dropdown Menu ---
@@ -460,6 +552,8 @@ onMounted(() => {
   } else {
     fetchWeaponTypes();
   }
+
+  console.log(characters.value);
 
   setupObserver();
 });
