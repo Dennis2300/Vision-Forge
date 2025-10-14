@@ -126,6 +126,11 @@
   height: 30px;
   font-family: var(--font-acme);
   letter-spacing: 1px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-default:hover {
+  background-color: var(--filter-color-hover);
   cursor: pointer;
 }
 
@@ -140,8 +145,23 @@
   height: 30px;
   font-family: var(--font-acme);
   letter-spacing: 1px;
+  transition: background-color 0.3s ease;
 }
 
 .dropdown-item:hover {
   background-color: var(--filter-color-hover);
+}
+
+/*Reset and Apply*/
+.filter-button {
+  background-color: var(--filter-color);
+  border: 1px solid black;
+  font-family: var(--font-acme);
+  transition: background-color;
+}
+
+.filter-button:hover {
+  transition: background-color 0.3s ease;
+  background-color: var(--filter-color-hover);
+  cursor: pointer;
 }
