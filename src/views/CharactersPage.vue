@@ -19,11 +19,14 @@
             <p>5 star</p>
           </div>
         </div>
-        <!-- Vision Filter -->
+        <!-- Vision Dropdown -->
         <h2 class="divider">Vision</h2>
-        <div class="flex flex-col items-center">
+        <div
+          class="flex flex-col items-center"
+          :ref="(el) => setDropdownRef(el, 0)"
+        >
           <div
-            class="dropdown-default flex items-center justify-center py-1 rounded-md"
+            class="dropdown-default flex items-center justify-center py-1 rounded-md cursor-pointer"
             @click="toggleDropdown('vision')"
           >
             <img
@@ -36,13 +39,15 @@
               {{ selectedVision ? selectedVision.name : "Select Vision" }}
             </p>
           </div>
+
           <div
             v-if="openDropdown === 'vision'"
-            class="dropdown-menu absolute mt-11 flex flex-col gap-2 rounded-md"
+            class="dropdown-menu absolute mt-11 flex flex-col gap-2"
           >
             <div
               class="dropdown-item flex flex-row items-center py-2"
               v-for="vision in visions"
+              :key="vision.name"
               @click="selectVision(vision)"
             >
               <img class="w-8 h-8 pl-2" :src="vision.image_url" alt="" />
@@ -50,11 +55,14 @@
             </div>
           </div>
         </div>
-        <!-- Weapon Types Filter -->
-        <h2 class="divider">Weapon Types</h2>
-        <div class="flex flex-col items-center">
+        <h2 class="divider">Weapon</h2>
+        <!-- Weapon Dropdown -->
+        <div
+          class="flex flex-col items-center"
+          :ref="(el) => setDropdownRef(el, 1)"
+        >
           <div
-            class="dropdown-default flex items-center justify-center py-1 rounded-md"
+            class="dropdown-default flex items-center justify-center py-1 rounded-md cursor-pointer"
             @click="toggleDropdown('weapon')"
           >
             <img
@@ -69,9 +77,10 @@
               }}
             </p>
           </div>
+
           <div
             v-if="openDropdown === 'weapon'"
-            class="dropdown-menu absolute mt-11 flex flex-col gap-2 rounded-md"
+            class="dropdown-menu absolute mt-11 flex flex-col gap-2"
           >
             <div
               class="dropdown-item flex flex-row items-center py-2"
@@ -190,6 +199,7 @@ const pageSize = 10;
 const loadMoreRef = ref(null);
 
 const openDropdown = ref(null);
+const dropdownRefs = ref([]);
 const selectedVision = ref(null);
 const selectedWeaponType = ref(null);
 
@@ -332,6 +342,24 @@ function toggleDropdown(name) {
   openDropdown.value = openDropdown.value === name ? null : name;
 }
 
+function handleClickOutside(e) {
+  // If no dropdown is open, ignore
+  if (!openDropdown.value) return;
+
+  // Check if the click target is inside any dropdown wrapper
+  const clickedInside = dropdownRefs.value.some((refEl) =>
+    refEl?.contains(e.target)
+  );
+
+  if (!clickedInside) {
+    openDropdown.value = null;
+  }
+}
+
+function setDropdownRef(el, index) {
+  if (el) dropdownRefs.value[index] = el;
+}
+
 // --- Intersection Observer ---
 function setupObserver() {
   observer = new IntersectionObserver(
@@ -346,6 +374,7 @@ function setupObserver() {
 
 // --- Lifecycle ---
 onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
   const cachedCharacters = cache(CHARACTER_CACHE_KEY);
   const cachedRegions = cache(REGION_CACHE_KEY);
   const cachedVisions = cache(VISION_CACHE_KEY);
@@ -381,6 +410,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
   if (observer && loadMoreRef.value) {
     observer.unobserve(loadMoreRef.value);
     observer.disconnect();
