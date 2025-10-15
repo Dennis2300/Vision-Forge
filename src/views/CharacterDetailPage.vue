@@ -25,11 +25,18 @@
               :src="character.vision.image_url"
               alt=""
             />
-            <img
-              class="character-avatar w-48"
-              :src="character.avatar_url"
-              :alt="character.name"
-            />
+            <div
+              :class="{
+                'rarity-5': character.rarity === 5,
+                'rarity-4': character.rarity === 4,
+              }"
+            >
+              <img
+                class="character-avatar w-48"
+                :src="character.avatar_url"
+                :alt="character.name"
+              />
+            </div>
           </div>
 
           <h1 class="character-detail-name tracking-wide">
