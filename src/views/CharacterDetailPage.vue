@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="character"
-    class="character-detail-page relative my-20 rounded-xl overflow-hidden"
+    class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
   >
     <div class="absolute top-0 w-full z-0 opacity-5 overflow-hidden">
       <img
@@ -15,6 +15,7 @@
     </div>
 
     <div class="relative z-10">
+      <!-- Character Detail -->
       <div
         class="character-detail flex flex-row justify-around items-center pt-16"
       >
@@ -32,7 +33,7 @@
               }"
             >
               <img
-                class="character-avatar w-48"
+                class="character-avatar w-48 flex items-center justify-center"
                 :src="character.avatar_url"
                 :alt="character.name"
               />
@@ -51,7 +52,7 @@
           </div>
         </div>
         <div
-          class="character-info flex flex-col px-5 py-2 rounded-xl justify-around"
+          class="character-detail-item flex flex-col px-5 py-2 rounded-xl justify-around"
         >
           <div>
             <h2 class="divider tracking-wider">Voice Actors</h2>
@@ -119,6 +120,59 @@
           </div>
         </div>
       </div>
+      <!-- Character Info -->
+      <div
+        class="character-info flex flex-row justify-between items-center h-96 mt-8 mx-24 px-5 rounded-2xl gap-24"
+      >
+        <!--Left-->
+        <div class="flex flex-col justify-around w-full h-full">
+          <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+              <p>Rarity</p>
+              <p>Rarity Content</p>
+            </div>
+            <div class="divider m-0"></div>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+              <p>Cons</p>
+              <p>Cons Content</p>
+            </div>
+            <div class="divider m-0"></div>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+              <p>Vision</p>
+              <p>Vision Content</p>
+            </div>
+            <div class="divider m-0"></div>
+          </div>
+        </div>
+        <!--Right-->
+        <div class="flex flex-col justify-around w-full h-full">
+          <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+              <p>Weapon Type</p>
+              <p>Weapon Type Content</p>
+            </div>
+            <div class="divider m-0"></div>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+              <p>Birthday</p>
+              <p>Birthday Content</p>
+            </div>
+            <div class="divider m-0"></div>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex flex-row justify-between">
+              <p>Date Released</p>
+              <p>Date Released Content</p>
+            </div>
+            <div class="divider m-0"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -160,6 +214,7 @@ async function fetchCharacterById(characterId) {
       .select(
         `
         *,
+        signature_dish(id, name, image_url),
         vision:visions(id, name, image_url),
         main_stat:stats(id, name),
         weapon_type:weaponTypes(id, name),
