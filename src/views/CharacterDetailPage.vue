@@ -258,7 +258,9 @@
                   :key="stat.id"
                 >
                   <p class="capitalize">{{ stat.slot }}</p>
-                  <p>{{ stat.stat_id.name }}</p>
+                  <p class="text-tertiary tracking-wide">
+                    {{ stat.stat_id.name }}
+                  </p>
                 </div>
                 <!-- Sands -->
                 <div
@@ -269,7 +271,9 @@
                   :key="stat.id"
                 >
                   <p class="capitalize">{{ stat.slot }}</p>
-                  <p>{{ stat.stat_id.name }}</p>
+                  <p class="text-tertiary tracking-wide">
+                    {{ stat.stat_id.name }}
+                  </p>
                 </div>
                 <!-- Circlet -->
                 <div
@@ -278,7 +282,7 @@
                   :key="slot"
                 >
                   <p class="capitalize">{{ slot }}</p>
-                  <p>
+                  <p class="text-tertiary tracking-wide">
                     {{
                       build.build_stat
                         .filter((stat) => stat.slot === slot)
@@ -296,14 +300,22 @@
                 )"
                 :key="stat.id"
               >
-                <p>{{ stat.stat_id.name }}</p>
+                <p class="text-tertiary tracking-wide">
+                  {{ stat.stat_id.name }}
+                </p>
               </div>
             </div>
             <div v-else class="text-center">No Builds Yet</div>
           </div>
           <!--Right-->
           <div class="bg-primary w-2/3 rounded-2xl p-6">
-            <div>Build Notes</div>
+            <div
+              v-if="character.builds?.length"
+              v-for="build in character.builds"
+            >
+              {{ build.notes }}
+            </div>
+            <div class="text-center" v-else>No Build Yet</div>
           </div>
         </div>
       </div>
