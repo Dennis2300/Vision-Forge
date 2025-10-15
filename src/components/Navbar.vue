@@ -48,6 +48,7 @@
   height: 60px;
   padding: 0 20px;
   transition: color 0.3s ease;
+  font-family: var(--font-acme);
 }
 
 .nav-item::before {
