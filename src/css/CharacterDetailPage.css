@@ -24,10 +24,14 @@
   font-size: 2.5em;
 }
 
-.character-info {
+.character-detail-item {
   background-color: var(--primary);
   width: 500px;
   height: 350px;
+}
+
+.character-info {
+  background-color: var(--primary);
 }
 
 .lang {
