@@ -242,55 +242,64 @@
       <div class="w-full h-auto">
         <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
           <!--Left-->
-          <div
-            class="bg-primary w-1/3 rounded-2xl p-6 h-fit"
-            v-for="build in character.builds"
-          >
-            <h2 class="divider mt-0 tracking-wide">Main Stats</h2>
-            <div class="flex flex-col gap-8">
-              <!-- Goblet -->
+          <div class="bg-primary w-1/3 rounded-2xl p-6 h-fit">
+            <div
+              v-if="character.builds?.length"
+              v-for="build in character.builds"
+            >
+              <h2 class="divider mt-0 tracking-wide">Main Stats</h2>
+              <div class="flex flex-col gap-8">
+                <!-- Goblet -->
+                <div
+                  class="flex flex-row justify-between"
+                  v-for="stat in build.build_stat.filter(
+                    (s) => s.slot === 'goblet'
+                  )"
+                  :key="stat.id"
+                >
+                  <p class="capitalize">{{ stat.slot }}</p>
+                  <p>{{ stat.stat_id.name }}</p>
+                </div>
+                <!-- Sands -->
+                <div
+                  class="flex flex-row justify-between"
+                  v-for="stat in build.build_stat.filter(
+                    (s) => s.slot === 'sands'
+                  )"
+                  :key="stat.id"
+                >
+                  <p class="capitalize">{{ stat.slot }}</p>
+                  <p>{{ stat.stat_id.name }}</p>
+                </div>
+                <!-- Circlet -->
+                <div
+                  class="flex flex-row justify-between"
+                  v-for="slot of ['circlet']"
+                  :key="slot"
+                >
+                  <p class="capitalize">{{ slot }}</p>
+                  <p>
+                    {{
+                      build.build_stat
+                        .filter((stat) => stat.slot === slot)
+                        .map((stat) => stat.stat_id.name)
+                        .join(" or ")
+                    }}
+                  </p>
+                </div>
+              </div>
+              <h2 class="divider mb-0 mt-6">Substats</h2>
               <div
-                class="flex flex-row justify-between"
+                class="flex flex-col mt-2"
                 v-for="stat in build.build_stat.filter(
-                  (s) => s.slot === 'goblet'
+                  (s) => s.slot === 'substats'
                 )"
+                :key="stat.id"
               >
-                <p class="capitalize">{{ stat.slot }}</p>
                 <p>{{ stat.stat_id.name }}</p>
               </div>
-              <!-- Sands -->
-              <div
-                class="flex flex-row justify-between"
-                v-for="stat in build.build_stat.filter(
-                  (s) => s.slot === 'sands'
-                )"
-              >
-                <p class="capitalize">{{ stat.slot }}</p>
-                <p>{{ stat.stat_id.name }}</p>
-              </div>
-              <!-- Circlet -->
-              <div
-                class="flex flex-row justify-between"
-                v-for="slot of ['circlet']"
-              >
-                <p class="capitalize">{{ slot }}</p>
-                <p>
-                  {{
-                    build.build_stat
-                      .filter((stat) => stat.slot === slot)
-                      .map((stat) => stat.stat_id.name)
-                      .join(" or ")
-                  }}
-                </p>
-              </div>
             </div>
-            <h2 class="divider mb-0 mt-6">Substats</h2>
-            <div class="flex flex-col mt-2">
-              <span>CRIT RATE</span>
-              <span>CRIT RATE</span>
-              <span>CRIT RATE</span>
-              <span>CRIT RATE</span>
-            </div>
+            <div v-else class="text-center">No Builds Yet</div>
           </div>
           <!--Right-->
           <div class="bg-primary w-2/3 rounded-2xl p-6">
