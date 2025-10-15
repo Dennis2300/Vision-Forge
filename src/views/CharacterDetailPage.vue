@@ -162,9 +162,16 @@
           <div class="flex flex-col">
             <div class="flex flex-row justify-between">
               <h2 class="font-acme text-gray-500">Weapon:</h2>
-              <h2 class="tracking-wide text-tertiary">
-                {{ character.weapon_type.name }}
-              </h2>
+              <div class="flex flex-row gap-2">
+                <h2 class="tracking-wide text-tertiary">
+                  {{ character.weapon_type.name }}
+                </h2>
+                <img
+                  class="w-fit h-8"
+                  :src="character.weapon_type.image_url"
+                  alt=""
+                />
+              </div>
             </div>
             <div class="divider m-0"></div>
           </div>
@@ -238,7 +245,7 @@ async function fetchCharacterById(characterId) {
         signature_dish(id, name, image_url),
         vision:visions(id, name, image_url),
         main_stat:stats(id, name),
-        weapon_type:weaponTypes(id, name),
+        weapon_type:weaponTypes(*),
         released_region(id, name),
         va:voiceActors(*),
         regions:character_region(region_id(name, image_url)),
