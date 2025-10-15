@@ -49,6 +49,11 @@
   color: white;
 }
 
+.list-view {
+  font-family: var(--font-roboto);
+  color: var(--tertiary);
+}
+
 .tags {
   background-color: var(--primary);
   color: var(--tertiary);
