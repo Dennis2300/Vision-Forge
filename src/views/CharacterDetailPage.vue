@@ -165,7 +165,7 @@
                   alt=""
                 />
                 <div
-                  class="dish-pop-up absolute bottom-full left-1/2 translate-x-24 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
+                  class="dish-pop-up absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
                 >
                   <div
                     class="bg-secondary backdrop-blur-md p-2 rounded-lg shadow-xl"
@@ -238,10 +238,17 @@
           </div>
         </div>
       </div>
+      <!-- Character Artifacts -->
+      <h1 class="divider mt-20 px-24 mb-5 tracking-wide">Artifacts</h1>
+      <div class="w-full h-auto">
+        <div class="flex flex-row bg-primary mx-24 w-auto min-h-96">
+          <div>Artifact 1</div>
+          <div>Artifact 2</div>
+          <div>Artifact 3</div>
+        </div>
+      </div>
       <!-- Character Build -->
-      <h1 class="divider mt-20 px-24 mb-10 tracking-wide">
-        Recommended Build for {{ character.name }}
-      </h1>
+      <h1 class="divider mt-20 px-24 mb-10 tracking-wide">Build</h1>
       <div class="w-full h-auto">
         <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
           <!--Left-->
@@ -374,7 +381,8 @@ async function fetchCharacterById(characterId) {
         va:voiceActors(*),
         regions:character_region(region_id(name, image_url)),
         affiliations:character_affiliation(affiliation_id(name)),
-        builds(*, build_stat(*, stat_id(name)))
+        builds(*, build_stat(*, stat_id(name))),
+        artifacts:character_artifact(*, artifact_id(*))
         `
       )
       .eq("id", characterId)
