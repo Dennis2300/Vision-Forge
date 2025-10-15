@@ -3,6 +3,7 @@
     v-if="character"
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
   >
+    <!-- Splash Art as Background Image -->
     <div class="absolute top-0 w-full z-0 opacity-5 overflow-hidden">
       <img
         v-if="character.splash_art_url"
@@ -13,7 +14,7 @@
       />
       <div v-else></div>
     </div>
-
+    <!-- Character Detail Content -->
     <div class="relative z-10">
       <!-- Character Detail -->
       <div
@@ -234,6 +235,63 @@
           </div>
         </div>
       </div>
+      <!-- Character Build -->
+      <h1 class="divider mt-20 px-24 mb-10 tracking-wide">
+        Recommended Build for {{ character.name }}
+      </h1>
+      <div
+        class="flex flex-row justify-between items-center h-72 mx-24 my-12 gap-12"
+      >
+        <div class="w-1/3 h-full bg-primary p-5 rounded-2xl">
+          <h3 class="divider mt-0 mb-1">Main Stat</h3>
+          <div
+            class="h-1/2 flex flex-col justify-around"
+            v-for="build in character.builds"
+          >
+            <!-- Goblet -->
+            <div
+              class="flex flex-row justify-between"
+              v-for="stat in build.build_stat.filter(
+                (s) => s.slot === 'goblet'
+              )"
+              :key="stat.id"
+            >
+              <p class="capitalize">{{ stat.slot }}</p>
+              <p>{{ stat.stat_id.name }}</p>
+            </div>
+            <!-- Sands -->
+            <div
+              class="flex flex-row justify-between"
+              v-for="stat in build.build_stat.filter((s) => s.slot === 'sands')"
+              :key="stat.id"
+            >
+              <p class="capitalize">{{ stat.slot }}</p>
+              <p>{{ stat.stat_id.name }}</p>
+            </div>
+            <!-- Circlet -->
+            <div
+              v-for="slot of ['circlet']"
+              :key="slot"
+              class="flex flex-row justify-between"
+            >
+              <p class="capitalize">{{ slot }}</p>
+              <p>
+                {{
+                  build.build_stat
+                    .filter((stat) => stat.slot === slot)
+                    .map((stat) => stat.stat_id.name)
+                    .join(" or ")
+                }}
+              </p>
+            </div>
+          </div>
+          <div class="h-1/2">
+            <h3 class="divider mt-2 mb-1">Substat Priority</h3>
+          </div>
+        </div>
+        <div class="w-2/3 h-full bg-primary p-5 rounded-2xl">Right</div>
+      </div>
+      <div class="divider my-10 px-10"></div>
     </div>
   </div>
 </template>
@@ -282,7 +340,8 @@ async function fetchCharacterById(characterId) {
         released_region(id, name),
         va:voiceActors(*),
         regions:character_region(region_id(name, image_url)),
-        affiliations:character_affiliation(affiliation_id(name))
+        affiliations:character_affiliation(affiliation_id(name)),
+        builds(*, build_stat(*, stat_id(name)))
         `
       )
       .eq("id", characterId)
