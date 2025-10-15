@@ -62,7 +62,7 @@
             >
               <div class="lang tracking-wider text-left flex flex-col gap-2">
                 <p v-for="lang in languages" :key="lang.name">
-                  <span :class="`fi fi-${lang.code}`"></span>
+                  <span :class="`fi fi-${lang.code}`"></span> -
                   {{ lang.label }}:
                 </p>
               </div>
@@ -148,12 +148,45 @@
             <div class="divider m-0"></div>
           </div>
           <div class="flex flex-col">
+            <!-- Signature Dish-->
             <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Vision:</h2>
-              <h2 class="tracking-wide text-tertiary">
-                {{ character.vision.name }}
-              </h2>
+              <h2 class="font-acme text-gray-500">Signature Dish:</h2>
+              <div
+                v-if="character.signature_dish"
+                class="flex flex-row gap-2 items-center group relative"
+              >
+                <img
+                  class="w-fit h-8 cursor-pointer"
+                  :src="character.signature_dish.image_url"
+                  alt=""
+                />
+                <div
+                  class="dish-pop-up absolute bottom-full left-1/2 translate-x-24 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
+                >
+                  <div
+                    class="bg-secondary backdrop-blur-md p-2 rounded-lg shadow-xl"
+                  >
+                    <img
+                      class="w-36 h-auto"
+                      :src="character.signature_dish.image_url"
+                      alt=""
+                    />
+                  </div>
+                </div>
+
+                <h2 class="tracking-wide text-tertiary">
+                  <a
+                    class="link"
+                    :href="character.signature_dish.url"
+                    target="_blank"
+                  >
+                    {{ character.signature_dish.name }}
+                  </a>
+                </h2>
+              </div>
+              <div v-else>Not Revealed Yet</div>
             </div>
+
             <div class="divider m-0"></div>
           </div>
         </div>
@@ -242,9 +275,9 @@ async function fetchCharacterById(characterId) {
       .select(
         `
         *,
-        signature_dish(id, name, image_url),
-        vision:visions(id, name, image_url),
-        main_stat:stats(id, name),
+        signature_dish(*),
+        vision:visions(*),
+        main_stat:stats(*),
         weapon_type:weaponTypes(*),
         released_region(id, name),
         va:voiceActors(*),
