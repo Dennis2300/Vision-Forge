@@ -16,7 +16,9 @@
 
     <div class="relative z-10">
       <!-- Avatar and VA info -->
-      <div class="character-detail flex flex-row justify-around items-center">
+      <div
+        class="character-detail flex flex-row justify-around items-center pt-16"
+      >
         <div class="flex flex-col justify-center items-center">
           <div class="relative">
             <img
@@ -34,7 +36,7 @@
           <h1 class="character-detail-name tracking-wide">
             {{ character.name }}
           </h1>
-          <div class="divider mx-0 mt-0 mb-1"></div>
+          <div class="divider mx-0 mt-0 mb-1 px-16"></div>
           <div class="flex flex-row gap-3">
             <p class="tags">{{ character.vision.name }}</p>
             <p class="tags">{{ character.weapon_type.name }}</p>
@@ -42,7 +44,49 @@
             <p class="tags">{{ character.released_region.name }}</p>
           </div>
         </div>
-        <div>VA-REGION-AFF</div>
+        <div
+          class="character-info flex flex-col px-5 py-2 rounded-xl justify-around"
+        >
+          <div>
+            <h2 class="divider tracking-wider">Voice Actors</h2>
+            <div class="text-center flex flex-row justify-center gap-5">
+              <div class="lang tracking-wider text-left flex flex-col gap-2">
+                <p v-for="language in languages" :key="lang">{{ language }}:</p>
+              </div>
+
+              <div class="va tracking-wider text-left flex flex-col gap-2">
+                <a
+                  class="link"
+                  v-for="key in va_key"
+                  :key="key"
+                  :href="character.va[key.replace('_name', '_link')]"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ character.va[key] }}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row mb-10">
+            <div class="w-1/2">
+              <h2 class="divider tracking-wider">Regions</h2>
+              <div class="text-center">
+                <p>Mondstadt</p>
+                <p>Mondstadt</p>
+                <p>Mondstadt</p>
+              </div>
+            </div>
+            <div class="w-1/2">
+              <h2 class="divider tracking-wider">Affiliation</h2>
+              <div class="text-center">
+                <p>Fatui</p>
+                <p>Fatui</p>
+                <p>Fatui</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -59,6 +103,8 @@ const loading = ref(null);
 const error = ref(null);
 
 const character = ref(null);
+const languages = ref(["English", "Japanese", "Chinese", "Korean"]);
+const va_key = ref(["en_name", "jp_name", "cn_name", "kr_name"]);
 
 function checkCharacterId() {
   const characterId = route.params.id;
@@ -75,12 +121,20 @@ async function fetchCharacterById(characterId) {
     let query = supabase
       .from("characters")
       .select(
-        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), released_region(id, name)"
+        `
+        *,
+        vision:visions(id, name, image_url),
+        main_stat:stats(id, name),
+        weapon_type:weaponTypes(id, name),
+        released_region(id, name),
+        va:voiceActors(*)
+        `
       )
       .eq("id", characterId)
       .single();
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
+    data.va = data.va?.[0] || null;
     character.value = data;
     sessionStorage.setItem(
       "character",

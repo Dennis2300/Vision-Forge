@@ -6,7 +6,7 @@
 }
 
 .character-detail {
-  height: 30rem;
+  height: fit-content;
   width: 100%;
 }
 
@@ -25,6 +25,30 @@
   font-size: 2.5em;
 }
 
+.character-info {
+  background-color: var(--primary);
+  width: 500px;
+  height: 350px;
+}
+
+.lang {
+  font-family: var(--font-roboto);
+  color: gray;
+}
+
+.va {
+  font-family: var(--font-roboto);
+}
+
+.link {
+  color: var(--tertiary);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: white;
+}
+
 .tags {
   background-color: var(--primary);
   color: var(--tertiary);
@@ -33,4 +57,8 @@
   font-family: var(--font-acme);
   letter-spacing: 1px;
   border: 1px solid black;
+}
+
+.divider {
+  font-family: var(--font-acme);
 }
