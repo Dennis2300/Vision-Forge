@@ -239,13 +239,11 @@
       <h1 class="divider mt-20 px-24 mb-10 tracking-wide">
         Recommended Build for {{ character.name }}
       </h1>
-      <div
-        class="flex flex-row justify-between items-center h-72 mx-24 my-12 gap-12"
-      >
+      <div class="flex flex-row justify-between min-h-80 mx-24 mb-12 gap-12">
         <div class="w-1/3 h-full bg-primary p-5 rounded-2xl">
-          <h3 class="divider mt-0 mb-1">Main Stat</h3>
+          <h3 class="divider mt-0 mb-3">Main Stat</h3>
           <div
-            class="h-1/2 flex flex-col justify-around"
+            class="h-1/2 flex flex-col justify-around gap-5 mb-5"
             v-for="build in character.builds"
           >
             <!-- Goblet -->
@@ -285,11 +283,33 @@
               </p>
             </div>
           </div>
-          <div class="h-1/2">
-            <h3 class="divider mt-2 mb-1">Substat Priority</h3>
+          <div class="h-1/2" v-for="build in character.builds">
+            <h3 class="divider mb-3">Substat Priority</h3>
+            <div class="flex flex-col gap-5">
+              <div
+                v-for="stat in build.build_stat.filter(
+                  (s) => s.slot === 'substats'
+                )"
+                :key="stat.id"
+              >
+                <p>{{ stat.stat_id.name }}</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="w-2/3 h-full bg-primary p-5 rounded-2xl">Right</div>
+        <div
+          class="w-2/3 min-h-full bg-primary p-5 rounded-2xl"
+          v-if="character.builds?.length"
+          v-for="build in character.builds"
+        >
+          <div>{{ build.notes }}</div>
+        </div>
+        <div
+          class="w-2/3 min-h-full bg-primary p-5 rounded-2xl flex flex-col justify-center items-center"
+          v-else
+        >
+          <div>No Builds Yet</div>
+        </div>
       </div>
       <div class="divider my-10 px-10"></div>
     </div>
