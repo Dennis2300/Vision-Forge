@@ -49,9 +49,12 @@
         >
           <div>
             <h2 class="divider tracking-wider">Voice Actors</h2>
-            <div class="text-center flex flex-row justify-center gap-5">
+            <div class="text-center flex flex-row justify-center gap-6">
               <div class="lang tracking-wider text-left flex flex-col gap-2">
-                <p v-for="language in languages" :key="lang">{{ language }}:</p>
+                <p v-for="lang in languages" :key="lang.name">
+                  <span :class="`fi fi-${lang.code}`"></span>
+                  {{ lang.label }}:
+                </p>
               </div>
 
               <div class="va tracking-wider text-left flex flex-col gap-2">
@@ -97,14 +100,20 @@ import { supabase } from "@/supabaseClient";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import "./../css/CharacterDetailPage.css";
+import "flag-icons/css/flag-icons.min.css";
 
 const route = useRoute();
 const loading = ref(null);
 const error = ref(null);
 
 const character = ref(null);
-const languages = ref(["English", "Japanese", "Chinese", "Korean"]);
 const va_key = ref(["en_name", "jp_name", "cn_name", "kr_name"]);
+const languages = [
+  { label: "English", code: "us" },
+  { label: "Japanese", code: "jp" },
+  { label: "Chinese", code: "cn" },
+  { label: "Korean", code: "kr" },
+];
 
 function checkCharacterId() {
   const characterId = route.params.id;
