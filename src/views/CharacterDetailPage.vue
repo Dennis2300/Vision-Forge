@@ -1,4 +1,7 @@
 <template>
+  <div v-if="loading">
+    <LoadingSpinner />
+  </div>
   <div
     v-if="character"
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
@@ -331,6 +334,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
+import LoadingSpinner from "./../components/LoadingSpinner.vue";
 
 const route = useRoute();
 const loading = ref(null);
