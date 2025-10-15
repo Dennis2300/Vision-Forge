@@ -71,21 +71,25 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-row mb-10">
+          <div class="flex flex-row">
             <div class="w-1/2">
               <h2 class="divider tracking-wider">Regions</h2>
-              <div class="text-center">
-                <p>Mondstadt</p>
-                <p>Mondstadt</p>
-                <p>Mondstadt</p>
+              <div
+                class="list-view tracking-wide flex flex-col items-center gap-2"
+              >
+                <p v-for="region in character.regions">
+                  {{ region.region_id.name }}
+                </p>
               </div>
             </div>
             <div class="w-1/2">
               <h2 class="divider tracking-wider">Affiliation</h2>
-              <div class="text-center">
-                <p>Fatui</p>
-                <p>Fatui</p>
-                <p>Fatui</p>
+              <div
+                class="list-view tracking-wide flex flex-col items-center gap-2"
+              >
+                <p v-for="affiliation in character.affiliations">
+                  {{ affiliation.affiliation_id.name }}
+                </p>
               </div>
             </div>
           </div>
@@ -136,7 +140,9 @@ async function fetchCharacterById(characterId) {
         main_stat:stats(id, name),
         weapon_type:weaponTypes(id, name),
         released_region(id, name),
-        va:voiceActors(*)
+        va:voiceActors(*),
+        regions:character_region(region_id(name, image_url)),
+        affiliations:character_affiliation(affiliation_id(name))
         `
       )
       .eq("id", characterId)
