@@ -15,7 +15,6 @@
     </div>
 
     <div class="relative z-10">
-      <!-- Avatar and VA info -->
       <div
         class="character-detail flex flex-row justify-around items-center pt-16"
       >
@@ -49,7 +48,10 @@
         >
           <div>
             <h2 class="divider tracking-wider">Voice Actors</h2>
-            <div class="text-center flex flex-row justify-center gap-6">
+            <div
+              class="text-center flex flex-row justify-center gap-6"
+              v-if="character.va"
+            >
               <div class="lang tracking-wider text-left flex flex-col gap-2">
                 <p v-for="lang in languages" :key="lang.name">
                   <span :class="`fi fi-${lang.code}`"></span>
@@ -70,6 +72,7 @@
                 </a>
               </div>
             </div>
+            <div v-else class="text-center">No VA Announced Yet</div>
           </div>
           <div class="flex flex-row">
             <div class="w-1/2">
