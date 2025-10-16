@@ -20,7 +20,7 @@ trefoil.register(); // Register the component
 defineProps({
   size: {
     type: Number,
-    default: 80,
+    default: 66,
   },
   stroke: {
     type: Number,
