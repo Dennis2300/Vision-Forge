@@ -245,9 +245,10 @@
           class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
         >
           <div
-            class="flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
+            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
             v-for="artifact in character.artifacts"
           >
+            <span class="absolute top-3 left-3 bg-primary py-1 px-2 rounded-full">{{ artifact.rank }}</span>
             <img
               class="w-32"
               :src="artifact.artifact_id.flower_img_url"
@@ -398,7 +399,8 @@ async function fetchCharacterById(characterId) {
         `
       )
       .eq("id", characterId)
-      .single();
+      .single()
+      .order("rank", { foreignTable: "character_artifact", ascending: true });
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
     data.va = data.va?.[0] || null;
