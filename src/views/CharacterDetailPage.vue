@@ -125,7 +125,7 @@
         </div>
       </div>
       <!-- Character Info -->
-      <h1 class="divider mt-20 px-24 mb-5 tracking-wide">
+      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">
         {{ character.name }}'s Information
       </h1>
       <div
@@ -239,16 +239,28 @@
         </div>
       </div>
       <!-- Character Artifacts -->
-      <h1 class="divider mt-20 px-24 mb-5 tracking-wide">Artifacts</h1>
+      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Artifacts</h1>
       <div class="w-full h-auto">
-        <div class="flex flex-row bg-primary mx-24 w-auto min-h-96">
-          <div>Artifact 1</div>
-          <div>Artifact 2</div>
-          <div>Artifact 3</div>
+        <div
+          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
+        >
+          <div
+            class="flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
+            v-for="artifact in character.artifacts"
+          >
+            <img
+              class="w-32"
+              :src="artifact.artifact_id.flower_img_url"
+              alt=""
+            />
+            <p class="text-tertiary tracking-wide">
+              {{ artifact.artifact_id.name }}
+            </p>
+          </div>
         </div>
       </div>
       <!-- Character Build -->
-      <h1 class="divider mt-20 px-24 mb-10 tracking-wide">Build</h1>
+      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Build</h1>
       <div class="w-full h-auto">
         <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
           <!--Left-->
