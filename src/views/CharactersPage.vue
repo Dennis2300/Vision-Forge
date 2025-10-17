@@ -296,7 +296,7 @@ const selectedRegion = ref(null);
 
 // pagination states
 const page = ref(1);
-const pageSize = 10;
+const pageSize = 5;
 const hasMore = ref(true);
 const loadMoreTrigger = ref(null);
 
