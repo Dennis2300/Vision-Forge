@@ -7,7 +7,7 @@
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
   >
     <!-- Splash Art as Background Image -->
-    <div class="absolute top-0 w-full z-0 opacity-25 overflow-hidden">
+    <div class="absolute top-0 w-full z-0 opacity-10 overflow-hidden">
       <img
         v-if="character.splash_art_url"
         :src="character.splash_art_url"
@@ -324,7 +324,7 @@
               </div>
               <h2 class="divider mb-0 mt-6">Substats</h2>
               <div
-                class="flex flex-col mt-2"
+                class="flex flex-col mt-5"
                 v-for="stat in build.build_stat.filter(
                   (s) => s.slot === 'substats'
                 )"
@@ -343,7 +343,7 @@
               v-if="character.builds?.length"
               v-for="build in character.builds"
             >
-              {{ build.notes }}
+              <MarkdownRender :content="build.notes" />
             </div>
             <div class="text-center tracking-wide" v-else>No Build Yet</div>
           </div>
@@ -362,6 +362,7 @@ import { useRoute } from "vue-router";
 import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
 import LoadingSpinner from "./../components/LoadingSpinner.vue";
+import MarkdownRender from "@/components/MarkdownRender.vue";
 
 const route = useRoute();
 const loading = ref(null);
