@@ -7,7 +7,7 @@
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
   >
     <!-- Splash Art as Background Image -->
-    <div class="absolute top-0 w-full z-0 opacity-5 overflow-hidden">
+    <div class="absolute top-0 w-full z-0 opacity-25 overflow-hidden">
       <img
         v-if="character.splash_art_url"
         :src="character.splash_art_url"
@@ -72,16 +72,18 @@
               </div>
 
               <div class="va tracking-wider text-left flex flex-col gap-2">
-                <a
-                  class="link"
-                  v-for="key in va_key"
-                  :key="key"
-                  :href="character.va[key.replace('_name', '_link')]"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ character.va[key] }}
-                </a>
+                <template v-for="key in va_key" :key="key">
+                  <a
+                    v-if="character.va[key.replace('_name', '_link')]"
+                    class="link"
+                    :href="character.va[key.replace('_name', '_link')]"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {{ character.va[key] }}
+                  </a>
+                  <span v-else>{{ character.va[key] }}</span>
+                </template>
               </div>
             </div>
             <div v-else class="text-center">No VA Announced Yet</div>
@@ -246,9 +248,13 @@
         >
           <div
             class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
+            v-if="character.artifacts?.length"
             v-for="artifact in character.artifacts"
           >
-            <span class="absolute top-3 left-3 bg-primary py-1 px-2 rounded-full">{{ artifact.rank }}</span>
+            <span
+              class="absolute top-3 left-3 bg-primary py-1 px-2 rounded-full"
+              >{{ artifact.rank }}</span
+            >
             <img
               class="w-32"
               :src="artifact.artifact_id.flower_img_url"
@@ -258,6 +264,7 @@
               {{ artifact.artifact_id.name }}
             </p>
           </div>
+          <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
         </div>
       </div>
       <!-- Character Build -->
@@ -328,7 +335,7 @@
                 </p>
               </div>
             </div>
-            <div v-else class="text-center">No Builds Yet</div>
+            <div v-else class="text-center tracking-wide">No Builds Yet</div>
           </div>
           <!--Right-->
           <div class="bg-primary w-2/3 rounded-2xl p-6">
@@ -338,7 +345,7 @@
             >
               {{ build.notes }}
             </div>
-            <div class="text-center" v-else>No Build Yet</div>
+            <div class="text-center tracking-wide" v-else>No Build Yet</div>
           </div>
         </div>
       </div>
@@ -386,7 +393,7 @@ async function fetchCharacterById(characterId) {
       .select(
         `
         *,
-        signature_dish(*),
+        signature_dish(id, name, image_url, url),
         vision:visions(*),
         main_stat:stats(*),
         weapon_type:weaponTypes(*),
@@ -395,7 +402,7 @@ async function fetchCharacterById(characterId) {
         regions:character_region(region_id(name, image_url)),
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
-        artifacts:character_artifact(*, artifact_id(*))
+        artifacts:character_artifact(*, artifact_id(id, name, flower_img_url))
         `
       )
       .eq("id", characterId)
