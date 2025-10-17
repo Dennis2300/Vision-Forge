@@ -279,30 +279,36 @@
             >
               <h2 class="divider mt-0 tracking-wide">Main Stats</h2>
               <div class="flex flex-col gap-8">
-                <!-- Goblet -->
-                <div
-                  class="flex flex-row justify-between"
-                  v-for="stat in build.build_stat.filter(
-                    (s) => s.slot === 'goblet'
-                  )"
-                  :key="stat.id"
-                >
-                  <p class="capitalize">{{ stat.slot }}</p>
-                  <p class="text-tertiary tracking-wide">
-                    {{ stat.stat_id.name }}
-                  </p>
-                </div>
                 <!-- Sands -->
                 <div
                   class="flex flex-row justify-between"
-                  v-for="stat in build.build_stat.filter(
-                    (s) => s.slot === 'sands'
-                  )"
-                  :key="stat.id"
+                  v-for="slot of ['sands']"
+                  :key="slot"
                 >
-                  <p class="capitalize">{{ stat.slot }}</p>
+                  <p class="capitalize">{{ slot }}</p>
                   <p class="text-tertiary tracking-wide">
-                    {{ stat.stat_id.name }}
+                    {{
+                      build.build_stat
+                        .filter((stat) => stat.slot === slot)
+                        .map((stat) => stat.stat_id.name)
+                        .join(" or ")
+                    }}
+                  </p>
+                </div>
+                <!-- Goblet -->
+                <div
+                  class="flex flex-row justify-between"
+                  v-for="slot of ['goblet']"
+                  :key="slot"
+                >
+                  <p class="capitalize">{{ slot }}</p>
+                  <p class="text-tertiary tracking-wide">
+                    {{
+                      build.build_stat
+                        .filter((stat) => stat.slot === slot)
+                        .map((stat) => stat.stat_id.name)
+                        .join(" or ")
+                    }}
                   </p>
                 </div>
                 <!-- Circlet -->
