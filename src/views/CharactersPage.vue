@@ -235,6 +235,9 @@
               {{ character.vision.name }}
             </p>
             <p class="character-detail-tag">
+              {{ character.role.name }}
+            </p>
+            <p class="character-detail-tag">
               {{ character.weapon_type.name }}
             </p>
             <p v-if="character.main_stat" class="character-detail-tag">
@@ -404,7 +407,7 @@ async function fetchCharacters({ reset = false } = {}) {
     let query = supabase
       .from("characters")
       .select(
-        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name)"
+        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id, name)"
       )
       .order("release_date", { ascending: false })
       .range(from, to);
