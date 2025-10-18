@@ -163,11 +163,14 @@
                 v-if="character.signature_dish"
                 class="flex flex-row gap-2 items-center group relative"
               >
+                <!-- Dish Image-->
                 <img
                   class="w-fit h-8 cursor-pointer"
                   :src="character.signature_dish.image_url"
                   alt=""
                 />
+
+                <!-- Dish Pop up -->
                 <div
                   class="dish-pop-up absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
                 >
@@ -179,14 +182,17 @@
                       :src="character.signature_dish.image_url"
                       alt=""
                     />
+                    <h3 class="text-center text-tertiary tracking-wide">
+                      {{ character.signature_dish.name }}
+                    </h3>
                     <div class="divider m-0"></div>
-                    <p class="text-center px-5">
+                    <p class="text-center px-5 mb-3">
                       {{ character.signature_dish.description }}
                     </p>
                   </div>
                 </div>
-
-                <h2 class="tracking-wide text-tertiary">
+                <!-- Dish name-->
+                <h2 class="tracking-wide text-tertiary max-w-64 truncate">
                   <a
                     class="link"
                     :href="character.signature_dish.url"
