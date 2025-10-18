@@ -383,6 +383,29 @@ const languages = [
   { label: "Korean", code: "kr" },
 ];
 
+// To Use Later in Production
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
+  const now = new Date().getTime();
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  }
+}
+
 function checkCharacterId() {
   const characterId = route.params.id;
   if (!characterId) {
