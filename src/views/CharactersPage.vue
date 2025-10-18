@@ -440,7 +440,7 @@ async function fetchFilteredCharacters(filters = {}) {
     let query = supabase
       .from("characters")
       .select(
-        "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name)"
+        "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id,name)"
       )
       .order("release_date", { ascending: false });
     if (filters.vision) query = query.eq("vision", filters.vision);
