@@ -135,6 +135,7 @@
       >
         <!--Left-->
         <div class="flex flex-col justify-around w-full h-full">
+          <!-- Rarity -->
           <div class="flex flex-col">
             <div class="flex flex-row justify-between">
               <h2 class="font-acme text-gray-500">Rarity:</h2>
@@ -144,6 +145,7 @@
             </div>
             <div class="divider m-0"></div>
           </div>
+          <!-- Cons -->
           <div class="flex flex-col">
             <div class="flex flex-row justify-between">
               <h2 class="font-acme text-gray-500">Constellation:</h2>
@@ -153,8 +155,8 @@
             </div>
             <div class="divider m-0"></div>
           </div>
+          <!-- Signature Dish-->
           <div class="flex flex-col">
-            <!-- Signature Dish-->
             <div class="flex flex-row justify-between">
               <h2 class="font-acme text-gray-500">Signature Dish:</h2>
               <div
@@ -170,13 +172,17 @@
                   class="dish-pop-up absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
                 >
                   <div
-                    class="bg-secondary backdrop-blur-md p-2 rounded-lg shadow-xl"
+                    class="bg-secondary backdrop-blur-md p-2 w-96 h-auto flex flex-col items-center rounded-lg shadow-xl"
                   >
                     <img
-                      class="w-36 h-auto"
+                      class="w-48"
                       :src="character.signature_dish.image_url"
                       alt=""
                     />
+                    <div class="divider m-0"></div>
+                    <p class="text-center px-5">
+                      {{ character.signature_dish.description }}
+                    </p>
                   </div>
                 </div>
 
@@ -423,7 +429,7 @@ async function fetchCharacterById(characterId) {
       .select(
         `
         *,
-        signature_dish(id, name, image_url, url),
+        signature_dish(id, name, image_url, url, description),
         vision:visions(*),
         main_stat:stats(*),
         weapon_type:weaponTypes(*),
