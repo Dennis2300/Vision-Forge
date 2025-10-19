@@ -253,7 +253,7 @@
         </div>
       </div>
       <!-- Character Artifacts -->
-      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Artifacts</h1>
+      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Artifacts</h1>
       <div class="w-full h-auto">
         <div
           class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
@@ -278,6 +278,12 @@
           </div>
           <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
         </div>
+      </div>
+      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Weapon</h1>
+      <div class="w-full h-auto">
+        <div
+          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
+        ></div>
       </div>
       <!-- Character Build -->
       <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Build</h1>
