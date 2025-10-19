@@ -283,8 +283,25 @@
       <div class="w-full h-auto">
         <div
           class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
-        ></div>
+        >
+          <div
+            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
+            v-if="character.artifacts?.length"
+            v-for="weapon in character.weapons"
+          >
+            <span
+              class="absolute top-3 left-3 bg-primary py-1 px-2 rounded-full"
+              >{{ weapon.rank }}</span
+            >
+            <img class="w-32" :src="weapon.weapon_id.image_url" alt="" />
+            <p class="text-tertiary tracking-wide">
+              {{ weapon.weapon_id.name }}
+            </p>
+          </div>
+          <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
+        </div>
       </div>
+
       <!-- Character Build -->
       <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Build</h1>
       <div class="w-full h-auto">
@@ -436,6 +453,7 @@ function checkCharacterId() {
 async function fetchCharacterById(characterId) {
   loading.value = true;
   try {
+    // The Supabase Query
     let query = supabase
       .from("characters")
       .select(
@@ -455,12 +473,25 @@ async function fetchCharacterById(characterId) {
         `
       )
       .eq("id", characterId)
-      .single()
-      .order("rank", { foreignTable: "character_artifact", ascending: true });
+      .single();
+
+    // The Fetch to Supabase
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-    data.va = data.va?.[0] || null;
+
+    // Sort Artifacts and Weapons by the rank column
+    if (data.artifacts) {
+      data.artifacts.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
+    }
+
+    if (data.weapons) {
+      data.weapons.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
+    }
+
+    // Insert the Fetched Data to Character State
     character.value = data;
+
+    // Session Storage for Caching
     sessionStorage.setItem(
       "character",
       JSON.stringify({
