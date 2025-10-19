@@ -1,7 +1,9 @@
 <template>
+  <!-- Loading -->
   <div v-if="loading">
     <LoadingSpinner />
   </div>
+  <!-- Content -->
   <div
     v-if="character"
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
@@ -256,49 +258,86 @@
       <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Artifacts</h1>
       <div class="w-full h-auto">
         <div
-          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
+          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
         >
           <div
-            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
+            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
             v-if="character.artifacts?.length"
             v-for="artifact in character.artifacts"
           >
-            <span
-              class="absolute top-3 left-3 bg-primary py-1 px-2 rounded-full"
-              >{{ artifact.rank }}</span
-            >
-            <img
-              class="w-32"
-              :src="artifact.artifact_id.flower_img_url"
-              alt=""
-            />
-            <p class="text-tertiary tracking-wide mt-5">
+            <div class="absolute top-5 left-5">
+              <span
+                class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
+                :class="{
+                  'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
+                    artifact.rank === 1,
+                  'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
+                    artifact.rank === 2,
+                  'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
+                    artifact.rank === 3,
+                }"
+              >
+                {{ artifact.rank }}
+              </span>
+            </div>
+
+            <div class="artifact-image rounded-xl">
+              <img
+                class="w-32"
+                :src="artifact.artifact_id.flower_img_url"
+                alt=""
+              />
+            </div>
+            <p class="text-tertiary tracking-wide mt-8">
               {{ artifact.artifact_id.name }}
             </p>
           </div>
           <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
         </div>
       </div>
+      <!-- Character Weapons-->
       <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Weapon</h1>
       <div class="w-full h-auto">
         <div
-          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto h-72 rounded-2xl"
+          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
         >
           <div
-            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl pt-2 pb-5 w-72"
-            v-if="character.artifacts?.length"
+            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
+            v-if="character.weapons?.length"
             v-for="weapon in character.weapons"
           >
-            <span
-              class="absolute top-3 left-3 bg-primary py-1 px-2 rounded-full"
-              >{{ weapon.rank }}</span
+            <div class="absolute top-5 left-5">
+              <span
+                class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
+                :class="{
+                  'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
+                    weapon.rank === 1,
+                  'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
+                    weapon.rank === 2,
+                  'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
+                    weapon.rank === 3,
+                }"
+              >
+                {{ weapon.rank }}
+              </span>
+            </div>
+            <div
+              :class="{
+                'rarity-5': weapon.weapon_id.rarity === 5,
+                'rarity-4': weapon.weapon_id.rarity === 4,
+              }"
             >
-            <img class="w-32" :src="weapon.weapon_id.image_url" alt="" />
-            <p class="text-tertiary tracking-wide mt-5">
+              <img
+                class="w-32 weapon-image rounded-xl"
+                :src="weapon.weapon_id.image_url"
+                alt=""
+              />
+            </div>
+            <p class="text-tertiary tracking-wide mt-8">
               {{ weapon.weapon_id.name }}
             </p>
           </div>
-          <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
+          <div class="tracking-wide" v-else>No Weapons Assigned Yet</div>
         </div>
       </div>
 

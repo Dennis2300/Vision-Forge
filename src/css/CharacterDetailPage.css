@@ -75,15 +75,44 @@
   border: 1px solid white;
 }
 
-.rarity-5 .character-avatar {
+.rarity-5 .character-avatar,
+.rarity-5 .weapon-image,
+.artifact-image {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
 
-.rarity-4 .character-avatar {
+.rarity-4 .character-avatar,
+.rarity-4 .weapon-image {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
   box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 
+@keyframes shine {
+  0% { transform: translateX(-120%) rotate(25deg); opacity: 0; }
+  30% { opacity: 0.5; }
+  50% { transform: translateX(50%) rotate(25deg); opacity: 1; }
+  70% { opacity: 0.5; }
+  100% { transform: translateX(150%) rotate(25deg); opacity: 0; }
+}
+
+.animate-shine::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  filter: blur(2px);
+  animation: shine 2s ease-in-out infinite;
+  pointer-events: none;
+}
