@@ -450,7 +450,8 @@ async function fetchCharacterById(characterId) {
         regions:character_region(region_id(name, image_url)),
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
-        artifacts:character_artifact(*, artifact_id(id, name, flower_img_url))
+        artifacts:character_artifact(*, artifact_id(id, name, flower_img_url)),
+        weapons:character_weapon(*, weapon_id(id, name, rarity, image_url))
         `
       )
       .eq("id", characterId)
