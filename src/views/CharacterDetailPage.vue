@@ -272,7 +272,7 @@
               :src="artifact.artifact_id.flower_img_url"
               alt=""
             />
-            <p class="text-tertiary tracking-wide">
+            <p class="text-tertiary tracking-wide mt-5">
               {{ artifact.artifact_id.name }}
             </p>
           </div>
@@ -294,7 +294,7 @@
               >{{ weapon.rank }}</span
             >
             <img class="w-32" :src="weapon.weapon_id.image_url" alt="" />
-            <p class="text-tertiary tracking-wide">
+            <p class="text-tertiary tracking-wide mt-5">
               {{ weapon.weapon_id.name }}
             </p>
           </div>
