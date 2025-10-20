@@ -14,6 +14,33 @@
     <!-- Main Content Section -->
     <div class="content">
       <router-view />
+
+      <!-- Support button -->
+      <div class="fixed top-1/4 right-5 m-4">
+        <button
+          @click="showPopup = !showPopup"
+          class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+        >
+          Support Me
+        </button>
+
+        <!-- Popup -->
+        <div
+          v-if="showPopup"
+          class="absolute bottom-12 right-0 bg-white border rounded-lg shadow-lg p-4 w-64"
+        >
+          <p class="text-sm text-gray-700 mb-2">
+            If you enjoy my work and want to support me, check out my Patreon!
+          </p>
+          <a
+            href="https://patreon.com/YOURUSERNAME"
+            target="_blank"
+            class="text-blue-600 underline text-sm font-medium"
+          >
+            Go to Patreon
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Footer Component -->
@@ -26,6 +53,8 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 import LoadingSpinner from "./components/LoadingSpinner.vue";
+
+const showPopup = ref(false);
 
 // Navbar scroll behavior
 const isScrollingDown = ref(false);
