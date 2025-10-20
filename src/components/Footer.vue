@@ -1,19 +1,28 @@
 <template>
-  <footer class="bg-base-200 flex flex-row justify-around items-center px-8 py-12">
+  <footer
+    class="bg-base-200 flex flex-row justify-around items-center px-8 py-12"
+  >
     <div>
       <div class="flex flex-col gap-5">
         <nav>
           <h6 class="footer-title">Links</h6>
           <div class="grid grid-flow-col gap-4">
-            <a href="/about">About</a>
-            <a href="https://www.patreon.com/" target="_blank">Patreon</a>
-            <a href="https://github.com/Dennis2300">Github</a>
+            <a class="text-white" href="/about">About</a>
+            <a
+              class="text-white"
+              href="https://www.patreon.com/"
+              target="_blank"
+              >Patreon</a
+            >
+            <a class="text-white" href="https://github.com/Dennis2300"
+              >Github</a
+            >
           </div>
         </nav>
       </div>
     </div>
     <!--------->
-    <div class="footer-text flex flex-col w-[800px] gap-5 text-center">
+    <div class="footer-text flex flex-col w-[800px] gap-8 text-center">
       <p>
         This website is a fan-made project and is not affiliated with, endorsed
         by, or sponsored by
@@ -22,8 +31,16 @@
         <strong>HoYoverse</strong>.
       </p>
       <p>
-        Built with <strong><a href="https://vuejs.org/">Vue.js</a></strong> and
-        <strong><a href="https://supabase.com/">Supabase</a></strong>
+        Built with
+        <strong
+          ><a class="text-tertiary" href="https://vuejs.org/">Vue.js</a></strong
+        >
+        and
+        <strong
+          ><a class="text-tertiary" href="https://supabase.com/"
+            >Supabase</a
+          ></strong
+        >
       </p>
     </div>
     <!-------->
@@ -36,7 +53,7 @@
               xmlns="http://www.w3.org/2000/svg"
               width="25"
               height="25"
-              fill="currentColor"
+              fill="white"
               class="bi bi-twitter-x"
               viewBox="0 0 16 16"
             >
@@ -50,7 +67,7 @@
               xmlns="http://www.w3.org/2000/svg"
               width="25"
               height="25"
-              fill="currentColor"
+              fill="white"
               class="bi bi-instagram"
               viewBox="0 0 16 16"
             >
@@ -96,5 +113,3 @@
     </div>
   </footer>
 </template>
-
-<style></style>

@@ -16,21 +16,26 @@
       <router-view />
 
       <!-- Support button -->
-      <div class="fixed top-1/4 right-5 m-4">
-        <button
+      <div class="fixed top-20 right-5 m-4">
+        <div
           @click="showPopup = !showPopup"
-          class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+          class="bg-secondary text-white rounded-lg transition"
         >
-          Support Me
-        </button>
+          <img
+            width="85"
+            src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/06/01/237301566/741d1a62ad6e8d6818c53c97eeccdce6_2278495532066979603.gif"
+            alt=""
+          />
+        </div>
 
         <!-- Popup -->
         <div
           v-if="showPopup"
-          class="absolute bottom-12 right-0 bg-white border rounded-lg shadow-lg p-4 w-64"
+          class="absolute top-24 right-24 bg-white border shadow-lg p-4 w-64 rounded-b-xl rounded-tl-xl"
         >
           <p class="text-sm text-gray-700 mb-2">
-            If you enjoy my work and want to support me, check out my Patreon!
+            If you like this website, please consider supporting it on Patreon.
+            Every bit helps pay for server hosting and domain fees.
           </p>
           <a
             href="https://patreon.com/YOURUSERNAME"
