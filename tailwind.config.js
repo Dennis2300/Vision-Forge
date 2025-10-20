@@ -12,7 +12,8 @@ export default {
       colors: {
         primary: "var(--primary)",
         secondary: "var(--secondary)",
-        tertiary: "var(--tertiary)"
+        tertiary: "var(--tertiary)",
+        footer: "#0b192c",
       },
     },
   },

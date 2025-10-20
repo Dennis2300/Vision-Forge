@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="updates">
+  <section class="updates min-h-72">
     <h2 class="updates-title">Latest Updates</h2>
 
     <div v-if="updates.length" class="updates-list">
