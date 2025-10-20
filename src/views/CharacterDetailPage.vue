@@ -73,19 +73,22 @@
                 </p>
               </div>
 
-              <div class="va tracking-wider text-left flex flex-col gap-2">
-                <template v-for="key in va_key" :key="key">
+              <div
+                class="va tracking-wider text-left flex flex-col gap-2"
+                v-for="va in character.va"
+              >
+                <div v-for="key in va_key" :key="key">
                   <a
-                    v-if="character.va[key.replace('_name', '_link')]"
+                    v-if="va[key.replace('_name', '_link')]"
                     class="link"
-                    :href="character.va[key.replace('_name', '_link')]"
+                    :href="va[key.replace('_name', '_link')]"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {{ character.va[key] }}
+                    {{ va[key] }}
                   </a>
-                  <span v-else>{{ character.va[key] }}</span>
-                </template>
+                  <span v-else>{{ va[key] }}</span>
+                </div>
               </div>
             </div>
             <div v-else class="text-center">No VA Announced Yet</div>
