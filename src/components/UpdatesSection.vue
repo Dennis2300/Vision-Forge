@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "./../supabaseClient.js";
-// import MarkdownRender from "./MarkdownRender.vue"; // you can enable later if you want
 
 const updates = ref([]);
 
@@ -9,9 +8,9 @@ async function fetchUpdates() {
   try {
     const { data, error } = await supabase
       .from("updates")
-      .select("id, title, message, created_at")
-      .order("created_at", { ascending: false })
-      .limit(3); // only get the latest 3
+      .select("*")
+      .order("published_at", { ascending: false })
+      .limit(3);
 
     if (error) throw error;
 
@@ -21,64 +20,132 @@ async function fetchUpdates() {
   }
 }
 
-onMounted(fetchUpdates);
+onMounted(() => {
+  fetchUpdates();
+});
 </script>
 
 <template>
-  <div v-for="update in updates" :key="update.id" class="update">
-    <!-- Header -->
-    <h2 class="update-title">{{ update.title }}</h2>
+  <section class="updates">
+    <h2 class="updates-title">Latest Updates</h2>
 
-    <!-- Created Date-->
-    <div class="update-date-container">
-      Posted:
-      <strong class="update-date">
-        {{
-          update.created_at
-            ? new Date(update.created_at).toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })
-            : "UPCOMING"
-        }}
-      </strong>
-    </div>
-    <div class="divider m-0 p-0"></div>
+    <div v-if="updates.length" class="updates-list">
+      <article
+        v-for="update in updates"
+        :key="update.id"
+        class="update-card"
+      >
+        <header class="update-header">
+          <h3 class="update-title">{{ update.title }}</h3>
+          <div class="update-meta">
+            <span class="update-slug">#{{ update.slug }}</span>
+            <span class="update-date flex items-center justify-center">
+              {{ new Date(update.published_at).toLocaleDateString() }}
+            </span>
+          </div>
+        </header>
 
-    <!-- Content -->
-    <div class="update-message-container">
-      <p class="update-message">{{ update.message }}</p>
-      <!-- If using Markdown later: -->
-      <!-- <MarkdownRender :content="update.message" /> -->
+        <div
+          class="update-content"
+          v-html="update.content"
+        ></div>
+      </article>
     </div>
-  </div>
+
+    <p v-else class="no-updates">No updates yet — check back soon!</p>
+  </section>
 </template>
 
 <style scoped>
-.update {
-  margin-top: 25px;
-  background-color: var(--filter-color);
-  padding: 1.5rem;
+.updates {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 1rem;
+}
+
+.updates-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ececec;
+  letter-spacing: 0.5px;
+}
+
+.updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.update-card {
+  background: #1b1b1b;
+  border: 1px solid #2b2b2b;
   border-radius: 1rem;
-  border: 1px solid #fafafa;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.update-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.update-header {
+  margin-bottom: 1rem;
 }
 
 .update-title {
-  font-family: var(--font-roboto);
-  letter-spacing: 0.5px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.3rem;
 }
 
-.update-date-container {
-  font-family: var(--font-roboto);
-  letter-spacing: 0.5px;
-  margin-top: 5px;
+.update-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #aaa;
 }
 
-.update-message-container {
-  font-family: var(--font-roboto);
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  text-shadow: 3px 3px 15px  rgb(0, 0, 0, 1);
+.update-slug {
+  background: #292929;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  font-family: monospace;
+}
+
+.update-date {
+  color: #888;
+}
+
+.update-content {
+  color: #ddd;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.update-content h1,
+.update-content h2,
+.update-content h3 {
+  margin-top: 1rem;
+  color: #fff;
+}
+
+.update-content a {
+  color: #64b5f6;
+  text-decoration: none;
+}
+
+.update-content a:hover {
+  text-decoration: underline;
+}
+
+.no-updates {
+  text-align: center;
+  color: #888;
+  font-style: italic;
 }
 </style>

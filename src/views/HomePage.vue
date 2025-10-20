@@ -84,12 +84,7 @@
       </div>
     </div>
     <!-- bottom section -->
-    <div class="bottom-section">
-      <h1 class="bottom-section-header divider">Updates</h1>
-      <div class="bottom-text-container">
-        <UpdatesSection />
-      </div>
-    </div>
+    <UpdatesSection />
   </div>
 </template>
 
@@ -154,22 +149,6 @@
   overflow: hidden;
   object-fit: cover;
   flex: 4;
-}
-
-/* Bottom Section */
-.bottom-section {
-  background-color: var(--secondary);
-  min-height: 15vh;
-  border-radius: 15px;
-  padding: 25px;
-  border: 1px solid var(--tertiary);
-}
-
-.bottom-section-header {
-  font-size: 2rem;
-  letter-spacing: 1px;
-  font-family: var(--font-acme);
-  color: var(--tertiary);
 }
 
 /* Text Styles */
