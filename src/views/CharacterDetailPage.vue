@@ -62,37 +62,28 @@
         >
           <div>
             <h2 class="divider tracking-wider">Voice Actors</h2>
+
             <div
               class="text-center flex flex-row justify-center gap-6"
-              v-if="character.va"
+              v-if="character.va?.length"
             >
+              <!-- Languages -->
               <div class="lang tracking-wider text-left flex flex-col gap-2">
-                <p v-for="lang in languages" :key="lang.name">
+                <p v-for="lang in languages" :key="lang.code">
                   <span :class="`fi fi-${lang.code}`"></span> -
                   {{ lang.label }}:
                 </p>
               </div>
 
-              <div
-                class="va tracking-wider text-left flex flex-col gap-2"
-                v-for="va in character.va"
-              >
-                <div v-for="key in va_key" :key="key">
-                  <a
-                    v-if="va[key.replace('_name', '_link')]"
-                    class="link"
-                    :href="va[key.replace('_name', '_link')]"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {{ va[key] }}
-                  </a>
-                  <span v-else>{{ va[key] }}</span>
-                </div>
+              <!-- Voice actors -->
+              <div class="va tracking-wider text-left flex flex-col gap-2">
+                VA will go here, will fix later
               </div>
             </div>
+
             <div v-else class="text-center">No VA Announced Yet</div>
           </div>
+
           <div class="flex flex-row">
             <!-- Regions -->
             <div class="w-1/2">
@@ -440,7 +431,7 @@
 
 <script setup>
 import { supabase } from "@/supabaseClient";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
@@ -452,7 +443,6 @@ const loading = ref(null);
 const error = ref(null);
 
 const character = ref(null);
-const va_key = ref(["en_name", "jp_name", "cn_name", "kr_name"]);
 const languages = [
   { label: "English", code: "us" },
   { label: "Japanese", code: "jp" },
@@ -506,7 +496,7 @@ async function fetchCharacterById(characterId) {
         main_stat:stats(*),
         weapon_type:weaponTypes(*),
         released_region(id, name),
-        va:voiceActors(*),
+        va:voiceActors(*, lang(*)),
         regions:character_region(region_id(name, image_url)),
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
