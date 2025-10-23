@@ -77,7 +77,9 @@
 
               <!-- Voice actors -->
               <div class="va tracking-wider text-left flex flex-col gap-2">
-                VA will go here, will fix later
+                <p v-for="(actors, lang) in groupedVA" :key="lang">
+                  {{ actors.map((a) => a.name).join(" & ") }}
+                </p>
               </div>
             </div>
 
@@ -536,6 +538,16 @@ async function fetchCharacterById(characterId) {
     loading.value = false;
   }
 }
+
+const groupedVA = computed(() => {
+  if (!character.value?.va) return {};
+  return character.value.va.reduce((acc, actor) => {
+    const langName = actor.lang.language;
+    if (!acc[langName]) acc[langName] = [];
+    acc[langName].push(actor);
+    return acc;
+  }, {});
+});
 
 onMounted(async () => {
   const characterId = checkCharacterId();
