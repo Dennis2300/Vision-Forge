@@ -60,40 +60,42 @@
         <div
           class="character-detail-item flex flex-col px-5 py-2 rounded-xl justify-around"
         >
-          <div>
+          <div class="voice-actor-container">
             <h2 class="divider tracking-wider">Voice Actors</h2>
-
             <div
-              class="text-center flex flex-row justify-center gap-6"
+              class="flex flex-row justify-around"
               v-if="character.va?.length"
             >
-              <div class="va tracking-wider text-left flex flex-col gap-2">
-                <p v-for="(actors, lang) in groupedVA" :key="lang">
-                  <!-- Use the first actor's lang.code for the flag -->
-                  <span
-                    v-if="actors[0]?.lang?.code"
-                    :class="`fi fi-${actors[0].lang.code}`"
-                  ></span>
-                  -
-                  {{
-                    languages.find((l) => l.code === actors[0].lang.code)
-                      ?.label
-                  }}:
-                  <template v-for="(a, index) in actors" :key="a.id">
-                    <template v-if="a.link">
-                      <a
-                        :href="a.link"
-                        target="_blank"
-                        rel="noopener"
-                        class="link"
-                      >
+              <!---->
+              <div class="flex flex-col gap-2">
+                <p v-for="item in sortedGroupedVA" :key="item.code">
+                  <span :class="`fi fi-${item.code}`"></span>
+                  <strong class="ml-2">{{ item.label }}: </strong>
+                </p>
+              </div>
+              <!---->
+              <div class="flex flex-col gap-2">
+                <p v-for="item in sortedGroupedVA" :key="item.code">
+                  <template v-if="item.actors.length">
+                    <template v-for="(a, index) in item.actors" :key="a.id">
+                      <template v-if="a.link">
+                        <a
+                          :href="a.link"
+                          target="_blank"
+                          rel="noopener"
+                          class="link"
+                        >
+                          {{ a.name }}
+                        </a>
+                      </template>
+                      <template v-else>
                         {{ a.name }}
-                      </a>
+                      </template>
+                      <span v-if="index < item.actors.length - 1"> & </span>
                     </template>
-                    <template v-else>
-                      {{ a.name }}
-                    </template>
-                    <span v-if="index < actors.length - 1"> & </span>
+                  </template>
+                  <template v-else>
+                    <span>No VA</span>
                   </template>
                 </p>
               </div>
@@ -557,12 +559,21 @@ async function fetchCharacterById(characterId) {
 
 const groupedVA = computed(() => {
   if (!character.value?.va) return {};
+
   return character.value.va.reduce((acc, actor) => {
-    const lang = actor.lang.language || actor.lang.code.toUpperCase(); // fallback
-    if (!acc[lang]) acc[lang] = [];
-    acc[lang].push(actor);
+    const code = actor.lang.code;
+    if (!acc[code]) acc[code] = [];
+    acc[code].push(actor);
     return acc;
   }, {});
+});
+
+const sortedGroupedVA = computed(() => {
+  return languages.map((lang) => ({
+    code: lang.code,
+    label: lang.label,
+    actors: groupedVA.value[lang.code] || [],
+  }));
 });
 
 onMounted(async () => {
