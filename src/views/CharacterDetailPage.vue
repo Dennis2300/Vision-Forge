@@ -67,17 +67,18 @@
               class="text-center flex flex-row justify-center gap-6"
               v-if="character.va?.length"
             >
-              <!-- Languages -->
-              <div class="lang tracking-wider text-left flex flex-col gap-2">
-                <p v-for="lang in languages" :key="lang.code">
-                  <span :class="`fi fi-${lang.code}`"></span> -
-                  {{ lang.label }}:
-                </p>
-              </div>
-
-              <!-- Voice actors -->
               <div class="va tracking-wider text-left flex flex-col gap-2">
                 <p v-for="(actors, lang) in groupedVA" :key="lang">
+                  <!-- Use the first actor's lang.code for the flag -->
+                  <span
+                    v-if="actors[0]?.lang?.code"
+                    :class="`fi fi-${actors[0].lang.code}`"
+                  ></span>
+                  -
+                  {{
+                    languages.find((l) => l.code === actors[0].lang.code)
+                      ?.label
+                  }}:
                   <template v-for="(a, index) in actors" :key="a.id">
                     <template v-if="a.link">
                       <a
@@ -92,8 +93,6 @@
                     <template v-else>
                       {{ a.name }}
                     </template>
-
-                    <!-- Add separator between names -->
                     <span v-if="index < actors.length - 1"> & </span>
                   </template>
                 </p>
@@ -559,9 +558,9 @@ async function fetchCharacterById(characterId) {
 const groupedVA = computed(() => {
   if (!character.value?.va) return {};
   return character.value.va.reduce((acc, actor) => {
-    const langName = actor.lang.language;
-    if (!acc[langName]) acc[langName] = [];
-    acc[langName].push(actor);
+    const lang = actor.lang.language || actor.lang.code.toUpperCase(); // fallback
+    if (!acc[lang]) acc[lang] = [];
+    acc[lang].push(actor);
     return acc;
   }, {});
 });
