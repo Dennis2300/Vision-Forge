@@ -78,7 +78,24 @@
               <!-- Voice actors -->
               <div class="va tracking-wider text-left flex flex-col gap-2">
                 <p v-for="(actors, lang) in groupedVA" :key="lang">
-                  {{ actors.map((a) => a.name).join(" & ") }}
+                  <template v-for="(a, index) in actors" :key="a.id">
+                    <template v-if="a.link">
+                      <a
+                        :href="a.link"
+                        target="_blank"
+                        rel="noopener"
+                        class="link"
+                      >
+                        {{ a.name }}
+                      </a>
+                    </template>
+                    <template v-else>
+                      {{ a.name }}
+                    </template>
+
+                    <!-- Add separator between names -->
+                    <span v-if="index < actors.length - 1"> & </span>
+                  </template>
                 </p>
               </div>
             </div>
