@@ -5,16 +5,22 @@
   </template>
   <!---->
   <template v-else>
-    <div class="weapon-page-container bg-blue-500">
-      <div class="flex items-center justify-center py-8 text-2xl bg-red-500">
+    <div class="weapon-page-container">
+      <div class="flex items-center justify-center py-8 text-2xl">
         <h1 class="">Weapons Archive</h1>
       </div>
       <!-- Grid -->
-      <div class="grid grid-cols-4 gap-5 p-5">
+      <div class="grid grid-cols-4 gap-8 p-5">
         <!-- Weapon Card -->
         <template v-for="weapon in weapons">
-          <div class="flex flex-col justify-center items-center bg-yellow-500 py-16 gap-10">
-            <img class="w-32" :src="weapon.image_url" alt="" />
+          <div
+            class="flex flex-col justify-center items-center bg-secondary py-12 gap-10 rounded-xl"
+          >
+            <img
+              class="bg-yellow-500 rounded-2xl pt-2 w-32"
+              :src="weapon.image_url"
+              alt=""
+            />
             <h3>{{ weapon.name }}</h3>
           </div>
         </template>
