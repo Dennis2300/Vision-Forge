@@ -12,39 +12,39 @@
     </div>
 
     <!-- Main Content Section -->
-    <div class="content">
+    <div class="content z-0">
       <router-view />
+    </div>
 
-      <!-- Support button -->
-      <div class="fixed top-20 right-5 m-4">
-        <div
-          @click="showPopup = !showPopup"
-          class="bg-secondary text-white rounded-lg transition"
-        >
-          <img
-            width="85"
-            src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/06/01/237301566/741d1a62ad6e8d6818c53c97eeccdce6_2278495532066979603.gif"
-            alt=""
-          />
-        </div>
+    <!-- Support button -->
+    <div class="fixed top-20 right-5 m-4 z-10 cursor-pointer">
+      <div
+        @click="showPopup = !showPopup"
+        class="bg-secondary text-white rounded-lg transition"
+      >
+        <img
+          width="85"
+          src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/06/01/237301566/741d1a62ad6e8d6818c53c97eeccdce6_2278495532066979603.gif"
+          alt=""
+        />
+      </div>
 
-        <!-- Popup -->
-        <div
-          v-if="showPopup"
-          class="absolute top-24 right-24 bg-white border shadow-lg p-4 w-64 rounded-b-xl rounded-tl-xl"
+      <!-- Popup -->
+      <div
+        v-if="showPopup"
+        class="absolute top-20 right-16 bg-white border shadow-lg p-4 w-64 rounded-b-xl rounded-tl-xl cursor-default"
+      >
+        <p class="text-sm text-gray-700 mb-2">
+          If you like this website, please consider supporting it on Patreon.
+          Every bit helps pay for server hosting and domain fees.
+        </p>
+        <a
+          href="https://patreon.com/YOURUSERNAME"
+          target="_blank"
+          class="text-blue-600 underline text-sm font-medium"
         >
-          <p class="text-sm text-gray-700 mb-2">
-            If you like this website, please consider supporting it on Patreon.
-            Every bit helps pay for server hosting and domain fees.
-          </p>
-          <a
-            href="https://patreon.com/YOURUSERNAME"
-            target="_blank"
-            class="text-blue-600 underline text-sm font-medium"
-          >
-            Go to Patreon
-          </a>
-        </div>
+          Go to Patreon
+        </a>
       </div>
     </div>
 
