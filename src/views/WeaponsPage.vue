@@ -1,14 +1,26 @@
 <template>
-  <div>
-    <!---->
-    <div v-if="loading">
-      <LoadingSpinner />
+  <!---->
+  <template v-if="loading">
+    <LoadingSpinner />
+  </template>
+  <!---->
+  <template v-else>
+    <div class="weapon-page-container bg-blue-500">
+      <div class="flex items-center justify-center py-8 text-2xl bg-red-500">
+        <h1 class="">Weapons Archive</h1>
+      </div>
+      <!-- Grid -->
+      <div class="grid grid-cols-4 gap-5 p-5">
+        <!-- Weapon Card -->
+        <template v-for="weapon in weapons">
+          <div class="flex flex-col justify-center items-center bg-yellow-500 py-16 gap-10">
+            <img class="w-32" :src="weapon.image_url" alt="" />
+            <h3>{{ weapon.name }}</h3>
+          </div>
+        </template>
+      </div>
     </div>
-    <!---->
-    <div v-else>
-      <h1>Weapon page</h1>
-    </div>
-  </div>
+  </template>
 </template>
 
 <script setup>
@@ -41,4 +53,10 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.weapon-page-container {
+  width: 1350px;
+  min-height: 100vh;
+  margin: 0px auto;
+}
+</style>
