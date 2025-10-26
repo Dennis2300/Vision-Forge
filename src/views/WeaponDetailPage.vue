@@ -5,6 +5,7 @@
   <div class="weapon-detail-page my-5 bg-secondary mt-10 rounded-2xl" v-else>
     <!--Header-->
     <div class="flex justify-around items-center h-96 w-full">
+      <!---->
       <div class="w-1/2 h-full flex flex-col justify-center items-center">
         <div
           :class="{
@@ -21,8 +22,11 @@
         <div class="divider px-48"></div>
         <h1 class="font-acme">{{ weapon.name }}</h1>
       </div>
+      <!---->
       <div class="w-1/2 h-full flex flex-col justify-center items-center gap-5">
-        <div class="bg-primary w-3/4 h-3/4 p-8 text-tertiary rounded-xl overflow-scroll">
+        <div
+          class="bg-primary w-3/4 h-3/4 p-8 text-tertiary rounded-xl overflow-scroll"
+        >
           <h1 class="text-center uppercase tracking-wide">Details</h1>
           <div class="divider m-0"></div>
           <h3>
@@ -49,8 +53,13 @@
       </div>
     </div>
     <!--Content-->
-    <div>
-      <h1>Content</h1>
+    <div class="flex flex-col justify-center items-center w-full py-10">
+      <div
+        class="flex flex-col justify-center items-center bg-primary p-8 rounded-xl"
+      >
+        <h1 class="mb-4 tracking-wide">Attribute</h1>
+        <MarkdownRender :content="weapon.attribute" />
+      </div>
     </div>
   </div>
 </template>
@@ -61,6 +70,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 import LoadingSpinner from "./../components/LoadingSpinner.vue";
+import MarkdownRender from "@/components/MarkdownRender.vue";
 
 const route = useRoute();
 const loading = ref(true);
