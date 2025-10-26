@@ -580,6 +580,5 @@ onMounted(async () => {
   const characterId = checkCharacterId();
   if (!characterId) return;
   await fetchCharacterById(characterId);
-  console.log("Character fetched:", character.value);
 });
 </script>
