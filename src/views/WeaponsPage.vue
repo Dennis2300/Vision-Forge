@@ -15,6 +15,7 @@
       <router-link
         class="weapon-card flex flex-col justify-center items-center py-12 gap-10 rounded-xl"
         v-for="weapon in weapons"
+        :key="weapon.id"
         :to="`/weapons/${weapon.id}?name=${encodeURIComponent(weapon.name)}`"
         target="_blank"
       >
@@ -46,13 +47,40 @@ const error = ref(null);
 
 const weapons = ref([]);
 
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
+  const now = new Date().getTime();
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  }
+}
+
 async function fetchAllWeapons() {
   try {
+    const cached = cache("weapons");
+    if (cached) {
+      weapons.value = cached;
+      return;
+    }
     let query = supabase.from("weapons").select("id, name, rarity, image_url");
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
+    cache("weapons", data);
     weapons.value = data;
-    console.log(weapons.value);
   } catch (err) {
     error.value = err.message || "Failed to fetch weapons";
   } finally {
