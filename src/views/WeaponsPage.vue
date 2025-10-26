@@ -16,11 +16,18 @@
           <div
             class="flex flex-col justify-center items-center bg-secondary py-12 gap-10 rounded-xl"
           >
-            <img
-              class="bg-yellow-500 rounded-2xl pt-2 w-32"
-              :src="weapon.image_url"
-              alt=""
-            />
+            <div
+              :class="{
+                'rarity-5': weapon.rarity === 5,
+                'rarity-4': weapon.rarity === 4,
+              }"
+            >
+              <img
+                class="weapon-image rounded-2xl pt-2 w-32"
+                :src="weapon.image_url"
+                alt=""
+              />
+            </div>
             <h3>{{ weapon.name }}</h3>
           </div>
         </template>
@@ -41,7 +48,7 @@ const weapons = ref([]);
 
 async function fetchAllWeapons() {
   try {
-    let query = supabase.from("weapons").select("*");
+    let query = supabase.from("weapons").select("id, name, rarity, image_url");
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
     weapons.value = data;
@@ -64,5 +71,16 @@ onMounted(() => {
   width: 1350px;
   min-height: 100vh;
   margin: 0px auto;
+}
+
+.weapon-image .rarity-4 {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+.weapon-image .rarity-5 {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 </style>
