@@ -1,39 +1,37 @@
 <template>
   <!---->
-  <template v-if="loading">
+  <div v-if="loading">
     <LoadingSpinner />
-  </template>
+  </div>
   <!---->
-  <template v-else>
-    <div class="weapon-page-container">
-      <div class="flex items-center justify-center py-8 text-2xl">
-        <h1 class="">Weapons Archive</h1>
-      </div>
-      <!-- Grid -->
-      <div class="grid grid-cols-4 gap-8 p-5">
-        <!-- Weapon Card -->
-        <template v-for="weapon in weapons">
-          <div
-            class="flex flex-col justify-center items-center bg-secondary py-12 gap-10 rounded-xl"
-          >
-            <div
-              :class="{
-                'rarity-5': weapon.rarity === 5,
-                'rarity-4': weapon.rarity === 4,
-              }"
-            >
-              <img
-                class="weapon-image rounded-2xl pt-2 w-32"
-                :src="weapon.image_url"
-                alt=""
-              />
-            </div>
-            <h3>{{ weapon.name }}</h3>
-          </div>
-        </template>
+  <div class="weapon-page-container" v-else>
+    <!-- Header -->
+    <div class="flex items-center justify-center py-8 text-2xl">
+      <h1 class="">Weapons Archive</h1>
+    </div>
+    <!-- Grid -->
+    <div class="grid grid-cols-4 gap-8 p-5">
+      <!-- Weapon Card -->
+      <div
+        class="flex flex-col justify-center items-center bg-secondary py-12 gap-10 rounded-xl"
+        v-for="weapon in weapons"
+      >
+        <div
+          :class="{
+            'rarity-5': weapon.rarity === 5,
+            'rarity-4': weapon.rarity === 4,
+          }"
+        >
+          <img
+            class="weapon-image rounded-2xl pt-2 w-32"
+            :src="weapon.image_url"
+            alt=""
+          />
+        </div>
+        <h3>{{ weapon.name }}</h3>
       </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <script setup>
