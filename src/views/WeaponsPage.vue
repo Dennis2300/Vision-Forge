@@ -12,9 +12,11 @@
     <!-- Grid -->
     <div class="grid grid-cols-4 gap-8 p-5">
       <!-- Weapon Card -->
-      <div
-        class="flex flex-col justify-center items-center bg-secondary py-12 gap-10 rounded-xl"
+      <router-link
+        class="weapon-card flex flex-col justify-center items-center py-12 gap-10 rounded-xl"
         v-for="weapon in weapons"
+        :to="`/weapons/${weapon.id}?name=${encodeURIComponent(weapon.name)}`"
+        target="_blank"
       >
         <div
           :class="{
@@ -29,7 +31,7 @@
           />
         </div>
         <h3>{{ weapon.name }}</h3>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -69,6 +71,19 @@ onMounted(() => {
   width: 1350px;
   min-height: 100vh;
   margin: 0px auto;
+}
+
+.weapon-card {
+  text-decoration: none;
+  color: white;
+  background: var(--secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.weapon-card:hover {
+  background: var(--filter-color-hover);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .weapon-image .rarity-4 {
