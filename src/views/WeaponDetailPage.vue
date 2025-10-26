@@ -23,7 +23,7 @@
       </div>
       <div class="w-1/2 h-full flex flex-col justify-center items-center gap-5">
         <div class="bg-primary w-3/4 h-3/4 p-8 text-tertiary rounded-xl overflow-scroll">
-          <h1 class="text-center">Details</h1>
+          <h1 class="text-center uppercase tracking-wide">Details</h1>
           <div class="divider m-0"></div>
           <h3>
             <strong class="text-gray-500">Type:</strong> {{ weapon.type.name }}
