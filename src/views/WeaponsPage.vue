@@ -42,7 +42,7 @@ import { ref, onMounted } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingSpinner from "./../components/LoadingSpinner.vue";
 
-const loading = ref(false);
+const loading = ref(true);
 const error = ref(null);
 
 const weapons = ref([]);
@@ -89,7 +89,6 @@ async function fetchAllWeapons() {
 }
 
 onMounted(() => {
-  loading.value = true;
   fetchAllWeapons();
 });
 </script>
