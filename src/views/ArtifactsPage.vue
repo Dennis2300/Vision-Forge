@@ -13,7 +13,7 @@
 
     <!-- Artifacts Grid -->
     <div class="mt-8">
-      <div class="grid grid-cols-3 gap-8">
+      <div class="grid grid-cols-4 gap-8">
         <template v-for="artifact in artifacts" :key="artifact.id">
           <div
             class="text-center bg-secondary px-8 py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-200"
