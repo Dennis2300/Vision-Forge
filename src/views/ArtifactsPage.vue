@@ -105,21 +105,27 @@ const error = ref(null);
 const artifacts = ref([]);
 const expandedArtifact = ref(null);
 
-async function getAllArtifacts() {
-  try {
-    const { data, error: fetchError } = await supabase
-      .from("artifacts")
-      .select("*, two_piece:twoPieceSets(name)");
-    if (fetchError) throw fetchError;
-    artifacts.value = data;
-  } catch (err) {
-    error.value = err.message || "Failed to load artifacts";
-  } finally {
-    loading.value = false;
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
+  const now = new Date().getTime();
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
   }
 }
-
-onMounted(getAllArtifacts);
 
 function toggleArtifact(id) {
   expandedArtifact.value = expandedArtifact.value === id ? null : id;
@@ -129,9 +135,33 @@ function closeArtifact() {
   expandedArtifact.value = null;
 }
 
+async function getAllArtifacts() {
+  try {
+    const cached = cache("artifacts");
+    if (cached) {
+      artifacts.value = cached;
+      return;
+    }
+    const { data, error: fetchError } = await supabase
+      .from("artifacts")
+      .select("*, two_piece:twoPieceSets(name)");
+    if (fetchError) throw fetchError;
+    cache("artifacts", data);
+    artifacts.value = data;
+  } catch (err) {
+    error.value = err.message || "Failed to load artifacts";
+  } finally {
+    loading.value = false;
+  }
+}
+
 const selectedArtifact = computed(() =>
   artifacts.value.find((a) => a.id === expandedArtifact.value)
 );
+
+onMounted(() => {
+  getAllArtifacts();
+});
 </script>
 
 <style scoped>

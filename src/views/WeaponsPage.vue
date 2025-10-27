@@ -6,8 +6,8 @@
   <!---->
   <div class="weapon-page-container" v-else>
     <!-- Header -->
-    <div class="flex items-center justify-center py-8 text-2xl">
-      <h1 class="">Weapons Archive</h1>
+    <div class="flex flex-col justify-center items-center mt-10">
+      <h1 class="divider tracking-wider px-32">Weapon Archive</h1>
     </div>
     <!-- Grid -->
     <div class="grid grid-cols-4 gap-8 p-5">
