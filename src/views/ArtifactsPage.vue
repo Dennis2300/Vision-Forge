@@ -35,7 +35,9 @@
         class="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
         @click.self="closeArtifact"
       >
-        <div class="bg-primary w-[800px] h-[600px] p-6 rounded-xl relative">
+        <div
+          class="bg-primary w-[800px] h-[600px] p-6 rounded-xl relative overflow-y-scroll"
+        >
           <div
             class="absolute top-5 right-5 text-black hover:text-red-500 text-xl cursor-pointer px-2 rounded-full bg-tertiary"
             @click="closeArtifact"
