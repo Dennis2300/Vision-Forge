@@ -16,7 +16,7 @@
       <div class="grid grid-cols-4 gap-8">
         <template v-for="artifact in artifacts" :key="artifact.id">
           <div
-            class="text-center bg-secondary px-8 py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-200"
+            class="artifact-card text-center bg-secondary px-8 py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-200"
             @click="toggleArtifact(artifact.id)"
           >
             <img class="w-32 mx-auto" :src="artifact.flower_img_url" alt="" />
@@ -168,6 +168,16 @@ onMounted(() => {
 .artifacts-page {
   width: 1200px;
   min-height: 100vh;
+}
+
+.artifact-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.artifact-card:hover {
+  background: var(--filter-color-hover);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .fade-enter-active,
