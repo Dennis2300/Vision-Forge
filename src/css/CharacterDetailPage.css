@@ -91,11 +91,24 @@
 }
 
 @keyframes shine {
-  0% { transform: translateX(-120%) rotate(25deg); opacity: 0; }
-  30% { opacity: 0.5; }
-  50% { transform: translateX(50%) rotate(25deg); opacity: 1; }
-  70% { opacity: 0.5; }
-  100% { transform: translateX(150%) rotate(25deg); opacity: 0; }
+  0% {
+    transform: translateX(-120%) rotate(25deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(50%) rotate(25deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(150%) rotate(25deg);
+    opacity: 0;
+  }
 }
 
 .animate-shine::before {
@@ -115,4 +128,14 @@
   filter: blur(2px);
   animation: shine 2s ease-in-out infinite;
   pointer-events: none;
+}
+
+.weapon-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.weapon-card:hover {
+  background: var(--filter-color-hover);
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }

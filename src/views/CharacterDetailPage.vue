@@ -316,10 +316,13 @@
           class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
         >
           <router-link
-            to=""
-            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
             v-if="character.weapons?.length"
             v-for="weapon in character.weapons"
+            :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
+              weapon.weapon_id.name
+            )}`"
+            target="_blank"
+            class="weapon-card relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit no-underline"
           >
             <div class="absolute top-5 left-5">
               <span
