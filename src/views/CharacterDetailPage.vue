@@ -315,7 +315,8 @@
         <div
           class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
         >
-          <div
+          <router-link
+            to=""
             class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
             v-if="character.weapons?.length"
             v-for="weapon in character.weapons"
@@ -350,7 +351,7 @@
             <p class="text-tertiary tracking-wide mt-8">
               {{ weapon.weapon_id.name }}
             </p>
-          </div>
+          </router-link>
           <div class="tracking-wide" v-else>No Weapons Assigned Yet</div>
         </div>
       </div>
