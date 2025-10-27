@@ -7,7 +7,6 @@ import CharacterDetailPage from "./views/CharacterDetailPage.vue";
 import WeaponsPage from "./views/WeaponsPage.vue";
 import ArtifactsPage from "./views/ArtifactsPage.vue";
 import WeaponDetailPage from "./views/WeaponDetailPage.vue";
-import ArtifactDetailPage from "./views/ArtifactDetailPage.vue";
 import ContributePage from "./views/ContributePage.vue";
 
 const routes = [
@@ -27,11 +26,6 @@ const routes = [
     component: WeaponDetailPage,
   },
   { path: "/artifacts", component: ArtifactsPage },
-  {
-    path: "/artifacts/:id",
-    name: "ArtifactDetailPage",
-    component: ArtifactDetailPage,
-  },
   {
     path: "/contribute",
     name: "ContributePage",
