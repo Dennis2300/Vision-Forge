@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
   <section class="updates min-h-72">
-    <h2 class="updates-title">Latest Updates</h2>
+    <h2 class="updates-title divider">Latest Updates</h2>
 
     <div v-if="updates.length" class="updates-list">
       <article
@@ -79,8 +79,8 @@ onMounted(() => {
 }
 
 .update-card {
-  background: #1b1b1b;
-  border: 1px solid #2b2b2b;
+  background: var(--secondary);
+  border: 1px solid var(--tertiary);
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -119,6 +119,7 @@ onMounted(() => {
 
 .update-date {
   color: #888;
+  text-decoration: underline;
 }
 
 .update-content {
