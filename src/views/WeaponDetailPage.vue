@@ -24,9 +24,7 @@
       </div>
       <!---->
       <div class="w-1/2 h-full flex flex-col justify-center items-center gap-5">
-        <div
-          class="bg-primary w-3/4 h-3/4 p-8 text-tertiary rounded-xl overflow-scroll"
-        >
+        <div class="bg-primary w-3/4 h-3/4 p-8 text-tertiary rounded-xl">
           <h1 class="text-center uppercase tracking-wide">Details</h1>
           <div class="divider m-0"></div>
           <h3>
@@ -48,7 +46,11 @@
             {{ weapon.source.name }}
           </h3>
           <div class="divider m-0"></div>
-          <p class="text-white">{{ weapon.common_describe }}</p>
+          <div class="h-1/3 overflow-scroll">
+            <p class="text-white font-acme tracking-wide">
+              {{ weapon.common_describe }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
