@@ -111,7 +111,7 @@
 
               <div
                 v-if="character.regions?.length"
-                class="list-view tracking-wide flex flex-col items-start gap-2"
+                class="list-view tracking-wide flex flex-col items-center gap-2"
               >
                 <p
                   v-for="region in character.regions"
@@ -128,7 +128,7 @@
               <h2 class="divider tracking-wider">Affiliation</h2>
               <div
                 v-if="character.affiliations?.length"
-                class="list-view tracking-wide flex flex-col items-end gap-2"
+                class="list-view tracking-wide flex flex-col items-center gap-2"
               >
                 <p
                   v-for="affiliation in character.affiliations"
