@@ -183,7 +183,7 @@
             character.name
           )}`"
           target="_blank"
-          class="character-item"
+          class="character-item hover-underline-animation center"
           v-for="character in characters"
           :key="character.id"
           :class="{
