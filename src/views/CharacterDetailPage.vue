@@ -453,6 +453,7 @@
       <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
         <div class="bg-primary w-1/2 rounded-2xl p-6">
           <h1 class="text-center">Ascension Materials</h1>
+          <div class="divider px-5 m-0"></div>
           <div
             class="flex flex-row gap-2 items-center"
             v-for="mat in character.ascension_mats"
@@ -460,7 +461,7 @@
           >
             <img class="w-16" :src="mat.ascensionMaterials_id.image_url" />
             <h4>{{ mat.ascensionMaterials_id.name }}</h4>
-            <p>x {{ mat.amount.toLocaleString() }}</p>
+            <p class="text-tertiary text-right">x {{ mat.amount.toLocaleString() }}</p>
           </div>
         </div>
         <div class="bg-primary w-1/2 rounded-2xl p-6">Right</div>
