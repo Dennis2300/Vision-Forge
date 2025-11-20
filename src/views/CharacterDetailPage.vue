@@ -446,6 +446,19 @@
           </div>
         </div>
       </div>
+      <!-- Character Materials -->
+      <h1 class="divider mt-20 px-32 mb-8 tracking-wide">{{character.name}}'s Ascension & Talent Materials</h1>
+      <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
+        <div class="bg-primary w-1/2 rounded-2xl p-6">
+          <h1 class="text-center">Ascension Materials</h1>
+          <div class="flex flex-row gap-2 items-center" v-for="mat in character.ascension_mats" :key="mat.id">
+            <img class="w-16" :src="mat.ascensionMaterials_id.image_url" />
+            <h4>{{ mat.ascensionMaterials_id.name }}</h4>
+            <p>x {{ mat.amount }}</p>
+          </div>
+        </div>
+        <div class="bg-primary w-1/2 rounded-2xl p-6">Right</div>
+      </div>
       <!-- Footer -->
       <div class="divider my-10 px-10"></div>
     </div>
@@ -524,7 +537,8 @@ async function fetchCharacterById(characterId) {
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
         artifacts:character_artifact(*, artifact_id(id, name, flower_img_url)),
-        weapons:character_weapon(*, weapon_id(id, name, rarity, image_url))
+        weapons:character_weapon(*, weapon_id(id, name, rarity, image_url)),
+        ascension_mats:character_ascensionMaterials(*, ascensionMaterials_id(name, image_url))
         `
       )
       .eq("id", characterId)
