@@ -194,13 +194,13 @@
           <!-- Character Overview -->
           <div class="character-item-overview">
             <div
-              v-if="isUpcomingCharacter(character)"
+              v-if="character.is_upcoming === true"
               class="ribbon ribbon-top-left"
             >
               <span class="upcoming">Upcoming</span>
             </div>
             <div
-              v-if="isNewCharacter(character)"
+              v-if="character.is_new === true"
               class="ribbon ribbon-top-right"
             >
               <span class="new">New</span>
@@ -234,10 +234,10 @@
             <p class="character-detail-tag">
               {{ character.vision.name }}
             </p>
-            <p class="character-detail-tag">
+            <p v-if="character.role" class="character-detail-tag">
               {{ character.role.name }}
             </p>
-            <p class="character-detail-tag">
+            <p v-if="character.weapon_type" class="character-detail-tag">
               {{ character.weapon_type.name }}
             </p>
             <p v-if="character.main_stat" class="character-detail-tag">
@@ -530,18 +530,6 @@ function resetFilters() {
 }
 
 // -------- Utility Functions -------------
-function isNewCharacter(character) {
-  if (character && typeof character.new_character !== "undefined") {
-    return Boolean(character.new_character);
-  }
-  return false;
-}
-function isUpcomingCharacter(character) {
-  if (character && typeof character.is_upcoming !== "undefined") {
-    return Boolean(character.is_upcoming);
-  }
-  return false;
-}
 function setupObserver() {
   if (observer && loadMoreTrigger.value) {
     observer.unobserve(loadMoreTrigger.value);
