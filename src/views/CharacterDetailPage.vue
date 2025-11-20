@@ -447,14 +447,20 @@
         </div>
       </div>
       <!-- Character Materials -->
-      <h1 class="divider mt-20 px-32 mb-8 tracking-wide">{{character.name}}'s Ascension & Talent Materials</h1>
+      <h1 class="divider mt-20 px-32 mb-8 tracking-wide">
+        {{ character.name }}'s Ascension & Talent Materials
+      </h1>
       <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
         <div class="bg-primary w-1/2 rounded-2xl p-6">
           <h1 class="text-center">Ascension Materials</h1>
-          <div class="flex flex-row gap-2 items-center" v-for="mat in character.ascension_mats" :key="mat.id">
+          <div
+            class="flex flex-row gap-2 items-center"
+            v-for="mat in character.ascension_mats"
+            :key="mat.id"
+          >
             <img class="w-16" :src="mat.ascensionMaterials_id.image_url" />
             <h4>{{ mat.ascensionMaterials_id.name }}</h4>
-            <p>x {{ mat.amount }}</p>
+            <p>x {{ mat.amount.toLocaleString() }}</p>
           </div>
         </div>
         <div class="bg-primary w-1/2 rounded-2xl p-6">Right</div>
