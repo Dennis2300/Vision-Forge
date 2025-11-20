@@ -52,10 +52,10 @@
   color: white;
 }
 
-.list-view {
+/* .list-view {
   font-family: var(--font-roboto);
   color: var(--tertiary);
-}
+} */
 
 .tags {
   background-color: var(--primary);
