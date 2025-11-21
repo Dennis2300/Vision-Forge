@@ -51,10 +51,18 @@
           </h1>
           <div class="divider mx-0 mt-0 mb-1 px-10"></div>
           <div class="flex flex-row gap-3">
-            <p class="tags">{{ character.vision.name }}</p>
-            <p class="tags">{{ character.weapon_type.name }}</p>
-            <p class="tags">{{ character.main_stat.name }}</p>
-            <p class="tags">{{ character.released_region.name }}</p>
+            <p v-if="character.vision" class="tags">
+              {{ character.vision.name }}
+            </p>
+            <p v-if="character.weapon_type" class="tags">
+              {{ character.weapon_type.name }}
+            </p>
+            <p v-if="character.main_stat" class="tags">
+              {{ character.main_stat.name }}
+            </p>
+            <p v-if="character.released_region" class="tags">
+              {{ character.released_region.name }}
+            </p>
           </div>
         </div>
         <div
@@ -230,10 +238,14 @@
             <div class="flex flex-row justify-between">
               <h2 class="font-acme text-gray-500">Weapon:</h2>
               <div class="flex flex-row gap-2">
-                <h2 class="tracking-wide text-tertiary">
+                <h2
+                  v-if="character.weapon_type"
+                  class="tracking-wide text-tertiary"
+                >
                   {{ character.weapon_type.name }}
                 </h2>
                 <img
+                  v-if="character.weapon_type"
                   class="w-fit h-8"
                   :src="character.weapon_type.image_url"
                   alt=""
@@ -447,52 +459,56 @@
         </div>
       </div>
       <!-- Character Materials -->
-      <h1 class="divider mt-20 px-32 mb-8 tracking-wide">
-        {{ character.name }}'s Materials
-      </h1>
-      <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
-        <!-- Acension Materials -->
-        <div class="bg-primary w-1/2 rounded-2xl p-6">
-          <h1 class="divider">Ascension</h1>
-          <div class="flex flex-col gap-2">
-            <template
-              v-for="mat in character.materials.filter(
-                (material) =>
-                  material.mat_type.name.toLowerCase() === 'ascension'
-              )"
-              :key="mat.id"
-            >
-              <div class="flex flex-row items-center gap-2">
-                <img class="w-16" :src="mat.materials_id.image_url" alt="" />
-                <h4>{{ mat.materials_id.name }}</h4>
-                <span class="text-tertiary"
-                  >x {{ mat.amount.toLocaleString() }}</span
-                >
-              </div>
-            </template>
+      <section v-if="character.materials.length > 0">
+        <h1 class="divider mt-20 px-32 mb-8 tracking-wide">
+          {{ character.name }}'s Materials
+        </h1>
+        <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
+          <!-- Acension Materials -->
+          <div class="bg-primary w-1/2 rounded-2xl p-6">
+            <h1 class="divider">Ascension</h1>
+            <div class="flex flex-col gap-2">
+              <template
+                v-for="mat in character.materials.filter(
+                  (material) =>
+                    material.mat_type.name.toLowerCase() === 'ascension'
+                )"
+                :key="mat.id"
+              >
+                <div class="flex flex-row items-center gap-2">
+                  <img class="w-16" :src="mat.materials_id.image_url" alt="" />
+                  <h4>{{ mat.materials_id.name }}</h4>
+                  <span class="text-tertiary"
+                    >x {{ mat.amount.toLocaleString() }}</span
+                  >
+                </div>
+              </template>
+            </div>
+          </div>
+          <!-- Talent Materials -->
+          <div class="bg-primary w-1/2 rounded-2xl p-6">
+            <h1 class="divider">Talent</h1>
+            <div class="flex flex-col gap-2 justify-center">
+              <template
+                v-for="mat in character.materials.filter(
+                  (material) =>
+                    material.mat_type.name.toLowerCase() === 'talent'
+                )"
+                :key="mat.id"
+              >
+                <div class="flex flex-row items-center gap-2">
+                  <img class="w-16" :src="mat.materials_id.image_url" alt="" />
+                  <h4>{{ mat.materials_id.name }}</h4>
+                  <span class="text-tertiary"
+                    >x {{ mat.amount.toLocaleString() }}</span
+                  >
+                </div>
+              </template>
+            </div>
           </div>
         </div>
-        <!-- Talent Materials -->
-        <div class="bg-primary w-1/2 rounded-2xl p-6">
-          <h1 class="divider">Talent</h1>
-          <div class="flex flex-col gap-2 justify-center">
-            <template
-              v-for="mat in character.materials.filter(
-                (material) => material.mat_type.name.toLowerCase() === 'talent'
-              )"
-              :key="mat.id"
-            >
-              <div class="flex flex-row items-center gap-2">
-                <img class="w-16" :src="mat.materials_id.image_url" alt="" />
-                <h4>{{ mat.materials_id.name }}</h4>
-                <span class="text-tertiary"
-                  >x {{ mat.amount.toLocaleString() }}</span
-                >
-              </div>
-            </template>
-          </div>
-        </div>
-      </div>
+      </section>
+
       <!-- Footer -->
       <div class="divider my-10 px-10"></div>
     </div>
