@@ -448,23 +448,50 @@
       </div>
       <!-- Character Materials -->
       <h1 class="divider mt-20 px-32 mb-8 tracking-wide">
-        {{ character.name }}'s Ascension & Talent Materials
+        {{ character.name }}'s Materials
       </h1>
       <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
+        <!-- Acension Materials -->
         <div class="bg-primary w-1/2 rounded-2xl p-6">
-          <h1 class="text-center">Ascension Materials</h1>
-          <div class="divider px-5 m-0"></div>
-          <div
-            class="flex flex-row gap-2 items-center"
-            v-for="mat in character.ascension_mats"
-            :key="mat.id"
-          >
-            <img class="w-16" :src="mat.ascensionMaterials_id.image_url" />
-            <h4>{{ mat.ascensionMaterials_id.name }}</h4>
-            <p class="text-tertiary text-right">x {{ mat.amount.toLocaleString() }}</p>
+          <h1 class="divider">Ascension</h1>
+          <div class="flex flex-col gap-2">
+            <template
+              v-for="mat in character.materials.filter(
+                (material) =>
+                  material.mat_type.name.toLowerCase() === 'ascension'
+              )"
+              :key="mat.id"
+            >
+              <div class="flex flex-row items-center gap-2">
+                <img class="w-16" :src="mat.materials_id.image_url" alt="" />
+                <h4>{{ mat.materials_id.name }}</h4>
+                <span class="text-tertiary"
+                  >x {{ mat.amount.toLocaleString() }}</span
+                >
+              </div>
+            </template>
           </div>
         </div>
-        <div class="bg-primary w-1/2 rounded-2xl p-6">Right</div>
+        <!-- Talent Materials -->
+        <div class="bg-primary w-1/2 rounded-2xl p-6">
+          <h1 class="divider">Talent</h1>
+          <div class="flex flex-col gap-2 justify-center">
+            <template
+              v-for="mat in character.materials.filter(
+                (material) => material.mat_type.name.toLowerCase() === 'talent'
+              )"
+              :key="mat.id"
+            >
+              <div class="flex flex-row items-center gap-2">
+                <img class="w-16" :src="mat.materials_id.image_url" alt="" />
+                <h4>{{ mat.materials_id.name }}</h4>
+                <span class="text-tertiary"
+                  >x {{ mat.amount.toLocaleString() }}</span
+                >
+              </div>
+            </template>
+          </div>
+        </div>
       </div>
       <!-- Footer -->
       <div class="divider my-10 px-10"></div>
@@ -545,7 +572,7 @@ async function fetchCharacterById(characterId) {
         builds(*, build_stat(*, stat_id(name))),
         artifacts:character_artifact(*, artifact_id(id, name, flower_img_url)),
         weapons:character_weapon(*, weapon_id(id, name, rarity, image_url)),
-        ascension_mats:character_ascensionMaterials(*, ascensionMaterials_id(name, image_url))
+        materials:character_materials(*, materials_id(*), mat_type(*))
         `
       )
       .eq("id", characterId)
