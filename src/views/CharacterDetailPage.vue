@@ -1,553 +1,38 @@
 <template>
-  <!-- Loading -->
-  <div v-if="loading">
-    <LoadingSpinner />
-  </div>
-  <!-- Content -->
+  <LoadingSpinner v-if="loading" />
   <main
-    v-if="character"
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
+    v-else-if="character"
   >
-    <!-- Splash Art as Background Image -->
-    <div class="absolute top-0 w-full z-0 opacity-10 overflow-hidden">
-      <img
-        v-if="character.splash_art_url"
-        :src="character.splash_art_url"
-        :alt="character.name"
-        class="w-full"
-        loading="lazy"
-      />
-      <div v-else></div>
-    </div>
-    <!-- Character Detail Content -->
+    <CharacterSplashArt :character="character" />
     <section class="relative z-10">
       <!-- Character Detail -->
       <article
         class="character-detail flex flex-row justify-around items-center pt-16"
       >
-        <!-- Character Basic Info -->
-        <section class="flex flex-col justify-center items-center">
-          <figure class="relative">
-            <img
-              class="vision-avatar absolute -top-8 -left-6 w-16 h-16 p-2"
-              :src="character.vision.image_url"
-              alt=""
-            />
-
-            <div
-              :class="{
-                'rarity-5': character.rarity === 5,
-                'rarity-4': character.rarity === 4,
-              }"
-            >
-              <img
-                class="character-avatar w-48 flex items-center justify-center"
-                :src="character.avatar_url"
-                :alt="character.name"
-              />
-            </div>
-          </figure>
-
-          <header class="text-center">
-            <h1 class="character-detail-name tracking-wide">
-              {{ character.name }}
-            </h1>
-            <div class="divider mx-0 mt-0 mb-1 px-10"></div>
-          </header>
-
-          <!-- Character Tags -->
-          <ul class="flex flex-row gap-3 list-none">
-            <li v-if="character.vision" class="tags">
-              {{ character.vision.name }}
-            </li>
-            <li v-if="character.weapon_type" class="tags">
-              {{ character.weapon_type.name }}
-            </li>
-            <li v-if="character.main_stat" class="tags">
-              {{ character.main_stat.name }}
-            </li>
-            <li v-if="character.released_region" class="tags">
-              {{ character.released_region.name }}
-            </li>
-          </ul>
-        </section>
-
+        <CharacterBasicInfo :character="character" />
         <!-- Character Metadata (VA, Regions, Affiliation) -->
-        <section
+        <div
           class="character-detail-item flex flex-col px-5 py-2 rounded-xl justify-around"
         >
-          <!-- Voice Actors -->
-          <section class="voice-actor-container">
-            <h2 class="divider tracking-wider">Voice Actors</h2>
-
-            <template v-if="character.va?.length">
-              <div class="flex flex-row justify-around">
-                <!-- Languages -->
-                <ul class="flex flex-col gap-2 list-none">
-                  <li v-for="item in sortedGroupedVA" :key="item.code">
-                    <span :class="`fi fi-${item.code}`"></span>
-                    <strong class="ml-2">{{ item.label }}:</strong>
-                  </li>
-                </ul>
-
-                <!-- Actors -->
-                <ul class="flex flex-col gap-2 list-none">
-                  <li v-for="item in sortedGroupedVA" :key="item.code">
-                    <template v-if="item.actors.length">
-                      <template v-for="(a, index) in item.actors" :key="a.id">
-                        <template v-if="a.link">
-                          <a
-                            :href="a.link"
-                            target="_blank"
-                            rel="noopener"
-                            class="link"
-                          >
-                            {{ a.name }}
-                          </a>
-                        </template>
-                        <template v-else>
-                          {{ a.name }}
-                        </template>
-                        <span v-if="index < item.actors.length - 1">&</span>
-                      </template>
-                    </template>
-                    <template v-else>No VA</template>
-                  </li>
-                </ul>
-              </div>
-            </template>
-
-            <p v-else class="text-center">No VA Announced Yet</p>
-          </section>
-
+          <CharacterVoiceActors :character="character" />
           <div class="flex flex-row">
-            <!-- Regions -->
-            <section class="w-1/2">
-              <h2 class="divider tracking-wider">Regions</h2>
-
-              <template v-if="character.regions?.length">
-                <ul
-                  class="list-view tracking-wide flex flex-col items-center gap-2 list-none"
-                >
-                  <li
-                    v-for="region in character.regions"
-                    :key="region.region_id.id"
-                  >
-                    {{ region.region_id.name }}
-                  </li>
-                </ul>
-              </template>
-
-              <p v-else class="text-center">No Regions Revealed</p>
-            </section>
-
-            <!-- Affiliation -->
-            <section class="w-1/2">
-              <h2 class="divider tracking-wider">Affiliation</h2>
-
-              <template v-if="character.affiliations?.length">
-                <ul
-                  class="list-view tracking-wide flex flex-col items-center gap-2 list-none"
-                >
-                  <li
-                    v-for="affiliation in character.affiliations"
-                    :key="affiliation.affiliation_id.id"
-                  >
-                    {{ affiliation.affiliation_id.name }}
-                  </li>
-                </ul>
-              </template>
-
-              <p v-else class="text-center">No Affiliations Revealed</p>
-            </section>
-          </div>
-        </section>
-      </article>
-
-      <!-- Character Info -->
-      <article>
-        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">
-          {{ character.name }}'s Information
-        </h1>
-        <div
-          class="character-info flex flex-row justify-between items-center h-72 mx-24 px-5 rounded-2xl gap-24"
-        >
-          <!--Left-->
-          <div class="flex flex-col justify-around w-full h-full">
-            <!-- Rarity -->
-            <div class="flex flex-col">
-              <div class="flex flex-row justify-between">
-                <h2 class="font-acme text-gray-500">Rarity:</h2>
-                <h2 class="tracking-wide text-yellow-400">
-                  <span v-for="n in character.rarity" :key="n">★</span>
-                </h2>
-              </div>
-              <div class="divider m-0"></div>
-            </div>
-            <!-- Cons -->
-            <div class="flex flex-col">
-              <div class="flex flex-row justify-between">
-                <h2 class="font-acme text-gray-500">Constellation:</h2>
-                <h2 class="tracking-wide text-tertiary">
-                  {{ character.constellation }}
-                </h2>
-              </div>
-              <div class="divider m-0"></div>
-            </div>
-            <!-- Signature Dish-->
-            <div class="flex flex-col">
-              <div class="flex flex-row justify-between">
-                <h2 class="font-acme text-gray-500">Signature Dish:</h2>
-                <div
-                  v-if="character.signature_dish"
-                  class="flex flex-row gap-2 items-center group relative"
-                >
-                  <!-- Dish Image-->
-                  <img
-                    class="w-fit h-8 cursor-pointer"
-                    :src="character.signature_dish.image_url"
-                    alt=""
-                  />
-
-                  <!-- Dish Pop up -->
-                  <div
-                    class="dish-pop-up absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
-                  >
-                    <div
-                      class="bg-secondary backdrop-blur-md p-2 w-96 h-auto flex flex-col items-center rounded-lg shadow-xl"
-                    >
-                      <img
-                        class="w-48"
-                        :src="character.signature_dish.image_url"
-                        alt=""
-                      />
-                      <h3 class="text-center text-tertiary tracking-wide">
-                        {{ character.signature_dish.name }}
-                      </h3>
-                      <div class="divider m-0"></div>
-                      <p class="text-center px-5 mb-3">
-                        {{ character.signature_dish.description }}
-                      </p>
-                    </div>
-                  </div>
-                  <!-- Dish name-->
-                  <h2 class="tracking-wide text-tertiary max-w-64 truncate">
-                    <a
-                      class="link"
-                      :href="character.signature_dish.url"
-                      target="_blank"
-                    >
-                      {{ character.signature_dish.name }}
-                    </a>
-                  </h2>
-                </div>
-                <div v-else>Not Revealed Yet</div>
-              </div>
-
-              <div class="divider m-0"></div>
-            </div>
-          </div>
-          <!--Right-->
-          <div class="flex flex-col justify-around w-full h-full">
-            <div class="flex flex-col">
-              <div class="flex flex-row justify-between">
-                <h2 class="font-acme text-gray-500">Weapon:</h2>
-                <div class="flex flex-row gap-2">
-                  <h2
-                    v-if="character.weapon_type"
-                    class="tracking-wide text-tertiary"
-                  >
-                    {{ character.weapon_type.name }}
-                  </h2>
-                  <img
-                    v-if="character.weapon_type"
-                    class="w-fit h-8"
-                    :src="character.weapon_type.image_url"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div class="divider m-0"></div>
-            </div>
-            <div class="flex flex-col">
-              <div class="flex flex-row justify-between">
-                <h2 class="font-acme text-gray-500">Birthday:</h2>
-                <h2
-                  v-if="character.birthday"
-                  class="tracking-wide text-tertiary"
-                >
-                  {{ character.birthday }}
-                </h2>
-                <p v-else>Not Revealed Yet</p>
-              </div>
-              <div class="divider m-0"></div>
-            </div>
-            <div class="flex flex-col">
-              <div class="flex flex-row justify-between">
-                <h2 class="font-acme text-gray-500">Date Released:</h2>
-                <h2 class="tracking-wide text-tertiary">
-                  {{
-                    new Date(character.release_date).toLocaleDateString(
-                      "en-US",
-                      {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      }
-                    )
-                  }}
-                </h2>
-              </div>
-              <div class="divider m-0"></div>
-            </div>
+            <CharacterRegions :character="character" />
+            <CharacterAffiliation :character="character" />
           </div>
         </div>
       </article>
 
-      <!-- Character Weapons-->
-      <article v-if="character.weapons.length > 0">
-        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Weapon</h1>
-        <div class="w-full h-auto">
-          <div
-            class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
-          >
-            <router-link
-              v-if="character.weapons?.length"
-              v-for="weapon in character.weapons"
-              :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
-                weapon.weapon_id.name
-              )}`"
-              target="_blank"
-              class="weapon-card relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit no-underline"
-            >
-              <div class="absolute top-5 left-5">
-                <span
-                  class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
-                  :class="{
-                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
-                      weapon.rank === 1,
-                    'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
-                      weapon.rank === 2,
-                    'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
-                      weapon.rank === 3,
-                  }"
-                >
-                  {{ weapon.rank }}
-                </span>
-              </div>
-              <div
-                :class="{
-                  'rarity-5': weapon.weapon_id.rarity === 5,
-                  'rarity-4': weapon.weapon_id.rarity === 4,
-                }"
-              >
-                <img
-                  class="w-32 weapon-image rounded-xl"
-                  :src="weapon.weapon_id.image_url"
-                  alt=""
-                />
-              </div>
-              <p class="text-tertiary tracking-wide mt-8">
-                {{ weapon.weapon_id.name }}
-              </p>
-            </router-link>
-            <div class="tracking-wide" v-else>No Weapons Assigned Yet</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Character Artifacts -->
-      <article v-if="character.artifacts.length > 0">
-        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Artifacts</h1>
-        <div class="w-full h-auto">
-          <div
-            class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
-          >
-            <div
-              class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
-              v-if="character.artifacts?.length"
-              v-for="artifact in character.artifacts"
-            >
-              <div class="absolute top-5 left-5">
-                <span
-                  class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
-                  :class="{
-                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
-                      artifact.rank === 1,
-                    'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
-                      artifact.rank === 2,
-                    'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
-                      artifact.rank === 3,
-                  }"
-                >
-                  {{ artifact.rank }}
-                </span>
-              </div>
-
-              <div class="artifact-image rounded-xl">
-                <img
-                  class="w-32"
-                  :src="artifact.artifact_id.flower_img_url"
-                  alt=""
-                />
-              </div>
-              <p class="text-tertiary tracking-wide mt-8">
-                {{ artifact.artifact_id.name }}
-              </p>
-            </div>
-            <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Character Build -->
-      <article v-if="character.builds.length > 0">
-        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Build</h1>
-        <div class="w-full h-auto">
-          <div
-            class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8"
-          >
-            <!--Left-->
-            <div class="bg-primary w-1/3 rounded-2xl p-6 h-fit">
-              <div
-                v-if="character.builds?.length"
-                v-for="build in character.builds"
-              >
-                <h2 class="divider mt-0 tracking-wide">Main Stats</h2>
-                <div class="flex flex-col gap-8">
-                  <!-- Sands -->
-                  <div
-                    class="flex flex-row justify-between"
-                    v-for="slot of ['sands']"
-                    :key="slot"
-                  >
-                    <p class="capitalize">{{ slot }}</p>
-                    <p class="text-tertiary tracking-wide">
-                      {{
-                        build.build_stat
-                          .filter((stat) => stat.slot === slot)
-                          .map((stat) => stat.stat_id.name)
-                          .join(" or ")
-                      }}
-                    </p>
-                  </div>
-                  <!-- Goblet -->
-                  <div
-                    class="flex flex-row justify-between"
-                    v-for="slot of ['goblet']"
-                    :key="slot"
-                  >
-                    <p class="capitalize">{{ slot }}</p>
-                    <p class="text-tertiary tracking-wide">
-                      {{
-                        build.build_stat
-                          .filter((stat) => stat.slot === slot)
-                          .map((stat) => stat.stat_id.name)
-                          .join(" or ")
-                      }}
-                    </p>
-                  </div>
-                  <!-- Circlet -->
-                  <div
-                    class="flex flex-row justify-between"
-                    v-for="slot of ['circlet']"
-                    :key="slot"
-                  >
-                    <p class="capitalize">{{ slot }}</p>
-                    <p class="text-tertiary tracking-wide">
-                      {{
-                        build.build_stat
-                          .filter((stat) => stat.slot === slot)
-                          .map((stat) => stat.stat_id.name)
-                          .join(" or ")
-                      }}
-                    </p>
-                  </div>
-                </div>
-                <h2 class="divider mb-0 mt-6">Substats</h2>
-                <div
-                  class="flex flex-col mt-5"
-                  v-for="stat in build.build_stat.filter(
-                    (s) => s.slot === 'substats'
-                  )"
-                  :key="stat.id"
-                >
-                  <p class="text-tertiary tracking-wide">
-                    {{ stat.stat_id.name }}
-                  </p>
-                </div>
-              </div>
-              <div v-else class="text-center tracking-wide">No Builds Yet</div>
-            </div>
-            <!--Right-->
-            <div class="bg-primary w-2/3 rounded-2xl p-6">
-              <div
-                v-if="character.builds?.length"
-                v-for="build in character.builds"
-              >
-                <MarkdownRender :content="build.notes" />
-              </div>
-              <div class="text-center tracking-wide" v-else>No Build Yet</div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Character Materials -->
-      <article v-if="character.materials.length > 0">
-        <h1 class="divider mt-20 px-32 mb-8 tracking-wide">
-          {{ character.name }}'s Materials
-        </h1>
-        <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
-          <!-- Acension Materials -->
-          <div class="bg-primary w-1/2 rounded-2xl p-6">
-            <h1 class="divider">Ascension</h1>
-            <div class="flex flex-col gap-2">
-              <template
-                v-for="mat in character.materials.filter(
-                  (material) =>
-                    material.mat_type.name.toLowerCase() === 'ascension'
-                )"
-                :key="mat.id"
-              >
-                <div class="flex flex-row items-center gap-2">
-                  <img class="w-16" :src="mat.materials_id.image_url" alt="" />
-                  <h4>{{ mat.materials_id.name }}</h4>
-                  <span class="text-tertiary"
-                    >x {{ mat.amount.toLocaleString() }}</span
-                  >
-                </div>
-              </template>
-            </div>
-          </div>
-          <!-- Talent Materials -->
-          <div class="bg-primary w-1/2 rounded-2xl p-6">
-            <h1 class="divider">Talent</h1>
-            <div class="flex flex-col gap-2 justify-center">
-              <template
-                v-for="mat in character.materials.filter(
-                  (material) =>
-                    material.mat_type.name.toLowerCase() === 'talent'
-                )"
-                :key="mat.id"
-              >
-                <div class="flex flex-row items-center gap-2">
-                  <img class="w-16" :src="mat.materials_id.image_url" alt="" />
-                  <h4>{{ mat.materials_id.name }}</h4>
-                  <span class="text-tertiary"
-                    >x {{ mat.amount.toLocaleString() }}</span
-                  >
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-      </article>
-
+      <CharacterInfo :character="character" />
+      <CharacterWeapons :character="character" />
+      <CharacterArtifacts :character="character" />
+      <CharacterBuild :character="character" />
+      <CharacterMaterials :character="character" />
       <!-- Footer -->
       <div class="divider my-10 px-10"></div>
     </section>
   </main>
+  <CharacterNotFound v-else />
 </template>
 
 <script setup>
@@ -556,8 +41,22 @@ import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
+
+// Page Loading component
 import LoadingSpinner from "./../components/LoadingSpinner.vue";
-import MarkdownRender from "@/components/MarkdownRender.vue";
+
+// Character Detail Components
+import CharacterSplashArt from "@/components/CharacterDetail/CharacterSplashArt.vue";
+import CharacterBasicInfo from "@/components/CharacterDetail/CharacterBasicInfo.vue";
+import CharacterRegions from "@/components/CharacterDetail/CharacterRegions.vue";
+import CharacterAffiliation from "@/components/CharacterDetail/CharacterAffiliation.vue";
+import CharacterInfo from "@/components/CharacterDetail/CharacterInfo.vue";
+import CharacterWeapons from "@/components/CharacterDetail/CharacterWeapons.vue";
+import CharacterArtifacts from "@/components/CharacterDetail/CharacterArtifacts.vue";
+import CharacterBuild from "@/components/CharacterDetail/CharacterBuild.vue";
+import CharacterMaterials from "@/components/CharacterDetail/CharacterMaterials.vue";
+import CharacterVoiceActors from "@/components/CharacterDetail/CharacterVoiceActors.vue";
+import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vue";
 
 const route = useRoute();
 const loading = ref(null);
