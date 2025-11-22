@@ -25,13 +25,15 @@
       <article
         class="character-detail flex flex-row justify-around items-center pt-16"
       >
-        <div class="flex flex-col justify-center items-center">
-          <div class="relative">
+        <!-- Character Basic Info -->
+        <section class="flex flex-col justify-center items-center">
+          <figure class="relative">
             <img
               class="vision-avatar absolute -top-8 -left-6 w-16 h-16 p-2"
               :src="character.vision.image_url"
               alt=""
             />
+
             <div
               :class="{
                 'rarity-5': character.rarity === 5,
@@ -44,112 +46,124 @@
                 :alt="character.name"
               />
             </div>
-          </div>
+          </figure>
 
-          <h1 class="character-detail-name tracking-wide">
-            {{ character.name }}
-          </h1>
-          <div class="divider mx-0 mt-0 mb-1 px-10"></div>
-          <div class="flex flex-row gap-3">
-            <p v-if="character.vision" class="tags">
+          <header class="text-center">
+            <h1 class="character-detail-name tracking-wide">
+              {{ character.name }}
+            </h1>
+            <div class="divider mx-0 mt-0 mb-1 px-10"></div>
+          </header>
+
+          <!-- Character Tags -->
+          <ul class="flex flex-row gap-3 list-none">
+            <li v-if="character.vision" class="tags">
               {{ character.vision.name }}
-            </p>
-            <p v-if="character.weapon_type" class="tags">
+            </li>
+            <li v-if="character.weapon_type" class="tags">
               {{ character.weapon_type.name }}
-            </p>
-            <p v-if="character.main_stat" class="tags">
+            </li>
+            <li v-if="character.main_stat" class="tags">
               {{ character.main_stat.name }}
-            </p>
-            <p v-if="character.released_region" class="tags">
+            </li>
+            <li v-if="character.released_region" class="tags">
               {{ character.released_region.name }}
-            </p>
-          </div>
-        </div>
-        <div
+            </li>
+          </ul>
+        </section>
+
+        <!-- Character Metadata (VA, Regions, Affiliation) -->
+        <section
           class="character-detail-item flex flex-col px-5 py-2 rounded-xl justify-around"
         >
-          <div class="voice-actor-container">
+          <!-- Voice Actors -->
+          <section class="voice-actor-container">
             <h2 class="divider tracking-wider">Voice Actors</h2>
-            <div
-              class="flex flex-row justify-around"
-              v-if="character.va?.length"
-            >
-              <!---->
-              <div class="flex flex-col gap-2">
-                <p v-for="item in sortedGroupedVA" :key="item.code">
-                  <span :class="`fi fi-${item.code}`"></span>
-                  <strong class="ml-2">{{ item.label }}: </strong>
-                </p>
-              </div>
-              <!---->
-              <div class="flex flex-col gap-2">
-                <p v-for="item in sortedGroupedVA" :key="item.code">
-                  <template v-if="item.actors.length">
-                    <template v-for="(a, index) in item.actors" :key="a.id">
-                      <template v-if="a.link">
-                        <a
-                          :href="a.link"
-                          target="_blank"
-                          rel="noopener"
-                          class="link"
-                        >
-                          {{ a.name }}
-                        </a>
-                      </template>
-                      <template v-else>
-                        {{ a.name }}
-                      </template>
-                      <span v-if="index < item.actors.length - 1"> & </span>
-                    </template>
-                  </template>
-                  <template v-else>
-                    <span>No VA</span>
-                  </template>
-                </p>
-              </div>
-            </div>
 
-            <div v-else class="text-center">No VA Announced Yet</div>
-          </div>
+            <template v-if="character.va?.length">
+              <div class="flex flex-row justify-around">
+                <!-- Languages -->
+                <ul class="flex flex-col gap-2 list-none">
+                  <li v-for="item in sortedGroupedVA" :key="item.code">
+                    <span :class="`fi fi-${item.code}`"></span>
+                    <strong class="ml-2">{{ item.label }}:</strong>
+                  </li>
+                </ul>
+
+                <!-- Actors -->
+                <ul class="flex flex-col gap-2 list-none">
+                  <li v-for="item in sortedGroupedVA" :key="item.code">
+                    <template v-if="item.actors.length">
+                      <template v-for="(a, index) in item.actors" :key="a.id">
+                        <template v-if="a.link">
+                          <a
+                            :href="a.link"
+                            target="_blank"
+                            rel="noopener"
+                            class="link"
+                          >
+                            {{ a.name }}
+                          </a>
+                        </template>
+                        <template v-else>
+                          {{ a.name }}
+                        </template>
+                        <span v-if="index < item.actors.length - 1">&</span>
+                      </template>
+                    </template>
+                    <template v-else>No VA</template>
+                  </li>
+                </ul>
+              </div>
+            </template>
+
+            <p v-else class="text-center">No VA Announced Yet</p>
+          </section>
 
           <div class="flex flex-row">
             <!-- Regions -->
-            <div class="w-1/2">
+            <section class="w-1/2">
               <h2 class="divider tracking-wider">Regions</h2>
 
-              <div
-                v-if="character.regions?.length"
-                class="list-view tracking-wide flex flex-col items-center gap-2"
-              >
-                <p
-                  v-for="region in character.regions"
-                  :key="region.region_id.id"
+              <template v-if="character.regions?.length">
+                <ul
+                  class="list-view tracking-wide flex flex-col items-center gap-2 list-none"
                 >
-                  {{ region.region_id.name }}
-                </p>
-              </div>
-              <div v-else class="text-center">No Regions Revealed</div>
-            </div>
+                  <li
+                    v-for="region in character.regions"
+                    :key="region.region_id.id"
+                  >
+                    {{ region.region_id.name }}
+                  </li>
+                </ul>
+              </template>
+
+              <p v-else class="text-center">No Regions Revealed</p>
+            </section>
 
             <!-- Affiliation -->
-            <div class="w-1/2">
+            <section class="w-1/2">
               <h2 class="divider tracking-wider">Affiliation</h2>
-              <div
-                v-if="character.affiliations?.length"
-                class="list-view tracking-wide flex flex-col items-center gap-2"
-              >
-                <p
-                  v-for="affiliation in character.affiliations"
-                  :key="affiliation.affiliation_id.id"
+
+              <template v-if="character.affiliations?.length">
+                <ul
+                  class="list-view tracking-wide flex flex-col items-center gap-2 list-none"
                 >
-                  {{ affiliation.affiliation_id.name }}
-                </p>
-              </div>
-              <div v-else class="text-center">No Affiliations Revealed</div>
-            </div>
+                  <li
+                    v-for="affiliation in character.affiliations"
+                    :key="affiliation.affiliation_id.id"
+                  >
+                    {{ affiliation.affiliation_id.name }}
+                  </li>
+                </ul>
+              </template>
+
+              <p v-else class="text-center">No Affiliations Revealed</p>
+            </section>
           </div>
-        </div>
+        </section>
       </article>
+
       <!-- Character Info -->
       <article>
         <h1 class="divider mt-20 px-32 mb-5 tracking-wide">
