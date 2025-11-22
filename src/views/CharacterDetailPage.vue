@@ -4,7 +4,7 @@
     <LoadingSpinner />
   </div>
   <!-- Content -->
-  <div
+  <main
     v-if="character"
     class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
   >
@@ -20,9 +20,9 @@
       <div v-else></div>
     </div>
     <!-- Character Detail Content -->
-    <div class="relative z-10">
+    <section class="relative z-10">
       <!-- Character Detail -->
-      <div
+      <article
         class="character-detail flex flex-row justify-around items-center pt-16"
       >
         <div class="flex flex-col justify-center items-center">
@@ -149,317 +149,338 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
       <!-- Character Info -->
-      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">
-        {{ character.name }}'s Information
-      </h1>
-      <div
-        class="character-info flex flex-row justify-between items-center h-72 mx-24 px-5 rounded-2xl gap-24"
-      >
-        <!--Left-->
-        <div class="flex flex-col justify-around w-full h-full">
-          <!-- Rarity -->
-          <div class="flex flex-col">
-            <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Rarity:</h2>
-              <h2 class="tracking-wide text-yellow-400">
-                <span v-for="n in character.rarity" :key="n">★</span>
-              </h2>
+      <article>
+        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">
+          {{ character.name }}'s Information
+        </h1>
+        <div
+          class="character-info flex flex-row justify-between items-center h-72 mx-24 px-5 rounded-2xl gap-24"
+        >
+          <!--Left-->
+          <div class="flex flex-col justify-around w-full h-full">
+            <!-- Rarity -->
+            <div class="flex flex-col">
+              <div class="flex flex-row justify-between">
+                <h2 class="font-acme text-gray-500">Rarity:</h2>
+                <h2 class="tracking-wide text-yellow-400">
+                  <span v-for="n in character.rarity" :key="n">★</span>
+                </h2>
+              </div>
+              <div class="divider m-0"></div>
             </div>
-            <div class="divider m-0"></div>
-          </div>
-          <!-- Cons -->
-          <div class="flex flex-col">
-            <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Constellation:</h2>
-              <h2 class="tracking-wide text-tertiary">
-                {{ character.constellation }}
-              </h2>
+            <!-- Cons -->
+            <div class="flex flex-col">
+              <div class="flex flex-row justify-between">
+                <h2 class="font-acme text-gray-500">Constellation:</h2>
+                <h2 class="tracking-wide text-tertiary">
+                  {{ character.constellation }}
+                </h2>
+              </div>
+              <div class="divider m-0"></div>
             </div>
-            <div class="divider m-0"></div>
+            <!-- Signature Dish-->
+            <div class="flex flex-col">
+              <div class="flex flex-row justify-between">
+                <h2 class="font-acme text-gray-500">Signature Dish:</h2>
+                <div
+                  v-if="character.signature_dish"
+                  class="flex flex-row gap-2 items-center group relative"
+                >
+                  <!-- Dish Image-->
+                  <img
+                    class="w-fit h-8 cursor-pointer"
+                    :src="character.signature_dish.image_url"
+                    alt=""
+                  />
+
+                  <!-- Dish Pop up -->
+                  <div
+                    class="dish-pop-up absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
+                  >
+                    <div
+                      class="bg-secondary backdrop-blur-md p-2 w-96 h-auto flex flex-col items-center rounded-lg shadow-xl"
+                    >
+                      <img
+                        class="w-48"
+                        :src="character.signature_dish.image_url"
+                        alt=""
+                      />
+                      <h3 class="text-center text-tertiary tracking-wide">
+                        {{ character.signature_dish.name }}
+                      </h3>
+                      <div class="divider m-0"></div>
+                      <p class="text-center px-5 mb-3">
+                        {{ character.signature_dish.description }}
+                      </p>
+                    </div>
+                  </div>
+                  <!-- Dish name-->
+                  <h2 class="tracking-wide text-tertiary max-w-64 truncate">
+                    <a
+                      class="link"
+                      :href="character.signature_dish.url"
+                      target="_blank"
+                    >
+                      {{ character.signature_dish.name }}
+                    </a>
+                  </h2>
+                </div>
+                <div v-else>Not Revealed Yet</div>
+              </div>
+
+              <div class="divider m-0"></div>
+            </div>
           </div>
-          <!-- Signature Dish-->
-          <div class="flex flex-col">
-            <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Signature Dish:</h2>
+          <!--Right-->
+          <div class="flex flex-col justify-around w-full h-full">
+            <div class="flex flex-col">
+              <div class="flex flex-row justify-between">
+                <h2 class="font-acme text-gray-500">Weapon:</h2>
+                <div class="flex flex-row gap-2">
+                  <h2
+                    v-if="character.weapon_type"
+                    class="tracking-wide text-tertiary"
+                  >
+                    {{ character.weapon_type.name }}
+                  </h2>
+                  <img
+                    v-if="character.weapon_type"
+                    class="w-fit h-8"
+                    :src="character.weapon_type.image_url"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div class="divider m-0"></div>
+            </div>
+            <div class="flex flex-col">
+              <div class="flex flex-row justify-between">
+                <h2 class="font-acme text-gray-500">Birthday:</h2>
+                <h2
+                  v-if="character.birthday"
+                  class="tracking-wide text-tertiary"
+                >
+                  {{ character.birthday }}
+                </h2>
+                <p v-else>Not Revealed Yet</p>
+              </div>
+              <div class="divider m-0"></div>
+            </div>
+            <div class="flex flex-col">
+              <div class="flex flex-row justify-between">
+                <h2 class="font-acme text-gray-500">Date Released:</h2>
+                <h2 class="tracking-wide text-tertiary">
+                  {{
+                    new Date(character.release_date).toLocaleDateString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }
+                    )
+                  }}
+                </h2>
+              </div>
+              <div class="divider m-0"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Character Weapons-->
+      <article v-if="character.weapons.length > 0">
+        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Weapon</h1>
+        <div class="w-full h-auto">
+          <div
+            class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
+          >
+            <router-link
+              v-if="character.weapons?.length"
+              v-for="weapon in character.weapons"
+              :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
+                weapon.weapon_id.name
+              )}`"
+              target="_blank"
+              class="weapon-card relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit no-underline"
+            >
+              <div class="absolute top-5 left-5">
+                <span
+                  class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
+                  :class="{
+                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
+                      weapon.rank === 1,
+                    'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
+                      weapon.rank === 2,
+                    'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
+                      weapon.rank === 3,
+                  }"
+                >
+                  {{ weapon.rank }}
+                </span>
+              </div>
               <div
-                v-if="character.signature_dish"
-                class="flex flex-row gap-2 items-center group relative"
+                :class="{
+                  'rarity-5': weapon.weapon_id.rarity === 5,
+                  'rarity-4': weapon.weapon_id.rarity === 4,
+                }"
               >
-                <!-- Dish Image-->
                 <img
-                  class="w-fit h-8 cursor-pointer"
-                  :src="character.signature_dish.image_url"
+                  class="w-32 weapon-image rounded-xl"
+                  :src="weapon.weapon_id.image_url"
                   alt=""
                 />
+              </div>
+              <p class="text-tertiary tracking-wide mt-8">
+                {{ weapon.weapon_id.name }}
+              </p>
+            </router-link>
+            <div class="tracking-wide" v-else>No Weapons Assigned Yet</div>
+          </div>
+        </div>
+      </article>
 
-                <!-- Dish Pop up -->
-                <div
-                  class="dish-pop-up absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center rounded-lg"
+      <!-- Character Artifacts -->
+      <article v-if="character.artifacts.length > 0">
+        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Artifacts</h1>
+        <div class="w-full h-auto">
+          <div
+            class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
+          >
+            <div
+              class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
+              v-if="character.artifacts?.length"
+              v-for="artifact in character.artifacts"
+            >
+              <div class="absolute top-5 left-5">
+                <span
+                  class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
+                  :class="{
+                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
+                      artifact.rank === 1,
+                    'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
+                      artifact.rank === 2,
+                    'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
+                      artifact.rank === 3,
+                  }"
                 >
+                  {{ artifact.rank }}
+                </span>
+              </div>
+
+              <div class="artifact-image rounded-xl">
+                <img
+                  class="w-32"
+                  :src="artifact.artifact_id.flower_img_url"
+                  alt=""
+                />
+              </div>
+              <p class="text-tertiary tracking-wide mt-8">
+                {{ artifact.artifact_id.name }}
+              </p>
+            </div>
+            <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Character Build -->
+      <article v-if="character.builds.length > 0">
+        <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Build</h1>
+        <div class="w-full h-auto">
+          <div
+            class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8"
+          >
+            <!--Left-->
+            <div class="bg-primary w-1/3 rounded-2xl p-6 h-fit">
+              <div
+                v-if="character.builds?.length"
+                v-for="build in character.builds"
+              >
+                <h2 class="divider mt-0 tracking-wide">Main Stats</h2>
+                <div class="flex flex-col gap-8">
+                  <!-- Sands -->
                   <div
-                    class="bg-secondary backdrop-blur-md p-2 w-96 h-auto flex flex-col items-center rounded-lg shadow-xl"
+                    class="flex flex-row justify-between"
+                    v-for="slot of ['sands']"
+                    :key="slot"
                   >
-                    <img
-                      class="w-48"
-                      :src="character.signature_dish.image_url"
-                      alt=""
-                    />
-                    <h3 class="text-center text-tertiary tracking-wide">
-                      {{ character.signature_dish.name }}
-                    </h3>
-                    <div class="divider m-0"></div>
-                    <p class="text-center px-5 mb-3">
-                      {{ character.signature_dish.description }}
+                    <p class="capitalize">{{ slot }}</p>
+                    <p class="text-tertiary tracking-wide">
+                      {{
+                        build.build_stat
+                          .filter((stat) => stat.slot === slot)
+                          .map((stat) => stat.stat_id.name)
+                          .join(" or ")
+                      }}
+                    </p>
+                  </div>
+                  <!-- Goblet -->
+                  <div
+                    class="flex flex-row justify-between"
+                    v-for="slot of ['goblet']"
+                    :key="slot"
+                  >
+                    <p class="capitalize">{{ slot }}</p>
+                    <p class="text-tertiary tracking-wide">
+                      {{
+                        build.build_stat
+                          .filter((stat) => stat.slot === slot)
+                          .map((stat) => stat.stat_id.name)
+                          .join(" or ")
+                      }}
+                    </p>
+                  </div>
+                  <!-- Circlet -->
+                  <div
+                    class="flex flex-row justify-between"
+                    v-for="slot of ['circlet']"
+                    :key="slot"
+                  >
+                    <p class="capitalize">{{ slot }}</p>
+                    <p class="text-tertiary tracking-wide">
+                      {{
+                        build.build_stat
+                          .filter((stat) => stat.slot === slot)
+                          .map((stat) => stat.stat_id.name)
+                          .join(" or ")
+                      }}
                     </p>
                   </div>
                 </div>
-                <!-- Dish name-->
-                <h2 class="tracking-wide text-tertiary max-w-64 truncate">
-                  <a
-                    class="link"
-                    :href="character.signature_dish.url"
-                    target="_blank"
-                  >
-                    {{ character.signature_dish.name }}
-                  </a>
-                </h2>
-              </div>
-              <div v-else>Not Revealed Yet</div>
-            </div>
-
-            <div class="divider m-0"></div>
-          </div>
-        </div>
-        <!--Right-->
-        <div class="flex flex-col justify-around w-full h-full">
-          <div class="flex flex-col">
-            <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Weapon:</h2>
-              <div class="flex flex-row gap-2">
-                <h2
-                  v-if="character.weapon_type"
-                  class="tracking-wide text-tertiary"
-                >
-                  {{ character.weapon_type.name }}
-                </h2>
-                <img
-                  v-if="character.weapon_type"
-                  class="w-fit h-8"
-                  :src="character.weapon_type.image_url"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div class="divider m-0"></div>
-          </div>
-          <div class="flex flex-col">
-            <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Birthday:</h2>
-              <h2 class="tracking-wide text-tertiary">
-                {{ character.birthday }}
-              </h2>
-            </div>
-            <div class="divider m-0"></div>
-          </div>
-          <div class="flex flex-col">
-            <div class="flex flex-row justify-between">
-              <h2 class="font-acme text-gray-500">Date Released:</h2>
-              <h2 class="tracking-wide text-tertiary">
-                {{
-                  new Date(character.release_date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                }}
-              </h2>
-            </div>
-            <div class="divider m-0"></div>
-          </div>
-        </div>
-      </div>
-      <!-- Character Weapons-->
-      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Weapon</h1>
-      <div class="w-full h-auto">
-        <div
-          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
-        >
-          <router-link
-            v-if="character.weapons?.length"
-            v-for="weapon in character.weapons"
-            :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
-              weapon.weapon_id.name
-            )}`"
-            target="_blank"
-            class="weapon-card relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit no-underline"
-          >
-            <div class="absolute top-5 left-5">
-              <span
-                class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
-                :class="{
-                  'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
-                    weapon.rank === 1,
-                  'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
-                    weapon.rank === 2,
-                  'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
-                    weapon.rank === 3,
-                }"
-              >
-                {{ weapon.rank }}
-              </span>
-            </div>
-            <div
-              :class="{
-                'rarity-5': weapon.weapon_id.rarity === 5,
-                'rarity-4': weapon.weapon_id.rarity === 4,
-              }"
-            >
-              <img
-                class="w-32 weapon-image rounded-xl"
-                :src="weapon.weapon_id.image_url"
-                alt=""
-              />
-            </div>
-            <p class="text-tertiary tracking-wide mt-8">
-              {{ weapon.weapon_id.name }}
-            </p>
-          </router-link>
-          <div class="tracking-wide" v-else>No Weapons Assigned Yet</div>
-        </div>
-      </div>
-      <!-- Character Artifacts -->
-      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Best Artifacts</h1>
-      <div class="w-full h-auto">
-        <div
-          class="flex flex-row justify-around items-center gap-12 bg-primary mx-24 w-auto py-10 rounded-2xl"
-        >
-          <div
-            class="relative flex flex-col justify-center items-center bg-secondary rounded-2xl py-10 w-72 h-fit"
-            v-if="character.artifacts?.length"
-            v-for="artifact in character.artifacts"
-          >
-            <div class="absolute top-5 left-5">
-              <span
-                class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
-                :class="{
-                  'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
-                    artifact.rank === 1,
-                  'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
-                    artifact.rank === 2,
-                  'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
-                    artifact.rank === 3,
-                }"
-              >
-                {{ artifact.rank }}
-              </span>
-            </div>
-
-            <div class="artifact-image rounded-xl">
-              <img
-                class="w-32"
-                :src="artifact.artifact_id.flower_img_url"
-                alt=""
-              />
-            </div>
-            <p class="text-tertiary tracking-wide mt-8">
-              {{ artifact.artifact_id.name }}
-            </p>
-          </div>
-          <div class="tracking-wide" v-else>No Artifacts Assigned Yet</div>
-        </div>
-      </div>
-      <!-- Character Build -->
-      <h1 class="divider mt-20 px-32 mb-5 tracking-wide">Build</h1>
-      <div class="w-full h-auto">
-        <div class="flex flex-row justify-between mx-24 w-auto min-h-96 gap-8">
-          <!--Left-->
-          <div class="bg-primary w-1/3 rounded-2xl p-6 h-fit">
-            <div
-              v-if="character.builds?.length"
-              v-for="build in character.builds"
-            >
-              <h2 class="divider mt-0 tracking-wide">Main Stats</h2>
-              <div class="flex flex-col gap-8">
-                <!-- Sands -->
+                <h2 class="divider mb-0 mt-6">Substats</h2>
                 <div
-                  class="flex flex-row justify-between"
-                  v-for="slot of ['sands']"
-                  :key="slot"
+                  class="flex flex-col mt-5"
+                  v-for="stat in build.build_stat.filter(
+                    (s) => s.slot === 'substats'
+                  )"
+                  :key="stat.id"
                 >
-                  <p class="capitalize">{{ slot }}</p>
                   <p class="text-tertiary tracking-wide">
-                    {{
-                      build.build_stat
-                        .filter((stat) => stat.slot === slot)
-                        .map((stat) => stat.stat_id.name)
-                        .join(" or ")
-                    }}
-                  </p>
-                </div>
-                <!-- Goblet -->
-                <div
-                  class="flex flex-row justify-between"
-                  v-for="slot of ['goblet']"
-                  :key="slot"
-                >
-                  <p class="capitalize">{{ slot }}</p>
-                  <p class="text-tertiary tracking-wide">
-                    {{
-                      build.build_stat
-                        .filter((stat) => stat.slot === slot)
-                        .map((stat) => stat.stat_id.name)
-                        .join(" or ")
-                    }}
-                  </p>
-                </div>
-                <!-- Circlet -->
-                <div
-                  class="flex flex-row justify-between"
-                  v-for="slot of ['circlet']"
-                  :key="slot"
-                >
-                  <p class="capitalize">{{ slot }}</p>
-                  <p class="text-tertiary tracking-wide">
-                    {{
-                      build.build_stat
-                        .filter((stat) => stat.slot === slot)
-                        .map((stat) => stat.stat_id.name)
-                        .join(" or ")
-                    }}
+                    {{ stat.stat_id.name }}
                   </p>
                 </div>
               </div>
-              <h2 class="divider mb-0 mt-6">Substats</h2>
+              <div v-else class="text-center tracking-wide">No Builds Yet</div>
+            </div>
+            <!--Right-->
+            <div class="bg-primary w-2/3 rounded-2xl p-6">
               <div
-                class="flex flex-col mt-5"
-                v-for="stat in build.build_stat.filter(
-                  (s) => s.slot === 'substats'
-                )"
-                :key="stat.id"
+                v-if="character.builds?.length"
+                v-for="build in character.builds"
               >
-                <p class="text-tertiary tracking-wide">
-                  {{ stat.stat_id.name }}
-                </p>
+                <MarkdownRender :content="build.notes" />
               </div>
+              <div class="text-center tracking-wide" v-else>No Build Yet</div>
             </div>
-            <div v-else class="text-center tracking-wide">No Builds Yet</div>
-          </div>
-          <!--Right-->
-          <div class="bg-primary w-2/3 rounded-2xl p-6">
-            <div
-              v-if="character.builds?.length"
-              v-for="build in character.builds"
-            >
-              <MarkdownRender :content="build.notes" />
-            </div>
-            <div class="text-center tracking-wide" v-else>No Build Yet</div>
           </div>
         </div>
-      </div>
+      </article>
+
       <!-- Character Materials -->
-      <section v-if="character.materials.length > 0">
+      <article v-if="character.materials.length > 0">
         <h1 class="divider mt-20 px-32 mb-8 tracking-wide">
           {{ character.name }}'s Materials
         </h1>
@@ -507,12 +528,12 @@
             </div>
           </div>
         </div>
-      </section>
+      </article>
 
       <!-- Footer -->
       <div class="divider my-10 px-10"></div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script setup>
