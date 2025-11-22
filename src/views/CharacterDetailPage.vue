@@ -63,12 +63,6 @@ const loading = ref(null);
 const error = ref(null);
 
 const character = ref(null);
-const languages = [
-  { label: "English", code: "us" },
-  { label: "Japanese", code: "jp" },
-  { label: "Chinese", code: "cn" },
-  { label: "Korean", code: "kr" },
-];
 
 // To Use Later in Production
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
@@ -157,25 +151,6 @@ async function fetchCharacterById(characterId) {
     loading.value = false;
   }
 }
-
-const groupedVA = computed(() => {
-  if (!character.value?.va) return {};
-
-  return character.value.va.reduce((acc, actor) => {
-    const code = actor.lang.code;
-    if (!acc[code]) acc[code] = [];
-    acc[code].push(actor);
-    return acc;
-  }, {});
-});
-
-const sortedGroupedVA = computed(() => {
-  return languages.map((lang) => ({
-    code: lang.code,
-    label: lang.label,
-    actors: groupedVA.value[lang.code] || [],
-  }));
-});
 
 onMounted(async () => {
   const characterId = checkCharacterId();

@@ -2,7 +2,7 @@
   <section class="voice-actor-container">
     <h2 class="divider tracking-wider">Voice Actors</h2>
 
-    <template v-if="character.va?.length">
+    <template v-if="props.character?.va?.length">
       <div class="flex flex-row justify-around">
         <!-- Languages -->
         <ul class="flex flex-col gap-2 list-none">
@@ -39,7 +39,35 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   character: Object,
+});
+
+const languages = [
+  { label: "English", code: "us" },
+  { label: "Japanese", code: "jp" },
+  { label: "Chinese", code: "cn" },
+  { label: "Korean", code: "kr" },
+];
+
+const groupedVA = computed(() => {
+  if (!props.character?.va) return {};
+
+  return props.character.va.reduce((acc, actor) => {
+    const code = actor.lang.code;
+    if (!acc[code]) acc[code] = [];
+    acc[code].push(actor);
+    return acc;
+  }, {});
+});
+
+const sortedGroupedVA = computed(() => {
+  return languages.map((lang) => ({
+    code: lang.code,
+    label: lang.label,
+    actors: groupedVA.value[lang.code] || [],
+  }));
 });
 </script>
