@@ -1,19 +1,19 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <main
-    class="character-detail-page relative mt-12 mb-20 rounded-2xl overflow-hidden"
+    class="w-[1400px] min-h-full bg-secondary relative mt-12 mb-20 rounded-2xl overflow-hidden"
     v-else-if="character"
   >
     <CharacterSplashArt :character="character" />
     <section class="relative z-10">
       <!-- Character Detail -->
       <article
-        class="character-detail flex flex-row justify-around items-center pt-16"
+        class="h-fit w-full flex flex-row justify-around items-center pt-16"
       >
-        <CharacterBasicInfo :character="character" />
+        <CharacterBasicInfo class="w-[500px] h-[350px]"  :character="character" />
         <!-- Character Metadata (VA, Regions, Affiliation) -->
         <div
-          class="character-detail-item flex flex-col px-5 py-2 rounded-xl justify-around"
+          class="w-[500px] h-[350px] bg-primary flex flex-col px-5 py-2 rounded-xl justify-around"
         >
           <CharacterVoiceActors :character="character" />
           <div class="flex flex-row">
@@ -37,9 +37,9 @@
 
 <script setup>
 import { supabase } from "@/supabaseClient";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import "./../css/CharacterDetailPage.css";
+// import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
 
 // Page Loading component
