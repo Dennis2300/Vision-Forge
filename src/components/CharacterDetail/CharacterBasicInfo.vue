@@ -22,7 +22,7 @@
     </figure>
 
     <header class="text-center">
-      <h1 class="font-acme text-5xl tracking-wide">
+      <h1 class="font-acme text-5xl mt-4 tracking-wide">
         {{ character.name }}
       </h1>
       <div class="divider mx-0 mt-0 mb-1 px-10"></div>

@@ -4,7 +4,7 @@
       {{ character.name }}'s Information
     </h1>
     <div
-      class="character-info flex flex-row justify-between items-center h-72 mx-24 px-5 rounded-2xl gap-24"
+      class="bg-primary flex flex-row justify-between items-center h-72 mx-24 px-5 rounded-2xl gap-24"
     >
       <!--Left-->
       <div class="flex flex-col justify-around w-full h-full">

@@ -1,48 +1,3 @@
-.character-detail-page {
-  background-color: var(--secondary);
-  width: 1400px;
-  min-height: 100vh;
-  overflow: hidden;
-}
-
-.character-detail {
-  height: fit-content;
-  width: 100%;
-}
-
-.vision-avatar {
-  background-color: var(--primary);
-  border-radius: 100%;
-}
-
-.character-avatar {
-  border-radius: 100%;
-}
-
-.character-detail-name {
-  font-family: var(--font-acme);
-  font-size: 2.5em;
-}
-
-.character-detail-item {
-  background-color: var(--primary);
-  width: 500px;
-  height: 350px;
-}
-
-.character-info {
-  background-color: var(--primary);
-}
-
-.lang {
-  font-family: var(--font-roboto);
-  color: gray;
-}
-
-.va {
-  font-family: var(--font-roboto);
-}
-
 .link {
   color: var(--tertiary);
   text-decoration: none;
@@ -52,11 +7,6 @@
   color: white;
 }
 
-/* .list-view {
-  font-family: var(--font-roboto);
-  color: var(--tertiary);
-} */
-
 .tags {
   background-color: var(--primary);
   color: var(--tertiary);
@@ -65,10 +15,6 @@
   font-family: var(--font-acme);
   letter-spacing: 1px;
   border: 1px solid black;
-}
-
-.divider {
-  font-family: var(--font-acme);
 }
 
 .dish-pop-up {

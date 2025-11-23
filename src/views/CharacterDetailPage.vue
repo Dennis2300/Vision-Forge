@@ -39,7 +39,7 @@
 import { supabase } from "@/supabaseClient";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-// import "./../css/CharacterDetailPage.css";
+import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
 
 // Page Loading component
