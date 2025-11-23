@@ -40,7 +40,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "./../supabaseClient.js";
-import LoadingSpinner from "./../components/LoadingSpinner.vue";
+import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 
 const loading = ref(true);
 const error = ref(null);

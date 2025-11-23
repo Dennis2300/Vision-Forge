@@ -23,7 +23,7 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
-import { supabase } from "./../supabaseClient.js"; // Import the Supabase client
+import { supabase } from "../../supabaseClient.js"; // Import the Supabase client
 
 const loading = ref(true);
 const error = ref(null);

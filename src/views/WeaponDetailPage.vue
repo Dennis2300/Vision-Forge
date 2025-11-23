@@ -71,7 +71,7 @@ import { supabase } from "./../supabaseClient.js";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-import LoadingSpinner from "./../components/LoadingSpinner.vue";
+import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 import MarkdownRender from "@/components/MarkdownRender.vue";
 
 const route = useRoute();

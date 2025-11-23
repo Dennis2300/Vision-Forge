@@ -277,7 +277,7 @@ import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/Ribbon.css";
 import "./../css/CharacterPage.css";
-import LoadingMoreSpinner from "../components/LoadingMoreSpinner.vue";
+import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 
 // state variables
 const loading = ref(false);

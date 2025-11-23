@@ -57,7 +57,7 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
-import LoadingSpinner from "./components/LoadingSpinner.vue";
+import LoadingSpinner from "./components/Loadings/LoadingSpinner.vue";
 
 const showPopup = ref(false);
 

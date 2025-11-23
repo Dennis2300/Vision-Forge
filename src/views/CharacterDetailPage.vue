@@ -1,36 +1,40 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <main
-    class="w-[1400px] min-h-full bg-secondary relative mt-12 mb-20 rounded-2xl overflow-hidden"
-    v-else-if="character"
-  >
-    <CharacterSplashArt :character="character" />
-    <section class="relative z-10">
-      <!-- Character Detail -->
-      <article
-        class="h-fit w-full flex flex-row justify-around items-center pt-16"
-      >
-        <CharacterBasicInfo class="w-[500px] h-[350px]"  :character="character" />
-        <!-- Character Metadata (VA, Regions, Affiliation) -->
-        <div
-          class="w-[500px] h-[350px] bg-primary flex flex-col px-5 py-2 rounded-xl justify-around"
+  <main v-else-if="character">
+    <div
+      class="w-[1400px] min-h-full bg-secondary relative mt-12 mb-20 rounded-2xl overflow-hidden"
+    >
+      <CharacterSplashArt :character="character" />
+      <section class="relative z-10">
+        <!-- Character Detail -->
+        <article
+          class="h-fit w-full flex flex-row justify-around items-center pt-16"
         >
-          <CharacterVoiceActors :character="character" />
-          <div class="flex flex-row">
-            <CharacterRegions :character="character" />
-            <CharacterAffiliation :character="character" />
+          <CharacterBasicInfo
+            class="w-[500px] h-[350px]"
+            :character="character"
+          />
+          <!-- Character Metadata (VA, Regions, Affiliation) -->
+          <div
+            class="w-[500px] h-[350px] bg-primary flex flex-col px-5 py-2 rounded-xl justify-around"
+          >
+            <CharacterVoiceActors :character="character" />
+            <div class="flex flex-row">
+              <CharacterRegions :character="character" />
+              <CharacterAffiliation :character="character" />
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <CharacterInfo :character="character" />
-      <CharacterWeapons :character="character" />
-      <CharacterArtifacts :character="character" />
-      <CharacterBuild :character="character" />
-      <CharacterMaterials :character="character" />
-      <!-- Footer -->
-      <div class="divider my-10 px-10"></div>
-    </section>
+        <CharacterInfo :character="character" />
+        <CharacterWeapons :character="character" />
+        <CharacterArtifacts :character="character" />
+        <CharacterBuild :character="character" />
+        <CharacterMaterials :character="character" />
+        <!-- Footer -->
+        <div class="divider my-10 px-10"></div>
+      </section>
+    </div>
   </main>
   <CharacterNotFound v-else />
 </template>
@@ -43,7 +47,7 @@ import "./../css/CharacterDetailPage.css";
 import "flag-icons/css/flag-icons.min.css";
 
 // Page Loading component
-import LoadingSpinner from "./../components/LoadingSpinner.vue";
+import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 
 // Character Detail Components
 import CharacterSplashArt from "@/components/CharacterDetail/CharacterSplashArt.vue";
