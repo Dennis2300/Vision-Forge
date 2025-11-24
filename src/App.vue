@@ -30,22 +30,7 @@
       </div>
 
       <!-- Popup -->
-      <div
-        v-if="showPopup"
-        class="absolute top-20 right-16 bg-white border shadow-lg p-4 w-64 rounded-b-xl rounded-tl-xl cursor-default"
-      >
-        <p class="text-sm text-gray-700 mb-2">
-          If you like this website, please consider supporting it on Patreon.
-          Every bit helps pay for server hosting and domain fees.
-        </p>
-        <a
-          href="https://patreon.com/YOURUSERNAME"
-          target="_blank"
-          class="text-blue-600 underline text-sm font-medium"
-        >
-          Go to Patreon
-        </a>
-      </div>
+      <SupportPopup v-if="showPopup" />
     </div>
 
     <!-- Footer Component -->
@@ -56,6 +41,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import Navbar from "./components/Navbar.vue";
+import SupportPopup from "./components/Home/SupportPopup.vue";
 import Footer from "./components/Footer.vue";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner.vue";
 
