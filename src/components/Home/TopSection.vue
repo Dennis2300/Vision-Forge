@@ -48,7 +48,7 @@
         />
       </div>
       <div class="p-4">
-        <h1 class="">Welcome to Vision Forge</h1>
+        <h1 class="text-center">Welcome to Vision Forge</h1>
         <div class="divider m-0"></div>
 
         <p class="text-gray-300 leading-relaxed text-center tracking-wide">
