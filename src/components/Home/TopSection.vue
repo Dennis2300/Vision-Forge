@@ -8,7 +8,7 @@
         class="w-full h-[500px] overflow-hidden flex justify-center items-center rounded-t-2xl"
       >
         <img
-          class="w-full h-full"
+          class="scale-[0.69]"
           src="./../../assets/images/zhongli.webp"
           alt=""
           loading="lazy"
@@ -57,7 +57,7 @@
         </p>
         <div class="flex justify-center mt-4 mb-2">
           <router-link
-            class="tracking-wide no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg px-4 py-2.5 text-center leading-5"
+            class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/characters"
           >
             Go to Characters
