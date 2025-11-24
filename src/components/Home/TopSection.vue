@@ -18,14 +18,14 @@
         <h1 class="">Welcome to Vision Forge</h1>
         <div class="divider m-0"></div>
 
-        <p class="text-gray-300 leading-relaxed">
+        <p class="text-gray-300 leading-relaxed tracking-wide">
           Vision Forge is a simple, fan-made space where you can find character
           builds, materials, and team compositions for Genshin Impact. My goal
           is to cut through the complexity and help you forge your perfect
           character.
         </p>
 
-        <p class="text-gray-300 leading-relaxed">
+        <p class="text-gray-300 leading-relaxed tracking-wide">
           This isn't a pro-level guide, just a fun project where I explore and
           find what works best for me. Hope you find something useful here! and
           enjoy your time in Teyvat!
@@ -51,13 +51,16 @@
         <h1 class="">Welcome to Vision Forge</h1>
         <div class="divider m-0"></div>
 
-        <p class="text-gray-300 leading-relaxed text-center">
+        <p class="text-gray-300 leading-relaxed text-center tracking-wide">
           Here you can find a comprehensive list of all playable characters
           available in Genshin Impact.
         </p>
         <div class="flex justify-center mt-4 mb-2">
-          <router-link class="btn btn-primary no-underline" to="/characters">
-            See Characters
+          <router-link
+            class="tracking-wide no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg px-4 py-2.5 text-center leading-5"
+            to="/characters"
+          >
+            Go to Characters
           </router-link>
         </div>
       </div>
