@@ -8,6 +8,7 @@ import WeaponsPage from "./views/WeaponsPage.vue";
 import ArtifactsPage from "./views/ArtifactsPage.vue";
 import WeaponDetailPage from "./views/WeaponDetailPage.vue";
 import ContributePage from "./views/ContributePage.vue";
+import CurrentBannerPage from "./views/CurrentBannerPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
@@ -30,6 +31,11 @@ const routes = [
     path: "/contribute",
     name: "ContributePage",
     component: ContributePage,
+  },
+  {
+    path: "/current-banner",
+    name: "CurrentBannerPage",
+    component: CurrentBannerPage,
   },
 ];
 

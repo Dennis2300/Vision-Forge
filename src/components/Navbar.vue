@@ -10,14 +10,15 @@
       <span class="nav-title">Vision Forge</span>
     </router-link>
   </div>
-  <div class="middle-nav">
+  <div class="middle-nav"></div>
+  <div class="right-nav">
     <router-link class="nav-item" to="/">Home</router-link>
     <router-link class="nav-item" to="/characters">Characters</router-link>
     <router-link class="nav-item" to="/weapons">Weapons</router-link>
     <router-link class="nav-item" to="/artifacts">Artifacts</router-link>
+    <router-link class="nav-item" to="/current-banner">Current Banner</router-link>
     <router-link class="nav-item" to="/about">About</router-link>
   </div>
-  <div class="right-nav"></div>
 </template>
 
 <style scoped>
@@ -30,12 +31,16 @@
   display: flex;
   align-items: center;
   justify-self: center;
+  gap: 1.5rem;
   font-family: var(--font-acme);
 }
 
 .right-nav {
+  display: flex;
+  align-items: center;
   justify-self: end;
   margin-right: 25px;
+  gap: 2rem;
 }
 
 .nav-item {
@@ -46,7 +51,7 @@
   text-decoration: none;
   color: white;
   height: 60px;
-  padding: 0 20px;
+  width: fit-content;
   transition: color 0.3s ease;
   font-family: var(--font-acme);
 }
