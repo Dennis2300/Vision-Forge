@@ -17,7 +17,7 @@
     </div>
 
     <!-- Support button -->
-    <div class="fixed top-16 right-5 m-4 z-10 cursor-pointer">
+    <div class="fixed top-16 right-1 m-4 z-10 cursor-pointer">
       <div
         @click="showPopup = !showPopup"
         class="text-white rounded-lg transition"
