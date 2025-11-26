@@ -19,7 +19,7 @@
           <br />
           With their materials, stats and attributes.
         </p>
-        <div class="my-6">
+        <div class="flex justify-start my-4">
           <router-link
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/weapons"
@@ -48,7 +48,7 @@
           <br />
           With their set bonuses and where to farm them.
         </p>
-        <div class="my-6">
+        <div class="flex justify-start my-4">
           <router-link
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/artifacts"
