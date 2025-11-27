@@ -2,7 +2,9 @@
   <main>
     <LoadingSpinner v-if="loading" />
     <section class="w-[1400px] min-h-screen mt-10" v-else>
-      <h1 class="text-center">Current Banners</h1>
+      <article>
+        <p>Ends in: {{ globalCountdown }}</p>
+      </article>
       <article class="flex flex-row justify-around mt-10">
         <div class="space-y-6">
           <h2 class="text-2xl font-bold">Current 5 STAR Increased Drop Rate</h2>
@@ -65,9 +67,31 @@ import { ref, onMounted, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingSpinner from "@/components/Loadings/LoadingSpinner.vue";
 
-const currentBanners = ref([]);
 const loading = ref(true);
 const error = ref(null);
+
+const currentBanners = ref([]);
+const now = ref(Date.now());
+
+setInterval(() => {
+  now.value = Date.now();
+}, 1000);
+
+const globalCountdown = computed(() => {
+  if (currentBanners.value.length === 0) return "";
+
+  const endDate = currentBanners.value[0].end_date;
+  const end = new Date(endDate).getTime();
+  const diff = end - now.value;
+
+  if (diff <= 0) return "Expired";
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+  return `${days} Days ${hours} Hours ${minutes} Minutes`;
+});
 
 async function getCurrentBanners() {
   console.log("Called getCurrentBanners");
