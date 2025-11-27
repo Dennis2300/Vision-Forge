@@ -2,8 +2,39 @@
   <main>
     <LoadingSpinner v-if="loading" />
     <section class="w-[1400px] min-h-screen mt-10" v-else>
-      <article>
-        <p>Ends in: {{ globalCountdown }}</p>
+      <article class="flex flex-col gap-10">
+        <div class="flex gap-5 justify-center mt-4">
+          <div>
+            <span class="countdown font-mono text-4xl">
+              <span :style="`--value:${countdownParts.days}`"></span>
+            </span>
+            Days
+          </div>
+          <div>
+            <span class="countdown font-mono text-4xl">
+              <span :style="`--value:${countdownParts.hours}`"></span>
+            </span>
+            Hours
+          </div>
+          <div>
+            <span class="countdown font-mono text-4xl">
+              <span :style="`--value:${countdownParts.minutes}`"></span>
+            </span>
+            Min
+          </div>
+          <div>
+            <span class="countdown font-mono text-4xl">
+              <span :style="`--value:${countdownParts.seconds}`"></span>
+            </span>
+            Sec
+          </div>
+        </div>
+        <div class="text-center">
+          <h2>
+            Banner ends
+            <span class="text-tertiary">{{ formattedEndDate }}</span>
+          </h2>
+        </div>
       </article>
       <article class="flex flex-row justify-around mt-10">
         <div class="space-y-6">
@@ -77,20 +108,34 @@ setInterval(() => {
   now.value = Date.now();
 }, 1000);
 
-const globalCountdown = computed(() => {
-  if (currentBanners.value.length === 0) return "";
+const countdownParts = computed(() => {
+  if (currentBanners.value.length === 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
 
-  const endDate = currentBanners.value[0].end_date;
-  const end = new Date(endDate).getTime();
+  const end = new Date(currentBanners.value[0].end_date).getTime();
   const diff = end - now.value;
 
-  if (diff <= 0) return "Expired";
+  if (diff <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
 
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((diff / 1000 / 60) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
 
-  return `${days} Days ${hours} Hours ${minutes} Minutes`;
+  return { days, hours, minutes, seconds };
+});
+
+const formattedEndDate = computed(() => {
+  if (!currentBanners.value.length) return "";
+  const endDate = new Date(currentBanners.value[0].end_date);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short", // short month name e.g., "Dec"
+    day: "numeric", // day number e.g., 2
+    year: "numeric", // full year e.g., 2025
+  }).format(endDate);
 });
 
 async function getCurrentBanners() {
