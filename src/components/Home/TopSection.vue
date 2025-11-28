@@ -25,10 +25,12 @@
           character.
         </p>
 
-        <p class="text-gray-300 leading-relaxed tracking-wide">
-          This isn't a pro-level guide, just a fun project where I explore and
-          find what works best for me. Hope you find something useful here! and
-          enjoy your time in Teyvat!
+        <p class="text-gray-300 leading-relaxed tracking-wide mt-1">
+          This isn't a pro-level guide; there are many ways to min-max builds.
+          The recommendations here are based on common strategies and general
+          best practices. Feel free to experiment and find what works best for
+          your playstyle. There are also links to alternative guides that can
+          help you with min-maxing.
         </p>
       </div>
     </div>
@@ -55,7 +57,7 @@
           Here you can find a comprehensive list of all playable characters
           available in Genshin Impact.
         </p>
-        <div class="flex justify-center mt-4 mb-2">
+        <div class="flex justify-center mt-6">
           <router-link
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/characters"
