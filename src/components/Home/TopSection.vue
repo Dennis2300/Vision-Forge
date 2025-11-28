@@ -5,10 +5,10 @@
       class="bg-secondary w-2/3 rounded-2xl shadow-lg hover:shadow-2xl transition"
     >
       <div
-        class="w-full h-[500px] overflow-hidden flex justify-center items-center rounded-t-2xl"
+        class="h-[500px] overflow-hidden flex justify-center items-center rounded-t-2xl"
       >
         <img
-          class="scale-[0.69]"
+          class="w-full scale-[1.35]"
           src="./../../assets/images/zhongli.webp"
           alt=""
           loading="lazy"
