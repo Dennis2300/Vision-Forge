@@ -6,7 +6,13 @@
         v-if="character.weapons?.length"
         v-for="weapon in character.weapons"
       >
-        <router-link class="text-inherit no-underline">
+        <router-link
+          class="text-inherit no-underline"
+          :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
+            weapon.weapon_id.name
+          )}`"
+          target="_blank"
+        >
           <div
             class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl p-6 gap-4"
           >
