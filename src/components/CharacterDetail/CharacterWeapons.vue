@@ -1,13 +1,13 @@
 <template>
   <article class="mx-24 w-1/2" v-if="character.weapons.length > 0">
-    <h1 class="divider m-0 px-8">Weapons</h1>
+    <h1 class="divider m-0">Weapons</h1>
     <section class="flex flex-col gap-2">
       <template
         v-if="character.weapons?.length"
         v-for="weapon in character.weapons"
       >
         <router-link
-          class="text-inherit no-underline"
+          class="text-inherit no-underline group"
           :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
             weapon.weapon_id.name
           )}`"
@@ -26,7 +26,7 @@
               alt=""
             />
             <div class="flex flex-col gap-3">
-              <h3 class="font-acme tracking-wide">
+              <h3 class="font-acme tracking-wide group-hover:underline">
                 {{ weapon.weapon_id.name }}
               </h3>
               <div class="flex flex-row gap-2">
