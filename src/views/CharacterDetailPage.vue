@@ -27,8 +27,10 @@
         </article>
 
         <CharacterInfo :character="character" />
-        <CharacterWeapons :character="character" />
-        <CharacterArtifacts :character="character" />
+        <div class="w-full h-auto mt-20 mb-5 flex flex-row">
+          <CharacterWeapons :character="character" />
+          <CharacterArtifacts :character="character" />
+        </div>
         <CharacterBuild :character="character" />
         <CharacterMaterials :character="character" />
         <!-- Footer -->
@@ -119,7 +121,7 @@ async function fetchCharacterById(characterId) {
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
         artifacts:character_artifact(*, artifact_id(id, name, flower_img_url)),
-        weapons:character_weapon(*, weapon_id(id, name, rarity, image_url)),
+        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
         materials:character_materials(*, materials_id(*), mat_type(*))
         `
       )
