@@ -1,5 +1,5 @@
 <template>
-  <article class="mx-24 w-1/2" v-if="character.weapons.length > 0">
+  <article class="ml-24 w-1/2" v-if="character.weapons.length > 0">
     <h1 class="divider m-0">Weapons</h1>
     <section class="flex flex-col gap-2">
       <template
