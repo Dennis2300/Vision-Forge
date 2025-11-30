@@ -14,7 +14,7 @@
           target="_blank"
         >
           <div
-            class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl p-6 gap-4"
+            class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl px-6 py-8 gap-6"
           >
             <img
               class="w-24 rounded-3xl"
@@ -39,7 +39,7 @@
                 </p>
               </div>
             </div>
-            <div class="absolute top-3 right-3">
+            <div class="absolute -top-3 -right-3">
               <span
                 class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
                 :class="{
@@ -59,6 +59,7 @@
       </template>
     </section>
   </article>
+  <article class="ml-24 w-1/2" v-else></article>
 </template>
 
 <script setup>
