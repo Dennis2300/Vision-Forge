@@ -2,37 +2,41 @@
   <article class="mx-24 w-1/2" v-if="character.artifacts.length > 0">
     <h1 class="divider m-0">Artifacts</h1>
     <section class="flex flex-col gap-2">
-      <template
-        v-if="character.artifacts?.length"
-        v-for="artifact in character.artifacts"
-      >
+      <template v-for="(group, rank) in artifactsByRank" :key="rank">
         <div
-          class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl p-6 gap-4"
+          class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl p-6 gap-6"
         >
-          <img
-            class="w-24 rounded-3xl rarity-5"
-            :src="artifact.artifact_id.flower_img_url"
-            alt=""
-          />
-          <div class="flex flex-col gap-3">
-            <h3>{{ artifact.artifact_id.name }}</h3>
-            <p class="badge badge-soft badge-accent">
-              {{ artifact.artifact_id.two_piece.name }}
-            </p>
+          <div
+            v-for="artifact in group"
+            :key="artifact.id"
+            class="flex flex-row items-center gap-4"
+          >
+            <img
+              class="w-24 rounded-3xl rarity-5"
+              :src="artifact.artifact_id.flower_img_url"
+              alt=""
+            />
+            <div class="flex flex-col gap-3">
+              <h3>{{ artifact.artifact_id.name }}</h3>
+              <p class="badge badge-soft badge-accent">
+                {{ artifact.artifact_id.two_piece.name }}
+              </p>
+            </div>
           </div>
+
           <div class="absolute top-3 right-3">
             <span
               class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
               :class="{
                 'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black animate-shine':
-                  artifact.rank === 1,
+                  rank == 1,
                 'bg-gradient-to-b from-gray-200 to-gray-400 text-black':
-                  artifact.rank === 2,
+                  rank == 2,
                 'bg-gradient-to-b from-amber-700 to-amber-900 text-white':
-                  artifact.rank === 3,
+                  rank == 3,
               }"
             >
-              {{ artifact.rank }}
+              {{ rank }}
             </span>
           </div>
         </div>
@@ -42,8 +46,21 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   character: Object,
+});
+
+const artifactsByRank = computed(() => {
+  const groups = {};
+
+  for (const art of props.character.artifacts || []) {
+    if (!groups[art.rank]) groups[art.rank] = [];
+    groups[art.rank].push(art);
+  }
+
+  return groups;
 });
 </script>
 
