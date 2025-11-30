@@ -1,10 +1,10 @@
 <template>
-  <article class="mr-24 w-1/2" v-if="character.artifacts.length > 0">
+  <article class="mr-24 w-2/3" v-if="character.artifacts.length > 0">
     <h1 class="divider m-0">Artifacts</h1>
     <section class="flex flex-col gap-2">
       <template v-for="(group, rank) in artifactsByRank" :key="rank">
         <div
-          class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl p-6 gap-6"
+          class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl px-6 py-8 gap-6"
         >
           <div
             v-for="artifact in group"
@@ -17,14 +17,17 @@
               alt=""
             />
             <div class="flex flex-col gap-3">
-              <h3>{{ artifact.artifact_id.name }}</h3>
+              <div>
+                <h3 class="mb-1">{{ artifact.artifact_id.name }}</h3>
+                <span v-if="group.length === 2">2-Piece</span>
+                <span v-if="group.length === 1">4-Piece</span>
+              </div>
               <p class="badge badge-soft badge-accent">
                 {{ artifact.artifact_id.two_piece.name }}
               </p>
             </div>
           </div>
-
-          <div class="absolute top-3 right-3">
+          <div class="absolute -top-3 -right-3">
             <span
               class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
               :class="{
@@ -43,6 +46,7 @@
       </template>
     </section>
   </article>
+  <article class="mr-24 w-1/2" v-else></article>
 </template>
 
 <script setup>
