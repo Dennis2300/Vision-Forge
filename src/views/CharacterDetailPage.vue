@@ -27,7 +27,7 @@
         </article>
 
         <CharacterInfo :character="character" />
-        <div class="w-full h-auto mt-20 mb-5 flex flex-row gap-6">
+        <div class="w-full h-auto mt-20 mb-5 flex flex-row gap-8">
           <CharacterWeapons :character="character" />
           <CharacterArtifacts :character="character" />
         </div>
