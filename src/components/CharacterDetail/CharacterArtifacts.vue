@@ -1,15 +1,15 @@
 <template>
-  <article class="mr-24 w-2/3" v-if="character.artifacts.length > 0">
+  <article class="mr-24 w-1/2" v-if="character.artifacts.length > 0">
     <h1 class="divider m-0">Artifacts</h1>
     <section class="flex flex-col gap-2">
       <template v-for="(group, rank) in artifactsByRank" :key="rank">
         <div
-          class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl px-6 py-8 gap-6"
+          class="relative flex flex-col gap-8 bg-primary p-6 rounded-2xl mt-6"
         >
           <div
             v-for="artifact in group"
             :key="artifact.id"
-            class="flex flex-row items-center gap-4"
+            class="flex flex-row gap-4 items-center"
           >
             <img
               class="w-24 rounded-3xl rarity-5"
@@ -17,7 +17,7 @@
               alt=""
             />
             <div class="flex flex-col gap-3">
-              <div>
+              <div class="flex flex-col gap-0">
                 <h3 class="mb-1">{{ artifact.artifact_id.name }}</h3>
                 <span v-if="group.length === 2">2-Piece</span>
                 <span v-if="group.length === 1">4-Piece</span>
@@ -27,7 +27,7 @@
               </p>
             </div>
           </div>
-          <div class="absolute -top-3 -right-3">
+          <div class="absolute top-3 right-3">
             <span
               class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
               :class="{
