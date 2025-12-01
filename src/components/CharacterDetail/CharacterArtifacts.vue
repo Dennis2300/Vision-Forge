@@ -17,10 +17,10 @@
               alt=""
             />
             <div class="flex flex-col gap-3">
-              <div class="flex flex-col gap-0">
-                <h3 class="mb-1">{{ artifact.artifact_id.name }}</h3>
+              <div class="flex flex-col">
                 <span v-if="group.length === 2">2-Piece</span>
                 <span v-if="group.length === 1">4-Piece</span>
+                <h3>{{ artifact.artifact_id.name }}</h3>
               </div>
               <p class="badge badge-soft badge-accent">
                 {{ artifact.artifact_id.two_piece.name }}
