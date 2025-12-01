@@ -43,7 +43,7 @@
           <div class="divider m-0"></div>
           <h3>
             <strong class="text-gray-500">Source:</strong>
-            {{ weapon.source.name }}
+            {{ weapon.source?.name || 'Unknown' }}
           </h3>
           <div class="divider m-0"></div>
           <div class="h-1/3 overflow-scroll">
