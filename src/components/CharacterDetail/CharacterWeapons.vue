@@ -39,7 +39,7 @@
                 </p>
               </div>
             </div>
-            <div class="absolute -top-3 -right-3">
+            <div class="absolute top-3 right-3">
               <span
                 class="relative flex items-center justify-center w-8 h-8 font-acme rounded-full border-2 border-white shadow-md overflow-hidden"
                 :class="{
