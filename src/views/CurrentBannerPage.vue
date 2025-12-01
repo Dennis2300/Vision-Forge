@@ -1,9 +1,59 @@
 <template>
   <main>
     <LoadingSpinner v-if="loading" />
-    <section class="w-[1400px] min-h-screen mt-10" v-else>
-      <article class="flex flex-col gap-10">
-        <div class="flex gap-5 justify-center mt-4">
+    <section class="w-[1500px] flex flex-col gap-10" v-else>
+      <article class="w-full flex flex-row justify-around">
+        <div class="flex flex-col gap-6">
+          <template v-for="banner in fiveStarBanners" :key="banner.id">
+            <div
+              class="flex flex-row items-center gap-6 p-8 bg-secondary rounded-2xl"
+            >
+              <img
+                class="w-32 rounded-2xl"
+                :class="{
+                  'rarity-5': banner.character.rarity === 5,
+                  'rarity-4': banner.character.rarity === 4,
+                }"
+                :src="banner.character.avatar_url"
+                alt=""
+              />
+              <div class="flex flex-col">
+                <h1>{{ banner.character.name }}</h1>
+                <div class="flex flex-row gap-2">
+                  <p class="badge">{{ banner.character.vision.name }}</p>
+                  <p class="badge">{{ banner.character.weapon_type.name }}</p>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="flex flex-col gap-6">
+          <template v-for="banner in fourStarBanners" :key="banner.id">
+            <div
+              class="flex flex-row items-center gap-6 p-8 bg-secondary rounded-2xl"
+            >
+              <img
+                class="w-32 rounded-2xl"
+                :class="{
+                  'rarity-5': banner.character.rarity === 5,
+                  'rarity-4': banner.character.rarity === 4,
+                }"
+                :src="banner.character.avatar_url"
+                alt=""
+              />
+              <div class="flex flex-col">
+                <h1>{{ banner.character.name }}</h1>
+                <div class="flex flex-row gap-2">
+                  <p class="badge">{{ banner.character.weapon_type.name }}</p>
+                  <p class="badge">{{ banner.character.vision.name }}</p>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </article>
+      <article class="flex flex-col gap-4 w-full">
+        <div class="flex gap-5 justify-center divider">
           <div>
             <span class="countdown font-mono text-4xl">
               <span :style="`--value:${countdownParts.days}`"></span>
@@ -34,59 +84,6 @@
             Banner ends
             <span class="text-tertiary">{{ formattedEndDate }}</span>
           </h2>
-        </div>
-      </article>
-      <article class="flex flex-row justify-around mt-10">
-        <div class="space-y-6">
-          <h2 class="text-2xl font-bold">Current 5 STAR Increased Drop Rate</h2>
-          <div v-for="banner in fiveStarBanners" :key="banner.id">
-            <div class="bg-secondary px-8 py-4">
-              <div class="flex flex-col justify-center items-center gap-4">
-                <img
-                  class="w-32 rounded-2xl"
-                  :class="{
-                    'rarity-5': banner.character.rarity === 5,
-                    'rarity-4': banner.character.rarity === 4,
-                  }"
-                  :src="banner.character.avatar_url"
-                  alt=""
-                />
-                <h1 class="font-acme">{{ banner.character.name }}</h1>
-              </div>
-              <div class="divider m-0"></div>
-              <div class="flex flex-row justify-center gap-4">
-                <p class="badge">{{ banner.character.vision.name }}</p>
-                <p class="badge">{{ banner.character.weapon_type.name }}</p>
-                <p class="badge">{{ banner.character.role.name }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-6">
-          <h2 class="text-2xl font-bold">Current 4 STAR Increased Drop Rate</h2>
-          <div v-for="banner in fourStarBanners" :key="banner.id">
-            <div class="bg-secondary px-8 py-4">
-              <div class="flex flex-col justify-center items-center gap-4">
-                <img
-                  class="w-32 rounded-2xl"
-                  :class="{
-                    'rarity-5': banner.character.rarity === 5,
-                    'rarity-4': banner.character.rarity === 4,
-                  }"
-                  :src="banner.character.avatar_url"
-                  alt=""
-                />
-                <h1 class="font-acme">{{ banner.character.name }}</h1>
-              </div>
-              <div class="divider m-0"></div>
-              <div class="flex flex-row justify-center gap-4">
-                <p class="badge">{{ banner.character.vision.name }}</p>
-                <p class="badge">{{ banner.character.weapon_type.name }}</p>
-                <p class="badge">{{ banner.character.role.name }}</p>
-              </div>
-            </div>
-          </div>
         </div>
       </article>
     </section>
