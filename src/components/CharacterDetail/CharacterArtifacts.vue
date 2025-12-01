@@ -4,7 +4,7 @@
     <section class="flex flex-col gap-2">
       <template v-for="(group, rank) in artifactsByRank" :key="rank">
         <div
-          class="relative flex flex-col gap-8 bg-primary p-6 rounded-2xl mt-6"
+          class="relative flex flex-col gap-8 bg-primary p-8 rounded-2xl mt-6"
         >
           <div
             v-for="artifact in group"
@@ -20,7 +20,9 @@
               <div class="flex flex-col">
                 <span v-if="group.length === 2">2-Piece</span>
                 <span v-if="group.length === 1">4-Piece</span>
-                <h3>{{ artifact.artifact_id.name }}</h3>
+                <h3 class="font-acme tracking-wide">
+                  {{ artifact.artifact_id.name }}
+                </h3>
               </div>
               <p class="badge badge-soft badge-accent">
                 {{ artifact.artifact_id.two_piece.name }}
