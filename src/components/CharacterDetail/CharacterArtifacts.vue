@@ -18,8 +18,12 @@
             />
             <div class="flex flex-col gap-3">
               <div class="flex flex-col">
-                <span v-if="group.length === 2">2-Piece</span>
-                <span v-if="group.length === 1">4-Piece</span>
+                <span v-if="group.length === 2" class="text-tertiary"
+                  >2-Piece</span
+                >
+                <span v-if="group.length === 1" class="text-tertiary"
+                  >4-Piece</span
+                >
                 <h3 class="font-acme tracking-wide">
                   {{ artifact.artifact_id.name }}
                 </h3>
