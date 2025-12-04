@@ -7,18 +7,15 @@
         alt=""
       />
 
-      <div
+      <img
+        class="rounded-full w-48 flex items-center justify-center"
         :class="{
           'rarity-5': character.rarity === 5,
           'rarity-4': character.rarity === 4,
         }"
-      >
-        <img
-          class="character-avatar rounded-full w-48 flex items-center justify-center"
-          :src="character.avatar_url"
-          :alt="character.name"
-        />
-      </div>
+        :src="character.avatar_url"
+        :alt="character.name"
+      />
     </figure>
 
     <header class="text-center">
@@ -53,15 +50,15 @@ defineProps({
 </script>
 
 <style scoped>
-/* .rarity-5 .character-avatar {
+.rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
 
-.rarity-4 .character-avatar {
+.rarity-4{
   background: linear-gradient(145deg, #9b72d5, #7149a3);
   box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
-} */
+}
 </style>
