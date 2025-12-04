@@ -184,12 +184,12 @@
           )}`"
           target="_blank"
           class="character-item hover-underline-animation center"
-          v-for="character in characters"
-          :key="character.id"
           :class="{
             'rarity-5': character.rarity === 5,
             'rarity-4': character.rarity === 4,
           }"
+          v-for="character in characters"
+          :key="character.id"
         >
           <!-- Character Overview -->
           <div class="character-item-overview">
@@ -216,6 +216,10 @@
             <div class="character-item-info">
               <img
                 class="character-item-image"
+                :class="{
+                  'rarity-5': character.rarity === 5,
+                  'rarity-4': character.rarity === 4,
+                }"
                 :src="character.avatar_url"
                 loading="lazy"
                 :alt="character.name"
@@ -595,3 +599,16 @@ onUnmounted(() => {
   }
 });
 </script>
+
+<style scoped>
+.rarity-5 {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+.rarity-4 {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+</style>

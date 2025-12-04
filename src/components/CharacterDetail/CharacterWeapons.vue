@@ -70,7 +70,7 @@ defineProps({
 </script>
 
 <style scoped>
-.rarity-5 {
+/* .rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
@@ -86,5 +86,5 @@ defineProps({
   background: linear-gradient(145deg, #567496, #3a77b1);
   box-shadow: 0px 0px 15px rgba(86, 116, 150, 0.8),
     0px 0px 30px rgba(86, 116, 150, 0.5);
-}
+} */
 </style>
