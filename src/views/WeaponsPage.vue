@@ -19,19 +19,16 @@
         :to="`/weapons/${weapon.id}?name=${encodeURIComponent(weapon.name)}`"
         target="_blank"
       >
-        <div
+        <img
+          class="rounded-2xl pt-2 w-32"
           :class="{
             'rarity-5': weapon.rarity === 5,
             'rarity-4': weapon.rarity === 4,
             'rarity-3': weapon.rarity === 3,
           }"
-        >
-          <img
-            class="weapon-image rounded-2xl pt-2 w-32"
-            :src="weapon.image_url"
-            alt=""
-          />
-        </div>
+          :src="weapon.image_url"
+          alt=""
+        />
         <h3>{{ weapon.name }}</h3>
       </router-link>
     </div>
@@ -117,7 +114,7 @@ onMounted(() => {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* .rarity-3 {
+.rarity-3 {
   background: linear-gradient(145deg, #567496, #3a77b1);
   box-shadow: 0px 0px 15px rgba(86, 116, 150, 0.8),
     0px 0px 30px rgba(86, 116, 150, 0.5);
@@ -132,5 +129,5 @@ onMounted(() => {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
   box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
-} */
+}
 </style>
