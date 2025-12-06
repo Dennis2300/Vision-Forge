@@ -10,7 +10,7 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith("l-")
+          isCustomElement: (tag) => tag.startsWith("l-"),
         },
       },
     }),
@@ -19,6 +19,15 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    environmentOptions: {
+      jsdom: {
+        resources: "usable",
+      },
     },
   },
 });
