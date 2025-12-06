@@ -1,22 +1,21 @@
 import { mount } from "@vue/test-utils";
-import TopSection from "./../src/components/Home/TopSection.vue"
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import TopSection from "../src/components/Home/TopSection.vue";
+import { describe, it, expect } from "vitest";
 
 describe("TopSection buttons", () => {
   let wrapper;
-  const mockRouter = { push: vi.fn() };
 
   beforeEach(() => {
     wrapper = mount(TopSection, {
       global: {
-        mocks: { $router: mockRouter },
+        stubs: ["router-link"],
       },
     });
-    mockRouter.push.mockClear();
   });
 
-  it("navigates to /characters when clicking Characters button", async () => {
-    await wrapper.find('[data-test="btn-characters"]').trigger("click");
-    expect(mockRouter.push).toHaveBeenCalledWith("/characters");
+  it("renders Characters button with correct route", () => {
+    const btn = wrapper.find('[data-test="btn-characters"]');
+    expect(btn.exists()).toBe(true);
+    expect(btn.attributes("to")).toBe("/characters");
   });
 });
