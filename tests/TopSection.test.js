@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import TopSection from "../src/components/TopSection.vue";
+import TopSection from "./../src/components/Home/TopSection.vue"
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 describe("TopSection buttons", () => {
