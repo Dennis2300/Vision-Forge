@@ -3,6 +3,9 @@ import { mount } from "@vue/test-utils";
 import { createRouter, createMemoryHistory } from "vue-router";
 import TopSection from "./../src/components/Home/TopSection.vue";
 
+// Only test if the router-link is with the correct atrribute
+// DOES NOT check if it acutally renderes /character
+
 const routes = [{ path: "/characters", name: "Characters" }];
 
 const router = createRouter({

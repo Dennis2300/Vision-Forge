@@ -21,7 +21,7 @@ async function fetchUpdates() {
 }
 
 onMounted(() => {
-  fetchUpdates();
+  fetchUpdates();  
 });
 </script>
 
