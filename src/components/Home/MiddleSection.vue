@@ -23,7 +23,6 @@
           <router-link
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/weapons"
-            data-test="btn-weapons"
           >
             Go to Weapons
           </router-link>
@@ -53,7 +52,6 @@
           <router-link
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/artifacts"
-            data-test="btn-artifacts"
           >
             Go to Artifacts
           </router-link>
