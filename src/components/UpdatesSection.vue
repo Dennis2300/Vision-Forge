@@ -54,7 +54,7 @@ onMounted(() => {
             </span>
 
             <span
-              class="text-gray-500 underline flex items-center justify-center"
+              class="text-tertiary underline flex items-center justify-center"
             >
               {{ new Date(update.published_at).toLocaleDateString() }}
             </span>
