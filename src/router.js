@@ -8,12 +8,14 @@ import WeaponsPage from "./views/WeaponsPage.vue";
 import ArtifactsPage from "./views/ArtifactsPage.vue";
 import WeaponDetailPage from "./views/WeaponDetailPage.vue";
 import ContributePage from "./views/ContributePage.vue";
+import LoginPage from "./views/LoginPage.vue";
 import CurrentBannerPage from "./views/CurrentBannerPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
   { path: "/about", component: AboutPage },
   { path: "/teams", component: TeamsPage },
+  { path: "/login", component: LoginPage },
   { path: "/characters", component: CharactersPage },
   {
     path: "/characters/:id",
