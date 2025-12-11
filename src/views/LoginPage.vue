@@ -27,7 +27,6 @@ let email = ref("");
 let password = ref("");
 
 async function createUser() {
-  console.log(email.value, password.value);
   const { data, error } = await supabase.auth.signUp({
     email: email.value,
     password: password.value,
@@ -38,13 +37,27 @@ async function createUser() {
     console.log(data);
   }
 }
-function login() {
-  console.log("Login");
+async function login() {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value,
+  });
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+  }
 }
-function seeCurrentUser() {
-  console.log("Current User");
+async function seeCurrentUser() {
+  const localUser = await supabase.auth.getSession();
+  console.log(localUser);
 }
-function logout() {
-  console.log("Logged out");
+async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Logged Out");
+  }
 }
 </script>
