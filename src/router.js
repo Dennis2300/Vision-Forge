@@ -10,12 +10,14 @@ import WeaponDetailPage from "./views/WeaponDetailPage.vue";
 import ContributePage from "./views/ContributePage.vue";
 import LoginPage from "./views/LoginPage.vue";
 import CurrentBannerPage from "./views/CurrentBannerPage.vue";
+import AdminPage from "./views/AdminPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
   { path: "/about", component: AboutPage },
   { path: "/teams", component: TeamsPage },
   { path: "/login", component: LoginPage },
+  { path: "/admin", component: AdminPage },
   { path: "/characters", component: CharactersPage },
   {
     path: "/characters/:id",
