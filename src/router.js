@@ -11,6 +11,7 @@ import ContributePage from "./views/ContributePage.vue";
 import LoginPage from "./views/LoginPage.vue";
 import CurrentBannerPage from "./views/CurrentBannerPage.vue";
 import AdminPage from "./views/AdminPage.vue";
+import UnauthorizedPage from "./views/UnauthorizedPage.vue";
 
 const routes = [
   { path: "/", component: HomePage },
@@ -18,6 +19,7 @@ const routes = [
   { path: "/teams", component: TeamsPage },
   { path: "/login", component: LoginPage },
   { path: "/admin", component: AdminPage },
+  { path: "/unauthorized", component: UnauthorizedPage },
   { path: "/characters", component: CharactersPage },
   {
     path: "/characters/:id",
