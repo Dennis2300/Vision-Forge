@@ -13,7 +13,6 @@
     <div class="mt-6 flex flex-col gap-2">
       <button @click="createUser">Create</button>
       <button @click="login">Log in</button>
-      <button @click="seeCurrentUser">See user</button>
       <button @click="logout">Log out</button>
     </div>
   </div>
@@ -48,10 +47,7 @@ async function login() {
     console.log(data);
   }
 }
-async function seeCurrentUser() {
-  const localUser = await supabase.auth.getSession();
-  console.log(localUser);
-}
+
 async function logout() {
   const { error } = await supabase.auth.signOut();
   if (error) {
