@@ -21,6 +21,9 @@
           id="password"
         />
       </div>
+        <button class="btn btn-primary px-4" @click="login">
+          {{ loggingIn ? "Logging in..." : "Login" }}
+        </button>
     </div>
   </div>
   <!-- <div class="flex flex-col gap-6">
