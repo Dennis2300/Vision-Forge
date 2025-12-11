@@ -1,5 +1,5 @@
 <template>
-  <div class="left-nav flex flex-row items-end">
+  <div class="left-nav flex flex-col">
     <RouterLink class="nav-logo" to="/">
       <img
         class="logo"
@@ -8,8 +8,8 @@
         alt=""
       />
       <span class="nav-title">Vision Forge</span>
+      <p class="text-sm ml-1">Beta v0.1</p>
     </RouterLink>
-    <p class="text-sm ml-1">Beta v0.1</p>
   </div>
   <div class="middle-nav"></div>
   <div class="right-nav">
