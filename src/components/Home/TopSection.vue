@@ -58,12 +58,12 @@
           available in Genshin Impact.
         </p>
         <div class="flex justify-center mt-6">
-          <router-link
+          <RouterLink
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/characters"
           >
             Go to Characters
-          </router-link>
+          </RouterLink>
         </div>
       </div>
     </div>

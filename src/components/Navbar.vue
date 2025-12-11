@@ -1,6 +1,6 @@
 <template>
   <div class="left-nav flex flex-row items-end">
-    <router-link class="nav-logo" to="/">
+    <RouterLink class="nav-logo" to="/">
       <img
         class="logo"
         loading="lazy"
@@ -8,17 +8,19 @@
         alt=""
       />
       <span class="nav-title">Vision Forge</span>
-    </router-link>
+    </RouterLink>
     <p class="text-sm ml-1">Beta v0.1</p>
   </div>
   <div class="middle-nav"></div>
   <div class="right-nav">
-    <router-link class="nav-item" to="/">Home</router-link>
-    <router-link class="nav-item" to="/characters">Characters</router-link>
-    <router-link class="nav-item" to="/weapons">Weapons</router-link>
-    <router-link class="nav-item" to="/artifacts">Artifacts</router-link>
-    <router-link class="nav-item" to="/current-banner">Current Banner</router-link>
-    <router-link class="nav-item" to="/about">About</router-link>
+    <RouterLink class="nav-item" to="/">Home</RouterLink>
+    <RouterLink class="nav-item" to="/characters">Characters</RouterLink>
+    <RouterLink class="nav-item" to="/weapons">Weapons</RouterLink>
+    <RouterLink class="nav-item" to="/artifacts">Artifacts</RouterLink>
+    <RouterLink class="nav-item" to="/current-banner"
+      >Current Banner</RouterLink
+    >
+    <RouterLink class="nav-item" to="/about">About</RouterLink>
   </div>
 </template>
 

@@ -20,12 +20,12 @@
           With their materials, stats and attributes.
         </p>
         <div class="flex justify-start my-4">
-          <router-link
+          <RouterLink
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/weapons"
           >
             Go to Weapons
-          </router-link>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -49,12 +49,12 @@
           With their set bonuses and where to farm them.
         </p>
         <div class="flex justify-start my-4">
-          <router-link
+          <RouterLink
             class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
             to="/artifacts"
           >
             Go to Artifacts
-          </router-link>
+          </RouterLink>
         </div>
       </div>
     </div>

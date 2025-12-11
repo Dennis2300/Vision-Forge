@@ -12,7 +12,7 @@
     <!-- Grid -->
     <div class="grid grid-cols-4 gap-8 p-5">
       <!-- Weapon Card -->
-      <router-link
+      <RouterLink
         class="weapon-card flex flex-col justify-center items-center py-12 gap-10 rounded-xl"
         v-for="weapon in weapons"
         :key="weapon.id"
@@ -30,7 +30,7 @@
           alt=""
         />
         <h3>{{ weapon.name }}</h3>
-      </router-link>
+      </RouterLink>
     </div>
   </div>
 </template>

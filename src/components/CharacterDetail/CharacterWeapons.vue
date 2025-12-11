@@ -6,7 +6,7 @@
         v-if="character.weapons?.length"
         v-for="weapon in character.weapons"
       >
-        <router-link
+        <RouterLink
           class="text-inherit no-underline group"
           :to="`/weapons/${weapon.weapon_id.id}?name=${encodeURIComponent(
             weapon.weapon_id.name
@@ -56,7 +56,7 @@
               </span>
             </div>
           </div>
-        </router-link>
+        </RouterLink>
       </template>
     </section>
   </article>

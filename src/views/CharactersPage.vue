@@ -178,7 +178,7 @@
       <!-- Character Display -->
       <div class="character-display-container">
         <!-- Character Card -->
-        <router-link
+        <RouterLink
           :to="`/characters/${character.id}?name=${encodeURIComponent(
             character.name
           )}`"
@@ -266,7 +266,7 @@
               }}
             </p>
           </div>
-        </router-link>
+        </RouterLink>
         <!-- Sentinel For Loading More -->
         <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
           <LoadingMoreSpinner />

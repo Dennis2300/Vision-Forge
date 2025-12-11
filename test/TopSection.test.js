@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import { createRouter, createMemoryHistory } from "vue-router";
 import TopSection from "./../src/components/Home/TopSection.vue";
 
-// Only test if the router-link is with the correct atrribute
+// Only test if the RouterLink is with the correct atrribute
 // DOES NOT check if it acutally renderes /character
 
 const routes = [{ path: "/characters", name: "Characters" }];
@@ -14,7 +14,7 @@ const router = createRouter({
 });
 
 describe("TopSection.vue", () => {
-  it('renders router-link with correct "to" attribute', async () => {
+  it('renders RouterLink with correct "to" attribute', async () => {
     const wrapper = mount(TopSection, {
       global: {
         plugins: [router],
