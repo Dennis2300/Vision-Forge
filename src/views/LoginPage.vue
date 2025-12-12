@@ -35,7 +35,6 @@
       <button class="btn btn-primary px-4" @click="login">
         {{ loggingIn ? "Logging in..." : "Login" }}
       </button>
-      <button @click="logout">Log out</button>
     </div>
     <!---->
   </div>
@@ -87,14 +86,5 @@ async function login() {
     console.log(data);
   }
   router.push("/admin");
-}
-
-async function logout() {
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Logged Out");
-  }
 }
 </script>
