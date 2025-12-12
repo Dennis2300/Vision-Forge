@@ -6,7 +6,7 @@
   <!---->
   <div class="weapon-page-container" v-else>
     <!-- Header -->
-    <div class="flex flex-col justify-center items-center mt-10">
+    <div class="flex flex-col justify-center items-center mt-32 mb-10">
       <h1 class="divider tracking-wider px-32">Weapon Archive</h1>
     </div>
     <!-- Grid -->
