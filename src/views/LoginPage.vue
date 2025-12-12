@@ -42,7 +42,10 @@
         <p v-if="loginError" class="absolute top-4 text-red-500">
           {{ loginError }}
         </p>
-        <button class="btn btn-primary px-4" @click="login">Login</button>
+        <button class="btn btn-primary px-4" v-if="!loginLoader" @click="login">
+          Login
+        </button>
+        <button class="btn btn-primary px-4" v-if="loginLoader">Logging in...</button>
       </div>
     </div>
   </div>
@@ -57,6 +60,7 @@ import { user } from "./../auth";
 let email = ref("");
 let password = ref("");
 const loginError = ref("");
+const loginLoader = ref(false);
 
 const router = useRouter();
 
@@ -74,6 +78,7 @@ async function createUser() {
 
 async function login() {
   loginError.value = "";
+  loginLoader.value = true;
 
   if (!email.value.trim()) {
     loginError.value = "Email is required.";
@@ -97,6 +102,7 @@ async function login() {
     return;
   }
 
+  loginLoader.value = false;
   router.push("/admin");
 }
 
