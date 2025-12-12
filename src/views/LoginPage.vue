@@ -82,11 +82,13 @@ async function login() {
 
   if (!email.value.trim()) {
     loginError.value = "Email is required.";
+    loginLoader.value = false;
     return;
   }
 
   if (!password.value.trim()) {
     loginError.value = "Password is required.";
+    loginLoader.value = false;
     return;
   }
 
@@ -99,6 +101,7 @@ async function login() {
     if (error.message) {
       loginError.value = "Invalid login credentials";
     }
+    loginLoader.value = false;
     return;
   }
 
