@@ -45,7 +45,7 @@
         <button class="btn btn-primary px-4" v-if="!loginLoader" @click="login">
           Login
         </button>
-        <button class="btn btn-primary px-4" v-if="loginLoader">Logging in...</button>
+        <div class="btn btn-primary px-4" v-if="loginLoader">Logging in...</div>
       </div>
     </div>
   </div>
