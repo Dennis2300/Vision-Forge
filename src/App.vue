@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
-import { initAuth, user } from "./auth";
+import { user } from "./auth";
 import Navbar from "./components/Navbar.vue";
 import AdminNavbar from "./components/AdminNavbar.vue";
 import SupportPopup from "./components/Home/SupportPopup.vue";
@@ -75,7 +75,6 @@ const handleScroll = () => {
 const isAuth = computed(() => !!user.value);
 
 onMounted(() => {
-  initAuth();
   // Scroll listener
   window.addEventListener("scroll", handleScroll);
 
