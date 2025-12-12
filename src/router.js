@@ -62,7 +62,7 @@ async function getUser(next) {
   if (localUser.data.session === null) {
     next("/unauthorized");
   } else {
-    next(); 
+    next();
   }
 }
 

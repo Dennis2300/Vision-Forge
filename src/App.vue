@@ -7,9 +7,8 @@
   <!-- Main APP -->
   <div v-else>
     <!-- Navbar Component -->
-    <div class="navbar-container" :class="{ 'navbar-hidden': isScrollingDown }">
+    <div class="navbar-container flex items-center" :class="{ 'navbar-hidden': isScrollingDown }">
       <Navbar />
-      <AdminNavbar v-if="isAuth" />
     </div>
 
     <!-- Main Content Section -->
@@ -40,10 +39,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, computed } from "vue";
-import { user } from "./auth";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import Navbar from "./components/Navbar.vue";
-import AdminNavbar from "./components/AdminNavbar.vue";
 import SupportPopup from "./components/Home/SupportPopup.vue";
 import Footer from "./components/Footer.vue";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner.vue";
@@ -71,8 +68,6 @@ const handleScroll = () => {
 
   lastScrollY = currentScrollY;
 };
-
-const isAuth = computed(() => !!user.value);
 
 onMounted(() => {
   // Scroll listener
@@ -107,16 +102,10 @@ onBeforeUnmount(() => {
   left: 0;
   right: 0;
   width: 100vw;
-  height: 60px;
+  height: 66px;
   background-color: #0b192c;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
   color: white;
-  letter-spacing: 1px;
-  font-size: 1.5rem;
   box-shadow: 0 5px 4px rgba(0, 0, 0, 0.5);
-  padding-top: 5px;
   z-index: 1000;
   transition: transform 0.3s ease-in-out;
 }
