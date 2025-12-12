@@ -9,6 +9,7 @@
     <!-- Navbar Component -->
     <div class="navbar-container" :class="{ 'navbar-hidden': isScrollingDown }">
       <Navbar />
+      <AdminNavbar v-if="isAuth" />
     </div>
 
     <!-- Main Content Section -->
@@ -39,17 +40,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { initAuth, user } from "./auth";
 import Navbar from "./components/Navbar.vue";
+import AdminNavbar from "./components/AdminNavbar.vue";
 import SupportPopup from "./components/Home/SupportPopup.vue";
 import Footer from "./components/Footer.vue";
 import LoadingSpinner from "./components/Loadings/LoadingSpinner.vue";
 
+// Pop up state
 const showPopup = ref(false);
 
 // Navbar scroll behavior
 const isScrollingDown = ref(false);
 let lastScrollY = window.scrollY;
+
+// Loading state for the entire HTML
+const isLoaded = ref(false);
 
 const handleScroll = () => {
   const currentScrollY = window.scrollY;
@@ -65,10 +72,10 @@ const handleScroll = () => {
   lastScrollY = currentScrollY;
 };
 
-// Loading state for the entire HTML
-const isLoaded = ref(false);
+const isAuth = computed(() => !!user.value);
 
 onMounted(() => {
+  initAuth();
   // Scroll listener
   window.addEventListener("scroll", handleScroll);
 
