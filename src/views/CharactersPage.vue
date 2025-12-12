@@ -1,6 +1,6 @@
 <template>
   <!-- Character Page Container -->
-  <div class="character-page-container">
+  <div class="character-page-container mt-24">
     <!-- Character Page Header -->
     <div class="character-page-header-container mt-5">
       <div class="character-page-header-banner">
