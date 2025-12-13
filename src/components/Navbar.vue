@@ -20,7 +20,7 @@
         class="font-acme tracking-wide"
         :class="[
           'text-2xl no-underline transition duration-200',
-          route.path === nav.path
+          router.path === nav.path
             ? 'text-tertiary -translate-y-0.5'
             : 'text-white hover:text-tertiary hover:-translate-y-0.5',
         ]"
@@ -28,27 +28,50 @@
         {{ nav.name }}
       </RouterLink>
     </div>
-    <div class="w-1/4 flex justify-end items-center">
-      <div>Right</div>
-      <div v-if="isAuth">Admin only</div>
+    <div class="w-1/4 flex justify-end items-center gap-4">
+      <div v-if="isAuth" class="flex flex-row items-center gap-4">
+        <div class="btn btn-primary px-4 tracking-wide">
+          <RouterLink to="/admin" class="text-white no-underline"
+            >Admin</RouterLink
+          >
+        </div>
+        <button class="btn btn-primary px-4 mr-4" @click="logout">
+          <p v-if="loggingOut">Logging out</p>
+          <p v-else>Log out</p>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { user } from "../auth";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { supabase } from "./../supabaseClient";
 
 const isAuth = computed(() => !!user.value);
-const route = useRoute();
+const router = useRouter();
+const loggingOut = ref(false);
 
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Characters", path: "/characters" },
   { name: "Weapons", path: "/weapons" },
   { name: "Artifacts", path: "/artifacts" },
-  { name: "Current Banner", path: "/current-banner" },
+  { name: "Banners", path: "/current-banner" },
   { name: "About", path: "/about" },
 ];
+
+async function logout() {
+  loggingOut.value = true;
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.log(error);
+  } else {
+    router.push("/");
+    console.log("Logged Out");
+    loggingOut.value = false;
+  }
+}
 </script>

@@ -14,6 +14,7 @@
             target="_blank"
             >Github</a
           >
+          <RouterLink to="/login" class="text-white">Login</RouterLink>
         </div>
       </nav>
     </div>
