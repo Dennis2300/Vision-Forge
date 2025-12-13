@@ -1,9 +1,6 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <div
-    v-else
-    class=" bg-secondary rounded-2xl p-4 flex flex-col justify-center items-center"
-  >
+  <div v-else class="rounded-2xl p-4 flex flex-col justify-center items-center">
     <h1>Create User</h1>
     <div class="flex flex-col mt-4">
       <label for="email">Email</label>

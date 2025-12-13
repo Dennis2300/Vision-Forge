@@ -64,18 +64,6 @@ const loginLoader = ref(false);
 
 const router = useRouter();
 
-async function createUser() {
-  const { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-  });
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(data);
-  }
-}
-
 async function login() {
   loginError.value = "";
   loginLoader.value = true;
