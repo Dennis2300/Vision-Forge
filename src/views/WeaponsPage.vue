@@ -1,7 +1,21 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <div v-else class="weapon-page">
-    <h1 class="divider tracking-wider">Weapon Archive</h1>
+  <div v-else class="w-3/4 min-h-screen">
+    <div class="h-[175px] w-3/4 relative rounded-2xl mx-auto">
+      <h1
+        class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
+      >
+        Weapon Archive
+      </h1>
+      <div class="absolute inset-0 bg-black/50 z-10 rounded-2xl"></div>
+      <img
+        class="w-full h-full object-cover rounded-2xl"
+        src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/03/77454259/c9ca59e15d1f61f53d0b3135794d001e_1968227873859734274.png?x-oss-process=image%2Fformat%2Cwebp"
+        alt=""
+        loading="lazy"
+      />
+    </div>
+    <div class="divider my-4 px-24"></div>
     <div class="grid grid-cols-4 gap-8">
       <RouterLink
         class="weapon-card flex flex-col justify-center items-center py-12 gap-10 rounded-xl"

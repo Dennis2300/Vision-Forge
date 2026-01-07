@@ -1,6 +1,6 @@
 <template>
   <section class="voice-actor-container">
-    <h2 class="divider tracking-wider">Voice Actors</h2>
+    <h2 class="divider tracking-wider mb-5">Voice Actors</h2>
 
     <template v-if="props.character?.va?.length">
       <div class="flex flex-row justify-around">
@@ -25,7 +25,7 @@
                 <template v-else>
                   {{ a.name }}
                 </template>
-                <span v-if="index < item.actors.length - 1">&</span>
+                <span v-if="index < item.actors.length - 1"> & </span>
               </template>
             </template>
             <template v-else>No VA</template>

@@ -1,6 +1,6 @@
 <template>
   <section class="w-1/2">
-    <h2 class="divider tracking-wider">Regions</h2>
+    <h2 class="divider tracking-wider mb-4">Regions</h2>
 
     <template v-if="character.regions?.length">
       <ul

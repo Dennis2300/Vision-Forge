@@ -1,17 +1,21 @@
 <template>
-  <!-- Loader -->
-  <div v-if="loading">
-    <LoadingSpinner />
-  </div>
-
-  <!-- Content -->
-  <div v-else class="artifacts-page">
-    <!-- Header -->
-    <div class="flex flex-col justify-center items-center">
-      <h1 class="divider tracking-wider px-32">Artifacts Archive</h1>
+  <LoadingSpinner v-if="loading" />
+  <div v-else class="w-3/4 min-h-screen">
+    <div class="h-[175px] w-3/4 relative rounded-2xl mx-auto">
+      <h1
+        class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
+      >
+        Artifact Archive
+      </h1>
+      <div class="absolute inset-0 bg-black/50 z-10 rounded-2xl"></div>
+      <img
+        class="w-full h-full object-cover object-bottom rounded-2xl"
+        src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/07/77454259/c637405f1e1e8c997b72c82d5e346f37_2091886501370592478.png?x-oss-process=image%2Fformat%2Cwebp"
+        alt=""
+        loading="lazy"
+      />
     </div>
-
-    <!-- Artifacts Grid -->
+    <div class="divider my-4 px-24"></div>
     <div class="mt-8">
       <div class="grid grid-cols-4 gap-8">
         <template v-for="artifact in artifacts" :key="artifact.id">
