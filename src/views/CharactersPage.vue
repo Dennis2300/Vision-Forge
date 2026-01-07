@@ -17,7 +17,7 @@
 
     <div class="divider my-4 px-24"></div>
 
-    <p class="text-center px-36">
+    <p class="text-center px-32 text-lg/6 tracking-wide">
       Here you can find a comprehensive list of all playable characters available in
       Genshin Impact, by clicking on their names to see their details,
       attributes and builds. Use the filter options to easily find characters
@@ -26,10 +26,10 @@
 
     <div class="character-page my-8" v-if="!error">
       <!-- Offset For Filters -->
-      <div class="offset">
+      <div class="offset flex flex-col gap-5">
         <!-- rarity -->
-        <h2 class="divider">Rarity</h2>
-        <div class="rarity-container mb-10">
+        <h2 class="divider mt-3">Rarity</h2>
+        <div class="rarity-container">
           <div
             class="rarity-item selected"
             :class="{ active: selectedRarity === 5 }"
@@ -46,8 +46,8 @@
           </div>
         </div>
         <!-- vision -->
-        <h2 class="divider">Vision</h2>
-        <div class="filter-container mb-10">
+        <h2 class="divider ">Vision</h2>
+        <div class="filter-container">
           <div class="custom-dropdown">
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('vision')">
@@ -87,7 +87,7 @@
         </div>
         <!-- weapon -->
         <h2 class="divider">Weapon Type</h2>
-        <div class="filter-container mb-10">
+        <div class="filter-container ">
           <div class="custom-dropdown">
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('weapon')">
@@ -127,7 +127,7 @@
         </div>
         <!-- region -->
         <h2 class="divider">Region</h2>
-        <div class="filter-container mb-8">
+        <div class="filter-container ">
           <div class="custom-dropdown">
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('region')">
@@ -167,7 +167,7 @@
         </div>
         <!-- Apply And Reset Button -->
         <div class="divider"></div>
-        <div class="filter-buttons-container mb-4">
+        <div class="filter-buttons-container ">
           <button class="filter-button" @click="resetFilters">Reset</button>
           <button class="filter-button" @click="applyFilters">Apply</button>
         </div>
