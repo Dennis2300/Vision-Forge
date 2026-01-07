@@ -26,7 +26,7 @@
 
     <div class="character-page my-8" v-if="!error">
       <!-- Offset For Filters -->
-      <div class="offset flex flex-col gap-5">
+      <div class="offset flex flex-col gap-6">
         <!-- rarity -->
         <h2 class="divider mt-3">Rarity</h2>
         <div class="rarity-container">
