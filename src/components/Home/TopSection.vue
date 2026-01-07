@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row gap-10 mt-10">
+  <div class="flex flex-row gap-10">
     <!-- left -->
     <div
       class="bg-secondary w-2/3 rounded-2xl shadow-lg hover:shadow-2xl transition"
