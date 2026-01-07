@@ -1,27 +1,30 @@
 <template>
-  <!-- Character Page Container -->
-  <div class="character-page-container mt-24">
-    <!-- Character Page Header -->
-    <div class="character-page-header-container mt-5">
-      <div class="character-page-header-banner">
-        <h1 class="character-page-header">Character Page</h1>
-        <img
-          class="character-page-header-image"
-          src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/07/09/237301566/2627ae5e68e2632df6eeb87b58b6a4f6_8879732995034865752.png?x-oss-process=image%2Fformat%2Cwebp"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-      <div class="divider px-10"></div>
-      <p class="character-page-header-description">
-        Here you can find a comprehensive list of all characters available in
-        Genshin Impact, by clicking on their names to see their details,
-        attributes and builds. Use the filter options to easily find characters
-        based on your preferences.
-      </p>
+  <div class="w-3/4 min-h-screen">
+    <div class="h-[175px] w-3/4 relative rounded-2xl mx-auto">
+      <h1
+        class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
+      >
+        Character Archive
+      </h1>
+      <div class="absolute inset-0 bg-black/50 z-10 rounded-2xl"></div>
+      <img
+        class="w-full h-full object-cover object-bottom rounded-2xl"
+        src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/07/09/237301566/2627ae5e68e2632df6eeb87b58b6a4f6_8879732995034865752.png?x-oss-process=image%2Fformat%2Cwebp"
+        alt=""
+        loading="lazy"
+      />
     </div>
-    <!-- Character Page Content -->
-    <div class="character-page mb-16" v-if="!error">
+
+    <div class="divider my-4 px-24"></div>
+
+    <p class="text-center px-36">
+      Here you can find a comprehensive list of all playable characters available in
+      Genshin Impact, by clicking on their names to see their details,
+      attributes and builds. Use the filter options to easily find characters
+      based on your preferences.
+    </p>
+
+    <div class="character-page my-8" v-if="!error">
       <!-- Offset For Filters -->
       <div class="offset">
         <!-- rarity -->
