@@ -167,7 +167,7 @@
         </div>
         <!-- Apply And Reset Button -->
         <div class="divider"></div>
-        <div class="filter-buttons-container ">
+        <div class="filter-buttons-container">
           <button class="filter-button" @click="resetFilters">Reset</button>
           <button class="filter-button" @click="applyFilters">Apply</button>
         </div>
