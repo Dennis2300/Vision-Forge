@@ -16,20 +16,18 @@
       />
     </div>
     <div class="divider my-4 px-24"></div>
-    <div class="mt-8">
-      <div class="grid grid-cols-4 gap-8">
-        <template v-for="artifact in artifacts" :key="artifact.id">
-          <div
-            class="artifact-card text-center bg-secondary px-8 py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-200"
-            @click="toggleArtifact(artifact.id)"
-          >
-            <img class="w-32 mx-auto" :src="artifact.flower_img_url" alt="" />
-            <h3 class="w-full truncate tracking-wide font-acme mt-2">
-              {{ artifact.name }}
-            </h3>
-          </div>
-        </template>
-      </div>
+    <div class="grid grid-cols-4 gap-8">
+      <template v-for="artifact in artifacts" :key="artifact.id">
+        <div
+          class="artifact-card text-center bg-secondary px-8 py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-200"
+          @click="toggleArtifact(artifact.id)"
+        >
+          <img class="w-32 mx-auto" :src="artifact.flower_img_url" alt="" />
+          <h3 class="w-full truncate tracking-wide font-acme mt-2">
+            {{ artifact.name }}
+          </h3>
+        </div>
+      </template>
     </div>
 
     <!-- Popup Overlay -->
