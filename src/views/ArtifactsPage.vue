@@ -5,9 +5,9 @@
   </div>
 
   <!-- Content -->
-  <div v-else class="artifacts-page mb-24 mt-24">
+  <div v-else class="artifacts-page">
     <!-- Header -->
-    <div class="flex flex-col justify-center items-center mt-10">
+    <div class="flex flex-col justify-center items-center">
       <h1 class="divider tracking-wider px-32">Artifacts Archive</h1>
     </div>
 
