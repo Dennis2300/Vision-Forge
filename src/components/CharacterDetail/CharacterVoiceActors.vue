@@ -33,8 +33,9 @@
         </ul>
       </div>
     </template>
-
-    <p v-else class="text-center">No VA Announced Yet</p>
+    <div v-else class="flex justify-center items-center h-full">
+      <p class="text-red-700">Not Revealed</p>
+    </div>
   </section>
 </template>
 
