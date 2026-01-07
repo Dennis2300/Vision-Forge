@@ -18,10 +18,10 @@
     <div class="divider my-4 px-24"></div>
 
     <p class="text-center px-32 text-lg/6 tracking-wide">
-      Here you can find a comprehensive list of all playable characters available in
-      Genshin Impact, by clicking on their names to see their details,
-      attributes and builds. Use the filter options to easily find characters
-      based on your preferences.
+      Here you can find a comprehensive list of all playable characters
+      available in Genshin Impact, by clicking on their names to see their
+      details, attributes and builds. Use the filter options to easily find
+      characters based on your preferences.
     </p>
 
     <div class="character-page my-8" v-if="!error">
@@ -46,7 +46,7 @@
           </div>
         </div>
         <!-- vision -->
-        <h2 class="divider ">Vision</h2>
+        <h2 class="divider">Vision</h2>
         <div class="filter-container">
           <div class="custom-dropdown">
             <!-- Selected item -->
@@ -87,7 +87,7 @@
         </div>
         <!-- weapon -->
         <h2 class="divider">Weapon Type</h2>
-        <div class="filter-container ">
+        <div class="filter-container">
           <div class="custom-dropdown">
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('weapon')">
@@ -127,7 +127,7 @@
         </div>
         <!-- region -->
         <h2 class="divider">Region</h2>
-        <div class="filter-container ">
+        <div class="filter-container">
           <div class="custom-dropdown">
             <!-- Selected item -->
             <div class="dropdown-selected" @click="toggleDropdown('region')">
