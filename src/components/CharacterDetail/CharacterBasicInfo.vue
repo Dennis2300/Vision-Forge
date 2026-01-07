@@ -22,8 +22,8 @@
       <h1 class="font-acme text-5xl mt-4 tracking-wide">
         {{ character.name }}
       </h1>
-      <div class="divider mx-0 mt-0 mb-1 px-10"></div>
     </header>
+    <div class="divider mb-2 px-24"></div>
 
     <!-- Character Tags -->
     <ul class="flex flex-row gap-3 list-none">
