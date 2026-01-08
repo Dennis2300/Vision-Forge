@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/4 min-h-screen">
+  <div class="w-3/4 min-h-screen mb-32">
     <div class="h-[175px] w-3/4 relative rounded-2xl mx-auto">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
@@ -167,11 +167,122 @@
         </div>
         <div class="divider my-4"></div>
         <div class="flex flex-row justify-around items-center">
-          <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">Apply</button>
-          <button class="btn btn-soft px-6 tracking-wide" @click="resetFilters">Reset</button>
+          <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">
+            Apply
+          </button>
+          <button class="btn btn-soft px-6 tracking-wide" @click="resetFilters">
+            Reset
+          </button>
         </div>
       </div>
-      <div class="h-fit w-3/4">Content</div>
+
+      <div class="h-fit w-3/4 flex flex-col gap-16">
+        <RouterLink
+          :to="`/characters/${character.id}?name=${encodeURIComponent(
+            character.name
+          )}`"
+          class="group rounded-2xl no-underline text-white"
+          :class="{
+            'rarity-5': character.rarity === 5,
+            'rarity-4': character.rarity === 4,
+          }"
+          v-for="character in characters"
+          :key="character.id"
+        >
+          <div
+            class="relative bg-secondary flex flex-row justify-between overflow-hidden rounded-t-2xl"
+          >
+            <div class="flex flex-row items-center justify-center p-6 gap-4">
+              <img
+                class="w-32 rounded-full"
+                :class="{
+                  'rarity-5': character.rarity === 5,
+                  'rarity-4': character.rarity === 4,
+                }"
+                :src="character.avatar_url"
+                loading="lazy"
+                :alt="character.name"
+              />
+              <h1
+                class="relative text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
+              >
+                {{ character.name }}
+              </h1>
+            </div>
+            <img
+              v-if="character.splash_art_url"
+              class="absolute w-64 h-64 right-0 -top-10 opacity-50"
+              :src="character.splash_art_url"
+              loading="lazy"
+              alt=""
+            />
+            <div v-if="!character.splash_art"></div>
+          </div>
+
+          <div
+            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl px-2 py-4 border-t-4"
+          >
+            <div class="flex flex-row gap-4 items-center">
+              <img
+                class="w-12 ml-2"
+                :src="character.vision.image_url"
+                loading="lazy"
+                alt=""
+              />
+              <p
+                v-if="character.vision.name"
+                class="badge badge-soft px-5 py-2 font-acme text-lg"
+              >
+                {{ character.vision.name }}
+              </p>
+              <p
+                v-if="character.role"
+                class="badge badge-soft px-5 py-2 font-acme text-lg"
+              >
+                {{ character.role.name }}
+              </p>
+              <p
+                v-if="character.weapon_type"
+                class="badge badge-soft px-5 py-2 font-acme text-lg"
+              >
+                {{ character.weapon_type.name }}
+              </p>
+              <p
+                v-if="character.main_stat"
+                class="badge badge-soft px-5 py-2 font-acme text-lg"
+              >
+                {{ character.main_stat.name }}
+              </p>
+              <p
+                v-if="character.team_role"
+                class="badge badge-soft px-5 py-2 font-acme text-lg"
+              >
+                {{ character.team_role.name }}
+              </p>
+            </div>
+            <div class="flex items-center">
+              <p class="flex right-0 badge badge-soft px-5 py-2 mr-2">
+                <strong> Released: </strong>
+                {{
+                  character.release_date
+                    ? new Date(character.release_date).toLocaleDateString(
+                        "en-GB",
+                        {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        }
+                      )
+                    : "UPCOMING"
+                }}
+              </p>
+            </div>
+          </div>
+        </RouterLink>
+        <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
+          <LoadingMoreSpinner />
+        </div>
+      </div>
     </div>
   </div>
 </template>
