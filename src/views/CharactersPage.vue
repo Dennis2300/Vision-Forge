@@ -25,8 +25,8 @@
     </p>
 
     <div v-if="!error" class="w-full min-h-screen flex gap-8 mt-6">
-      <div class="bg-secondary h-fit w-1/4 px-4 pb-4 rounded-xl">
-        <h2 class="divider py-4">Rarity</h2>
+      <div class="bg-secondary h-fit w-1/4 px-4 py-8 rounded-xl flex flex-col gap-6">
+        <h2 class="divider">Rarity</h2>
         <div class="flex flex-row justify-around items-center">
           <div
             class="bg-primary px-6 py-2 rounded-lg font-acme selected border border-solid border-black text-yellow-400 cursor-pointer"
@@ -43,7 +43,7 @@
             ★★★★
           </div>
         </div>
-        <h2 class="divider py-4">Vision</h2>
+        <h2 class="divider">Vision</h2>
         <div
           class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
         >
@@ -82,7 +82,7 @@
             </li>
           </ul>
         </div>
-        <h2 class="divider py-4">Weapon Type</h2>
+        <h2 class="divider">Weapon Type</h2>
         <div
           class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
         >
@@ -123,7 +123,7 @@
             </li>
           </ul>
         </div>
-        <h2 class="divider py-4">Region</h2>
+        <h2 class="divider">Region</h2>
         <div
           class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
         >
@@ -165,7 +165,7 @@
             </li>
           </ul>
         </div>
-        <div class="divider my-4"></div>
+        <div class="divider"></div>
         <div class="flex flex-row justify-around items-center">
           <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">
             Apply
