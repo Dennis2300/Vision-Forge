@@ -1,6 +1,6 @@
 <template>
   <div class="w-3/4 min-h-screen mb-32">
-    <div class="h-[175px] w-3/4 relative rounded-2xl mx-auto">
+    <div class="h-[150px] w-3/4 relative rounded-2xl mx-auto">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
       >
@@ -24,7 +24,7 @@
       characters based on your preferences.
     </p>
 
-    <div v-if="!error" class="w-full min-h-screen flex gap-8 mt-6">
+    <div v-if="!error" class="w-full min-h-screen flex gap-8 mt-8">
       <div class="bg-secondary h-fit w-1/4 px-4 py-8 rounded-xl flex flex-col gap-6">
         <h2 class="divider">Rarity</h2>
         <div class="flex flex-row justify-around items-center">
@@ -231,37 +231,37 @@
               />
               <p
                 v-if="character.vision.name"
-                class="badge badge-soft px-5 py-2 font-acme text-lg"
+                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
               >
                 {{ character.vision.name }}
               </p>
               <p
                 v-if="character.role"
-                class="badge badge-soft px-5 py-2 font-acme text-lg"
+                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
               >
                 {{ character.role.name }}
               </p>
               <p
                 v-if="character.weapon_type"
-                class="badge badge-soft px-5 py-2 font-acme text-lg"
+                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
               >
                 {{ character.weapon_type.name }}
               </p>
               <p
                 v-if="character.main_stat"
-                class="badge badge-soft px-5 py-2 font-acme text-lg"
+                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
               >
                 {{ character.main_stat.name }}
               </p>
               <p
                 v-if="character.team_role"
-                class="badge badge-soft px-5 py-2 font-acme text-lg"
+                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
               >
                 {{ character.team_role.name }}
               </p>
             </div>
             <div class="flex items-center">
-              <p class="flex right-0 badge badge-soft px-5 py-2 mr-2">
+              <p class="flex right-0 badge badge-soft px-5 py-2 mr-2 text-tertiary">
                 <strong> Released: </strong>
                 {{
                   character.release_date
