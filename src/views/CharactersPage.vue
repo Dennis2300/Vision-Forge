@@ -185,7 +185,6 @@
           :to="`/characters/${character.id}?name=${encodeURIComponent(
             character.name
           )}`"
-          target="_blank"
           class="character-item hover-underline-animation center"
           :class="{
             'rarity-5': character.rarity === 5,
