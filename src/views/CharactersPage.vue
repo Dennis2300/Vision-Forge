@@ -24,256 +24,154 @@
       characters based on your preferences.
     </p>
 
-    <div class="character-page my-8" v-if="!error">
-      <!-- Offset For Filters -->
-      <div class="offset flex flex-col gap-6">
-        <!-- rarity -->
-        <h2 class="divider mt-3">Rarity</h2>
-        <div class="rarity-container">
+    <div v-if="!error" class="w-full min-h-screen flex gap-8 mt-6">
+      <div class="bg-secondary h-fit w-1/4 px-4 pb-4 rounded-xl">
+        <h2 class="divider py-4">Rarity</h2>
+        <div class="flex flex-row justify-around items-center">
           <div
-            class="rarity-item selected"
+            class="bg-primary px-6 py-2 rounded-lg font-acme selected border border-solid border-black text-yellow-400 cursor-pointer"
             :class="{ active: selectedRarity === 5 }"
             @click="selectRarity(5)"
           >
-            5 star
+            ★★★★★
           </div>
           <div
-            class="rarity-item selected"
+            class="bg-primary px-6 py-2 rounded-lg font-acme selected border border-solid border-black text-yellow-400 cursor-pointer"
             :class="{ active: selectedRarity === 4 }"
             @click="selectRarity(4)"
           >
-            4 star
+            ★★★★
           </div>
         </div>
-        <!-- vision -->
-        <h2 class="divider">Vision</h2>
-        <div class="filter-container">
-          <div class="custom-dropdown">
-            <!-- Selected item -->
-            <div class="dropdown-selected" @click="toggleDropdown('vision')">
-              <img
-                v-if="selectedVisionObj"
-                :src="selectedVisionObj.image_url"
-                alt=""
-                loading="lazy"
-                class="dropdown-icon"
-              />
-              <span>
-                {{ selectedVisionObj ? selectedVisionObj.name : "All" }}
-              </span>
-              <span class="arrow">▼</span>
-            </div>
-
-            <!-- Dropdown options -->
-            <ul v-if="isOpen('vision')" class="dropdown-list">
-              <li @click="selectVision(null)">
-                <span>All</span>
-              </li>
-              <li
-                v-for="vision in visions"
-                :key="vision.id"
-                @click="selectVision(vision)"
-              >
-                <img
-                  loading="lazy"
-                  :src="vision.image_url"
-                  alt=""
-                  class="dropdown-icon"
-                />
-                <span>{{ vision.name }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- weapon -->
-        <h2 class="divider">Weapon Type</h2>
-        <div class="filter-container">
-          <div class="custom-dropdown">
-            <!-- Selected item -->
-            <div class="dropdown-selected" @click="toggleDropdown('weapon')">
-              <img
-                v-if="selectedWeaponTypeObj"
-                :src="selectedWeaponTypeObj.image_url"
-                loading="lazy"
-                alt=""
-                class="dropdown-icon"
-              />
-              <span>
-                {{ selectedWeaponTypeObj ? selectedWeaponTypeObj.name : "All" }}
-              </span>
-              <span class="arrow">▼</span>
-            </div>
-
-            <!-- Dropdown options -->
-            <ul v-if="isOpen('weapon')" class="dropdown-list">
-              <li @click="selectWeaponType(null)">
-                <span>All</span>
-              </li>
-              <li
-                v-for="weaponType in weaponTypes"
-                :key="weaponType.id"
-                @click="selectWeaponType(weaponType)"
-              >
-                <img
-                  loading="lazy"
-                  :src="weaponType.image_url"
-                  alt=""
-                  class="dropdown-icon"
-                />
-                <span>{{ weaponType.name }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- region -->
-        <h2 class="divider">Region</h2>
-        <div class="filter-container">
-          <div class="custom-dropdown">
-            <!-- Selected item -->
-            <div class="dropdown-selected" @click="toggleDropdown('region')">
-              <img
-                v-if="selectedRegionObj"
-                :src="selectedRegionObj.image_url"
-                alt=""
-                loading="lazy"
-                class="dropdown-icon"
-              />
-              <span>
-                {{ selectedRegionObj ? selectedRegionObj.name : "All" }}
-              </span>
-              <span class="arrow">▼</span>
-            </div>
-
-            <!-- Dropdown options -->
-            <ul v-if="isOpen('region')" class="dropdown-list">
-              <li @click="selectRegion(null)">
-                <span>All</span>
-              </li>
-              <li
-                v-for="region in regions"
-                :key="region.id"
-                @click="selectRegion(region)"
-              >
-                <img
-                  loading="lazy"
-                  :src="region.image_url"
-                  alt=""
-                  class="dropdown-icon"
-                />
-                <span>{{ region.name }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Apply And Reset Button -->
-        <div class="divider"></div>
-        <div class="filter-buttons-container">
-          <button class="filter-button" @click="resetFilters">Reset</button>
-          <button class="filter-button" @click="applyFilters">Apply</button>
-        </div>
-        <!-- Character Amount -->
-        <div class="character-amount-container">
-          <div class="character-amount" v-if="filterActive">
-            {{ characters.length }} Characters Found
-          </div>
-        </div>
-      </div>
-      <!-- Character Display -->
-      <div class="character-display-container">
-        <!-- Character Card -->
-        <RouterLink
-          :to="`/characters/${character.id}?name=${encodeURIComponent(
-            character.name
-          )}`"
-          class="character-item hover-underline-animation center"
-          :class="{
-            'rarity-5': character.rarity === 5,
-            'rarity-4': character.rarity === 4,
-          }"
-          v-for="character in characters"
-          :key="character.id"
+        <h2 class="divider py-4">Vision</h2>
+        <div
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
         >
-          <!-- Character Overview -->
-          <div class="character-item-overview">
-            <div
-              v-if="character.is_upcoming === true"
-              class="ribbon ribbon-top-left"
-            >
-              <span class="upcoming">Upcoming</span>
-            </div>
-            <div
-              v-if="character.is_new === true"
-              class="ribbon ribbon-top-right"
-            >
-              <span class="new">New</span>
-            </div>
+          <div class="dropdown-selected" @click="toggleDropdown('vision')">
             <img
-              v-if="character.splash_art_url"
-              class="character-item-splash-art"
-              :src="character.splash_art_url"
-              loading="lazy"
+              v-if="selectedVisionObj"
+              :src="selectedVisionObj.image_url"
               alt=""
+              loading="lazy"
+              class="dropdown-icon"
             />
-            <div v-if="!character.splash_art"></div>
-            <div class="character-item-info">
+            <span>
+              {{ selectedVisionObj ? selectedVisionObj.name : "All" }}
+            </span>
+            <span class="arrow">▼</span>
+          </div>
+          <ul
+            v-if="isOpen('vision')"
+            class="dropdown-list bg-primary border border-solid border-black"
+          >
+            <li @click="selectVision(null)">
+              <span>All</span>
+            </li>
+            <li
+              v-for="vision in visions"
+              :key="vision.id"
+              @click="selectVision(vision)"
+            >
               <img
-                class="character-item-image"
-                :class="{
-                  'rarity-5': character.rarity === 5,
-                  'rarity-4': character.rarity === 4,
-                }"
-                :src="character.avatar_url"
                 loading="lazy"
-                :alt="character.name"
+                :src="vision.image_url"
+                alt=""
+                class="dropdown-icon"
               />
-              <h1 class="character-name mt-3">{{ character.name }}</h1>
-            </div>
-          </div>
-          <!-- Character Details -->
-          <div class="character-item-details">
+              <span>{{ vision.name }}</span>
+            </li>
+          </ul>
+        </div>
+        <h2 class="divider py-4">Weapon Type</h2>
+        <div
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+        >
+          <div class="dropdown-selected" @click="toggleDropdown('weapon')">
             <img
-              class="character-vision-image"
-              :src="character.vision.image_url"
+              v-if="selectedWeaponTypeObj"
+              :src="selectedWeaponTypeObj.image_url"
               loading="lazy"
               alt=""
+              class="dropdown-icon"
             />
-            <p class="character-detail-tag">
-              {{ character.vision.name }}
-            </p>
-            <p v-if="character.role" class="character-detail-tag">
-              {{ character.role.name }}
-            </p>
-            <p v-if="character.weapon_type" class="character-detail-tag">
-              {{ character.weapon_type.name }}
-            </p>
-            <p v-if="character.main_stat" class="character-detail-tag">
-              {{ character.main_stat.name }}
-            </p>
-            <p v-if="character.team_role" class="character-detail-tag">
-              {{ character.team_role.name }}
-            </p>
-            <p class="character-detail-release-date">
-              <strong> Released: </strong>
-              {{
-                character.release_date
-                  ? new Date(character.release_date).toLocaleDateString(
-                      "en-GB",
-                      {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      }
-                    )
-                  : "UPCOMING"
-              }}
-            </p>
+            <span>
+              {{ selectedWeaponTypeObj ? selectedWeaponTypeObj.name : "All" }}
+            </span>
+            <span class="arrow">▼</span>
           </div>
-        </RouterLink>
-        <!-- Sentinel For Loading More -->
-        <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
-          <LoadingMoreSpinner />
+
+          <!-- Dropdown options -->
+          <ul
+            v-if="isOpen('weapon')"
+            class="dropdown-list bg-primary border border-solid border-black"
+          >
+            <li @click="selectWeaponType(null)">
+              <span>All</span>
+            </li>
+            <li
+              v-for="weaponType in weaponTypes"
+              :key="weaponType.id"
+              @click="selectWeaponType(weaponType)"
+            >
+              <img
+                loading="lazy"
+                :src="weaponType.image_url"
+                alt=""
+                class="dropdown-icon"
+              />
+              <span>{{ weaponType.name }}</span>
+            </li>
+          </ul>
+        </div>
+        <h2 class="divider py-4">Region</h2>
+        <div
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+        >
+          <!-- Selected item -->
+          <div class="dropdown-selected" @click="toggleDropdown('region')">
+            <img
+              v-if="selectedRegionObj"
+              :src="selectedRegionObj.image_url"
+              alt=""
+              loading="lazy"
+              class="dropdown-icon"
+            />
+            <span>
+              {{ selectedRegionObj ? selectedRegionObj.name : "All" }}
+            </span>
+            <span class="arrow">▼</span>
+          </div>
+
+          <!-- Dropdown options -->
+          <ul
+            v-if="isOpen('region')"
+            class="dropdown-list bg-primary border border-solid border-black"
+          >
+            <li @click="selectRegion(null)">
+              <span>All</span>
+            </li>
+            <li
+              v-for="region in regions"
+              :key="region.id"
+              @click="selectRegion(region)"
+            >
+              <img
+                loading="lazy"
+                :src="region.image_url"
+                alt=""
+                class="dropdown-icon"
+              />
+              <span>{{ region.name }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="divider my-4"></div>
+        <div class="flex flex-row justify-around items-center">
+          <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">Apply</button>
+          <button class="btn btn-soft px-6 tracking-wide" @click="resetFilters">Reset</button>
         </div>
       </div>
+      <div class="h-fit w-3/4">Content</div>
     </div>
   </div>
 </template>
@@ -282,7 +180,7 @@
 import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import "./../css/Ribbon.css";
-import "./../css/CharacterPage.css";
+// import "./../css/CharacterPage.css";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 
 // state variables
@@ -603,6 +501,64 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.selected.active {
+  border: 1px solid var(--tertiary);
+}
+.custom-dropdown {
+  position: relative;
+  width: 220px;
+  letter-spacing: 1.5px;
+}
+
+.dropdown-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-selected img.dropdown-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 0.25rem;
+  list-style: none;
+  padding: 0;
+  z-index: 10;
+}
+
+.dropdown-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background: var(--filter-color-hover);
+}
+
+.dropdown-list img.dropdown-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: white;
+}
 .rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
