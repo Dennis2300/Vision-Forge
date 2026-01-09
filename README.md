@@ -1,4 +1,4 @@
-# Genshin Impact Fan-Made Website
+# Stratagema - A Genshin Impact visual guide website
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Twitter](https://img.shields.io/twitter/follow/sindzhou.svg?style=social)](https://x.com/SindZhou)
