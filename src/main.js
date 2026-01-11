@@ -4,6 +4,7 @@ import App from "./App.vue";
 import router from "./router";
 import "./css/global.css";
 
-await initAuth();
-
-createApp(App).use(router).mount("#app");
+(async () => {
+  await initAuth();
+  createApp(App).use(router).mount("#app");
+})();
