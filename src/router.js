@@ -1,28 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "./views/HomePage.vue";
-import CharactersPage from "./views/CharactersPage.vue";
-import TeamsPage from "./views/TeamsPage.vue";
-import AboutPage from "./views/AboutPage.vue";
 import CharacterDetailPage from "./views/CharacterDetailPage.vue";
 import WeaponsPage from "./views/WeaponsPage.vue";
 import ArtifactsPage from "./views/ArtifactsPage.vue";
 import WeaponDetailPage from "./views/WeaponDetailPage.vue";
 import ContributePage from "./views/ContributePage.vue";
-import LoginPage from "./views/LoginPage.vue";
 import CurrentBannerPage from "./views/CurrentBannerPage.vue";
 import AdminPage from "./views/AdminPage.vue";
-import UnauthorizedPage from "./views/UnauthorizedPage.vue";
 import { supabase } from "./supabaseClient";
 
 let localUser;
 
 const routes = [
-  { path: "/", component: HomePage },
-  { path: "/about", component: AboutPage },
-  { path: "/teams", component: TeamsPage },
-  { path: "/login", component: LoginPage },
-  { path: "/unauthorized", component: UnauthorizedPage },
-  { path: "/characters", component: CharactersPage },
+  { path: "/", component: () => import("./views/HomePage.vue") },
+  { path: "/about", component: () => import("./views/AboutPage.vue") },
+  { path: "/teams", component: () => import("./views/TeamsPage.vue") },
+  { path: "/login", component: () => import("./views/LoginPage.vue") },
+  {
+    path: "/unauthorized",
+    component: () => import("./views/UnauthorizedPage.vue"),
+  },
+  {
+    path: "/characters",
+    component: () => import("./views/CharactersPage.vue"),
+  },
   {
     path: "/characters/:id",
     name: "CharacterDetailPage",
