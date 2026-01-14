@@ -190,6 +190,7 @@
           }"
           v-for="character in characters"
           :key="character.id"
+          target="_blank"
         >
           <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
             <div

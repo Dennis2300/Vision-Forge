@@ -5,7 +5,7 @@
       <!-- Acension Materials -->
       <div class="bg-primary w-1/2 rounded-2xl p-6">
         <h1 class="divider">Ascension</h1>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 pt-4">
           <template
             v-for="mat in character.materials.filter(
               (material) => material.mat_type.name.toLowerCase() === 'ascension'
@@ -25,7 +25,7 @@
       <!-- Talent Materials -->
       <div class="bg-primary w-1/2 rounded-2xl p-6">
         <h1 class="divider">Talent</h1>
-        <div class="flex flex-col gap-2 justify-center">
+        <div class="flex flex-col gap-2 justify-center pt-4">
           <template
             v-for="mat in character.materials.filter(
               (material) => material.mat_type.name.toLowerCase() === 'talent'
