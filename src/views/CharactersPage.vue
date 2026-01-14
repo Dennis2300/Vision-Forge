@@ -183,7 +183,7 @@
           :to="`/characters/${character.id}?name=${encodeURIComponent(
             character.name
           )}`"
-          class="group rounded-2xl no-underline text-white"
+          class="relative group rounded-2xl no-underline text-white"
           :class="{
             'rarity-5': character.rarity === 5,
             'rarity-4': character.rarity === 4,
@@ -191,6 +191,23 @@
           v-for="character in characters"
           :key="character.id"
         >
+          <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
+            <div
+              class="flex items-center justify-center h-8 w-8 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
+            >
+              New
+            </div>
+          </div>
+          <div
+            v-if="character.is_upcoming"
+            class="absolute -top-3 -right-3 z-20"
+          >
+            <div
+              class="flex items-center justify-center px-3 h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
+            >
+              Upcoming
+            </div>
+          </div>
           <div
             class="relative bg-secondary flex flex-row justify-between overflow-hidden rounded-t-2xl"
           >
@@ -220,7 +237,6 @@
             />
             <div v-if="!character.splash_art"></div>
           </div>
-
           <div
             class="bg-gray-600 flex flex-row justify-between rounded-b-2xl p-4 border-0 border-t-2 border-solid border-[#0C2B4E]"
           >
