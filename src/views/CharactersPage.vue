@@ -47,7 +47,7 @@
         </div>
         <h2 class="divider">Vision</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black "
         >
           <div class="dropdown-selected" @click="toggleDropdown('vision')">
             <img
@@ -86,7 +86,7 @@
         </div>
         <h2 class="divider">Weapon Type</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
         >
           <div class="dropdown-selected" @click="toggleDropdown('weapon')">
             <img
@@ -127,7 +127,7 @@
         </div>
         <h2 class="divider">Region</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
         >
           <!-- Selected item -->
           <div class="dropdown-selected" @click="toggleDropdown('region')">
