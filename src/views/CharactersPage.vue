@@ -25,18 +25,20 @@
     </p>
 
     <div v-if="!error" class="w-full min-h-screen flex gap-8 mt-8">
-      <div class="bg-secondary h-fit w-1/4 px-4 py-8 rounded-xl flex flex-col gap-6">
+      <div
+        class="bg-secondary h-fit w-1/4 px-4 py-8 rounded-xl flex flex-col gap-6"
+      >
         <h2 class="divider">Rarity</h2>
-        <div class="flex flex-row justify-around items-center">
+        <div class="flex flex-rows justify-center items-center gap-8">
           <div
-            class="bg-primary px-6 py-2 rounded-lg font-acme selected border border-solid border-black text-yellow-400 cursor-pointer"
+            class="selected text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary px-4 py-2 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
             :class="{ active: selectedRarity === 5 }"
             @click="selectRarity(5)"
           >
             ★★★★★
           </div>
           <div
-            class="bg-primary px-6 py-2 rounded-lg font-acme selected border border-solid border-black text-yellow-400 cursor-pointer"
+            class="selected text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary px-4 py-2 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
             :class="{ active: selectedRarity === 4 }"
             @click="selectRarity(4)"
           >
@@ -45,7 +47,7 @@
         </div>
         <h2 class="divider">Vision</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
           <div class="dropdown-selected" @click="toggleDropdown('vision')">
             <img
@@ -84,7 +86,7 @@
         </div>
         <h2 class="divider">Weapon Type</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
           <div class="dropdown-selected" @click="toggleDropdown('weapon')">
             <img
@@ -125,7 +127,7 @@
         </div>
         <h2 class="divider">Region</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
           <!-- Selected item -->
           <div class="dropdown-selected" @click="toggleDropdown('region')">
@@ -166,7 +168,7 @@
           </ul>
         </div>
         <div class="divider"></div>
-        <div class="flex flex-row justify-around items-center">
+        <div class="flex flex-row justify-center items-center gap-8">
           <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">
             Apply
           </button>
@@ -261,7 +263,9 @@
               </p>
             </div>
             <div class="flex items-center">
-              <p class="flex right-0 badge badge-soft px-5 py-2 mr-2 text-tertiary">
+              <p
+                class="flex right-0 badge badge-soft px-5 py-2 mr-2 text-tertiary"
+              >
                 <strong> Released: </strong>
                 {{
                   character.release_date
