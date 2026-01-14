@@ -47,7 +47,7 @@
         </div>
         <h2 class="divider">Vision</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black "
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
           <div class="dropdown-selected" @click="toggleDropdown('vision')">
             <img
@@ -86,7 +86,7 @@
         </div>
         <h2 class="divider">Weapon Type</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
           <div class="dropdown-selected" @click="toggleDropdown('weapon')">
             <img
@@ -127,7 +127,7 @@
         </div>
         <h2 class="divider">Region</h2>
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
           <!-- Selected item -->
           <div class="dropdown-selected" @click="toggleDropdown('region')">
@@ -649,8 +649,8 @@ onUnmounted(() => {
 }
 
 .dropdown-selected img.dropdown-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
 }
 
