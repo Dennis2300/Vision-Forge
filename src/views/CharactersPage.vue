@@ -231,7 +231,7 @@
             </div>
             <img
               v-if="character.splash_art_url"
-              class="absolute w-64 h-64 right-0 -top-10 opacity-50"
+              class="absolute min-w-64 max-w-68 h-64 right-0 -top-8 opacity-50"
               :src="character.splash_art_url"
               loading="lazy"
               alt=""
