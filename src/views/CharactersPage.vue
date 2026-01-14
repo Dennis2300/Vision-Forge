@@ -222,7 +222,7 @@
           </div>
 
           <div
-            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl px-2 py-4 border-t-4"
+            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl px-2 py-4 border border-solid border-black"
           >
             <div class="flex flex-row gap-4 items-center">
               <img
