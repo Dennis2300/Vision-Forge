@@ -238,7 +238,7 @@
             <div v-if="!character.splash_art"></div>
           </div>
           <div
-            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl p-4 border-0 border-t-2 border-solid border-[#0C2B4E]"
+            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl p-4 border-0 border-t-2 border-solid border-black"
           >
             <div class="flex flex-row gap-4 items-center">
               <img
