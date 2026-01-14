@@ -222,7 +222,7 @@
           </div>
 
           <div
-            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl px-2 py-4 border border-solid border-black"
+            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl p-4 border-0 border-t-2 border-solid border-[#0C2B4E]"
           >
             <div class="flex flex-row gap-4 items-center">
               <img
@@ -263,9 +263,7 @@
               </p>
             </div>
             <div class="flex items-center">
-              <p
-                class="flex right-0 badge badge-soft px-5 py-2 mr-2 text-tertiary"
-              >
+              <p class="badge badge-soft px-5 py-2 text-md text-tertiary">
                 <strong> Released: </strong>
                 {{
                   character.release_date
