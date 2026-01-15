@@ -194,7 +194,7 @@
         >
           <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
             <div
-              class="flex items-center justify-center h-8 w-8 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
+              class="flex items-center justify-center h-9 w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
             >
               New
             </div>
@@ -239,7 +239,7 @@
             <div v-if="!character.splash_art"></div>
           </div>
           <div
-            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl p-4 border-0 border-t-2 border-solid border-black"
+            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl py-4 border-0 border-t-2 border-solid border-black"
           >
             <div class="flex flex-row gap-4 items-center">
               <img
@@ -279,7 +279,7 @@
                 {{ character.team_role.name }}
               </p>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center pr-4">
               <p class="badge badge-soft px-5 py-2 text-md text-tertiary">
                 <strong> Released: </strong>
                 {{
