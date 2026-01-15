@@ -18,7 +18,7 @@
             <template v-if="item.actors.length">
               <template v-for="(a, index) in item.actors" :key="a.id">
                 <template v-if="a.link">
-                  <a :href="a.link" target="_blank" rel="noopener" class="link">
+                  <a :href="a.link" target="_blank" rel="noopener" class="link hover:underline">
                     {{ a.name }}
                   </a>
                 </template>
