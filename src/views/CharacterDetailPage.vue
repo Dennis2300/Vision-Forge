@@ -2,7 +2,7 @@
   <LoadingSpinner v-if="loading" />
   <main v-else-if="character">
     <div
-      class="w-[1400px] min-h-full bg-secondary relative mt-12 mb-20 rounded-2xl overflow-hidden"
+      class="w-[1400px] min-h-full bg-secondary relative mb-20 rounded-2xl overflow-hidden"
     >
       <CharacterSplashArt :character="character" />
       <section class="relative z-10">
