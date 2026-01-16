@@ -13,7 +13,14 @@
           >
             <img
               class="w-24 rounded-3xl rarity-5"
+              v-if="artifact.artifact_id.flower_img_url"
               :src="artifact.artifact_id.flower_img_url"
+              alt=""
+            />
+            <img
+              class="w-24 rounded-3xl rarity-5"
+              v-if="!artifact.artifact_id.flower_img_url"
+              src="https://placehold.co/96x96?text=N/A"
               alt=""
             />
             <div class="flex flex-col gap-3">
