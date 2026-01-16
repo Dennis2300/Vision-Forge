@@ -35,7 +35,7 @@
                   {{ artifact.artifact_id.name }}
                 </h3>
               </div>
-              <p class="badge badge-soft badge-accent">
+              <p class="badge badge-soft badge-accent px-2">
                 {{ artifact.artifact_id.two_piece.name }}
               </p>
             </div>

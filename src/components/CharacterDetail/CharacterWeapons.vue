@@ -31,10 +31,10 @@
                 {{ weapon.weapon_id.name }}
               </h3>
               <div class="flex flex-row gap-2">
-                <p class="badge badge-soft badge-secondary">
+                <p class="badge badge-soft badge-secondary px-2">
                   Base Attack: {{ weapon.weapon_id.base_attack }}
                 </p>
-                <p class="badge badge-soft badge-accent">
+                <p class="badge badge-soft badge-accent px-2">
                   {{ weapon.weapon_id.bonus_effect_type.name }}:
                   {{ weapon.weapon_id.bonus_effect_value }}
                 </p>
