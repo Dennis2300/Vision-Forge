@@ -18,7 +18,7 @@
               alt=""
             />
             <img
-              class="w-24 rounded-3xl rarity-5"
+              class="w-24 rounded-3xl"
               v-if="!artifact.artifact_id.flower_img_url"
               src="https://placehold.co/96x96?text=N/A"
               alt=""
