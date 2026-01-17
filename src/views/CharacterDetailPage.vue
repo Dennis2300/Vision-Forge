@@ -121,9 +121,11 @@ async function fetchCharacterById(characterId) {
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
         artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), flower_img_url)),
-        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value))
-        `,
-      )
+        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
+        ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
+        exp_mats:character_exp(*, materials_exp_id(name, img_url)),
+        level_up_mats:character_level_up(*, materials_level_up_id(name, img_url))
+      `)
       .eq("id", characterId)
       .single();
 
@@ -154,6 +156,8 @@ async function fetchCharacterById(characterId) {
     error.value = err.message || "Failed to load character";
   } finally {
     loading.value = false;
+    console.log(character);
+    
   }
 }
 
