@@ -124,7 +124,8 @@ async function fetchCharacterById(characterId) {
         weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
         ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
         exp_mats:character_exp(*, materials_exp_id(name, img_url)),
-        level_up_mats:character_level_up(*, materials_level_up_id(name, img_url))
+        level_up_mats:character_level_up(*, materials_level_up_id(name, img_url)),
+        talent_mats:character_talent(*, materials_talent_id(name, img_url))
       `)
       .eq("id", characterId)
       .single();

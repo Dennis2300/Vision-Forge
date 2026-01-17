@@ -19,6 +19,12 @@
       <p>{{ lvl_mat.materials_level_up_id.name }}</p>
       <strong>{{ lvl_mat.amount }}</strong>
      </div>
+     <!-- Talent -->
+      <div v-for="talent_mat in character.talent_mats">
+        <img class="w-32" :src="talent_mat.materials_talent_id.img_url" alt="">
+        <p>{{ talent_mat.materials_talent_id.name }}</p>
+        <strong>{{ talent_mat.amount }}</strong>
+      </div>
   </article>
 </template>
 <script setup>
