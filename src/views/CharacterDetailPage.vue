@@ -121,9 +121,8 @@ async function fetchCharacterById(characterId) {
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
         artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), flower_img_url)),
-        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
-        materials:character_materials(*, materials_id(*), mat_type(*))
-        `
+        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value))
+        `,
       )
       .eq("id", characterId)
       .single();
@@ -149,7 +148,7 @@ async function fetchCharacterById(characterId) {
       "character",
       JSON.stringify({
         characters: character.value,
-      })
+      }),
     );
   } catch (err) {
     error.value = err.message || "Failed to load character";
