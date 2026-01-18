@@ -1,6 +1,6 @@
 <template>
   <article class="ml-24 w-1/2" v-if="character.weapons.length > 0">
-    <h1 class="divider m-0">Weapons</h1>
+    <h1 id="weapons" class="divider m-0 scroll-mt-12">Weapons</h1>
     <section class="flex flex-col gap-2">
       <template
         v-if="character.weapons?.length"

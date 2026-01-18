@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h1 class="divider mt-20 px-32 mb-5 tracking-wide">
+    <h1 id="information" class="divider mt-20 px-32 mb-5 tracking-wide scroll-mt-12">
       {{ character.name }}'s Information
     </h1>
     <div

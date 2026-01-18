@@ -1,6 +1,6 @@
 <template>
   <article v-if="character.builds" class="mx-24">
-    <h1 class="divider mb-6 mt-20 px-32 tracking-wide">Builds</h1>
+    <h1 id="builds" class="divider mb-6 mt-20 px-32 tracking-wide scroll-mt-12">Builds</h1>
     <div class="w-full h-auto flex flex-row justify-center gap-8">
       <div class="w-1/3 h-auto bg-primary p-6 rounded-xl">
         <div v-if="character.builds?.length" v-for="build in character.builds">

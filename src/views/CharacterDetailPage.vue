@@ -1,6 +1,17 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <main v-else-if="character">
+    <div class="flex flex-row justify-around items-center">
+      <div
+        v-for="item in tableOfContent"
+        :key="item.id"
+        @click="scrollToSection(item.id)"
+        class="bg-secondary py-2 px-5 rounded-md cursor-pointer transition-all duration-200 ease-out hover:bg-white/20 hover:shadow-md"
+      >
+        <p>{{ item.label }}</p>
+      </div>
+    </div>
+    <div class="divider my-2 px-16"></div>
     <div
       class="w-[1400px] min-h-full bg-secondary relative mb-20 rounded-2xl overflow-hidden"
     >
@@ -37,6 +48,24 @@
         <div class="divider my-10 px-10"></div>
       </section>
     </div>
+    <div
+      class="fixed bottom-6 right-6 btn btn-soft btn-info px-4"
+      @click="scrollToTop"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-up"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
+        />
+      </svg>
+    </div>
   </main>
   <CharacterNotFound v-else />
 </template>
@@ -67,6 +96,14 @@ import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vu
 const route = useRoute();
 const loading = ref(null);
 const error = ref(null);
+
+const tableOfContent = [
+  { id: "information", label: "Information" },
+  { id: "weapons", label: "Best Weapons" },
+  { id: "artifacts", label: "Best Artifacts" },
+  { id: "builds", label: "Best Builds" },
+  { id: "materials", label: "Materials" },
+];
 
 const character = ref(null);
 
@@ -128,7 +165,8 @@ async function fetchCharacterById(characterId) {
         talent_mats:character_talent(*, materials_talent_id(name, img_url)),
         enhancement_mats:character_enhancement(*, materials_enhancement_id(name, img_url)),
         local_specialty:character_local_specialty(*, local_specialty_id(name, img_url))
-      `)
+      `,
+      )
       .eq("id", characterId)
       .single();
 
@@ -160,8 +198,24 @@ async function fetchCharacterById(characterId) {
   } finally {
     loading.value = false;
     console.log(character);
-    
   }
+}
+
+const scrollToSection = (id) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+};
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 }
 
 onMounted(async () => {

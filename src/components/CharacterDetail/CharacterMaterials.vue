@@ -1,6 +1,6 @@
 <template>
   <article class="mx-24">
-    <h1 class="mt-20 mb-8 px-32 text-3xl font-semibold tracking-wide divider">
+    <h1 id="materials" class="mt-20 mb-8 px-32 text-3xl font-semibold tracking-wide divider scroll-mt-12">
       Materials
     </h1>
     <div class="w-full bg-primary rounded-xl shadow-lg py-4">

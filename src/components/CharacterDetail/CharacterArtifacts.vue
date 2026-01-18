@@ -1,6 +1,6 @@
 <template>
   <article class="mr-24 w-1/2" v-if="character.artifacts.length > 0">
-    <h1 class="divider m-0">Artifacts</h1>
+    <h1 id="artifacts" class="divider m-0 scroll-mt-12">Artifacts</h1>
     <section class="flex flex-col gap-2">
       <template v-for="(group, rank) in artifactsByRank" :key="rank">
         <div
