@@ -125,7 +125,9 @@ async function fetchCharacterById(characterId) {
         ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
         exp_mats:character_exp(*, materials_exp_id(name, img_url)),
         level_up_mats:character_level_up(*, materials_level_up_id(name, img_url)),
-        talent_mats:character_talent(*, materials_talent_id(name, img_url))
+        talent_mats:character_talent(*, materials_talent_id(name, img_url)),
+        enhancement_mats:character_enhancement(*, materials_enhancement_id(name, img_url)),
+        local_specialty:character_local_specialty(*, local_specialty_id(name, img_url))
       `)
       .eq("id", characterId)
       .single();

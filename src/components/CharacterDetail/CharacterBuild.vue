@@ -11,7 +11,7 @@
               :key="slot"
               class="flex flex-row justify-between px-4"
             >
-              <p class="capitalize">{{ slot }}</p>
+              <p class="capitalize font-acme">{{ slot }}</p>
               <p class="text-tertiary tracking-wide">
                 {{
                   build.build_stat
@@ -26,7 +26,7 @@
               :key="slot"
               class="flex flex-row justify-between px-4"
             >
-              <p class="capitalize">{{ slot }}</p>
+              <p class="capitalize font-acme">{{ slot }}</p>
               <p class="text-tertiary tracking-wide">
                 {{
                   build.build_stat
@@ -41,7 +41,7 @@
               :key="slot"
               class="flex flex-row justify-between px-4"
             >
-              <p class="capitalize">{{ slot }}</p>
+              <p class="capitalize font-acme">{{ slot }}</p>
               <p class="text-tertiary tracking-wide">
                 {{
                   build.build_stat
@@ -56,7 +56,7 @@
           <div
             class="flex flex-col mt-5"
             v-for="stat in build.build_stat.filter(
-              (s) => s.slot === 'substats'
+              (s) => s.slot === 'substats',
             )"
             :key="stat.id"
           >
