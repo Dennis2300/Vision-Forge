@@ -6,7 +6,7 @@
         v-for="item in tableOfContent"
         :key="item.id"
         @click="scrollToSection(item.id)"
-        class="bg-secondary py-2 px-5 rounded-md cursor-pointer transition-all duration-200 ease-out hover:bg-white/20 hover:shadow-md"
+        class="bg-secondary py-2 px-5 rounded-md cursor-pointer transition-all duration-200 ease-out shadow-lg hover:bg-white/20"
       >
         <p>{{ item.label }}</p>
       </div>
