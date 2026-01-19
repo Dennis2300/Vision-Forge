@@ -139,7 +139,10 @@ onMounted(() => {
   text-decoration: none;
   color: white;
   background: var(--secondary);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
 .weapon-card:hover {
@@ -148,20 +151,24 @@ onMounted(() => {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.rarity-3 {
-  background: linear-gradient(145deg, #567496, #3a77b1);
-  box-shadow: 0px 0px 15px rgba(86, 116, 150, 0.8),
-    0px 0px 30px rgba(86, 116, 150, 0.5);
-}
-.rarity-4 {
+.rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
 
-.rarity-5 {
+.rarity-4 {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+
+.rarity-3 {
+  background: linear-gradient(145deg, #567496, #3a77b1);
+  box-shadow:
+    0px 0px 15px rgba(86, 116, 150, 0.8),
+    0px 0px 30px rgba(86, 116, 150, 0.5);
 }
 </style>
