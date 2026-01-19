@@ -98,7 +98,6 @@ const loading = ref(null);
 const error = ref(null);
 
 const tableOfContent = [
-  { id: "information", label: "Information" },
   { id: "weapons", label: "Best Weapons" },
   { id: "artifacts", label: "Best Artifacts" },
   { id: "builds", label: "Best Builds" },
