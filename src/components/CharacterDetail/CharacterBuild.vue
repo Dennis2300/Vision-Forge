@@ -32,7 +32,7 @@
                   build.build_stat
                     .filter((stat) => stat.slot === slot)
                     .map((stat) => stat.stat_id.name)
-                    .join(" or ")
+                    .join(" / ")
                 }}
               </p>
             </div>
