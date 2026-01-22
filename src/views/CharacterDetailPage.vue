@@ -1,17 +1,6 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <main v-else-if="character">
-    <div class="flex flex-row justify-around items-center">
-      <div
-        v-for="item in tableOfContent"
-        :key="item.id"
-        @click="scrollToSection(item.id)"
-        class="bg-secondary py-2 px-5 rounded-md cursor-pointer transition-all duration-200 ease-out shadow-lg hover:bg-white/20"
-      >
-        <p>{{ item.label }}</p>
-      </div>
-    </div>
-    <div class="divider my-2 px-16"></div>
     <div
       class="w-[1400px] min-h-full bg-secondary relative mb-20 rounded-2xl overflow-hidden"
     >
@@ -96,13 +85,6 @@ import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vu
 const route = useRoute();
 const loading = ref(null);
 const error = ref(null);
-
-const tableOfContent = [
-  { id: "weapons", label: "Best Weapons" },
-  { id: "artifacts", label: "Best Artifacts" },
-  { id: "builds", label: "Best Builds" },
-  { id: "materials", label: "Materials" },
-];
 
 const character = ref(null);
 

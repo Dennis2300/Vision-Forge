@@ -181,7 +181,7 @@
       <div class="h-fit w-3/4 flex flex-col gap-16">
         <RouterLink
           :to="`/characters/${character.id}?name=${encodeURIComponent(
-            character.name
+            character.name,
           )}`"
           class="relative group rounded-2xl no-underline text-white"
           :class="{
@@ -214,7 +214,7 @@
           >
             <div class="flex flex-row items-center justify-center p-6 gap-4">
               <img
-                class="w-32 rounded-full"
+                class="h-32 w-32 rounded-full"
                 :class="{
                   'rarity-5': character.rarity === 5,
                   'rarity-4': character.rarity === 4,
@@ -290,7 +290,7 @@
                           year: "numeric",
                           month: "short",
                           day: "numeric",
-                        }
+                        },
                       )
                     : "UPCOMING"
                 }}
@@ -459,7 +459,7 @@ async function fetchCharacters({ reset = false } = {}) {
     let query = supabase
       .from("characters")
       .select(
-        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id, name)"
+        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id, name)",
       )
       .order("release_date", { ascending: false })
       .range(from, to);
@@ -474,7 +474,7 @@ async function fetchCharacters({ reset = false } = {}) {
         characters: characters.value,
         page: page.value,
         hasMore: hasMore.value,
-      })
+      }),
     );
   } catch (err) {
     error.value = err.message || "Failed to load characters";
@@ -492,7 +492,7 @@ async function fetchFilteredCharacters(filters = {}) {
     let query = supabase
       .from("characters")
       .select(
-        "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id,name)"
+        "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id,name)",
       )
       .order("release_date", { ascending: false });
     if (filters.vision) query = query.eq("vision", filters.vision);
@@ -605,7 +605,7 @@ function setupObserver() {
       root: null,
       rootMargin: "200px",
       threshold: 0.1,
-    }
+    },
   );
 
   nextTick(() => {
@@ -617,13 +617,13 @@ function setupObserver() {
 
 // -------- Computed Properties -------------
 const selectedVisionObj = computed(() =>
-  visions.value.find((v) => v.id === selectedVision.value)
+  visions.value.find((v) => v.id === selectedVision.value),
 );
 const selectedWeaponTypeObj = computed(() =>
-  weaponTypes.value.find((wt) => wt.id === selectedWeaponType.value)
+  weaponTypes.value.find((wt) => wt.id === selectedWeaponType.value),
 );
 const selectedRegionObj = computed(() =>
-  regions.value.find((r) => r.id === selectedRegion.value)
+  regions.value.find((r) => r.id === selectedRegion.value),
 );
 // -------- Lifecycle Hooks -------------
 // on component mount, fetch initial data and setup observer
@@ -716,12 +716,14 @@ onUnmounted(() => {
 }
 .rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
 .rarity-4 {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 </style>
