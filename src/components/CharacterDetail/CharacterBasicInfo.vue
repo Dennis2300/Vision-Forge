@@ -26,7 +26,7 @@
     <div class="divider mb-2 px-24"></div>
 
     <!-- Character Tags -->
-    <ul class="flex flex-row gap-3 list-none">
+    <ul class="flex flex-row gap-4 list-none">
       <li v-if="character.vision" class="tags">
         {{ character.vision.name }}
       </li>

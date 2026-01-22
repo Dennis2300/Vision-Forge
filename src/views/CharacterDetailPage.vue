@@ -11,7 +11,7 @@
           class="h-fit w-full flex flex-row justify-around items-center pt-16"
         >
           <CharacterBasicInfo
-            class="w-[500px] h-[350px]"
+            class="w-1/2 h-[350px]"
             :character="character"
           />
           <!-- Character Metadata (VA, Regions, Affiliation) -->
