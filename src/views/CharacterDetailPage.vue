@@ -10,18 +10,15 @@
         <article
           class="h-fit w-full flex flex-row justify-around items-center pt-16"
         >
-          <CharacterBasicInfo
-            class="w-1/2 h-[350px]"
-            :character="character"
-          />
+          <CharacterBasicInfo class="w-1/2 h-[350px] ml-24" :character="character" />
           <!-- Character Metadata (VA, Regions, Affiliation) -->
-          <div
-            class="w-[500px] h-[350px] bg-primary flex flex-col px-5 py-2 rounded-xl justify-around"
-          >
-            <CharacterVoiceActors :character="character" />
-            <div class="flex flex-row">
-              <CharacterRegions :character="character" />
-              <CharacterAffiliation :character="character" />
+          <div class="w-1/2 h-[350px]">
+            <div class="bg-primary h-full mr-24 rounded-2xl flex flex-col justify-around px-8 pb-2">
+              <CharacterVoiceActors :character="character" />
+              <div class="flex flex-row">
+                <CharacterRegions :character="character" />
+                <CharacterAffiliation :character="character" />
+              </div>
             </div>
           </div>
         </article>
