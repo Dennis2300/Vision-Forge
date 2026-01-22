@@ -19,7 +19,7 @@
     </figure>
 
     <header class="text-center">
-      <h1 class="font-acme text-5xl mt-4 tracking-wide">
+      <h1 class="font-acme text-4xl mt-4 tracking-wide">
         {{ character.name }}
       </h1>
     </header>

@@ -35,9 +35,17 @@
                   {{ artifact.artifact_id.name }}
                 </h3>
               </div>
-              <p class="badge badge-soft badge-accent px-2">
-                {{ artifact.artifact_id.two_piece.name }}
-              </p>
+              <div class="flex flex-row gap-2">
+                <p class="badge badge-soft badge-accent px-2">
+                  {{ artifact.artifact_id.two_piece.name }}
+                </p>
+                <button
+                  v-if="group.length === 1"
+                  class="badge badge-soft badge-info px-2 cursor-pointer"
+                >
+                  View
+                </button>
+              </div>
             </div>
           </div>
           <div class="absolute top-3 right-3">
@@ -63,7 +71,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   character: Object,
@@ -84,7 +92,8 @@ const artifactsByRank = computed(() => {
 <style scoped>
 .rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
 </style>

@@ -146,7 +146,7 @@ async function fetchCharacterById(characterId) {
         regions:character_region(region_id(name, image_url)),
         affiliations:character_affiliation(affiliation_id(name)),
         builds(*, build_stat(*, stat_id(name))),
-        artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), flower_img_url)),
+        artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), four_piece, flower_img_url)),
         weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
         ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
         exp_mats:character_exp(*, materials_exp_id(name, img_url)),
