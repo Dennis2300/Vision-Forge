@@ -1,10 +1,10 @@
 <template>
   <section class="w-1/2">
-    <h2 class="divider tracking-wider mb-4">Affiliation</h2>
+    <h2 class="divider tracking-wider mb-4 font-acme">Affiliation</h2>
 
     <template v-if="character.affiliations?.length">
       <ul
-        class="list-view tracking-wide flex flex-col items-center gap-2 list-none"
+        class="list-view tracking-wider flex flex-col items-center gap-2 list-none"
       >
         <li
           v-for="affiliation in character.affiliations"

@@ -6,12 +6,23 @@
     >
       <CharacterSplashArt :character="character" />
       <section class="relative z-10">
-        <!-- Character Detail -->
-        <article
-          class="h-fit w-full flex flex-row justify-around items-center pt-16"
-        >
+        <article class="min-h-[350px]">
+          <div class="mx-24 pt-10 flex flex-row">
+            <CharacterBasicInfo
+              class="w-1/2 h-[350px]"
+              :character="character"
+            />
+            <div class="w-1/2 flex flex-col bg-primary justify-around px-4 rounded-2xl">
+              <CharacterVoiceActors :character="character" />
+              <div class="flex flex-row">
+                <CharacterRegions :character="character" />
+                <CharacterAffiliation :character="character" />
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- <article class="bg-primary min-h-[350px] mx-24">
           <CharacterBasicInfo class="w-1/2 h-[350px] ml-24" :character="character" />
-          <!-- Character Metadata (VA, Regions, Affiliation) -->
           <div class="w-1/2 h-[350px]">
             <div class="bg-primary h-full mr-24 rounded-2xl flex flex-col justify-around px-8 pb-2">
               <CharacterVoiceActors :character="character" />
@@ -21,7 +32,7 @@
               </div>
             </div>
           </div>
-        </article>
+        </article> -->
 
         <CharacterInfo :character="character" />
         <div class="w-full h-auto mt-20 mb-5 flex flex-row gap-8">

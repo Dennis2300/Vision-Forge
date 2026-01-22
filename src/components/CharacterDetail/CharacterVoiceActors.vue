@@ -1,7 +1,6 @@
 <template>
   <section class="voice-actor-container">
-    <h2 class="divider tracking-wider pb-4">Voice Actors</h2>
-
+    <h2 class="divider tracking-wider pb-4 font-acme">Voice Actors</h2>
     <template v-if="props.character?.va?.length">
       <div class="flex flex-row justify-around">
         <!-- Languages -->
