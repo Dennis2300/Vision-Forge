@@ -42,9 +42,30 @@
                 <button
                   v-if="group.length === 1"
                   class="badge badge-soft badge-info px-2 cursor-pointer"
+                  @click="openBox(artifact.artifact_id.four_piece)"
                 >
                   View
                 </button>
+                <div
+                  v-if="isOpen"
+                  class="fixed inset-0 bg-black/25 flex items-center justify-center z-50"
+                  @click.self="closeBox"
+                >
+                  <div class="bg-primary p-6 rounded-xl max-w-md w-full">
+                    <h3 class="font-acme text-lg mb-2">4-Piece Effect</h3>
+
+                    <p class="py-4 text-base/6">
+                      {{ selectedFourPiece }}
+                    </p>
+
+                    <button
+                      class="mt-4 btn btn-sm btn-primary px-4 py-2"
+                      @click="closeBox"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -76,6 +97,18 @@ import { computed, ref } from "vue";
 const props = defineProps({
   character: Object,
 });
+
+const isOpen = ref(false);
+const selectedFourPiece = ref("");
+
+function openBox(text) {
+  selectedFourPiece.value = text;
+  isOpen.value = true;
+}
+
+function closeBox() {
+  isOpen.value = false;
+}
 
 const artifactsByRank = computed(() => {
   const groups = {};
