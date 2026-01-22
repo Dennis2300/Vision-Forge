@@ -221,7 +221,6 @@
                 }"
                 :src="character.avatar_url"
                 loading="lazy"
-                :alt="character.name"
               />
               <h1
                 class="relative text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"

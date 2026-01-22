@@ -52,14 +52,14 @@
                   @click.self="closeBox"
                 >
                   <div class="bg-primary p-6 rounded-xl max-w-md w-full">
-                    <h3 class="font-acme text-lg mb-2">4-Piece Effect</h3>
+                    <h1 class="font-acme">4-Piece Effect</h1>
 
                     <p class="py-4 text-base/6">
                       {{ selectedFourPiece }}
                     </p>
 
                     <button
-                      class="mt-4 btn btn-sm btn-primary px-4 py-2"
+                      class=" btn btn-sm btn-primary px-4 py-2"
                       @click="closeBox"
                     >
                       Close

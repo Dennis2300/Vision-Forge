@@ -12,7 +12,9 @@
               class="w-1/2 h-[350px]"
               :character="character"
             />
-            <div class="w-1/2 flex flex-col bg-primary justify-around px-4 rounded-2xl">
+            <div
+              class="w-1/2 flex flex-col bg-primary justify-around px-4 rounded-2xl"
+            >
               <CharacterVoiceActors :character="character" />
               <div class="flex flex-row">
                 <CharacterRegions :character="character" />
@@ -145,7 +147,7 @@ async function fetchCharacterById(characterId) {
         va:voiceActors(*, lang(*)),
         regions:character_region(region_id(name, image_url)),
         affiliations:character_affiliation(affiliation_id(name)),
-        builds(*, build_stat(*, stat_id(name))),
+        builds(*, build_stat(*, stat_id(name), rank)),
         artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), four_piece, flower_img_url)),
         weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
         ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
