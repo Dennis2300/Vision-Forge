@@ -12,7 +12,7 @@
             class="flex flex-row gap-4 items-center"
           >
             <img
-              class="w-24 rounded-3xl rarity-5"
+              class="w-24 h-24 rounded-3xl rarity-5"
               v-if="artifact.artifact_id.flower_img_url"
               :src="artifact.artifact_id.flower_img_url"
               alt=""

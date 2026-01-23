@@ -17,7 +17,7 @@
             class="relative flex flex-row items-center mt-6 bg-primary rounded-2xl px-6 py-8 gap-6"
           >
             <img
-              class="w-24 rounded-3xl"
+              class="w-24 h-24 rounded-3xl"
               :class="{
                 'rarity-5': weapon.weapon_id.rarity === 5,
                 'rarity-4': weapon.weapon_id.rarity === 4,
