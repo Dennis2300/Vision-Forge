@@ -1,69 +1,48 @@
 <template>
-  <div v-if="loading">
-    <LoadingSpinner />
-  </div>
-  <div class="weapon-detail-page my-5 bg-secondary mt-10 rounded-2xl" v-else>
-    <!--Header-->
-    <div class="flex justify-around items-center h-96 w-full">
-      <!---->
-      <div class="w-1/2 h-full flex flex-col justify-center items-center">
+  <article class="w-screen h-screen flex justify-center items-center">
+    <LoadingSpinner v-if="loading && !weapon" />
+    <div v-if="weapon" class="bg-secondary h-2/3 w-2/3 rounded-2xl p-8">
+      <div class="flex flex-row gap-4 items-center">
         <div
           :class="{
             'rarity-5': weapon.rarity === 5,
             'rarity-4': weapon.rarity === 4,
+            'rarity-3': weapon.rarity === 3,
           }"
+          class="w-36 h-36 rounded-2xl"
         >
-          <img
-            class="weapon-image w-48 rounded-xl"
-            :src="weapon.image_url"
-            alt=""
-          />
+          <img class="w-full h-full" :src="weapon.image_url" alt="" />
         </div>
-        <div class="divider px-48"></div>
-        <h1 class="font-acme">{{ weapon.name }}</h1>
-      </div>
-      <!---->
-      <div class="w-1/2 h-full flex flex-col justify-center items-center gap-5">
-        <div class="bg-primary w-3/4 h-3/4 p-8 text-tertiary rounded-xl">
-          <h1 class="text-center uppercase tracking-wide">Details</h1>
-          <div class="divider m-0"></div>
+        <div class="flex flex-col gap-1 justify-around">
+          <h1>{{ weapon.name }}</h1>
+          <h3 class="flex items-center gap-1 text-yellow-400 bg-primary rounded-lg w-fit px-2">
+            <span v-for="n in weapon.rarity" :key="n" class="text-xl"> ★ </span>
+          </h3>
+
           <h3>
             <strong class="text-gray-500">Type:</strong> {{ weapon.type.name }}
           </h3>
-          <div class="divider m-0"></div>
           <h3>
             <strong class="text-gray-500">Bonus Effect:</strong>
+            {{ weapon.bonus_effect_value }}%
             {{ weapon.bonus_effect_type.name }}
           </h3>
-          <div class="divider m-0"></div>
-          <h3>
-            <strong class="text-gray-500">Value:</strong>
-            {{ weapon.bonus_effect_value }}%
-          </h3>
-          <div class="divider m-0"></div>
           <h3>
             <strong class="text-gray-500">Source:</strong>
-            {{ weapon.source?.name || 'Unknown' }}
+            {{ weapon.source?.name || "Unknown" }}
           </h3>
-          <div class="divider m-0"></div>
-          <div class="h-1/3 overflow-scroll">
-            <p class="text-white font-acme tracking-wide">
-              {{ weapon.common_describe }}
-            </p>
-          </div>
         </div>
       </div>
-    </div>
-    <!--Content-->
-    <div class="flex flex-col justify-center items-center w-full py-10">
-      <div
-        class="flex flex-col justify-center items-center bg-primary p-8 rounded-xl"
-      >
-        <h1 class="mb-4 tracking-wide">Attribute</h1>
-        <MarkdownRender :content="weapon.attribute" />
+      <div class="divider m-0"></div>
+      <p class="p-4 tracking-wide text-base/6">
+        {{ weapon.common_describe }}
+      </p>
+      <div class="bg-primary p-6 rounded-xl">
+        <h1 class="divider font-acme">Attribute</h1>
+        <MarkdownRender :content="weapon.attribute" class="pt-4" />
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script setup>
@@ -103,7 +82,6 @@ async function fetchWeaponById(weaponId) {
   } catch (err) {
     error.value = err.message || "Failed to load weapon";
   } finally {
-    loading.value = false;
   }
 }
 
@@ -115,19 +93,24 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.weapon-detail-page {
-  width: 1400px;
-  min-height: 100vh;
-}
-
-/* .weapon-image .rarity-4 {
+.rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
-.weapon-image .rarity-5 {
+
+.rarity-4 {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
-} */
+}
+
+.rarity-3 {
+  background: linear-gradient(145deg, #567496, #3a77b1);
+  box-shadow:
+    0px 0px 15px rgba(86, 116, 150, 0.8),
+    0px 0px 30px rgba(86, 116, 150, 0.5);
+}
 </style>

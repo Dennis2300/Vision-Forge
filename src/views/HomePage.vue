@@ -1,5 +1,5 @@
 <template>
-  <main class="w-[1400px] flex flex-col gap-8">
+  <main class="w-[1400px] flex flex-col gap-8 mt-28">
     <!-- top section -->
      <TopSection />
     <!-- middle section -->

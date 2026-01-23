@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/4 min-h-screen mb-32">
+  <div class="w-3/4 min-h-screen my-24">
     <div class="h-[150px] w-3/4 relative rounded-2xl mx-auto">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
