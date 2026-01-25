@@ -1,71 +1,28 @@
 <template>
-  <div class="flex flex-row gap-10">
-    <!-- left -->
-    <div
-      class="bg-secondary w-2/3 rounded-2xl shadow-lg hover:shadow-2xl transition"
-    >
-      <div
-        class="h-[500px] overflow-hidden flex justify-center items-center rounded-t-2xl"
-      >
-        <img
-          class="w-full scale-[1.35]"
-          src="./../../assets/images/zhongli.webp"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-      <div class="p-4">
-        <h1 class="">Welcome to Vision Forge</h1>
-        <div class="divider m-0"></div>
-
-        <p class="text-gray-300 leading-relaxed tracking-wide">
-          Vision Forge is a simple, fan-made space where you can find character
-          builds, materials, and team compositions for Genshin Impact. My goal
-          is to cut through the complexity and help you forge your perfect
-          character.
-        </p>
-
-        <p class="text-gray-300 leading-relaxed tracking-wide mt-1">
-          This isn't a pro-level guide; there are many ways to min-max builds.
-          The recommendations here are based on common strategies and general
-          best practices. Feel free to experiment and find what works best for
-          your playstyle. There are also links to alternative guides that can
-          help you with min-maxing.
-        </p>
-      </div>
+  <div class="w-3/4 bg-secondary p-8 rounded-2xl">
+    <div class="w-full h-[500px] overflow-hidden rounded-xl">
+      <img
+        src="/src/assets/images/zhongli.webp"
+        alt="Zhongli"
+        class="w-full h-full object-cover object-center"
+      />
     </div>
 
-    <!-- right -->
-    <div
-      class="bg-secondary w-1/3 rounded-2xl shadow-lg hover:shadow-2xl transition"
-    >
-      <div
-        class="w-full h-[500px] overflow-hidden flex justify-center items-center rounded-t-2xl"
-      >
-        <img
-          class="scale-50"
-          src="./../../assets/images/twins.webp"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-      <div class="p-4">
-        <h1 class="text-center">Character Archive</h1>
-        <div class="divider m-0"></div>
-
-        <p class="text-gray-300 leading-relaxed text-center tracking-wide">
-          Here you can find a comprehensive list of all playable characters
-          available in Genshin Impact.
-        </p>
-        <div class="flex justify-center mt-6">
-          <RouterLink
-            class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
-            to="/characters"
-          >
-            Go to Characters
-          </RouterLink>
-        </div>
-      </div>
+    <h1 class="mt-2">Welcome to Vision Forge</h1>
+    <div class="divider"></div>
+    <div class="flex flex-col gap-2">
+      <p>
+        Vision Forge is a simple, fan-made space where you can find character
+        builds, materials, and team compositions for Genshin Impact. My goal is
+        to cut through the complexity and help you forge your perfect character.
+      </p>
+      <p>
+        This isn't a pro-level guide; there are many ways to min-max builds. The
+        recommendations here are based on common strategies and general best
+        practices. Feel free to experiment and find what works best for your
+        playstyle. There are also links to alternative guides that can help you
+        with min-maxing.
+      </p>
     </div>
   </div>
 </template>

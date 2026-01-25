@@ -1,11 +1,11 @@
 <template>
-  <div class="">
-    <h1>Content</h1>
+  <div class="min-h-screen flex flex-col items-center my-4 gap-8">
+    <TopSection />
+    <MiddleSection />
   </div>
 </template>
 
 <script setup>
-import UpdatesSection from "./../components/UpdatesSection.vue";
 import TopSection from "@/components/Home/TopSection.vue";
 import MiddleSection from "@/components/Home/MiddleSection.vue";
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="bg-primary text-text">
-    <h1 class="divider mt-5 px-4 font-acme text-2xl">Stratagema</h1>
+    <h1 class="divider mt-5 px-4 text-2xl">Stratagema</h1>
     <nav class="mt-4 flex flex-col space-y-3 px-4">
       <router-link
         v-for="link in navLinks"

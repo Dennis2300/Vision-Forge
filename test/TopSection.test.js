@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createRouter, createMemoryHistory } from "vue-router";
-import TopSection from "./../src/components/Home/TopSection.vue";
+import TopSection from "../src/components/Home/TopSection.vue";
 
 // Only test if the RouterLink is with the correct atrribute
 // DOES NOT check if it acutally renderes /character

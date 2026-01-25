@@ -1,62 +1,53 @@
 <template>
-  <div class="flex flex-row gap-10">
-    <div
-      class="w-1/2 bg-secondary rounded-2xl shadow-lg hover:shadow-2xl transition"
-    >
-      <div class="overflow-hidden rounded-t-2xl h-[350px]">
-        <img
-          class="w-full scale-[1.4]"
-          src="./../../assets/images/skirk.webp"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-      <div class="p-4">
-        <h1>Weapon Archive</h1>
-        <div class="divider m-0"></div>
-        <p class="text-gray-300 leading-relaxed tracking-wide">
-          Here you can find a list of all weapons available in Genshin Impact.
-          <br />
-          With their materials, stats and attributes.
-        </p>
-        <div class="flex justify-start my-4">
-          <RouterLink
-            class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
-            to="/weapons"
-          >
-            Go to Weapons
-          </RouterLink>
+  <div class="w-3/4 bg-secondary p-8 rounded-2xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+      <router-link
+        v-for="link in navLinks"
+        :key="link.name"
+        :to="link.path"
+        class="group no-underline"
+      >
+        <div class="overflow-hidden rounded-xl relative">
+          <img
+            :src="link.image"
+            :alt="link.name"
+            class="w-full h-[400px] object-cover object-center rounded-xl transform transition-transform duration-300 ease-in-out"
+          />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+          ></div>
         </div>
-      </div>
-    </div>
-    <div
-      class="w-1/2 bg-secondary rounded-2xl shadow-lg hover:shadow-2xl transition"
-    >
-      <div class="overflow-hidden rounded-t-2xl h-[350px]">
-        <img
-          class="w-full scale-[1.4]"
-          src="./../../assets/images/chiori.webp"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-      <div class="p-4">
-        <h1>Artifact Archive</h1>
-        <div class="divider m-0"></div>
-        <p class="text-gray-300 leading-relaxed tracking-wide">
-          Here you can find a list of all artifacts available in Genshin Impact.
-          <br />
-          With their set bonuses and where to farm them.
-        </p>
-        <div class="flex justify-start my-4">
-          <RouterLink
-            class="font-acme tracking-wider no-underline text-white bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg px-4 py-3 leading-5 transition-all duration-300 ease-out hover:scale-[1.03]"
-            to="/artifacts"
-          >
-            Go to Artifacts
-          </RouterLink>
-        </div>
-      </div>
+        <h2
+          class="text-center mt-2 text-text group-hover:text-tertiary transition-colors"
+        >
+          {{ link.name }}
+        </h2>
+      </router-link>
     </div>
   </div>
 </template>
+
+<script setup>
+const navLinks = [
+  {
+    name: "Characters",
+    path: "/characters",
+    image: "/src/assets/images/twins.webp",
+  },
+  {
+    name: "Weapons",
+    path: "/weapons",
+    image: "/src/assets/images/skirk.webp",
+  },
+  {
+    name: "Artifacts",
+    path: "/artifacts",
+    image: "/src/assets/images/chiori.webp",
+  },
+  {
+    name: "Banners",
+    path: "/current-banner",
+    image: "/src/assets/images/twins2.png",
+  },
+];
+</script>
