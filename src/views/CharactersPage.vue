@@ -1,6 +1,6 @@
 <template>
-  <div class="w-3/4 min-h-screen my-24">
-    <div class="h-[150px] w-3/4 relative rounded-2xl mx-auto">
+  <div class="min-h-screen mt-4 flex flex-col items-center">
+    <div class="h-[200px] w-3/4 relative rounded-2xl">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
       >
@@ -14,38 +14,33 @@
         loading="lazy"
       />
     </div>
-
-    <div class="divider my-4 px-24"></div>
-
+    <div class="divider my-2 px-24"></div>
     <p class="text-center px-32 text-lg/6 tracking-wide">
       Here you can find a comprehensive list of all playable characters
       available in Genshin Impact, by clicking on their names to see their
       details, attributes and builds. Use the filter options to easily find
       characters based on your preferences.
     </p>
-
-    <div v-if="!error" class="w-full min-h-screen flex gap-8 mt-8">
-      <div
-        class="bg-secondary h-fit w-1/4 px-4 py-8 rounded-xl flex flex-col gap-6"
-      >
-        <h2 class="divider">Rarity</h2>
-        <div class="flex flex-rows justify-center items-center gap-8">
-          <div
-            class="selected text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary px-4 py-2 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
-            :class="{ active: selectedRarity === 5 }"
-            @click="selectRarity(5)"
-          >
-            ★★★★★
-          </div>
-          <div
-            class="selected text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary px-4 py-2 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
-            :class="{ active: selectedRarity === 4 }"
-            @click="selectRarity(4)"
-          >
-            ★★★★
-          </div>
+    <div class="w-4/5 flex flex-row justify-around items-center mt-4">
+      <div>
+        <div
+          class="selected h-[49px] flex justify-center items-center px-4 text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          :class="{ active: selectedRarity === 5 }"
+          @click="selectRarity(5)"
+        >
+          ★★★★★
         </div>
-        <h2 class="divider">Vision</h2>
+      </div>
+      <div>
+        <div
+          class="selected h-[49px] flex justify-center items-center px-4 text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          :class="{ active: selectedRarity === 4 }"
+          @click="selectRarity(4)"
+        >
+          ★★★★
+        </div>
+      </div>
+      <div>
         <div
           class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
@@ -58,7 +53,7 @@
               class="dropdown-icon"
             />
             <span>
-              {{ selectedVisionObj ? selectedVisionObj.name : "All" }}
+              {{ selectedVisionObj ? selectedVisionObj.name : "Vision" }}
             </span>
             <span class="arrow">▼</span>
           </div>
@@ -84,7 +79,8 @@
             </li>
           </ul>
         </div>
-        <h2 class="divider">Weapon Type</h2>
+      </div>
+      <div>
         <div
           class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
@@ -97,7 +93,11 @@
               class="dropdown-icon"
             />
             <span>
-              {{ selectedWeaponTypeObj ? selectedWeaponTypeObj.name : "All" }}
+              {{
+                selectedWeaponTypeObj
+                  ? selectedWeaponTypeObj.name
+                  : "Weapon Type"
+              }}
             </span>
             <span class="arrow">▼</span>
           </div>
@@ -125,7 +125,8 @@
             </li>
           </ul>
         </div>
-        <h2 class="divider">Region</h2>
+      </div>
+      <div>
         <div
           class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
         >
@@ -139,7 +140,7 @@
               class="dropdown-icon"
             />
             <span>
-              {{ selectedRegionObj ? selectedRegionObj.name : "All" }}
+              {{ selectedRegionObj ? selectedRegionObj.name : "Region" }}
             </span>
             <span class="arrow">▼</span>
           </div>
@@ -167,7 +168,8 @@
             </li>
           </ul>
         </div>
-        <div class="divider"></div>
+      </div>
+      <div>
         <div class="flex flex-row justify-center items-center gap-8">
           <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">
             Apply
@@ -177,149 +179,128 @@
           </button>
         </div>
       </div>
+    </div>
 
-      <div class="h-fit w-3/4 flex flex-col gap-16">
-        <RouterLink
-          :to="`/characters/${character.id}?name=${encodeURIComponent(
-            character.name,
-          )}`"
-          class="relative group rounded-2xl no-underline text-white"
-          :class="{
-            'rarity-5': character.rarity === 5,
-            'rarity-4': character.rarity === 4,
-          }"
-          v-for="character in characters"
-          :key="character.id"
-          target="_blank"
+    <div class="h-fit w-3/4 flex flex-col gap-16 mt-10 mb-32">
+      <RouterLink
+        :to="`/characters/${character.id}?name=${encodeURIComponent(
+          character.name,
+        )}`"
+        class="relative group rounded-2xl no-underline text-white"
+        :class="{
+          'rarity-5': character.rarity === 5,
+          'rarity-4': character.rarity === 4,
+        }"
+        v-for="character in characters"
+        :key="character.id"
+        target="_blank"
+      >
+        <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
+          <div
+            class="flex items-center justify-center h-9 w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
+          >
+            New
+          </div>
+        </div>
+        <div v-if="character.is_upcoming" class="absolute -top-3 -right-3 z-20">
+          <div
+            class="flex items-center justify-center px-3 h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
+          >
+            Upcoming
+          </div>
+        </div>
+        <div
+          class="relative bg-secondary flex flex-row justify-between overflow-hidden rounded-t-2xl"
         >
-          <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
-            <div
-              class="flex items-center justify-center h-9 w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
-            >
-              New
-            </div>
-          </div>
-          <div
-            v-if="character.is_upcoming"
-            class="absolute -top-3 -right-3 z-20"
-          >
-            <div
-              class="flex items-center justify-center px-3 h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
-            >
-              Upcoming
-            </div>
-          </div>
-          <div
-            class="relative bg-secondary flex flex-row justify-between overflow-hidden rounded-t-2xl"
-          >
-            <div class="flex flex-row items-center justify-center p-6 gap-4">
-              <img
-                class="h-32 w-32 rounded-full"
-                :class="{
-                  'rarity-5': character.rarity === 5,
-                  'rarity-4': character.rarity === 4,
-                }"
-                :src="character.avatar_url"
-                loading="lazy"
-              />
-              <h1
-                class="relative text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
-              >
-                {{ character.name }}
-              </h1>
-            </div>
+          <div class="flex flex-row items-center justify-center p-6 gap-4">
             <img
-              v-if="character.splash_art_url"
-              class="absolute min-w-64 max-w-68 h-64 right-0 -top-8 opacity-50"
-              :src="character.splash_art_url"
+              class="h-32 w-32 rounded-full"
+              :class="{
+                'rarity-5': character.rarity === 5,
+                'rarity-4': character.rarity === 4,
+              }"
+              :src="character.avatar_url"
+              loading="lazy"
+            />
+            <h1
+              class="relative text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
+            >
+              {{ character.name }}
+            </h1>
+          </div>
+          <img
+            v-if="character.splash_art_url"
+            class="absolute min-w-64 max-w-68 h-64 right-0 -top-8 opacity-50"
+            :src="character.splash_art_url"
+            loading="lazy"
+            alt=""
+          />
+          <div v-if="!character.splash_art"></div>
+        </div>
+        <div
+          class="bg-gray-600 flex flex-row justify-between rounded-b-2xl py-4 border-0 border-t-2 border-solid border-black"
+        >
+          <div class="flex flex-row gap-4 items-center">
+            <img
+              class="w-12 ml-2"
+              :src="character.vision.image_url"
               loading="lazy"
               alt=""
             />
-            <div v-if="!character.splash_art"></div>
+            <p
+              v-if="character.vision.name"
+              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+            >
+              {{ character.vision.name }}
+            </p>
+            <p
+              v-if="character.role"
+              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+            >
+              {{ character.role.name }}
+            </p>
+            <p
+              v-if="character.weapon_type"
+              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+            >
+              {{ character.weapon_type.name }}
+            </p>
+            <p
+              v-if="character.main_stat"
+              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+            >
+              {{ character.main_stat.name }}
+            </p>
+            <p
+              v-if="character.team_role"
+              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+            >
+              {{ character.team_role.name }}
+            </p>
           </div>
-          <div
-            class="bg-gray-600 flex flex-row justify-between rounded-b-2xl py-4 border-0 border-t-2 border-solid border-black"
-          >
-            <div class="flex flex-row gap-4 items-center">
-              <img
-                class="w-12 ml-2"
-                :src="character.vision.image_url"
-                loading="lazy"
-                alt=""
-              />
-              <p
-                v-if="character.vision.name"
-                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
-              >
-                {{ character.vision.name }}
-              </p>
-              <p
-                v-if="character.role"
-                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
-              >
-                {{ character.role.name }}
-              </p>
-              <p
-                v-if="character.weapon_type"
-                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
-              >
-                {{ character.weapon_type.name }}
-              </p>
-              <p
-                v-if="character.main_stat"
-                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
-              >
-                {{ character.main_stat.name }}
-              </p>
-              <p
-                v-if="character.team_role"
-                class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
-              >
-                {{ character.team_role.name }}
-              </p>
-            </div>
-            <div class="flex items-center pr-4">
-              <p class="badge badge-soft px-5 py-2 text-md text-tertiary">
-                <strong> Released: </strong>
-                {{
-                  character.release_date
-                    ? new Date(character.release_date).toLocaleDateString(
-                        "en-GB",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        },
-                      )
-                    : "UPCOMING"
-                }}
-              </p>
-            </div>
+          <div class="flex items-center pr-4">
+            <p class="badge badge-soft px-5 py-2 text-md text-tertiary">
+              <strong> Released: </strong>
+              {{
+                character.release_date
+                  ? new Date(character.release_date).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      },
+                    )
+                  : "UPCOMING"
+              }}
+            </p>
           </div>
-        </RouterLink>
-        <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
-          <LoadingMoreSpinner />
         </div>
+      </RouterLink>
+      <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
+        <LoadingMoreSpinner />
       </div>
     </div>
-  </div>
-  <div
-    class="fixed bottom-6 right-6 btn btn-soft btn-info px-4"
-    @click="scrollToTop"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="currentColor"
-      class="bi bi-arrow-up"
-      viewBox="0 0 16 16"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
-      />
-    </svg>
   </div>
 </template>
 
