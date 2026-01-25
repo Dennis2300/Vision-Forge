@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-base-200 flex flex-row items-center px-8 py-12 gap-10">
+  <footer class="bg-primary flex flex-row items-center px-8 py-12 gap-10">
     <div class="w-1/4 flex items-center justify-center">
       <nav class="flex flex-col gap-5 w-1/2">
         <h6 class="footer-title">Links</h6>

@@ -1,12 +1,7 @@
 <template>
-  <main class="w-[1400px] flex flex-col gap-8 mt-28">
-    <!-- top section -->
-     <TopSection />
-    <!-- middle section -->
-     <MiddleSection />
-    <!-- bottom section -->
-    <UpdatesSection />
-  </main>
+  <div class="">
+    <h1>Content</h1>
+  </div>
 </template>
 
 <script setup>

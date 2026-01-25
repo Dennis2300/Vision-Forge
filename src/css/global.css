@@ -1,36 +1,37 @@
-@import url(https://fonts.bunny.net/css?family=acme:400|alkatra:400|archivo-black:400|bungee:400);
-@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"); /*Global Colours*/
-:root {
-  /*link to the colours https://colorhunt.co/palette/222831393e46ffd369eeeeee */
-  --primary: #222831;
-  --secondary: #393e46;
-  --tertiary: #ffd369;
-  --quaternary: #eeeeee;
-  --filter-color: #2d3748;
-  --filter-color-hover: #4a5568;
-  --filter-color-active: #5d6b8a;
-  --font-acme: "Acme", sans-serif;
-  --font-alkatra: "Alkatra", sans-serif;
-  --font-archivo: "Archivo Black", sans-serif;
-  --font-bungee: "Bungee", sans-serif;
-  --font-fugaz: "Fugaz One", sans-serif;
-  --font-roboto: "Roboto", sans-serif;
-}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap");
 
-* {
-  padding: 0%;
-  margin: 0%;
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --primary: #0f1115;
+  --secondary: #1a1d23;
+  --tertiary: #4f8cff;
+  --quaternary: #3ddc97;
+  --text: #e6e8eb;
+  --filter-color: #2a3550;
+  --filter-color-hover: #3b5fcc;
+  --filter-color-active: #4f8cff;
 }
 
 #app {
+  margin: 0%;
+  padding: 0%;
   overflow-x: hidden;
   width: 100vw;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0%;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #FAFAFA;
+  color: var(--text);
 }
