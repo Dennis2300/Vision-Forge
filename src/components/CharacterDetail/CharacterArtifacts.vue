@@ -48,7 +48,7 @@
                 </button>
                 <div
                   v-if="isOpen"
-                  class="fixed inset-0 bg-black/25 flex items-center justify-center z-50"
+                  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
                   @click.self="closeBox"
                 >
                   <div class="bg-primary p-6 rounded-xl max-w-md w-full">

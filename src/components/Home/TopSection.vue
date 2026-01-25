@@ -8,7 +8,7 @@
       />
     </div>
 
-    <h1 class="mt-2">Welcome to Vision Forge</h1>
+    <h1 class="mt-2">Welcome to <strong class="text-tertiary">Stratagema</strong></h1>
     <div class="divider"></div>
     <div class="flex flex-col gap-2">
       <p>

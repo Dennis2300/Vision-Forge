@@ -40,7 +40,7 @@
     </div>
 
     <div
-      class="fixed bottom-6 right-6 btn btn-soft btn-info px-4"
+      class="fixed bottom-6 left-6 btn btn-soft btn-info px-4 z-10"
       @click="scrollToTop"
     >
       <svg

@@ -12,6 +12,9 @@
         {{ link.name }}
       </router-link>
     </nav>
+    <CharacterTOC
+      v-if="route.path.startsWith('/characters/') && route.params.id"
+    />
   </div>
 </template>
 
@@ -20,6 +23,8 @@ import { user } from "../auth";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { supabase } from "../supabaseClient";
+
+import CharacterTOC from "./CharacterTOC.vue";
 
 const isAuth = computed(() => !!user.value);
 const route = useRoute();
