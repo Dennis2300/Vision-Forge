@@ -1,41 +1,42 @@
 <template>
-  <section class="voice-actor-container">
-    <h2 class="divider tracking-wider pb-4 font-acme">Voice Actors</h2>
-    <template v-if="props.character?.va?.length">
-      <div class="flex flex-row justify-around">
-        <!-- Languages -->
-        <ul class="flex flex-col gap-2 list-none">
-          <li v-for="item in sortedGroupedVA" :key="item.code">
-            <span :class="`fi fi-${item.code}`"></span>
-            <strong class="ml-2">{{ item.label }}:</strong>
-          </li>
-        </ul>
-
-        <!-- Actors -->
-        <ul class="flex flex-col gap-2 list-none">
-          <li v-for="item in sortedGroupedVA" :key="item.code">
-            <template v-if="item.actors.length">
-              <template v-for="(a, index) in item.actors" :key="a.id">
-                <template v-if="a.link">
-                  <a :href="a.link" target="_blank" rel="noopener" class="link hover:underline">
-                    {{ a.name }}
-                  </a>
-                </template>
-                <template v-else>
-                  {{ a.name }}
-                </template>
-                <span v-if="index < item.actors.length - 1"> & </span>
-              </template>
-            </template>
-            <template v-else>No VA</template>
-          </li>
-        </ul>
+  <h2 class="divider pt-1 pb-4">Voice Actors</h2>
+  <template v-if="props.character?.va?.length">
+    <div class="flex flex-row gap-8">
+      <div class="flex flex-col gap-2">
+        <div v-for="item in sortedGroupedVA" :key="item.code">
+          <span :class="`fi fi-${item.code}`"></span>
+          <strong class="ml-2">{{ item.label }}:</strong>
+        </div>
       </div>
-    </template>
-    <div v-else class="flex justify-center items-center h-full">
-      <p class="text-red-700">Not Revealed</p>
+
+      <div class="flex flex-col gap-2">
+        <div v-for="item in sortedGroupedVA" :key="item.code">
+          <template v-if="item.actors.length">
+            <template v-for="(a, index) in item.actors" :key="a.id">
+              <template v-if="a.link">
+                <a
+                  :href="a.link"
+                  target="_blank"
+                  rel="noopener"
+                  class="link hover:underline text-quaternary"
+                >
+                  {{ a.name }}
+                </a>
+              </template>
+              <template v-else>
+                {{ a.name }}
+              </template>
+              <span v-if="index < item.actors.length - 1"> & </span>
+            </template>
+          </template>
+          <template v-else>No VA</template>
+        </div>
+      </div>
     </div>
-  </section>
+  </template>
+  <div v-else>
+    <p class="text-red-700">Not Revealed</p>
+  </div>
 </template>
 
 <script setup>

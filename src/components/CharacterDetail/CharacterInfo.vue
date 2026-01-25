@@ -67,7 +67,7 @@
               <!-- Dish name-->
               <h2 class="tracking-wide text-tertiary max-w-64 truncate">
                 <a
-                  class="link"
+                  class="link text-quaternary"
                   :href="character.signature_dish.url"
                   target="_blank"
                 >

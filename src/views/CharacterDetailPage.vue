@@ -1,25 +1,16 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <main v-else-if="character">
-    <div
-      class="w-[1400px] min-h-full bg-secondary relative mb-20 rounded-2xl overflow-hidden"
-    >
+  <main v-else-if="character" class="flex justify-center items-center mt-6">
+    <div class="w-full min-h-full relative mb-20 rounded-2xl overflow-hidden">
       <CharacterSplashArt :character="character" />
       <section class="relative z-10">
         <article class="min-h-[350px]">
           <div class="mx-24 pt-10 flex flex-row">
-            <CharacterBasicInfo
-              class="w-1/2 h-[350px]"
-              :character="character"
-            />
-            <div
-              class="w-1/2 flex flex-col bg-primary justify-around px-4 rounded-2xl"
-            >
+            <CharacterBasicInfo class="w-1/2" :character="character" />
+            <div class="bg-primary w-1/3 rounded-2xl py-4 px-8 flex flex-col justify-between mx-auto">
               <CharacterVoiceActors :character="character" />
-              <div class="flex flex-row">
-                <CharacterRegions :character="character" />
-                <CharacterAffiliation :character="character" />
-              </div>
+              <CharacterRegions :character="character" />
+              <CharacterAffiliation :character="character" />
             </div>
           </div>
         </article>
@@ -47,6 +38,7 @@
         <div class="divider my-10 px-10"></div>
       </section>
     </div>
+
     <div
       class="fixed bottom-6 right-6 btn btn-soft btn-info px-4"
       @click="scrollToTop"
