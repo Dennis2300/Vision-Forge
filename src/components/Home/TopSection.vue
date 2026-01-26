@@ -10,11 +10,11 @@
 
     <h1 class="mt-2">Welcome to <strong class="text-tertiary">Stratagema</strong></h1>
     <div class="divider"></div>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-4 text-base/6">
       <p>
-        Vision Forge is a simple, fan-made space where you can find character
+        Stratagema is a simple, fan-made space where you can find character
         builds, materials, and team compositions for Genshin Impact. My goal is
-        to cut through the complexity and help you forge your perfect character.
+        to cut through the complexity and help you build the perfect character, at least try to...
       </p>
       <p>
         This isn't a pro-level guide; there are many ways to min-max builds. The
