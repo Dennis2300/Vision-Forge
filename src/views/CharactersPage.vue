@@ -210,7 +210,7 @@
           </div>
         </div>
         <div
-          class="relative bg-secondary flex flex-row justify-between overflow-hidden rounded-t-2xl"
+          class="relative bg-primary flex flex-row justify-between overflow-hidden rounded-t-2xl"
         >
           <div class="flex flex-row items-center justify-center p-6 gap-4">
             <img
@@ -238,7 +238,7 @@
           <div v-if="!character.splash_art"></div>
         </div>
         <div
-          class="bg-gray-600 flex flex-row justify-between rounded-b-2xl py-4 border-0 border-t-2 border-solid border-black"
+          class="bg-secondary flex flex-row justify-between rounded-b-2xl py-6 border-0 border-t-2 border-solid border-black"
         >
           <div class="flex flex-row gap-4 items-center">
             <img
@@ -249,37 +249,37 @@
             />
             <p
               v-if="character.vision.name"
-              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+              class="px-4 py-2 badge badge-soft badge-primary text-text"
             >
               {{ character.vision.name }}
             </p>
             <p
               v-if="character.role"
-              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+              class="px-4 py-2 badge badge-soft badge-primary text-text"
             >
               {{ character.role.name }}
             </p>
             <p
               v-if="character.weapon_type"
-              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+              class="px-4 py-2 badge badge-soft badge-primary text-text"
             >
               {{ character.weapon_type.name }}
             </p>
             <p
               v-if="character.main_stat"
-              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+              class="px-4 py-2 badge badge-soft badge-primary text-text"
             >
               {{ character.main_stat.name }}
             </p>
             <p
               v-if="character.team_role"
-              class="badge badge-soft px-5 py-2 font-acme text-lg text-tertiary"
+              class="px-4 py-2 badge badge-soft badge-primary text-text"
             >
               {{ character.team_role.name }}
             </p>
           </div>
           <div class="flex items-center pr-4">
-            <p class="badge badge-soft px-5 py-2 text-md text-tertiary">
+            <p class="px-4 py-2 badge badge-soft badge-primary text-text">
               <strong> Released: </strong>
               {{
                 character.release_date
@@ -298,6 +298,9 @@
         </div>
       </RouterLink>
       <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
+        <LoadingMoreSpinner />
+      </div>
+      <div v-if="filtering">
         <LoadingMoreSpinner />
       </div>
     </div>
@@ -330,6 +333,7 @@ import "./../css/Ribbon.css";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 
 // state variables
+const filtering = ref(false);
 const loading = ref(false);
 const error = ref(null);
 const openDropdown = ref(null);
@@ -549,20 +553,29 @@ function getActiveFilters() {
   };
 }
 
-function applyFilters() {
+async function applyFilters() {
   const filters = getActiveFilters();
   const noFiltersSelected =
     !filters.vision &&
     !filters.rarity &&
     !filters.weaponType &&
     !filters.region;
+
   if (noFiltersSelected) {
     alert("Please select at least one filter before applying.");
     return;
   }
 
-  fetchFilteredCharacters(filters);
-  filterActive.value = true;
+  filtering.value = true;
+
+  try {
+    await fetchFilteredCharacters(filters);
+    filterActive.value = true;
+  } catch (error) {
+    console.error("Error applying filters:", error);
+  } finally {
+    filtering.value = false;
+  }
 }
 
 function resetFilters() {

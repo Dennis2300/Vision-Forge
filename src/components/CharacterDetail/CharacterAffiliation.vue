@@ -1,5 +1,5 @@
 <template>
-    <h2 class="divider">Affiliation</h2>
+    <h2 class="pt-2 text-quaternary tracking-wide">Affiliation</h2>
     <template v-if="character.affiliations?.length">
       <div
         v-for="affiliation in character.affiliations"

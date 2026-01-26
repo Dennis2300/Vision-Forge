@@ -22,7 +22,7 @@
         <div class="flex flex-col">
           <div class="flex flex-row justify-between">
             <h2 class="font-acme text-gray-500">Constellation:</h2>
-            <h2 class="tracking-wide text-tertiary">
+            <h2 class="tracking-wide">
               {{ character.constellation }}
             </h2>
           </div>
@@ -67,7 +67,7 @@
               <!-- Dish name-->
               <h2 class="tracking-wide text-tertiary max-w-64 truncate">
                 <a
-                  class="link text-quaternary"
+                  class="link"
                   :href="character.signature_dish.url"
                   target="_blank"
                 >
@@ -89,7 +89,7 @@
             <div class="flex flex-row gap-2">
               <h2
                 v-if="character.weapon_type"
-                class="tracking-wide text-tertiary"
+                class="tracking-wide"
               >
                 {{ character.weapon_type.name }}
               </h2>
@@ -106,7 +106,7 @@
         <div class="flex flex-col">
           <div class="flex flex-row justify-between">
             <h2 class="font-acme text-gray-500">Birthday:</h2>
-            <h2 v-if="character.birthday" class="tracking-wide text-tertiary">
+            <h2 v-if="character.birthday" class="tracking-wide">
               {{ character.birthday }}
             </h2>
             <p v-else>Not Revealed Yet</p>
@@ -116,7 +116,7 @@
         <div class="flex flex-col">
           <div class="flex flex-row justify-between">
             <h2 class="font-acme text-gray-500">Date Released:</h2>
-            <h2 class="tracking-wide text-tertiary">
+            <h2 class="tracking-wide">
               {{
                 new Date(character.release_date).toLocaleDateString("en-US", {
                   year: "numeric",

@@ -26,20 +26,23 @@
     <div class="divider mb-2 px-24"></div>
 
     <!-- Character Tags -->
-    <ul class="flex flex-row gap-2 list-none">
-      <li v-if="character.vision" class="tags">
+    <div class="flex flex-row justify-center items-center gap-2 list-none">
+      <p v-if="character.vision" class="badge badge-neutral tracking-wide">
         {{ character.vision.name }}
-      </li>
-      <li v-if="character.weapon_type" class="tags">
+      </p>
+      <p v-if="character.weapon_type" class="badge badge-neutral tracking-wide">
         {{ character.weapon_type.name }}
-      </li>
-      <li v-if="character.main_stat" class="tags">
+      </p>
+      <p v-if="character.main_stat" class="badge badge-neutral tracking-wide">
         {{ character.main_stat.name }}
-      </li>
-      <li v-if="character.released_region" class="tags">
+      </p>
+      <p
+        v-if="character.released_region"
+        class="badge badge-neutral tracking-wide"
+      >
         {{ character.released_region.name }}
-      </li>
-    </ul>
+      </p>
+    </div>
   </section>
 </template>
 
@@ -52,13 +55,15 @@ defineProps({
 <style scoped>
 .rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow: 0px 0px 15px rgba(231, 148, 74, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
     0px 0px 30px rgba(231, 148, 74, 0.5);
 }
 
-.rarity-4{
+.rarity-4 {
   background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow: 0px 0px 15px rgba(155, 114, 213, 0.8),
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
     0px 0px 30px rgba(155, 114, 213, 0.5);
 }
 </style>

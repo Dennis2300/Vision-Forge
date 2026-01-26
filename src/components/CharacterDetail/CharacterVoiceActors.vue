@@ -1,5 +1,5 @@
 <template>
-  <h2 class="divider pt-1 pb-4">Voice Actors</h2>
+  <h2 class="pt-1 text-quaternary tracking-wide">Voice Actors</h2>
   <template v-if="props.character?.va?.length">
     <div class="flex flex-row gap-8">
       <div class="flex flex-col gap-2">
@@ -18,7 +18,7 @@
                   :href="a.link"
                   target="_blank"
                   rel="noopener"
-                  class="link hover:underline text-quaternary"
+                  class="link hover:underline"
                 >
                   {{ a.name }}
                 </a>
