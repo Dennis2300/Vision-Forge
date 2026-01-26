@@ -1,6 +1,6 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <div v-else class="w-3/4 min-h-screen">
+  <div v-else class="mx-24 mt-4">
     <div class="h-[150px] w-3/4 relative rounded-2xl mx-auto">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
@@ -158,7 +158,7 @@ async function getAllArtifacts() {
 }
 
 const selectedArtifact = computed(() =>
-  artifacts.value.find((a) => a.id === expandedArtifact.value)
+  artifacts.value.find((a) => a.id === expandedArtifact.value),
 );
 
 onMounted(() => {
@@ -173,7 +173,10 @@ onMounted(() => {
 }
 
 .artifact-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
 .artifact-card:hover {
