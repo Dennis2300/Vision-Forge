@@ -4,7 +4,7 @@
       <img
         src="/src/assets/images/zhongli.webp"
         alt="Zhongli"
-        class="w-full h-full object-cover object-center"
+        class="w-full h-full object-cover object-top"
       />
     </div>
 

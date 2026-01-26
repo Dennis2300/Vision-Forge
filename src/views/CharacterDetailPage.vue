@@ -1,13 +1,15 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <main v-else-if="character" class="flex justify-center items-center mt-6">
-    <div class="w-full min-h-full relative mb-20 rounded-2xl overflow-hidden">
+    <div class="w-full min-h-full relative rounded-2xl overflow-hidden">
       <CharacterSplashArt :character="character" />
       <section class="relative z-10">
         <article class="min-h-[350px]">
           <div class="mx-24 pt-10 flex flex-row">
             <CharacterBasicInfo class="w-1/2" :character="character" />
-            <div class="bg-primary w-1/3 rounded-2xl py-4 px-8 flex flex-col justify-between mx-auto">
+            <div
+              class="bg-primary w-1/3 rounded-2xl py-4 px-8 flex flex-col justify-between mx-auto"
+            >
               <CharacterVoiceActors :character="character" />
               <CharacterRegions :character="character" />
               <CharacterAffiliation :character="character" />
@@ -34,28 +36,27 @@
         </div>
         <CharacterBuild :character="character" />
         <CharacterMaterials :character="character" />
-        <!-- Footer -->
-        <div class="divider my-10 px-10"></div>
-      </section>
-    </div>
 
-    <div
-      class="fixed bottom-6 left-6 btn btn-soft btn-info px-4 z-10"
-      @click="scrollToTop"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-arrow-up"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
-        />
-      </svg>
+        <div
+          class="fixed bottom-6 right-6 btn btn-soft btn-info px-4 z-10"
+          @click="scrollToTop"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-arrow-up"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
+            />
+          </svg>
+        </div>
+        <div class="divider my-10 px-24"></div>
+      </section>
     </div>
   </main>
   <CharacterNotFound v-else />
