@@ -7,10 +7,12 @@
       </main>
       <Footer />
     </div>
+    <SupportPopUp />
   </div>
 </template>
 
 <script setup>
 import SideBar from "./components/SideBar.vue";
 import Footer from "./components/Footer.vue";
+import SupportPopUp from "./components/SupportPopUp.vue";
 </script>

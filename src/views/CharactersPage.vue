@@ -24,7 +24,7 @@
     <div class="w-4/5 flex flex-row justify-around items-center mt-4">
       <div>
         <div
-          class="selected h-[49px] flex justify-center items-center px-4 text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          class="selected h-[49px] flex justify-center items-center text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
           :class="{ active: selectedRarity === 5 }"
           @click="selectRarity(5)"
         >
@@ -33,7 +33,7 @@
       </div>
       <div>
         <div
-          class="selected h-[49px] flex justify-center items-center px-4 text-yellow-400 bg-primary hover:border hover:border-solid hover:border-tertiary rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          class="selected h-[49px] flex justify-center items-center text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
           :class="{ active: selectedRarity === 4 }"
           @click="selectRarity(4)"
         >
