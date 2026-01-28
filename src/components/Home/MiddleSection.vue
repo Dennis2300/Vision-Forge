@@ -5,20 +5,30 @@
         v-for="link in navLinks"
         :key="link.name"
         :to="link.path"
-        class="group no-underline"
+        class="group no-underline block perspective-1000"
       >
-        <div class="overflow-hidden rounded-xl relative">
+        <div
+          class="overflow-hidden rounded-xl relative transform transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:-translate-y-2 shadow-lg group-hover:shadow-2xl"
+        >
           <img
             :src="link.image"
             :alt="link.name"
-            class="w-full h-[400px] object-cover object-center rounded-xl transform transition-transform duration-300 ease-in-out"
+            class="w-full h-[400px] object-cover object-top rounded-xl transform transition-all duration-700 ease-out group-hover:scale-105"
           />
+
+          <!-- Animated overlay with blur -->
           <div
-            class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+            class="absolute inset-0 bg-gradient-to-br from-tertiary/30 via-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+          ></div>
+
+          <!-- Shine effect -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-xl"
           ></div>
         </div>
+
         <h2
-          class="text-center mt-2 text-text group-hover:text-tertiary transition-colors"
+          class="text-center mt-3 text-text font-bold text-lg group-hover:text-tertiary transition-all duration-300 transform group-hover:scale-110"
         >
           {{ link.name }}
         </h2>
