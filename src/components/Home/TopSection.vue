@@ -8,7 +8,7 @@
       />
     </div>
 
-    <h1 class="mt-2">Welcome to <strong class="text-tertiary">Stratagema</strong></h1>
+    <h1 class="mt-4">Welcome to <strong class="text-tertiary">Stratagema</strong></h1>
     <div class="divider"></div>
     <div class="flex flex-col gap-4 text-base/6">
       <p>

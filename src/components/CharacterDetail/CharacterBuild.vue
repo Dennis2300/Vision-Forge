@@ -6,7 +6,7 @@
     <div class="w-full h-auto flex flex-row justify-center gap-8">
       <div class="w-1/3 h-auto bg-primary p-6 rounded-xl">
         <div v-if="character.builds?.length" v-for="build in character.builds">
-          <h2 class="divider">Main Stats</h2>
+          <h2 class="divider py-2">Main Stats</h2>
           <div class="flex flex-col gap-8 mt-4">
             <div
               v-for="slot of ['sands']"
